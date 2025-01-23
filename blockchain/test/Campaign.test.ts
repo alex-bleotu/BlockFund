@@ -205,6 +205,20 @@ describe("Campaign Contract", function () {
         );
     });
 
+    it("Should not allow withdrawal if totalFunded is 0", async function () {
+        const goal = ethers.parseEther("5");
+        const deadline = Math.floor(Date.now() / 1000) + 3600;
+        const metadataCID = "QmExampleCID";
+
+        await campaign.createCampaign(goal, deadline, metadataCID);
+
+        await campaign.connect(owner).closeCampaign(1);
+
+        await expect(campaign.connect(owner).withdraw(1)).to.be.revertedWith(
+            "No funds available to withdraw"
+        );
+    });
+
     it("Should allow the creator to update the campaign", async function () {
         const goal = ethers.parseEther("10");
         const deadline = Math.floor(Date.now() / 1000) + 3600;
