@@ -1,193 +1,211 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Wallet, DollarSign, AlertCircle } from 'lucide-react';
-import { useWallet } from '../hooks/useWallet';
-import { useEthPrice } from '../hooks/useEthPrice';
+import { AnimatePresence, motion } from "framer-motion";
+import { AlertCircle, DollarSign, Wallet, X } from "lucide-react";
+import { useState } from "react";
+import { useEthPrice } from "../hooks/useEthPrice";
+import { useWallet } from "../hooks/useWallet";
 
 interface SupportModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  campaignTitle: string;
-  campaignGoal: number;
-  currentAmount: number;
-  onSupport: (amount: number) => Promise<void>;
+    isOpen: boolean;
+    onClose: () => void;
+    campaignTitle: string;
+    campaignGoal: number;
+    currentAmount: number;
+    onSupport: (amount: number) => Promise<void>;
 }
 
-export function SupportModal({ 
-  isOpen, 
-  onClose, 
-  campaignTitle,
-  campaignGoal,
-  currentAmount,
-  onSupport 
+export function SupportModal({
+    isOpen,
+    onClose,
+    campaignTitle,
+    campaignGoal,
+    currentAmount,
+    onSupport,
 }: SupportModalProps) {
-  const { address, connectWallet } = useWallet();
-  const { ethPrice, convertUsdToEth } = useEthPrice();
-  const [amount, setAmount] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+    const { address, connectWallet } = useWallet();
+    const { ethPrice, convertUsdToEth } = useEthPrice();
+    const [amount, setAmount] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!address) {
-      setError('Please connect your wallet first');
-      return;
-    }
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!address) {
+            setError("Please connect your wallet first");
+            return;
+        }
 
-    const ethAmount = parseFloat(amount);
-    if (isNaN(ethAmount) || ethAmount <= 0) {
-      setError('Please enter a valid amount');
-      return;
-    }
+        const ethAmount = parseFloat(amount);
+        if (isNaN(ethAmount) || ethAmount <= 0) {
+            setError("Please enter a valid amount");
+            return;
+        }
 
-    try {
-      setLoading(true);
-      setError(null);
-      await onSupport(ethAmount);
-      onClose();
-    } catch (err: any) {
-      console.error('Error supporting campaign:', err);
-      setError(err.message || 'Failed to process support');
-    } finally {
-      setLoading(false);
-    }
-  };
+        try {
+            setLoading(true);
+            setError(null);
+            await onSupport(ethAmount);
+            onClose();
+        } catch (err: any) {
+            console.error("Error supporting campaign:", err);
+            setError(err.message || "Failed to process support");
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setAmount(value);
-    setError(null);
-  };
+    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setAmount(value);
+        setError(null);
+    };
 
-  if (!isOpen) return null;
+    if (!isOpen) return null;
 
-  const remainingAmount = campaignGoal - currentAmount;
+    const remainingAmount = campaignGoal - currentAmount;
 
-  return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-50 overflow-y-auto">
-        <div className="flex min-h-screen items-center justify-center p-4">
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/50"
-          />
-
-          {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="relative w-full max-w-lg rounded-xl bg-surface p-6 shadow-xl"
-          >
-            <button
-              onClick={onClose}
-              className="absolute right-4 top-4 p-2 text-text-secondary hover:text-text transition-colors"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            <h2 className="text-2xl font-bold text-text mb-2">Support this Campaign</h2>
-            <p className="text-text-secondary mb-6">
-              Support "{campaignTitle}" and help make it a reality
-            </p>
-
-            {error && (
-              <div className="mb-6 p-4 rounded-lg bg-error-light text-error flex items-center">
-                <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
-                {error}
-              </div>
-            )}
-
-            {!address ? (
-              <div className="text-center py-6">
-                <Wallet className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-text mb-2">
-                  Connect your Wallet
-                </h3>
-                <p className="text-text-secondary mb-4">
-                  Connect your wallet to support this campaign
-                </p>
-                <button
-                  onClick={connectWallet}
-                  className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors"
-                >
-                  Connect Wallet
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-text mb-2">
-                    Amount to Contribute
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="number"
-                      value={amount}
-                      onChange={handleAmountChange}
-                      step="0.000001"
-                      min="0"
-                      required
-                      className="w-full pl-10 pr-16 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                      placeholder="0.00"
+    return (
+        <AnimatePresence>
+            <div className="fixed inset-0 z-50 overflow-y-auto">
+                <div className="flex min-h-screen items-center justify-center p-4">
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={onClose}
+                        className="fixed inset-0 bg-black/50"
                     />
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <DollarSign className="h-5 w-5 text-text-secondary" />
-                    </div>
-                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-text-secondary">
-                      ETH
-                    </div>
-                  </div>
-                  {ethPrice && amount && !isNaN(parseFloat(amount)) && (
-                    <p className="mt-2 text-sm text-text-secondary">
-                      ≈ ${(parseFloat(amount) * ethPrice).toLocaleString()} USD
-                    </p>
-                  )}
-                </div>
 
-                <div className="bg-background-alt rounded-lg p-4 space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-text-secondary">Campaign Goal</span>
-                    <span className="text-text font-medium">{campaignGoal.toFixed(2)} ETH</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-text-secondary">Amount Remaining</span>
-                    <span className="text-text font-medium">{remainingAmount.toFixed(2)} ETH</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-text-secondary">Your Contribution</span>
-                    <span className="text-primary font-medium">
-                      {amount ? `${parseFloat(amount).toFixed(2)} ETH` : '0.00 ETH'}
-                    </span>
-                  </div>
-                </div>
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        className="relative w-full max-w-lg rounded-xl bg-surface p-6 shadow-xl">
+                        <button
+                            onClick={onClose}
+                            className="absolute right-4 top-4 p-2 text-text-secondary hover:text-text transition-colors">
+                            <X className="h-5 w-5" />
+                        </button>
 
-                <div className="flex justify-end space-x-3 pt-4">
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="px-4 py-2 text-text-secondary hover:text-text transition-colors"
-                    disabled={loading}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50"
-                  >
-                    {loading ? 'Processing...' : 'Support Campaign'}
-                  </button>
+                        <h2 className="text-2xl font-bold text-text mb-2">
+                            Support this Campaign
+                        </h2>
+                        <p className="text-text-secondary mb-6">
+                            Support "{campaignTitle}" and help make it a reality
+                        </p>
+
+                        {error && (
+                            <div className="mb-6 p-4 rounded-lg bg-error-light text-error flex items-center">
+                                <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
+                                {error}
+                            </div>
+                        )}
+
+                        {!address ? (
+                            <div className="text-center py-6">
+                                <Wallet className="w-12 h-12 text-primary mx-auto mb-4" />
+                                <h3 className="text-lg font-medium text-text mb-2">
+                                    Connect your Wallet
+                                </h3>
+                                <p className="text-text-secondary mb-4">
+                                    Connect your wallet to support this campaign
+                                </p>
+                                <button
+                                    onClick={connectWallet}
+                                    className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors">
+                                    Connect Wallet
+                                </button>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="space-y-6">
+                                <div>
+                                    <label className="block text-sm font-medium text-text mb-2">
+                                        Amount to Contribute
+                                    </label>
+                                    <div className="relative">
+                                        <input
+                                            type="number"
+                                            value={amount}
+                                            onChange={handleAmountChange}
+                                            step="0.000001"
+                                            min="0"
+                                            required
+                                            className="w-full pl-10 pr-16 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
+                                            placeholder="0.00"
+                                        />
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <DollarSign className="h-5 w-5 text-text-secondary" />
+                                        </div>
+                                        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-text-secondary">
+                                            ETH
+                                        </div>
+                                    </div>
+                                    {ethPrice &&
+                                        amount &&
+                                        !isNaN(parseFloat(amount)) && (
+                                            <p className="mt-2 text-sm text-text-secondary">
+                                                ≈ $
+                                                {(
+                                                    parseFloat(amount) *
+                                                    ethPrice
+                                                ).toLocaleString()}{" "}
+                                                USD
+                                            </p>
+                                        )}
+                                </div>
+
+                                <div className="bg-background-alt rounded-lg p-4 space-y-2">
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-text-secondary">
+                                            Campaign Goal
+                                        </span>
+                                        <span className="text-text font-medium">
+                                            {campaignGoal.toFixed(2)} ETH
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-text-secondary">
+                                            Amount Remaining
+                                        </span>
+                                        <span className="text-text font-medium">
+                                            {remainingAmount.toFixed(2)} ETH
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-text-secondary">
+                                            Your Contribution
+                                        </span>
+                                        <span className="text-primary font-medium">
+                                            {amount
+                                                ? `${parseFloat(amount).toFixed(
+                                                      2
+                                                  )} ETH`
+                                                : "0.00 ETH"}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="flex justify-end space-x-3 pt-4">
+                                    <button
+                                        type="button"
+                                        onClick={onClose}
+                                        className="px-4 py-2 text-text-secondary hover:text-text transition-colors"
+                                        disabled={loading}>
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        disabled={loading}
+                                        className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50">
+                                        {loading
+                                            ? "Processing..."
+                                            : "Support Campaign"}
+                                    </button>
+                                </div>
+                            </form>
+                        )}
+                    </motion.div>
                 </div>
-              </form>
-            )}
-          </motion.div>
-        </div>
-      </div>
-    </AnimatePresence>
-  );
+            </div>
+        </AnimatePresence>
+    );
 }

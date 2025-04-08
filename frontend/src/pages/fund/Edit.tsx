@@ -123,7 +123,6 @@ export function EditFund() {
                 })
             );
 
-            // Combine existing image URLs with new ones
             const existingImages = formData.images?.filter(
                 (img) => typeof img === "string"
             ) as string[];

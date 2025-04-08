@@ -32,7 +32,6 @@ export function Contact() {
         <div className="min-h-screen bg-background">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:pb-24 md:pt-28">
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
-                    {/* Contact Information */}
                     <div className="lg:col-span-2 space-y-8 mt-10 md:mt-0">
                         <div>
                             <h2 className="text-3xl font-bold text-text mb-8">
@@ -101,7 +100,6 @@ export function Contact() {
                             </div>
                         </div>
 
-                        {/* Additional Info */}
                         <div className="mt-12 p-6 bg-surface rounded-2xl shadow-lg">
                             <h3 className="text-lg font-semibold text-text mb-2">
                                 Quick Response Time

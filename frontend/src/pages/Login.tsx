@@ -132,7 +132,6 @@ export function Login() {
                 </div>
             </div>
 
-            {/* Right side - Image */}
             <div className="hidden lg:block relative flex-1">
                 <div className="absolute inset-0">
                     <img

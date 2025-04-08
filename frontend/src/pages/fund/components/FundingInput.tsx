@@ -31,7 +31,6 @@ export function FundingInput({
 
     const handleUsdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputVal = e.target.value;
-        // Only allow numbers and one decimal point
         if (/^\d*\.?\d*$/.test(inputVal)) {
             setUsdAmount(inputVal);
             const parsed = parseFloat(inputVal);
@@ -49,7 +48,6 @@ export function FundingInput({
 
     const handleEthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputVal = e.target.value;
-        // Only allow numbers and one decimal point
         if (/^\d*\.?\d*$/.test(inputVal)) {
             setEthAmount(inputVal);
             const parsed = parseFloat(inputVal);

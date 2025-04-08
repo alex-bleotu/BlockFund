@@ -39,7 +39,6 @@ export function useEthPrice() {
                 );
 
                 if (!response.ok) {
-                    // If API fails, use fallback price
                     console.warn("Using fallback ETH price due to API error");
                     setEthPrice(FALLBACK_ETH_PRICE);
                     setError("Using estimated ETH price");

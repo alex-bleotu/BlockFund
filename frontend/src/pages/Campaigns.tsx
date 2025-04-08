@@ -114,7 +114,6 @@ export function Campaigns() {
     return (
         <div className="min-h-screen bg-background pt-24 pb-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Stats Section */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                     {stats.map((stat, index) => (
                         <motion.div
@@ -141,7 +140,6 @@ export function Campaigns() {
                     ))}
                 </div>
 
-                {/* Search and Filters */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -191,7 +189,6 @@ export function Campaigns() {
                     </div>
                 </motion.div>
 
-                {/* Campaign Grid */}
                 {loading ? (
                     <div className="flex justify-center items-center min-h-[400px]">
                         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
@@ -213,7 +210,6 @@ export function Campaigns() {
                                     onClick={() =>
                                         navigate(`/campaign/${campaign.id}`)
                                     }>
-                                    {/* Campaign Image */}
                                     <div className="relative h-48 overflow-hidden">
                                         <img
                                             src={
@@ -232,7 +228,6 @@ export function Campaigns() {
                                         </div>
                                     </div>
 
-                                    {/* Campaign Info */}
                                     <div className="p-6">
                                         <h3 className="text-xl font-bold text-text mb-2 line-clamp-2 group-hover:text-primary transition-colors">
                                             {campaign.title}
@@ -241,7 +236,6 @@ export function Campaigns() {
                                             {campaign.summary}
                                         </p>
 
-                                        {/* Progress Bar */}
                                         <div className="mb-4">
                                             <div className="h-2 bg-background-alt rounded-full overflow-hidden">
                                                 <motion.div
@@ -287,7 +281,6 @@ export function Campaigns() {
                                             )}
                                         </div>
 
-                                        {/* Campaign Meta */}
                                         <div className="flex items-center justify-between text-sm text-text-secondary">
                                             <div className="flex items-center space-x-4">
                                                 {campaign.location && (
@@ -322,7 +315,6 @@ export function Campaigns() {
                     </div>
                 )}
 
-                {/* Create Campaign CTA */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}

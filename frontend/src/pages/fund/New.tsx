@@ -169,7 +169,6 @@ export function NewFund() {
                                 goal: parseFloat(formData.goal),
                                 images: previewUrls,
                             }}
-                            previewUrls={previewUrls}
                             onBack={prevStep}
                             onSubmit={handleSubmit}
                             loading={loading}

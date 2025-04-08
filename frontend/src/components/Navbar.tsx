@@ -30,7 +30,6 @@ export function Navbar() {
                     </div>
 
                     <div className="flex items-center space-x-4">
-                        {/* Desktop menu */}
                         <div className="hidden md:flex items-center space-x-4">
                             <ThemeToggle />
                             {user ? (
@@ -52,7 +51,6 @@ export function Navbar() {
                                 </>
                             )}
                         </div>
-                        {/* Mobile menu */}
                         <MobileDrawer />
                     </div>
                 </div>

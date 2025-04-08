@@ -16,7 +16,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ContactModal } from "../components/ContactModal";
 import { SupportModal } from "../components/SupportModal";
-import { useAuth } from "../hooks/useAuth";
 import { useCampaignActions } from "../hooks/useCampaignActions";
 import { useEthPrice } from "../hooks/useEthPrice";
 import { supabase } from "../lib/supabase";
@@ -25,7 +24,6 @@ import { Campaign } from "../lib/types";
 export function CampaignDetails() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { user } = useAuth();
     const { ethPrice } = useEthPrice();
     const [campaign, setCampaign] = useState<Campaign | null>(null);
     const [loading, setLoading] = useState(true);
@@ -132,9 +130,7 @@ export function CampaignDetails() {
                 </button>
 
                 <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
-                    {/* Main Content */}
                     <div className="space-y-8">
-                        {/* Image Gallery */}
                         <div className="relative rounded-xl overflow-hidden shadow-lg bg-surface">
                             <img
                                 src={
@@ -163,7 +159,6 @@ export function CampaignDetails() {
                             )}
                         </div>
 
-                        {/* Campaign Info */}
                         <div className="bg-surface rounded-xl p-6 shadow-lg">
                             <div className="flex items-center justify-between mb-4">
                                 <div className="flex items-center space-x-4">
@@ -215,7 +210,6 @@ export function CampaignDetails() {
                                 </p>
                             </div>
 
-                            {/* Progress Bar */}
                             <div className="mb-6">
                                 <div className="h-2 bg-background-alt rounded-full overflow-hidden">
                                     <motion.div
@@ -264,7 +258,6 @@ export function CampaignDetails() {
                                 </div>
                             </div>
 
-                            {/* Campaign Details */}
                             <div className="prose prose-sm max-w-none text-text-secondary">
                                 {campaign.description
                                     .split("\n")
@@ -277,10 +270,8 @@ export function CampaignDetails() {
                         </div>
                     </div>
 
-                    {/* Sidebar - Enhanced sticky positioning */}
                     <aside className="lg:relative">
                         <div className="lg:sticky lg:top-24 space-y-6 pb-4 px-4 max-h-[calc(100vh-6rem)] overflow-y-auto scrollbar-hide">
-                            {/* Contribution Box */}
                             <div className="bg-surface rounded-xl p-6 shadow-lg">
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-between text-text-secondary">
@@ -318,7 +309,6 @@ export function CampaignDetails() {
                                 </div>
                             </div>
 
-                            {/* Creator Info */}
                             <div className="bg-surface rounded-xl p-6 shadow-lg">
                                 <h3 className="text-xl font-bold text-text mb-4">
                                     About the Creator

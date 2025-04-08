@@ -14,7 +14,6 @@ import { Campaign } from "../../../lib/types";
 
 interface PreviewStepProps {
     campaign: Partial<Campaign>;
-    previewUrls: string[];
     onBack: () => void;
     onSubmit: () => void;
     loading?: boolean;
@@ -22,7 +21,6 @@ interface PreviewStepProps {
 
 export function PreviewStep({
     campaign,
-    previewUrls,
     onBack,
     onSubmit,
     loading,
@@ -103,12 +101,11 @@ export function PreviewStep({
 
             <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
                 <div className="space-y-8">
-                    {/* Cover Image */}
                     <div className="relative rounded-xl overflow-hidden shadow-lg">
-                        {previewUrls[0] ? (
+                        {campaign.images && campaign.images[0] ? (
                             <>
                                 <img
-                                    src={previewUrls[0]}
+                                    src={campaign.images[0]}
                                     alt="Campaign Cover"
                                     className="w-full h-[400px] object-cover"
                                 />
@@ -148,7 +145,6 @@ export function PreviewStep({
                         )}
                     </div>
 
-                    {/* Campaign Details */}
                     <div className="space-y-8">
                         <div>
                             <h2 className="text-xl font-semibold text-text mb-4">
@@ -174,28 +170,30 @@ export function PreviewStep({
                             </div>
                         </div>
 
-                        {/* Additional Images */}
-                        {previewUrls.length > 1 && (
+                        {campaign.images && campaign.images.length > 1 && (
                             <div>
                                 <h2 className="text-xl font-semibold text-text mb-4">
                                     Campaign Gallery
                                 </h2>
                                 <div className="grid grid-cols-2 gap-4">
-                                    {previewUrls.slice(1).map((url, index) => (
-                                        <img
-                                            key={index}
-                                            src={url}
-                                            alt={`Campaign image ${index + 2}`}
-                                            className="w-full h-48 object-cover rounded-lg shadow-md"
-                                        />
-                                    ))}
+                                    {campaign.images
+                                        .slice(1)
+                                        .map((url, index) => (
+                                            <img
+                                                key={index}
+                                                src={url}
+                                                alt={`Campaign image ${
+                                                    index + 2
+                                                }`}
+                                                className="w-full h-48 object-cover rounded-lg shadow-md"
+                                            />
+                                        ))}
                                 </div>
                             </div>
                         )}
                     </div>
                 </div>
 
-                {/* Sidebar */}
                 <div className="space-y-4">
                     <div className="bg-surface-alt rounded-xl p-6 shadow-lg">
                         <div className="space-y-4">
@@ -256,7 +254,6 @@ export function PreviewStep({
                         </div>
                     </div>
 
-                    {/* Creator Info */}
                     <div className="bg-surface-alt rounded-xl p-6 shadow-lg">
                         <h3 className="font-medium text-text mb-4">
                             About the Creator
