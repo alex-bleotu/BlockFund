@@ -1,73 +1,62 @@
-import { Rocket, Compass } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
-import { ThemeToggle } from './ThemeToggle';
-import { ProfileMenu } from './ProfileMenu';
-import { MobileDrawer } from './MobileDrawer';
-import { useAuth } from '../hooks/useAuth';
+import { Compass } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { Logo } from "./Logo";
+import { MobileDrawer } from "./MobileDrawer";
+import { ProfileMenu } from "./ProfileMenu";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Navbar() {
-  const { user } = useAuth();
-  const location = useLocation();
+    const { user } = useAuth();
+    const location = useLocation();
 
-  return (
-    <nav className="fixed top-0 w-full bg-surface shadow-sm z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          <Link to="/" className="flex items-center space-x-2">
-            <Rocket className="w-8 h-8 text-primary" />
-            <span className="text-xl font-bold text-text">BlockFund</span>
-          </Link>
-          
-          <div className="hidden md:flex items-center">
-            <Link 
-              to="/fundings" 
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-                location.pathname === '/fundings'
-                  ? 'text-primary bg-primary-light'
-                  : 'text-text-secondary hover:text-primary hover:bg-primary-light/50'
-              }`}
-            >
-              <Compass className="w-5 h-5" />
-              <span>Explore</span>
-            </Link>
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            {/* Desktop menu */}
-            <div className="hidden md:flex items-center space-x-4">
-              <ThemeToggle />
-              {user ? (
-                <>
-                  <Link
-                    to="/fund/new"
-                    className="px-4 py-2.5 text-sm font-medium text-light bg-primary rounded-lg hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
-                  >
-                    Start a Fund
-                  </Link>
-                  <ProfileMenu />
-                </>
-              ) : (
-                <>
-                  <Link
-                    to="/login"
-                    className="px-4 py-2 text-sm font-medium text-text hover:text-text-secondary"
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    to="/fund/new"
-                    className="px-4 py-2.5 text-sm font-medium text-light bg-primary rounded-lg hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
-                  >
-                    Start a Fund
-                  </Link>
-                </>
-              )}
+    return (
+        <nav className="fixed top-0 w-full bg-surface shadow-sm z-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-16 items-center">
+                    <Logo />
+
+                    <div className="hidden md:flex items-center">
+                        <Link
+                            to="/fundings"
+                            className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                                location.pathname === "/fundings"
+                                    ? "text-primary bg-primary-light"
+                                    : "text-text-secondary hover:text-primary hover:bg-primary-light/50"
+                            }`}>
+                            <Compass className="w-5 h-5" />
+                            <span>Explore</span>
+                        </Link>
+                    </div>
+
+                    <div className="flex items-center space-x-4">
+                        {/* Desktop menu */}
+                        <div className="hidden md:flex items-center space-x-4">
+                            <ThemeToggle />
+                            {user ? (
+                                <>
+                                    <Link
+                                        to="/fund/new"
+                                        className="px-4 py-2.5 text-sm font-medium text-light bg-primary rounded-lg hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
+                                        Start a Fund
+                                    </Link>
+                                    <ProfileMenu />
+                                </>
+                            ) : (
+                                <>
+                                    <Link
+                                        to="/login"
+                                        className="px-4 py-2.5 text-sm font-medium text-light bg-primary rounded-lg hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
+                                        Login
+                                    </Link>
+                                </>
+                            )}
+                        </div>
+                        {/* Mobile menu */}
+                        <MobileDrawer />
+                    </div>
+                </div>
             </div>
-            {/* Mobile menu */}
-            <MobileDrawer />
-          </div>
-        </div>
-      </div>
-    </nav>
-  );
+        </nav>
+    );
 }
