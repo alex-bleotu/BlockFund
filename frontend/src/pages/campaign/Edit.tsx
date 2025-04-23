@@ -5,7 +5,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { useEthPrice } from "../../hooks/useEthPrice";
 import { supabase } from "../../lib/supabase";
 import { CAMPAIGN_CATEGORIES, CampaignFormData } from "../../lib/types";
-import { FundingInput } from "./components/FundingInput";
 import { ImageUpload } from "./components/ImageUpload";
 import { PreviewStep } from "./components/PreviewStep";
 import { StatusModal } from "./components/StatusModal";
@@ -20,13 +19,10 @@ export function EditFund() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-    const [formData, setFormData] = useState<
-        CampaignFormData & { usdAmount: string }
-    >({
+    const [formData, setFormData] = useState<CampaignFormData>({
         title: "",
         category: "",
         goal: "",
-        usdAmount: "",
         summary: "",
         description: "",
         location: "",
@@ -60,11 +56,9 @@ export function EditFund() {
                 );
             }
 
-            // Convert the campaign data to form data format
             setFormData({
                 ...data,
                 goal: data.goal.toString(),
-                usdAmount: ethPrice ? (data.goal * ethPrice).toFixed(2) : "",
                 images: data.images || [],
             });
             setCampaignStatus(data.status || "active");
@@ -82,16 +76,6 @@ export function EditFund() {
     ) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleGoalChange = (value: string) => {
-        setFormData((prev) => ({
-            ...prev,
-            goal: value,
-            usdAmount: ethPrice
-                ? (parseFloat(value || "0") * ethPrice).toFixed(2)
-                : "",
-        }));
     };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -350,12 +334,6 @@ export function EditFund() {
                                     </div>
                                 </div>
 
-                                <FundingInput
-                                    value={formData.goal}
-                                    onChange={handleGoalChange}
-                                    initialUsdAmount={formData.usdAmount}
-                                />
-
                                 <div>
                                     <label
                                         htmlFor="deadline"
@@ -375,6 +353,42 @@ export function EditFund() {
                                         }
                                         className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                     />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-text mb-2">
+                                        Funding Goal
+                                    </label>
+                                    <div className="space-y-2">
+                                        <div className="w-full px-4 py-3 border border-border rounded-lg bg-background-alt text-text">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center">
+                                                    <span className="text-lg font-semibold">
+                                                        {formData.goal}
+                                                    </span>
+                                                    <span className="ml-2 text-text-secondary">
+                                                        ETH
+                                                    </span>
+                                                </div>
+                                                {ethPrice && (
+                                                    <div className="text-text-secondary">
+                                                        ≈ $
+                                                        {(
+                                                            parseFloat(
+                                                                formData.goal ||
+                                                                    "0"
+                                                            ) * ethPrice
+                                                        ).toLocaleString()}{" "}
+                                                        USD
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <p className="text-sm text-text-secondary">
+                                            The funding goal cannot be modified
+                                            after campaign creation
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         )}
