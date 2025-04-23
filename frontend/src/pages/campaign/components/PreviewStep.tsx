@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../hooks/useAuth";
-import { useEthPrice } from "../../../hooks/useEthPrice";
 import { CampaignFormData } from "../../../lib/types";
 
 interface PreviewStepProps {
@@ -21,7 +20,6 @@ export function PreviewStep({
     mode,
 }: PreviewStepProps) {
     const { user } = useAuth();
-    const { ethPrice } = useEthPrice();
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -41,29 +39,6 @@ export function PreviewStep({
         onSubmit();
     };
 
-    const ethAmount = parseFloat(String(campaign.goal || "0"));
-    const usdAmount = ethPrice ? ethAmount * ethPrice : 0;
-
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const today = new Date();
-        const diffTime = date.getTime() - today.getTime();
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-        return {
-            formatted: date.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-            }),
-            daysLeft: diffDays,
-        };
-    };
-
-    const campaignEndDate = campaign.deadline
-        ? formatDate(campaign.deadline)
-        : null;
-
     return (
         <div className="space-y-8">
             <div className="flex justify-between items-center">
@@ -75,7 +50,7 @@ export function PreviewStep({
                         Back
                     </button>
                     <button
-                        onClick={onSubmit}
+                        onClick={handleSubmit}
                         disabled={loading}
                         className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50">
                         {loading
@@ -86,6 +61,12 @@ export function PreviewStep({
                     </button>
                 </div>
             </div>
+
+            {error && (
+                <div className="p-4 bg-error/10 text-error rounded-lg">
+                    {error}
+                </div>
+            )}
 
             <div className="bg-background rounded-lg p-6">
                 <h1 className="text-3xl font-bold text-text mb-4">
@@ -117,8 +98,8 @@ export function PreviewStep({
                                     Funding Goal
                                 </h3>
                                 <p className="text-text-secondary">
-                                    $
-                                    {parseFloat(campaign.goal).toLocaleString()}
+                                    {parseFloat(campaign.goal).toLocaleString()}{" "}
+                                    ETH
                                 </p>
                             </div>
 

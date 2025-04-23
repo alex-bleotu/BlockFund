@@ -43,7 +43,6 @@ export function NewFund() {
         images: [],
     });
 
-    // Calculate completion score based on required fields
     const completionScore = useMemo(() => {
         const requiredFields = {
             title: formData.title.length > 0,
@@ -132,11 +131,11 @@ export function NewFund() {
                     goal: parseFloat(formData.goal || "0"),
                     images: imageUrls,
                 },
-                formData.images,
                 user.id
             );
 
             if (launchError) throw launchError;
+            if (!supabaseData) throw new Error("Failed to create campaign");
             navigate(`/campaign/${supabaseData.id}`);
         } catch (err: any) {
             console.error("Error creating campaign:", err);
