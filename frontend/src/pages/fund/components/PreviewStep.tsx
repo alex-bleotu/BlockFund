@@ -1,26 +1,19 @@
-import {
-    Calendar,
-    ChevronLeft,
-    MapPin,
-    Rocket,
-    Tag,
-    Target,
-    User,
-} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import { useEthPrice } from "../../../hooks/useEthPrice";
-import { Campaign } from "../../../lib/types";
+import { CampaignFormData } from "../../../lib/types";
 
 interface PreviewStepProps {
-    campaign: Partial<Campaign>;
+    campaign: CampaignFormData;
+    previewUrls: string[];
     onBack: () => void;
     onSubmit: () => void;
-    loading?: boolean;
+    loading: boolean;
 }
 
 export function PreviewStep({
     campaign,
+    previewUrls,
     onBack,
     onSubmit,
     loading,
@@ -71,205 +64,99 @@ export function PreviewStep({
 
     return (
         <div className="space-y-8">
-            {error && (
-                <div className="mb-6 p-4 bg-error-light text-error rounded-lg animate-fade-in">
-                    {error}
+            <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-text">Preview</h2>
+                <div className="space-x-4">
+                    <button
+                        onClick={onBack}
+                        className="px-4 py-2 text-text-secondary hover:text-text transition-colors">
+                        Back
+                    </button>
+                    <button
+                        onClick={onSubmit}
+                        disabled={loading}
+                        className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50">
+                        {loading ? "Saving..." : "Save Campaign"}
+                    </button>
                 </div>
-            )}
-            <div className="flex items-center justify-between mb-6">
-                <button
-                    type="button"
-                    onClick={onBack}
-                    className="flex items-center text-text-secondary hover:text-text transition-colors">
-                    <ChevronLeft className="w-5 h-5 mr-1" />
-                    Edit Campaign
-                </button>
-                <button
-                    onClick={handleSubmit}
-                    disabled={loading}
-                    className="flex items-center px-6 py-2.5 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50">
-                    {loading ? (
-                        "Launching..."
-                    ) : (
-                        <>
-                            <Rocket className="w-4 h-4 mr-2" />
-                            Launch Campaign
-                        </>
-                    )}
-                </button>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
-                <div className="space-y-8">
-                    <div className="relative rounded-xl overflow-hidden shadow-lg">
-                        {campaign.images && campaign.images[0] ? (
-                            <>
-                                <img
-                                    src={campaign.images[0]}
-                                    alt="Campaign Cover"
-                                    className="w-full h-[400px] object-cover"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                                <div className="absolute bottom-4 left-4 right-4">
-                                    <h1 className="text-3xl font-bold text-white mb-2">
-                                        {campaign.title}
-                                    </h1>
-                                    <div className="flex flex-wrap items-center gap-4 text-white/90">
-                                        <div className="flex items-center space-x-2">
-                                            <User className="w-4 h-4" />
-                                            <span>
-                                                {user?.email?.split("@")[0]}
-                                            </span>
-                                        </div>
-                                        {campaign.location && (
-                                            <div className="flex items-center space-x-2">
-                                                <MapPin className="w-4 h-4" />
-                                                <span>{campaign.location}</span>
-                                            </div>
-                                        )}
-                                        {campaign.category && (
-                                            <div className="flex items-center space-x-2">
-                                                <Tag className="w-4 h-4" />
-                                                <span>{campaign.category}</span>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </>
-                        ) : (
-                            <div className="w-full h-[400px] bg-background-alt rounded-xl flex items-center justify-center">
+            <div className="bg-background rounded-lg p-6">
+                <h1 className="text-3xl font-bold text-text mb-4">
+                    {campaign.title}
+                </h1>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        {previewUrls.length > 0 && (
+                            <img
+                                src={previewUrls[0]}
+                                alt={campaign.title}
+                                className="w-full h-64 object-cover rounded-lg"
+                            />
+                        )}
+
+                        <div className="mt-4 space-y-4">
+                            <div>
+                                <h3 className="text-lg font-semibold text-text">
+                                    Category
+                                </h3>
                                 <p className="text-text-secondary">
-                                    No cover image
+                                    {campaign.category}
                                 </p>
                             </div>
-                        )}
+
+                            <div>
+                                <h3 className="text-lg font-semibold text-text">
+                                    Funding Goal
+                                </h3>
+                                <p className="text-text-secondary">
+                                    $
+                                    {parseFloat(campaign.goal).toLocaleString()}
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 className="text-lg font-semibold text-text">
+                                    End Date
+                                </h3>
+                                <p className="text-text-secondary">
+                                    {new Date(
+                                        campaign.deadline
+                                    ).toLocaleDateString()}
+                                </p>
+                            </div>
+
+                            {campaign.location && (
+                                <div>
+                                    <h3 className="text-lg font-semibold text-text">
+                                        Location
+                                    </h3>
+                                    <p className="text-text-secondary">
+                                        {campaign.location}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
-                    <div className="space-y-8">
+                    <div className="space-y-6">
                         <div>
-                            <h2 className="text-xl font-semibold text-text mb-4">
-                                Campaign Summary
-                            </h2>
-                            <p className="text-text-secondary leading-relaxed">
+                            <h3 className="text-lg font-semibold text-text mb-2">
+                                Summary
+                            </h3>
+                            <p className="text-text-secondary">
                                 {campaign.summary}
                             </p>
                         </div>
 
                         <div>
-                            <h2 className="text-xl font-semibold text-text mb-4">
-                                About this Campaign
-                            </h2>
-                            <div className="prose prose-sm max-w-none text-text-secondary">
-                                {campaign.description
-                                    ?.split("\n")
-                                    .map((paragraph, index) => (
-                                        <p key={index} className="mb-4">
-                                            {paragraph}
-                                        </p>
-                                    ))}
-                            </div>
-                        </div>
-
-                        {campaign.images && campaign.images.length > 1 && (
-                            <div>
-                                <h2 className="text-xl font-semibold text-text mb-4">
-                                    Campaign Gallery
-                                </h2>
-                                <div className="grid grid-cols-2 gap-4">
-                                    {campaign.images
-                                        .slice(1)
-                                        .map((url, index) => (
-                                            <img
-                                                key={index}
-                                                src={url}
-                                                alt={`Campaign image ${
-                                                    index + 2
-                                                }`}
-                                                className="w-full h-48 object-cover rounded-lg shadow-md"
-                                            />
-                                        ))}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-
-                <div className="space-y-4">
-                    <div className="bg-surface-alt rounded-xl p-6 shadow-lg">
-                        <div className="space-y-4">
-                            <div>
-                                <div className="text-text-secondary mb-1">
-                                    Funding Goal
-                                </div>
-                                <div className="text-3xl font-bold text-text">
-                                    {ethAmount.toFixed(6)} ETH
-                                </div>
-                                <div className="text-sm text-text-secondary">
-                                    ~$
-                                    {usdAmount.toLocaleString(undefined, {
-                                        maximumFractionDigits: 2,
-                                    })}{" "}
-                                    USD
-                                </div>
-                            </div>
-
-                            <div className="flex flex-col justify-center space-y-2 py-4 border-t border-border">
-                                {campaignEndDate && (
-                                    <div className="flex items-center text-text-secondary">
-                                        <Target className="w-5 h-5 mr-2" />
-                                        {campaignEndDate.daysLeft} days
-                                    </div>
-                                )}
-                                <div className="flex flex-col ">
-                                    <div className="flex items-center text-text">
-                                        <Calendar className="w-4 h-4 mr-2" />
-                                        {campaignEndDate?.formatted}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-background/50 rounded-lg">
-                                <h3 className="font-medium text-text mb-2">
-                                    What happens after launch?
-                                </h3>
-                                <ul className="space-y-2 text-sm text-text-secondary">
-                                    <li>
-                                        • Your campaign will be live and visible
-                                        to all users
-                                    </li>
-                                    <li>
-                                        • Supporters can start contributing to
-                                        your goal
-                                    </li>
-                                    <li>
-                                        • You'll receive updates on campaign
-                                        progress
-                                    </li>
-                                    <li>
-                                        • Funds are released once the goal is
-                                        reached
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-surface-alt rounded-xl p-6 shadow-lg">
-                        <h3 className="font-medium text-text mb-4">
-                            About the Creator
-                        </h3>
-                        <div className="flex items-center space-x-3">
-                            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                                <User className="w-6 h-6 text-primary" />
-                            </div>
-                            <div>
-                                <div className="font-medium text-text">
-                                    {user?.email?.split("@")[0]}
-                                </div>
-                                <div className="text-sm text-text-secondary">
-                                    Campaign Creator
-                                </div>
-                            </div>
+                            <h3 className="text-lg font-semibold text-text mb-2">
+                                Description
+                            </h3>
+                            <p className="text-text-secondary whitespace-pre-wrap">
+                                {campaign.description}
+                            </p>
                         </div>
                     </div>
                 </div>

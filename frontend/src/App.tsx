@@ -1,20 +1,24 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import { ThemeProvider } from './contexts/ThemeContext';
-import { AuthProvider } from './contexts/AuthContext';
-import { AppContent } from './components/AppContent';
-import { ScrollToTop } from './components/ScrollToTop';
+import { Toaster } from "react-hot-toast";
+import { BrowserRouter as Router } from "react-router-dom";
+import { AppContent } from "./components/AppContent";
+import { MetaMaskStatus } from "./components/MetaMaskStatus";
+import { ScrollToTop } from "./components/ScrollToTop";
+import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 export default function App() {
-  return (
-    <Router>
-      <ThemeProvider>
-        <AuthProvider>
-          <div className="flex flex-col min-h-screen">
-            <AppContent />
-            <ScrollToTop />
-          </div>
-        </AuthProvider>
-      </ThemeProvider>
-    </Router>
-  );
+    return (
+        <Router>
+            <ThemeProvider>
+                <AuthProvider>
+                    <div className="flex flex-col min-h-screen">
+                        <AppContent />
+                        <ScrollToTop />
+                        <MetaMaskStatus />
+                        <Toaster />
+                    </div>
+                </AuthProvider>
+            </ThemeProvider>
+        </Router>
+    );
 }

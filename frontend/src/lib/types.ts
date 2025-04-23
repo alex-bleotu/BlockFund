@@ -1,22 +1,3 @@
-export interface Campaign {
-    id: string;
-    title: string;
-    category: string;
-    goal: number;
-    summary: string;
-    description: string;
-    images: string[];
-    location?: string;
-    deadline: string;
-    created_at: string;
-    creator_id: string;
-    current_amount: number;
-    status: "draft" | "active" | "completed" | "cancelled";
-    profiles?: {
-        username: string;
-    };
-}
-
 export const CAMPAIGN_CATEGORIES = [
     "Technology",
     "Art",
@@ -33,4 +14,29 @@ export const CAMPAIGN_CATEGORIES = [
     "Other",
 ] as const;
 
-export type CampaignCategory = (typeof CAMPAIGN_CATEGORIES)[number];
+export interface Campaign {
+    id?: string;
+    title: string;
+    category: string;
+    goal: number;
+    summary: string;
+    description: string;
+    location: string;
+    deadline: string;
+    images: string[];
+    creator_id?: string;
+    created_at?: string;
+    updated_at?: string;
+    raised?: number;
+    supporters?: number;
+    status?: "active" | "completed" | "cancelled";
+    profiles?: {
+        username: string;
+        wallet_address: string | null;
+    };
+}
+
+export interface CampaignFormData extends Omit<Campaign, "goal" | "images"> {
+    goal: string;
+    images: (string | File)[];
+}

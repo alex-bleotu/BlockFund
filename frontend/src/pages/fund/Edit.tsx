@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { supabase } from "../../lib/supabase";
-import { Campaign, CAMPAIGN_CATEGORIES } from "../../lib/types";
+import { CAMPAIGN_CATEGORIES, CampaignFormData } from "../../lib/types";
 import { FundingInput } from "./components/FundingInput";
 import { ImageUpload } from "./components/ImageUpload";
 import { PreviewStep } from "./components/PreviewStep";
@@ -17,7 +17,7 @@ export function EditFund() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-    const [formData, setFormData] = useState<Partial<Campaign>>({
+    const [formData, setFormData] = useState<CampaignFormData>({
         title: "",
         category: "",
         goal: "",
@@ -51,7 +51,12 @@ export function EditFund() {
                 );
             }
 
-            setFormData(data);
+            // Convert the campaign data to form data format
+            setFormData({
+                ...data,
+                goal: data.goal.toString(),
+                images: data.images || [],
+            });
             setPreviewUrls(data.images || []);
         } catch (err: any) {
             console.error("Error fetching campaign:", err);
@@ -108,9 +113,9 @@ export function EditFund() {
             setError(null);
 
             // Upload new images if any
-            const newImages = formData.images?.filter(
-                (img) => img instanceof File
-            ) as File[];
+            const newImages = formData.images.filter(
+                (img): img is File => img instanceof File
+            );
             const imageUrls = await Promise.all(
                 newImages.map(async (file) => {
                     const fileName = `${user.id}/${Date.now()}-${file.name}`;
@@ -123,9 +128,9 @@ export function EditFund() {
                 })
             );
 
-            const existingImages = formData.images?.filter(
-                (img) => typeof img === "string"
-            ) as string[];
+            const existingImages = formData.images.filter(
+                (img): img is string => typeof img === "string"
+            );
             const allImages = [...existingImages, ...imageUrls];
 
             const { error } = await supabase
@@ -133,7 +138,7 @@ export function EditFund() {
                 .update({
                     title: formData.title,
                     category: formData.category,
-                    goal: parseFloat(formData.goal as string),
+                    goal: parseFloat(formData.goal),
                     summary: formData.summary,
                     description: formData.description,
                     location: formData.location,
@@ -256,7 +261,7 @@ export function EditFund() {
                                         required
                                         value={formData.title}
                                         onChange={handleChange}
-                                        className="w-full py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
+                                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                         placeholder="Give your campaign a catchy title"
                                     />
                                 </div>
@@ -309,7 +314,7 @@ export function EditFund() {
                                                 .toISOString()
                                                 .split("T")[0]
                                         }
-                                        className="w-full py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
+                                        className="w-full px-4 px-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                     />
                                 </div>
                             </div>

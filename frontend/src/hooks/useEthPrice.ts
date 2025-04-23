@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const FALLBACK_ETH_PRICE = 2500;
-const CACHE_DURATION = 60000;
+const CACHE_DURATION = 60_000;
 
 interface CacheItem {
     price: number;
@@ -16,68 +16,73 @@ export function useEthPrice() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        let isMounted = true;
+
         const fetchEthPrice = async () => {
-            try {
-                if (
-                    priceCache &&
-                    Date.now() - priceCache.timestamp < CACHE_DURATION
-                ) {
+            if (
+                priceCache &&
+                Date.now() - priceCache.timestamp < CACHE_DURATION
+            ) {
+                if (isMounted) {
                     setEthPrice(priceCache.price);
                     setLoading(false);
-                    return;
                 }
+                return;
+            }
 
-                const response = await fetch(
-                    "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
-                    {
-                        headers: {
-                            Accept: "application/json",
-                            "Cache-Control": "no-cache",
-                        },
-                        cache: "no-store",
-                    }
+            try {
+                const res = await fetch(
+                    "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
                 );
-
-                if (!response.ok) {
-                    console.warn("Using fallback ETH price due to API error");
-                    setEthPrice(FALLBACK_ETH_PRICE);
-                    setError("Using estimated ETH price");
-                    return;
+                if (!res.ok) {
+                    throw new Error(`CoinGecko returned ${res.status}`);
                 }
-
-                const data = await response.json();
-                const price = data.ethereum.usd;
+                const json = await res.json();
+                const price = json?.ethereum?.usd;
+                if (typeof price !== "number") {
+                    throw new Error("Invalid price data");
+                }
 
                 priceCache = {
                     price,
                     timestamp: Date.now(),
                 };
 
-                setEthPrice(price);
-                setError(null);
+                if (isMounted) {
+                    setEthPrice(price);
+                    setError(null);
+                }
             } catch (err) {
-                console.warn("Using fallback ETH price due to error:", err);
-                setEthPrice(FALLBACK_ETH_PRICE);
-                setError("Using estimated ETH price");
+                console.warn("ETH price fetch failed, using fallback", err);
+                if (isMounted) {
+                    setEthPrice(FALLBACK_ETH_PRICE);
+                    setError("Using estimated ETH price");
+                }
             } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         };
 
         fetchEthPrice();
-        const interval = setInterval(fetchEthPrice, CACHE_DURATION);
-        return () => clearInterval(interval);
+        const intervalId = setInterval(fetchEthPrice, CACHE_DURATION);
+
+        return () => {
+            isMounted = false;
+            clearInterval(intervalId);
+        };
     }, []);
 
-    const convertUsdToEth = (usdAmount: number) => {
-        if (!ethPrice) return null;
-        return usdAmount / ethPrice;
-    };
+    const convertUsdToEth = useCallback(
+        (usdAmount: number) => (ethPrice ? usdAmount / ethPrice : null),
+        [ethPrice]
+    );
 
-    const convertEthToUsd = (ethAmount: number) => {
-        if (!ethPrice) return null;
-        return ethAmount * ethPrice;
-    };
+    const convertEthToUsd = useCallback(
+        (ethAmount: number) => (ethPrice ? ethAmount * ethPrice : null),
+        [ethPrice]
+    );
 
     return { ethPrice, loading, error, convertUsdToEth, convertEthToUsd };
 }

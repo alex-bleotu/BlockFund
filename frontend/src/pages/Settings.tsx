@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import {
     AlertTriangle,
     Bell,
@@ -7,9 +8,11 @@ import {
     User,
     Wallet,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useAuth } from "../hooks/useAuth";
 import { useWallet } from "../hooks/useWallet";
+import { supabase } from "../lib/supabase";
 
 type SettingsTab = "profile" | "notifications" | "security" | "wallet";
 
@@ -40,12 +43,59 @@ export function Settings() {
         confirmPassword: "",
     });
 
-    const tabs: { id: SettingsTab; label: string; icon: any }[] = [
-        { id: "profile", label: "Profile", icon: User },
-        { id: "wallet", label: "Wallet", icon: Wallet },
-        { id: "notifications", label: "Notifications", icon: Bell },
-        { id: "security", label: "Security", icon: Shield },
-    ];
+    const [profileForm, setProfileForm] = useState({
+        username: "",
+        bio: "",
+    });
+
+    const [initialProfileForm, setInitialProfileForm] = useState({
+        username: "",
+        bio: "",
+    });
+
+    const isProfileFormChanged =
+        profileForm.username !== initialProfileForm.username ||
+        profileForm.bio !== initialProfileForm.bio;
+
+    useEffect(() => {
+        if (error || success) {
+            const timer = setTimeout(() => {
+                setError(null);
+                setSuccess(null);
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [error, success]);
+
+    useEffect(() => {
+        if (user) {
+            loadProfileData();
+        }
+    }, [user]);
+
+    const loadProfileData = async () => {
+        try {
+            const { data, error } = await supabase
+                .from("profiles")
+                .select("username, bio")
+                .eq("id", user?.id)
+                .single();
+
+            if (error) throw error;
+
+            if (data) {
+                const formData = {
+                    username: data.username || "",
+                    bio: data.bio || "",
+                };
+                setProfileForm(formData);
+                setInitialProfileForm(formData);
+            }
+        } catch (err) {
+            console.error("Error loading profile:", err);
+            setError("Failed to load profile data");
+        }
+    };
 
     const handleNotificationChange = (key: keyof typeof notifications) => {
         setNotifications((prev) => ({
@@ -64,6 +114,16 @@ export function Settings() {
         }));
     };
 
+    const handleProfileChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        const { name, value } = e.target;
+        setProfileForm((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
     const handlePasswordChange = async (e: React.FormEvent) => {
         e.preventDefault();
         if (securityForm.newPassword !== securityForm.confirmPassword) {
@@ -76,7 +136,22 @@ export function Settings() {
         setSuccess(null);
 
         try {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const { error: signInError } =
+                await supabase.auth.signInWithPassword({
+                    email: user?.email || "",
+                    password: securityForm.currentPassword,
+                });
+
+            if (signInError) {
+                throw new Error("Current password is incorrect");
+            }
+
+            const { error: updateError } = await supabase.auth.updateUser({
+                password: securityForm.newPassword,
+            });
+
+            if (updateError) throw updateError;
+
             setSuccess("Password updated successfully");
             setSecurityForm({
                 currentPassword: "",
@@ -84,6 +159,7 @@ export function Settings() {
                 confirmPassword: "",
             });
         } catch (err: any) {
+            console.error("Error updating password:", err);
             setError(err.message || "Failed to update password");
         } finally {
             setLoading(false);
@@ -104,6 +180,103 @@ export function Settings() {
             setLoading(false);
         }
     };
+
+    const handleSaveProfile = async () => {
+        setLoading(true);
+        setError(null);
+        setSuccess(null);
+
+        try {
+            // First check if username is already taken (excluding current user)
+            const { data: existingUser, error: checkError } = await supabase
+                .from("profiles")
+                .select("id")
+                .eq("username", profileForm.username)
+                .neq("id", user?.id)
+                .single();
+
+            if (checkError && checkError.code !== "PGRST116") {
+                // PGRST116 means no rows returned
+                throw checkError;
+            }
+
+            if (existingUser) {
+                throw new Error("This username is already taken");
+            }
+
+            const { error } = await supabase
+                .from("profiles")
+                .update({
+                    username: profileForm.username,
+                    bio: profileForm.bio,
+                    updated_at: new Date().toISOString(),
+                })
+                .eq("id", user?.id);
+
+            if (error) throw error;
+
+            setSuccess("Profile updated successfully");
+            setInitialProfileForm(profileForm); // Update initial form state
+        } catch (err: any) {
+            console.error("Error updating profile:", err);
+            if (err.message === "This username is already taken") {
+                setError(err.message);
+            } else {
+                setError("Failed to update profile");
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const checkMetaMaskStatus = async () => {
+        if (typeof window.ethereum === "undefined") {
+            toast.error(
+                "MetaMask is not installed. Please install MetaMask to use wallet features.",
+                {
+                    duration: 5000,
+                    position: "bottom-right",
+                    icon: "🦊",
+                }
+            );
+            return;
+        }
+
+        try {
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const accounts = await provider.listAccounts();
+
+            if (accounts.length === 0) {
+                toast.error("MetaMask is locked. Please unlock your wallet.", {
+                    duration: 5000,
+                    position: "bottom-right",
+                    icon: "🔒",
+                });
+            } else {
+                toast.success("MetaMask is ready to use", {
+                    duration: 3000,
+                    position: "bottom-right",
+                    icon: "✅",
+                });
+            }
+        } catch (error) {
+            toast.error(
+                "Error connecting to MetaMask. Please check your wallet.",
+                {
+                    duration: 5000,
+                    position: "bottom-right",
+                    icon: "⚠️",
+                }
+            );
+        }
+    };
+
+    const tabs: { id: SettingsTab; label: string; icon: any }[] = [
+        { id: "profile", label: "Profile", icon: User },
+        { id: "wallet", label: "Wallet", icon: Wallet },
+        { id: "notifications", label: "Notifications", icon: Bell },
+        { id: "security", label: "Security", icon: Shield },
+    ];
 
     return (
         <div className="min-h-screen pt-16 bg-background">
@@ -170,9 +343,9 @@ export function Settings() {
                                             </label>
                                             <input
                                                 type="text"
-                                                defaultValue={
-                                                    user?.email?.split("@")[0]
-                                                }
+                                                name="username"
+                                                value={profileForm.username}
+                                                onChange={handleProfileChange}
                                                 className="mt-1 block w-full px-3 py-2 border border-border rounded-lg focus:ring-primary focus:border-primary bg-surface text-text"
                                             />
                                         </div>
@@ -182,10 +355,27 @@ export function Settings() {
                                                 Bio
                                             </label>
                                             <textarea
+                                                name="bio"
                                                 rows={4}
+                                                value={profileForm.bio}
+                                                onChange={handleProfileChange}
                                                 className="mt-1 block w-full px-3 py-2 border border-border rounded-lg focus:ring-primary focus:border-primary bg-surface text-text"
                                                 placeholder="Tell us about yourself..."
                                             />
+                                        </div>
+
+                                        <div className="flex justify-end pt-4">
+                                            <button
+                                                onClick={handleSaveProfile}
+                                                disabled={
+                                                    loading ||
+                                                    !isProfileFormChanged
+                                                }
+                                                className="px-4 py-2 text-sm font-medium text-light bg-primary hover:bg-primary-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors disabled:opacity-50">
+                                                {loading
+                                                    ? "Saving..."
+                                                    : "Save Changes"}
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -405,20 +595,6 @@ export function Settings() {
                                             </button>
                                         </div>
                                     </form>
-
-                                    <div className="mt-8 pt-6 border-t border-border">
-                                        <h3 className="text-lg font-medium text-text mb-4">
-                                            Two-Factor Authentication
-                                        </h3>
-                                        <p className="text-text-secondary mb-4">
-                                            Add an extra layer of security to
-                                            your account by enabling two-factor
-                                            authentication.
-                                        </p>
-                                        <button className="px-4 py-2 text-sm font-medium border-2 border-primary text-primary hover:bg-primary hover:text-light rounded-lg transition-colors">
-                                            Enable 2FA
-                                        </button>
-                                    </div>
                                 </div>
                             )}
 
