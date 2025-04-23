@@ -5,6 +5,7 @@ type WalletStatus = "not-installed" | "locked" | "ready" | "error";
 
 export function MetaMaskStatus() {
     const [status, setStatus] = useState<WalletStatus>("not-installed");
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
         checkMetaMaskStatus();
@@ -12,6 +13,20 @@ export function MetaMaskStatus() {
 
         return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        // Reset visibility whenever status changes
+        setIsVisible(true);
+
+        // If status is ready, hide after 5 seconds
+        if (status === "ready") {
+            const timer = setTimeout(() => {
+                setIsVisible(false);
+            }, 5000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [status]);
 
     const getStatusConfig = (status: WalletStatus) => {
         switch (status) {
@@ -70,6 +85,8 @@ export function MetaMaskStatus() {
     };
 
     const config = getStatusConfig(status);
+
+    if (!isVisible) return null;
 
     return (
         <div

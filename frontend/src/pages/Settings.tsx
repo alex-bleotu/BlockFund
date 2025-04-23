@@ -1,4 +1,3 @@
-import { ethers } from "ethers";
 import {
     AlertTriangle,
     Bell,
@@ -9,7 +8,7 @@ import {
     Wallet,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useWallet } from "../hooks/useWallet";
 import { supabase } from "../lib/supabase";
@@ -25,7 +24,11 @@ export function Settings() {
         connectWallet,
         disconnectWallet,
     } = useWallet();
-    const [activeTab, setActiveTab] = useState<SettingsTab>("profile");
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [activeTab, setActiveTab] = useState<SettingsTab>(() => {
+        const tab = searchParams.get("tab");
+        return (tab as SettingsTab) || "profile";
+    });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
@@ -58,14 +61,23 @@ export function Settings() {
         profileForm.bio !== initialProfileForm.bio;
 
     useEffect(() => {
-        if (error || success) {
-            const timer = setTimeout(() => {
-                setError(null);
-                setSuccess(null);
-            }, 5000);
-            return () => clearTimeout(timer);
+        setSearchParams({ tab: activeTab });
+    }, [activeTab, setSearchParams]);
+
+    useEffect(() => {
+        const tab = searchParams.get("tab") as SettingsTab;
+        if (
+            tab &&
+            ["profile", "notifications", "security", "wallet"].includes(tab)
+        ) {
+            setActiveTab(tab);
         }
-    }, [error, success]);
+    }, [searchParams]);
+
+    useEffect(() => {
+        setError(null);
+        setSuccess(null);
+    }, [activeTab]);
 
     useEffect(() => {
         if (user) {
@@ -187,7 +199,6 @@ export function Settings() {
         setSuccess(null);
 
         try {
-            // First check if username is already taken (excluding current user)
             const { data: existingUser, error: checkError } = await supabase
                 .from("profiles")
                 .select("id")
@@ -196,7 +207,6 @@ export function Settings() {
                 .single();
 
             if (checkError && checkError.code !== "PGRST116") {
-                // PGRST116 means no rows returned
                 throw checkError;
             }
 
@@ -216,7 +226,7 @@ export function Settings() {
             if (error) throw error;
 
             setSuccess("Profile updated successfully");
-            setInitialProfileForm(profileForm); // Update initial form state
+            setInitialProfileForm(profileForm);
         } catch (err: any) {
             console.error("Error updating profile:", err);
             if (err.message === "This username is already taken") {
@@ -229,46 +239,9 @@ export function Settings() {
         }
     };
 
-    const checkMetaMaskStatus = async () => {
-        if (typeof window.ethereum === "undefined") {
-            toast.error(
-                "MetaMask is not installed. Please install MetaMask to use wallet features.",
-                {
-                    duration: 5000,
-                    position: "bottom-right",
-                    icon: "🦊",
-                }
-            );
-            return;
-        }
-
-        try {
-            const provider = new ethers.BrowserProvider(window.ethereum);
-            const accounts = await provider.listAccounts();
-
-            if (accounts.length === 0) {
-                toast.error("MetaMask is locked. Please unlock your wallet.", {
-                    duration: 5000,
-                    position: "bottom-right",
-                    icon: "🔒",
-                });
-            } else {
-                toast.success("MetaMask is ready to use", {
-                    duration: 3000,
-                    position: "bottom-right",
-                    icon: "✅",
-                });
-            }
-        } catch (error) {
-            toast.error(
-                "Error connecting to MetaMask. Please check your wallet.",
-                {
-                    duration: 5000,
-                    position: "bottom-right",
-                    icon: "⚠️",
-                }
-            );
-        }
+    const handleTabChange = (tab: SettingsTab) => {
+        setActiveTab(tab);
+        setSearchParams({ tab });
     };
 
     const tabs: { id: SettingsTab; label: string; icon: any }[] = [
@@ -288,7 +261,7 @@ export function Settings() {
                                 {tabs.map(({ id, label, icon: Icon }) => (
                                     <button
                                         key={id}
-                                        onClick={() => setActiveTab(id)}
+                                        onClick={() => handleTabChange(id)}
                                         className={`flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap md:w-full
                       ${
                           activeTab === id

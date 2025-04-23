@@ -17,8 +17,11 @@ import { useEthPrice } from "../hooks/useEthPrice";
 import { supabase } from "../lib/supabase";
 import { Campaign } from "../lib/types";
 
+type CampaignStatus = "all" | "active" | "ended";
+
 export function MyCampaigns() {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+    const [selectedStatus, setSelectedStatus] = useState<CampaignStatus>("all");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(
@@ -53,6 +56,19 @@ export function MyCampaigns() {
             setLoading(false);
         }
     };
+
+    const filteredCampaigns = campaigns.filter((campaign) => {
+        const isEnded = new Date(campaign.deadline) < new Date();
+
+        switch (selectedStatus) {
+            case "active":
+                return !isEnded && campaign.status === "active";
+            case "ended":
+                return isEnded || campaign.status !== "active";
+            default: // "all"
+                return true;
+        }
+    });
 
     const handleEdit = (e: React.MouseEvent, campaign: Campaign) => {
         e.stopPropagation();
@@ -94,19 +110,52 @@ export function MyCampaigns() {
         return diffDays > 0 ? `${diffDays} days left` : "Ended";
     };
 
+    const getCampaignStats = () => {
+        const now = new Date();
+        const active = campaigns.filter(
+            (c) => new Date(c.deadline) >= now && c.status === "active"
+        ).length;
+        const ended = campaigns.filter(
+            (c) => new Date(c.deadline) < now || c.status !== "active"
+        ).length;
+        return { active, ended };
+    };
+
+    const stats = getCampaignStats();
+
     return (
         <div className="min-h-screen bg-background pt-24 pb-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center mb-8">
-                    <h1 className="text-3xl font-bold text-text">
-                        My Campaigns
-                    </h1>
+                    <div>
+                        <h1 className="text-3xl font-bold text-text mb-2">
+                            My Campaigns
+                        </h1>
+                        <div className="text-text-secondary">
+                            {stats.active} Active • {stats.ended} Ended
+                        </div>
+                    </div>
                     <button
                         onClick={() => navigate("/campaign/new")}
                         className="flex items-center px-4 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors group">
                         <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
                         New Campaign
                     </button>
+                </div>
+
+                <div className="flex items-center gap-2 mb-6">
+                    {(["all", "active", "ended"] as const).map((status) => (
+                        <button
+                            key={status}
+                            onClick={() => setSelectedStatus(status)}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                                selectedStatus === status
+                                    ? "bg-primary text-light"
+                                    : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
+                            }`}>
+                            {status.charAt(0).toUpperCase() + status.slice(1)}
+                        </button>
+                    ))}
                 </div>
 
                 {loading ? (
@@ -132,9 +181,21 @@ export function MyCampaigns() {
                             Create Campaign
                         </button>
                     </div>
+                ) : filteredCampaigns.length === 0 ? (
+                    <div className="text-center py-16">
+                        <AlertCircle className="w-16 h-16 text-text-secondary mx-auto mb-4" />
+                        <h2 className="text-2xl font-bold text-text mb-2">
+                            No {selectedStatus} campaigns
+                        </h2>
+                        <p className="text-text-secondary">
+                            {selectedStatus === "active"
+                                ? "All your campaigns have ended. Start a new one!"
+                                : "You don't have any ended campaigns yet."}
+                        </p>
+                    </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {campaigns.map((campaign, index) => (
+                        {filteredCampaigns.map((campaign, index) => (
                             <motion.div
                                 key={campaign.id}
                                 initial={{ opacity: 0, y: 20 }}
@@ -162,11 +223,18 @@ export function MyCampaigns() {
                                             </div>
                                             <span
                                                 className={`text-sm px-2 py-1 rounded-full ${
+                                                    new Date(
+                                                        campaign.deadline
+                                                    ) >= new Date() &&
                                                     campaign.status === "active"
                                                         ? "bg-success/80"
                                                         : "bg-error/80"
                                                 }`}>
-                                                {campaign.status}
+                                                {new Date(campaign.deadline) >=
+                                                    new Date() &&
+                                                campaign.status === "active"
+                                                    ? "Active"
+                                                    : "Ended"}
                                             </span>
                                         </div>
                                     </div>

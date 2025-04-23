@@ -1,7 +1,8 @@
 import { ArrowLeft } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { useWallet } from "../../hooks/useWallet";
 import { supabase } from "../../lib/supabase";
 import { CAMPAIGN_CATEGORIES } from "../../lib/types";
 import { FundingInput } from "./components/FundingInput";
@@ -22,13 +23,21 @@ interface FormData {
     images: File[];
 }
 
+declare global {
+    interface Window {
+        ethereum?: any;
+    }
+}
+
 export function NewFund() {
     const { user } = useAuth();
+    const { address, loading: walletLoading } = useWallet();
     const navigate = useNavigate();
     const [currentStep, setCurrentStep] = useState(1);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+    const [hasMetaMask, setHasMetaMask] = useState<boolean>(false);
     const [formData, setFormData] = useState<FormData>({
         title: "",
         category: "",
@@ -42,6 +51,13 @@ export function NewFund() {
             .split("T")[0],
         images: [],
     });
+
+    useEffect(() => {
+        const checkMetaMask = () => {
+            setHasMetaMask(!!window.ethereum);
+        };
+        checkMetaMask();
+    }, []);
 
     const completionScore = useMemo(() => {
         const requiredFields = {
@@ -170,6 +186,75 @@ export function NewFund() {
     const handleBack = () => {
         navigate(-1);
     };
+
+    // Render functions
+    const renderMetaMaskRequired = () => (
+        <div className="min-h-screen bg-background flex items-center justify-center">
+            <div className="max-w-md w-full mx-auto px-4 py-8">
+                <div className="bg-surface rounded-xl shadow-lg p-8 text-center">
+                    <div className="text-6xl mb-4">🦊</div>
+                    <h1 className="text-2xl font-bold text-text mb-4">
+                        MetaMask Required
+                    </h1>
+                    <p className="text-text-secondary mb-6">
+                        To create a campaign, you need to have MetaMask
+                        installed in your browser. MetaMask allows you to
+                        securely manage your cryptocurrency and interact with
+                        blockchain applications.
+                    </p>
+                    <a
+                        href="https://metamask.io/download/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full px-6 py-3 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors mb-4">
+                        Install MetaMask
+                    </a>
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="w-full px-6 py-3 bg-background text-text-secondary rounded-lg hover:bg-background-alt transition-colors">
+                        Go Back
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+
+    const renderConnectWallet = () => (
+        <div className="min-h-screen bg-background flex items-center justify-center">
+            <div className="max-w-md w-full mx-auto px-4 py-8">
+                <div className="bg-surface rounded-xl shadow-lg p-8 text-center">
+                    <div className="text-6xl mb-4">🔑</div>
+                    <h1 className="text-2xl font-bold text-text mb-4">
+                        Connect Your Wallet
+                    </h1>
+                    <p className="text-text-secondary mb-6">
+                        You need to connect your wallet to create a new
+                        campaign. This allows you to receive funds and manage
+                        your campaign securely.
+                    </p>
+                    <button
+                        onClick={() => navigate("/settings?tab=wallet")}
+                        className="w-full px-6 py-3 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors mb-4">
+                        Connect Wallet
+                    </button>
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="w-full px-6 py-3 bg-background text-text-secondary rounded-lg hover:bg-background-alt transition-colors">
+                        Go Back
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+
+    // Main render logic
+    if (!hasMetaMask) {
+        return renderMetaMaskRequired();
+    }
+
+    if (!address) {
+        return renderConnectWallet();
+    }
 
     if (currentStep === 4) {
         return (

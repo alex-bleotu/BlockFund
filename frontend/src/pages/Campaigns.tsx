@@ -17,13 +17,14 @@ import { useEthPrice } from "../hooks/useEthPrice";
 import { supabase } from "../lib/supabase";
 import { Campaign, CAMPAIGN_CATEGORIES } from "../lib/types";
 
+type CampaignStatus = "active" | "ended";
+
 export function Campaigns() {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [filteredCampaigns, setFilteredCampaigns] = useState<Campaign[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>("all");
-    const [selectedStatus, setSelectedStatus] = useState<"active" | "ended">(
-        "active"
-    );
+    const [selectedStatus, setSelectedStatus] =
+        useState<CampaignStatus>("active");
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -61,7 +62,9 @@ export function Campaigns() {
 
         const now = new Date();
         filtered = filtered.filter((campaign) => {
-            const isEnded = new Date(campaign.deadline) < now;
+            const isEnded =
+                new Date(campaign.deadline) < now ||
+                campaign.status !== "active";
             return selectedStatus === "ended" ? isEnded : !isEnded;
         });
 
@@ -92,9 +95,14 @@ export function Campaigns() {
         const today = new Date();
         const diffTime = date.getTime() - today.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays < 0
-            ? `Ended on ${date.toLocaleDateString()}`
-            : `${diffDays} days left`;
+        return diffDays > 0 ? `${diffDays} days left` : "Ended";
+    };
+
+    const isCampaignEnded = (campaign: Campaign) => {
+        return (
+            new Date(campaign.deadline) < new Date() ||
+            campaign.status !== "active"
+        );
     };
 
     const stats = [

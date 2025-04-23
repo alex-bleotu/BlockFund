@@ -221,7 +221,7 @@ export function MobileDrawer() {
                                         onClick={handleLinkClick}
                                         className="flex items-center w-full px-4 py-2 text-light bg-primary hover:bg-primary-dark rounded-lg transition-colors justify-center">
                                         <PlusCircle className="w-5 h-5 mr-2" />
-                                        Start a Fund
+                                        Start a Campaign
                                     </Link>
 
                                     <button

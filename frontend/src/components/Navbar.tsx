@@ -37,7 +37,7 @@ export function Navbar() {
                                     <Link
                                         to="/campaign/new"
                                         className="px-4 py-2.5 text-sm font-medium text-light bg-primary rounded-lg hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
-                                        Start a Fund
+                                        Start a Campaign
                                     </Link>
                                     <ProfileMenu />
                                 </>
