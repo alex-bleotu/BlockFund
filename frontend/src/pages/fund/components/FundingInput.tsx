@@ -17,18 +17,6 @@ export function FundingInput({
     const [usdAmount, setUsdAmount] = useState(initialUsdAmount || "");
     const [ethAmount, setEthAmount] = useState(value || "");
 
-    useEffect(() => {
-        if (initialUsdAmount) {
-            setUsdAmount(initialUsdAmount);
-            const parsed = parseFloat(initialUsdAmount);
-            if (!isNaN(parsed) && parsed >= 0 && ethPrice) {
-                const convertedEth = (parsed / ethPrice).toString();
-                setEthAmount(convertedEth);
-                onChange(convertedEth);
-            }
-        }
-    }, [initialUsdAmount, ethPrice]);
-
     const handleUsdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputVal = e.target.value;
         if (/^\d*\.?\d*$/.test(inputVal)) {
@@ -36,7 +24,7 @@ export function FundingInput({
             const parsed = parseFloat(inputVal);
 
             if (!isNaN(parsed) && parsed >= 0 && ethPrice) {
-                const convertedEth = (parsed / ethPrice).toFixed(3);
+                const convertedEth = (parsed / ethPrice).toFixed(4);
                 setEthAmount(convertedEth);
                 onChange(convertedEth);
             } else {
@@ -50,18 +38,23 @@ export function FundingInput({
         const inputVal = e.target.value;
         if (/^\d*\.?\d*$/.test(inputVal)) {
             setEthAmount(inputVal);
-            const parsed = parseFloat(inputVal);
+            onChange(inputVal);
 
+            const parsed = parseFloat(inputVal);
             if (!isNaN(parsed) && parsed >= 0 && ethPrice) {
-                const convertedUsd = (parsed * ethPrice).toFixed(3);
+                const convertedUsd = (parsed * ethPrice).toFixed(2);
                 setUsdAmount(convertedUsd);
-                onChange(inputVal);
             } else {
                 setUsdAmount("");
-                onChange("");
             }
         }
     };
+
+    useEffect(() => {
+        if (value !== ethAmount) {
+            setEthAmount(value);
+        }
+    }, [value]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (

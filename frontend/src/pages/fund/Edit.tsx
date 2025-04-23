@@ -2,6 +2,7 @@ import { AlertTriangle, ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { useEthPrice } from "../../hooks/useEthPrice";
 import { supabase } from "../../lib/supabase";
 import { CAMPAIGN_CATEGORIES, CampaignFormData } from "../../lib/types";
 import { FundingInput } from "./components/FundingInput";
@@ -13,14 +14,18 @@ export function EditFund() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { user } = useAuth();
+    const { ethPrice } = useEthPrice();
     const [currentStep, setCurrentStep] = useState(1);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-    const [formData, setFormData] = useState<CampaignFormData>({
+    const [formData, setFormData] = useState<
+        CampaignFormData & { usdAmount: string }
+    >({
         title: "",
         category: "",
         goal: "",
+        usdAmount: "",
         summary: "",
         description: "",
         location: "",
@@ -55,6 +60,7 @@ export function EditFund() {
             setFormData({
                 ...data,
                 goal: data.goal.toString(),
+                usdAmount: ethPrice ? (data.goal * ethPrice).toFixed(2) : "",
                 images: data.images || [],
             });
             setPreviewUrls(data.images || []);
@@ -74,7 +80,13 @@ export function EditFund() {
     };
 
     const handleGoalChange = (value: string) => {
-        setFormData((prev) => ({ ...prev, goal: value }));
+        setFormData((prev) => ({
+            ...prev,
+            goal: value,
+            usdAmount: ethPrice
+                ? (parseFloat(value || "0") * ethPrice).toFixed(2)
+                : "",
+        }));
     };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -293,8 +305,9 @@ export function EditFund() {
                                 </div>
 
                                 <FundingInput
-                                    value={formData.goal as string}
+                                    value={formData.goal}
                                     onChange={handleGoalChange}
+                                    initialUsdAmount={formData.usdAmount}
                                 />
 
                                 <div>

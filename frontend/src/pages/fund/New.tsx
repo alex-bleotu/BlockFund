@@ -116,7 +116,7 @@ export function NewFund() {
             const { supabaseData, error: launchError } = await launchCampaign(
                 {
                     ...formData,
-                    goal: parseFloat(formData.goal),
+                    goal: parseFloat(formData.goal || "0"),
                     images: previewUrls,
                 },
                 formData.images,
@@ -166,9 +166,9 @@ export function NewFund() {
                         <PreviewStep
                             campaign={{
                                 ...formData,
-                                goal: parseFloat(formData.goal),
                                 images: previewUrls,
                             }}
+                            previewUrls={previewUrls}
                             onBack={prevStep}
                             onSubmit={handleSubmit}
                             loading={loading}
