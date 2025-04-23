@@ -18,9 +18,9 @@ export function Navbar() {
 
                     <div className="hidden md:flex items-center">
                         <Link
-                            to="/fundings"
+                            to="/campaigns"
                             className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-                                location.pathname === "/fundings"
+                                location.pathname === "/campaigns"
                                     ? "text-primary bg-primary-light"
                                     : "text-text-secondary hover:text-primary hover:bg-primary-light/50"
                             }`}>
@@ -35,7 +35,7 @@ export function Navbar() {
                             {user ? (
                                 <>
                                     <Link
-                                        to="/fund/new"
+                                        to="/campaign/new"
                                         className="px-4 py-2.5 text-sm font-medium text-light bg-primary rounded-lg hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
                                         Start a Fund
                                     </Link>

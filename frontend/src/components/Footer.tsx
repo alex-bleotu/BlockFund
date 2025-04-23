@@ -29,7 +29,7 @@ export function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    to="/fund/new"
+                                    to="/campaign/new"
                                     className="text-text-secondary hover:text-primary transition-colors">
                                     Start a Fund
                                 </Link>

@@ -144,10 +144,10 @@ export function MobileDrawer() {
 
                                 <nav className="p-4 space-y-2">
                                     <Link
-                                        to="/fundings"
+                                        to="/campaigns"
                                         onClick={handleLinkClick}
                                         className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors ${
-                                            location.pathname === "/fundings"
+                                            location.pathname === "/campaigns"
                                                 ? "bg-primary-light text-primary"
                                                 : "text-text-secondary hover:bg-background-alt"
                                         }`}>
@@ -217,7 +217,7 @@ export function MobileDrawer() {
 
                                 <div className="p-4 space-y-3">
                                     <Link
-                                        to="/fund/new"
+                                        to="/campaign/new"
                                         onClick={handleLinkClick}
                                         className="flex items-center w-full px-4 py-2 text-light bg-primary hover:bg-primary-dark rounded-lg transition-colors justify-center">
                                         <PlusCircle className="w-5 h-5 mr-2" />

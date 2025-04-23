@@ -21,6 +21,9 @@ export function Campaigns() {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [filteredCampaigns, setFilteredCampaigns] = useState<Campaign[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>("all");
+    const [selectedStatus, setSelectedStatus] = useState<"active" | "ended">(
+        "active"
+    );
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -33,7 +36,7 @@ export function Campaigns() {
 
     useEffect(() => {
         filterCampaigns();
-    }, [selectedCategory, searchQuery, campaigns]);
+    }, [selectedCategory, selectedStatus, searchQuery, campaigns]);
 
     const fetchCampaigns = async () => {
         try {
@@ -41,7 +44,6 @@ export function Campaigns() {
             const { data, error } = await supabase
                 .from("campaigns")
                 .select("*")
-                .eq("status", "active")
                 .order("created_at", { ascending: false });
 
             if (error) throw error;
@@ -56,6 +58,12 @@ export function Campaigns() {
 
     const filterCampaigns = () => {
         let filtered = [...campaigns];
+
+        const now = new Date();
+        filtered = filtered.filter((campaign) => {
+            const isEnded = new Date(campaign.deadline) < now;
+            return selectedStatus === "ended" ? isEnded : !isEnded;
+        });
 
         if (selectedCategory !== "all") {
             filtered = filtered.filter(
@@ -84,29 +92,32 @@ export function Campaigns() {
         const today = new Date();
         const diffTime = date.getTime() - today.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return `${diffDays} days left`;
+        return diffDays < 0
+            ? `Ended on ${date.toLocaleDateString()}`
+            : `${diffDays} days left`;
     };
 
     const stats = [
         {
             icon: TrendingUp,
             value: campaigns
-                .reduce((acc, curr) => acc + curr.current_amount, 0)
+                .reduce((acc, curr) => acc + (curr.raised || 0), 0)
                 .toFixed(2),
             label: "ETH Raised",
             color: "text-primary",
         },
         {
             icon: Users,
-            value: campaigns.length,
+            value: campaigns.filter((c) => new Date(c.deadline) >= new Date())
+                .length,
             label: "Active Campaigns",
             color: "text-success",
         },
         {
             icon: Clock,
-            value: campaigns.filter((c) => new Date(c.deadline) > new Date())
+            value: campaigns.filter((c) => new Date(c.deadline) < new Date())
                 .length,
-            label: "Ending Soon",
+            label: "Ended Campaigns",
             color: "text-error",
         },
     ];
@@ -152,7 +163,7 @@ export function Campaigns() {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Search campaigns..."
-                                className="w-full pl-10 pr-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text"
+                                className="w-full pl-10 pr-4 py-2 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text"
                             />
                         </div>
                         <div className="md:hidden block relative min-w-[200px]">
@@ -170,6 +181,27 @@ export function Campaigns() {
                                     </option>
                                 ))}
                             </select>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => setSelectedStatus("active")}
+                                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                                    selectedStatus === "active"
+                                        ? "bg-primary text-light"
+                                        : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
+                                }`}>
+                                Active
+                            </button>
+                            <button
+                                onClick={() => setSelectedStatus("ended")}
+                                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                                    selectedStatus === "ended"
+                                        ? "bg-primary text-light"
+                                        : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
+                                }`}>
+                                Ended
+                            </button>
                         </div>
                     </div>
 
@@ -242,7 +274,8 @@ export function Campaigns() {
                                                     initial={{ width: 0 }}
                                                     animate={{
                                                         width: `${calculateProgress(
-                                                            campaign.current_amount,
+                                                            campaign.raised ||
+                                                                0,
                                                             campaign.goal
                                                         )}%`,
                                                     }}
@@ -255,14 +288,15 @@ export function Campaigns() {
                                             </div>
                                             <div className="flex justify-between items-center mt-2 text-sm">
                                                 <span className="text-text-secondary">
-                                                    {campaign.current_amount.toFixed(
-                                                        2
-                                                    )}{" "}
+                                                    {(
+                                                        campaign.raised || 0
+                                                    ).toFixed(2)}{" "}
                                                     ETH raised
                                                 </span>
                                                 <span className="text-text font-medium">
                                                     {(
-                                                        (campaign.current_amount /
+                                                        ((campaign.raised ||
+                                                            0) /
                                                             campaign.goal) *
                                                         100
                                                     ).toFixed(1)}
@@ -273,7 +307,7 @@ export function Campaigns() {
                                                 <div className="text-xs text-text-secondary mt-1">
                                                     ≈ $
                                                     {(
-                                                        campaign.current_amount *
+                                                        (campaign.raised || 0) *
                                                         ethPrice
                                                     ).toLocaleString()}{" "}
                                                     USD
@@ -321,7 +355,7 @@ export function Campaigns() {
                     transition={{ delay: 0.3 }}
                     className="mt-16 text-center">
                     <button
-                        onClick={() => navigate("/fund/new")}
+                        onClick={() => navigate("/campaign/new")}
                         className="inline-flex items-center px-8 py-4 bg-primary text-light rounded-xl hover:bg-primary-dark transition-colors group shadow-lg hover:shadow-xl">
                         <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
                         Start Your Campaign

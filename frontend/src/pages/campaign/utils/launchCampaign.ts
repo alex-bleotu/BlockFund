@@ -9,19 +9,7 @@ export async function launchCampaign(
     userId: string
 ): Promise<{ supabaseData: Campaign; txHash: string; error: Error | null }> {
     try {
-        const imageUrls = await Promise.all(
-            images.map(async (file) => {
-                const fileName = `${userId}/${Date.now()}-${file.name}`;
-                const { data, error } = await supabase.storage
-                    .from("campaign-images")
-                    .upload(fileName, file);
-
-                if (error) throw error;
-                return data.path;
-            })
-        );
-
-        // Step 2: Store metadata in Supabase
+        // Step 1: Store metadata in Supabase
         const { data: supabaseData, error: supabaseError } = await supabase
             .from("campaigns")
             .insert([
@@ -29,10 +17,13 @@ export async function launchCampaign(
                     creator_id: userId,
                     title: campaign.title,
                     category: campaign.category,
+                    goal: parseFloat(campaign.goal as string),
                     summary: campaign.summary,
                     description: campaign.description,
                     location: campaign.location || null,
-                    images: imageUrls,
+                    deadline: campaign.deadline,
+                    images: campaign.images,
+                    status: "active",
                 },
             ])
             .select()
@@ -40,7 +31,7 @@ export async function launchCampaign(
 
         if (supabaseError) throw supabaseError;
 
-        // Step 3: Interact with the blockchain
+        // Step 2: Interact with the blockchain
         const goal = ethers.parseEther(campaign.goal as string); // Convert goal to wei
         const deadline = Math.floor(
             new Date(campaign.deadline).getTime() / 1000
@@ -54,8 +45,6 @@ export async function launchCampaign(
             metadataCID
         );
         const receipt = await tx.wait();
-
-        console.log("Blockchain transaction receipt:", receipt);
 
         return { supabaseData, txHash: receipt.transactionHash, error: null };
     } catch (error) {

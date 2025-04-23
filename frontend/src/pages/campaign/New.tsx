@@ -2,6 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { supabase } from "../../lib/supabase";
 import { CAMPAIGN_CATEGORIES } from "../../lib/types";
 import { FundingInput } from "./components/FundingInput";
 import { ImageUpload } from "./components/ImageUpload";
@@ -113,15 +114,28 @@ export function NewFund() {
             setLoading(true);
             setError(null);
 
+            const imageUrls = await Promise.all(
+                formData.images.map(async (file) => {
+                    const fileName = `${user.id}/${Date.now()}-${file.name}`;
+                    const { data, error } = await supabase.storage
+                        .from("campaign-images")
+                        .upload(fileName, file);
+
+                    if (error) throw error;
+                    return data.path;
+                })
+            );
+
             const { supabaseData, error: launchError } = await launchCampaign(
                 {
                     ...formData,
                     goal: parseFloat(formData.goal || "0"),
-                    images: previewUrls,
+                    images: imageUrls,
                 },
                 formData.images,
                 user.id
             );
+
             if (launchError) throw launchError;
             navigate(`/campaign/${supabaseData.id}`);
         } catch (err: any) {
@@ -172,6 +186,7 @@ export function NewFund() {
                             onBack={prevStep}
                             onSubmit={handleSubmit}
                             loading={loading}
+                            mode="create"
                         />
                     </div>
                 </div>
@@ -366,7 +381,14 @@ export function NewFund() {
                             <button
                                 type="button"
                                 onClick={nextStep}
-                                className="ml-auto px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors">
+                                disabled={
+                                    currentStep === 3 && completionScore < 100
+                                }
+                                className={`ml-auto px-6 py-2 rounded-lg transition-colors ${
+                                    currentStep === 3 && completionScore < 100
+                                        ? "bg-primary/50 text-light/50 cursor-not-allowed"
+                                        : "bg-primary text-light hover:bg-primary-dark"
+                                }`}>
                                 {currentStep === 3 ? "Preview" : "Next Step"}
                             </button>
                         </div>

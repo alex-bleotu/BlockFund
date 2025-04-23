@@ -9,6 +9,7 @@ interface PreviewStepProps {
     onBack: () => void;
     onSubmit: () => void;
     loading: boolean;
+    mode: "create" | "edit";
 }
 
 export function PreviewStep({
@@ -17,6 +18,7 @@ export function PreviewStep({
     onBack,
     onSubmit,
     loading,
+    mode,
 }: PreviewStepProps) {
     const { user } = useAuth();
     const { ethPrice } = useEthPrice();
@@ -76,7 +78,11 @@ export function PreviewStep({
                         onClick={onSubmit}
                         disabled={loading}
                         className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50">
-                        {loading ? "Saving..." : "Save Campaign"}
+                        {loading
+                            ? "Saving..."
+                            : mode === "create"
+                            ? "Launch Campaign"
+                            : "Save Changes"}
                     </button>
                 </div>
             </div>

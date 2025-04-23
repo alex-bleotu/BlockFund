@@ -56,7 +56,7 @@ export function MyCampaigns() {
 
     const handleEdit = (e: React.MouseEvent, campaign: Campaign) => {
         e.stopPropagation();
-        navigate(`/fund/edit/${campaign.id}`, { state: { campaign } });
+        navigate(`/campaign/edit/${campaign.id}`, { state: { campaign } });
     };
 
     const handleDelete = async () => {
@@ -102,7 +102,7 @@ export function MyCampaigns() {
                         My Campaigns
                     </h1>
                     <button
-                        onClick={() => navigate("/fund/new")}
+                        onClick={() => navigate("/campaign/new")}
                         className="flex items-center px-4 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors group">
                         <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
                         New Campaign
@@ -126,7 +126,7 @@ export function MyCampaigns() {
                             journey.
                         </p>
                         <button
-                            onClick={() => navigate("/fund/new")}
+                            onClick={() => navigate("/campaign/new")}
                             className="inline-flex items-center px-6 py-3 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors group">
                             <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
                             Create Campaign
@@ -186,7 +186,7 @@ export function MyCampaigns() {
                                                 className="h-full bg-primary transition-all duration-300"
                                                 style={{
                                                     width: `${calculateProgress(
-                                                        campaign.current_amount,
+                                                        campaign.raised || 0,
                                                         campaign.goal
                                                     )}%`,
                                                 }}
@@ -194,14 +194,14 @@ export function MyCampaigns() {
                                         </div>
                                         <div className="flex justify-between items-center mt-2 text-sm">
                                             <span className="text-text-secondary">
-                                                {campaign.current_amount.toFixed(
+                                                {(campaign.raised || 0).toFixed(
                                                     2
                                                 )}{" "}
                                                 ETH raised
                                             </span>
                                             <span className="text-text font-medium">
                                                 {(
-                                                    (campaign.current_amount /
+                                                    ((campaign.raised || 0) /
                                                         campaign.goal) *
                                                     100
                                                 ).toFixed(1)}
@@ -212,7 +212,7 @@ export function MyCampaigns() {
                                             <div className="text-xs text-text-secondary mt-1">
                                                 ≈ $
                                                 {(
-                                                    campaign.current_amount *
+                                                    (campaign.raised || 0) *
                                                     ethPrice
                                                 ).toLocaleString()}{" "}
                                                 USD

@@ -1,4 +1,4 @@
-import { AlertTriangle, ArrowLeft } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Power } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -8,6 +8,7 @@ import { CAMPAIGN_CATEGORIES, CampaignFormData } from "../../lib/types";
 import { FundingInput } from "./components/FundingInput";
 import { ImageUpload } from "./components/ImageUpload";
 import { PreviewStep } from "./components/PreviewStep";
+import { StatusModal } from "./components/StatusModal";
 import { StepIndicator } from "./components/StepIndicator";
 
 export function EditFund() {
@@ -32,6 +33,9 @@ export function EditFund() {
         deadline: "",
         images: [],
     });
+    const [showStatusModal, setShowStatusModal] = useState(false);
+    const [statusLoading, setStatusLoading] = useState(false);
+    const [campaignStatus, setCampaignStatus] = useState<string>("active");
 
     useEffect(() => {
         if (id) {
@@ -63,6 +67,7 @@ export function EditFund() {
                 usdAmount: ethPrice ? (data.goal * ethPrice).toFixed(2) : "",
                 images: data.images || [],
             });
+            setCampaignStatus(data.status || "active");
             setPreviewUrls(data.images || []);
         } catch (err: any) {
             console.error("Error fetching campaign:", err);
@@ -192,6 +197,34 @@ export function EditFund() {
         setFormData((prev) => ({ ...prev, category }));
     };
 
+    const handleStatusChange = async () => {
+        if (!user || !id) return;
+
+        try {
+            setStatusLoading(true);
+            const newStatus =
+                campaignStatus === "active" ? "inactive" : "active";
+
+            console.log(await supabase.auth.getSession());
+
+            const { error } = await supabase
+                .from("campaigns")
+                .update({ status: newStatus })
+                .eq("id", id)
+                .eq("creator_id", user.id);
+
+            if (error) throw error;
+
+            setCampaignStatus(newStatus);
+            setShowStatusModal(false);
+        } catch (err: any) {
+            console.error("Error updating campaign status:", err);
+            setError(err.message || "Failed to update campaign status");
+        } finally {
+            setStatusLoading(false);
+        }
+    };
+
     if (loading) {
         return (
             <div className="min-h-screen bg-background pt-24 flex items-center justify-center">
@@ -228,6 +261,7 @@ export function EditFund() {
                             onBack={prevStep}
                             onSubmit={handleSubmit}
                             loading={loading}
+                            mode="edit"
                         />
                     </div>
                 </div>
@@ -238,12 +272,24 @@ export function EditFund() {
     return (
         <div className="min-h-screen bg-background">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <button
-                    onClick={() => navigate(-1)}
-                    className="flex items-center text-text-secondary hover:text-text mb-6 transition-colors">
-                    <ArrowLeft className="w-5 h-5 mr-2" />
-                    Back
-                </button>
+                <div className="flex items-center justify-between mb-6">
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="flex items-center text-text-secondary hover:text-text transition-colors">
+                        <ArrowLeft className="w-5 h-5 mr-2" />
+                        Back
+                    </button>
+                    <button
+                        onClick={() => setShowStatusModal(true)}
+                        className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+                            campaignStatus === "active"
+                                ? "bg-success/10 text-success hover:bg-success/20"
+                                : "bg-error/10 text-error hover:bg-error/20"
+                        }`}>
+                        <Power className="w-4 h-4 mr-2" />
+                        {campaignStatus === "active" ? "Active" : "Inactive"}
+                    </button>
+                </div>
 
                 <div className="bg-surface rounded-xl shadow-lg p-6 md:p-8">
                     <div className="flex justify-between items-center mb-6">
@@ -417,6 +463,14 @@ export function EditFund() {
                     </form>
                 </div>
             </div>
+
+            <StatusModal
+                isOpen={showStatusModal}
+                onClose={() => setShowStatusModal(false)}
+                onConfirm={handleStatusChange}
+                currentStatus={campaignStatus}
+                loading={statusLoading}
+            />
         </div>
     );
 }
