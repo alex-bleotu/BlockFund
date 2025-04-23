@@ -314,7 +314,7 @@ export function EditFund() {
                                                 .toISOString()
                                                 .split("T")[0]
                                         }
-                                        className="w-full px-4 px-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
+                                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                     />
                                 </div>
                             </div>

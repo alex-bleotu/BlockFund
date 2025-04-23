@@ -6,9 +6,16 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
+const routerConfig = {
+    future: {
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+    },
+};
+
 export default function App() {
     return (
-        <Router>
+        <Router {...routerConfig}>
             <ThemeProvider>
                 <AuthProvider>
                     <div className="flex flex-col min-h-screen">

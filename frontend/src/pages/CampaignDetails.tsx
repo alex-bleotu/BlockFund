@@ -18,6 +18,7 @@ import { ContactModal } from "../components/ContactModal";
 import { SupportModal } from "../components/SupportModal";
 import { useCampaignActions } from "../hooks/useCampaignActions";
 import { useEthPrice } from "../hooks/useEthPrice";
+import { useMetaMask } from "../hooks/useMetaMask";
 import { supabase } from "../lib/supabase";
 import { Campaign } from "../lib/types";
 
@@ -33,6 +34,7 @@ export function CampaignDetails() {
     const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
     const [showCopiedTooltip, setShowCopiedTooltip] = useState(false);
     const { isLiked, toggleLike, shareCampaign } = useCampaignActions(id || "");
+    const { isConnected, connect, isInstalled, isLocked } = useMetaMask();
 
     useEffect(() => {
         if (id) {
@@ -85,6 +87,7 @@ export function CampaignDetails() {
                 day: "numeric",
             }),
             daysLeft: diffDays,
+            hasEnded: diffDays < 0,
         };
     };
 
@@ -118,6 +121,7 @@ export function CampaignDetails() {
     }
 
     const campaignEndDate = formatDate(campaign.deadline);
+    const raised = campaign.raised || 0;
 
     return (
         <div className="min-h-screen bg-background pt-24 pb-16">
@@ -216,7 +220,7 @@ export function CampaignDetails() {
                                         initial={{ width: 0 }}
                                         animate={{
                                             width: `${calculateProgress(
-                                                campaign.current_amount,
+                                                raised,
                                                 campaign.goal
                                             )}%`,
                                         }}
@@ -227,15 +231,13 @@ export function CampaignDetails() {
                                 <div className="flex justify-between items-center mt-2">
                                     <div>
                                         <div className="text-2xl font-bold text-text">
-                                            {campaign.current_amount.toFixed(2)}{" "}
-                                            ETH
+                                            {raised.toFixed(2)} ETH
                                         </div>
                                         {ethPrice && (
                                             <div className="text-sm text-text-secondary">
                                                 ≈ $
                                                 {(
-                                                    campaign.current_amount *
-                                                    ethPrice
+                                                    raised * ethPrice
                                                 ).toLocaleString()}{" "}
                                                 USD
                                             </div>
@@ -244,8 +246,7 @@ export function CampaignDetails() {
                                     <div className="text-right">
                                         <div className="text-lg font-medium text-text">
                                             {(
-                                                (campaign.current_amount /
-                                                    campaign.goal) *
+                                                (raised / campaign.goal) *
                                                 100
                                             ).toFixed(1)}
                                             %
@@ -278,8 +279,9 @@ export function CampaignDetails() {
                                         <div className="flex items-center">
                                             <Calendar className="w-5 h-5 mr-2" />
                                             <span>
-                                                {campaignEndDate.daysLeft} days
-                                                left
+                                                {campaignEndDate.hasEnded
+                                                    ? "Campaign Ended"
+                                                    : `${campaignEndDate.daysLeft} days left`}
                                             </span>
                                         </div>
                                         <span>{campaignEndDate.formatted}</span>
@@ -299,13 +301,42 @@ export function CampaignDetails() {
                                         </div>
                                     )}
 
-                                    <button
-                                        onClick={() =>
-                                            setIsSupportModalOpen(true)
-                                        }
-                                        className="w-full py-3 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors">
-                                        Support this Campaign
-                                    </button>
+                                    <div className="flex flex-col gap-1.5">
+                                        <button
+                                            onClick={() => {
+                                                if (!isConnected || isLocked) {
+                                                    connect();
+                                                    return;
+                                                }
+                                                setIsSupportModalOpen(true);
+                                            }}
+                                            disabled={
+                                                campaignEndDate.hasEnded ||
+                                                !isInstalled ||
+                                                !isConnected ||
+                                                isLocked
+                                            }
+                                            className={`w-full py-3 rounded-lg transition-colors ${
+                                                campaignEndDate.hasEnded
+                                                    ? "bg-gray-400 cursor-not-allowed text-light/75"
+                                                    : "bg-primary text-light hover:bg-primary-dark disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-light/75"
+                                            }`}>
+                                            {campaignEndDate.hasEnded
+                                                ? "Campaign Ended"
+                                                : "Support this Campaign"}
+                                        </button>
+                                        <p className="text-sm text-text-secondary text-center">
+                                            {campaignEndDate.hasEnded
+                                                ? "This campaign has ended."
+                                                : !isInstalled
+                                                ? "MetaMask is not installed."
+                                                : isLocked
+                                                ? "Your wallet is locked. Please unlock it to continue."
+                                                : !isConnected
+                                                ? "Connect your wallet to support this campaign."
+                                                : "Support this campaign with ETH."}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 
@@ -343,8 +374,8 @@ export function CampaignDetails() {
                 isOpen={isContactModalOpen}
                 onClose={() => setIsContactModalOpen(false)}
                 creatorName={campaign.profiles?.username || "Creator"}
-                campaignId={campaign.id}
-                creatorId={campaign.creator_id}
+                campaignId={campaign.id || ""}
+                creatorId={campaign.creator_id || ""}
             />
 
             <SupportModal
@@ -352,7 +383,7 @@ export function CampaignDetails() {
                 onClose={() => setIsSupportModalOpen(false)}
                 campaignTitle={campaign.title}
                 campaignGoal={campaign.goal}
-                currentAmount={campaign.current_amount}
+                currentAmount={raised}
                 onSupport={handleSupport}
             />
         </div>
