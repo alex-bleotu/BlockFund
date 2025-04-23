@@ -113,7 +113,6 @@ export function EditFund() {
             setLoading(true);
             setError(null);
 
-            // Upload new images if any
             const newImages = formData.images.filter(
                 (img): img is File => img instanceof File
             );
@@ -188,8 +187,6 @@ export function EditFund() {
             setStatusLoading(true);
             const newStatus =
                 campaignStatus === "active" ? "inactive" : "active";
-
-            console.log(await supabase.auth.getSession());
 
             const { error } = await supabase
                 .from("campaigns")
