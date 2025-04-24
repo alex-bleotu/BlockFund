@@ -277,6 +277,7 @@ export function NewFund() {
                             onSubmit={handleSubmit}
                             loading={loading}
                             mode="create"
+                            error={error}
                         />
                     </div>
                 </div>

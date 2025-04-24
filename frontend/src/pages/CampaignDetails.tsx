@@ -3,6 +3,8 @@ import {
     AlertCircle,
     ArrowLeft,
     Calendar,
+    ChevronLeft,
+    ChevronRight,
     Copy,
     Heart,
     MapPin,
@@ -93,6 +95,20 @@ export function CampaignDetails() {
         };
     };
 
+    const handlePrevImage = () => {
+        if (!campaign?.images?.length) return;
+        setCurrentImageIndex((prev) =>
+            prev === 0 ? campaign.images.length - 1 : prev - 1
+        );
+    };
+
+    const handleNextImage = () => {
+        if (!campaign?.images?.length) return;
+        setCurrentImageIndex((prev) =>
+            prev === campaign.images.length - 1 ? 0 : prev + 1
+        );
+    };
+
     if (loading) {
         return (
             <div className="min-h-screen bg-background pt-24 flex items-center justify-center">
@@ -138,7 +154,11 @@ export function CampaignDetails() {
                 <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
                     <div className="space-y-8">
                         <div className="relative rounded-xl overflow-hidden shadow-lg bg-surface">
-                            <img
+                            <motion.img
+                                key={currentImageIndex}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.3 }}
                                 src={
                                     campaign.images[currentImageIndex] ||
                                     "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80"
@@ -147,21 +167,33 @@ export function CampaignDetails() {
                                 className="w-full h-[400px] object-cover"
                             />
                             {campaign.images.length > 1 && (
-                                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-                                    {campaign.images.map((_, index) => (
-                                        <button
-                                            key={index}
-                                            onClick={() =>
-                                                setCurrentImageIndex(index)
-                                            }
-                                            className={`w-2 h-2 rounded-full transition-colors ${
-                                                currentImageIndex === index
-                                                    ? "bg-primary"
-                                                    : "bg-white/50 hover:bg-white/75"
-                                            }`}
-                                        />
-                                    ))}
-                                </div>
+                                <>
+                                    <button
+                                        onClick={handlePrevImage}
+                                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/75 transition-colors group">
+                                        <ChevronLeft className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                                    </button>
+                                    <button
+                                        onClick={handleNextImage}
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/75 transition-colors group">
+                                        <ChevronRight className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                                    </button>
+                                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                                        {campaign.images.map((_, index) => (
+                                            <button
+                                                key={index}
+                                                onClick={() =>
+                                                    setCurrentImageIndex(index)
+                                                }
+                                                className={`w-2 h-2 rounded-full transition-all ${
+                                                    currentImageIndex === index
+                                                        ? "bg-primary scale-125"
+                                                        : "bg-white/50 hover:bg-white/75"
+                                                }`}
+                                            />
+                                        ))}
+                                    </div>
+                                </>
                             )}
                         </div>
 

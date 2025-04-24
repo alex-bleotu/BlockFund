@@ -1,3 +1,4 @@
+import { AlertTriangle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import { CampaignFormData } from "../../../lib/types";
@@ -9,6 +10,7 @@ interface PreviewStepProps {
     onSubmit: () => void;
     loading: boolean;
     mode: "create" | "edit";
+    error?: string | null;
 }
 
 export function PreviewStep({
@@ -18,6 +20,7 @@ export function PreviewStep({
     onSubmit,
     loading,
     mode,
+    error: externalError,
 }: PreviewStepProps) {
     const { user } = useAuth();
     const [error, setError] = useState<string | null>(null);
@@ -30,6 +33,12 @@ export function PreviewStep({
             return () => clearTimeout(timer);
         }
     }, [error]);
+
+    useEffect(() => {
+        if (externalError) {
+            setError(externalError);
+        }
+    }, [externalError]);
 
     const handleSubmit = () => {
         if (!user) {
@@ -62,9 +71,10 @@ export function PreviewStep({
                 </div>
             </div>
 
-            {error && (
-                <div className="p-4 bg-error/10 text-error rounded-lg">
-                    {error}
+            {(error || externalError) && (
+                <div className="p-4 bg-error/10 text-error rounded-lg flex items-center">
+                    <AlertTriangle className="w-5 h-5 mr-2 flex-shrink-0" />
+                    <span>{error || externalError}</span>
                 </div>
             )}
 

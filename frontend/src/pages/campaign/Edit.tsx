@@ -278,6 +278,7 @@ export function EditFund() {
                             onSubmit={handleSubmit}
                             loading={loading}
                             mode="edit"
+                            error={error}
                         />
                     </div>
                 </div>

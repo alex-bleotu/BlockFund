@@ -22,6 +22,7 @@ export function TopCampaigns() {
             const { data, error } = await supabase
                 .from("campaigns")
                 .select("*")
+                .eq("status", "active")
                 .gt("deadline", now)
                 .order("current_amount", { ascending: false })
                 .limit(3);
