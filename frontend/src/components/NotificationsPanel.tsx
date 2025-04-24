@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Bell, Check, Mail, MessageCircle, X } from "lucide-react";
+import { Check, Mail, MessageCircle, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useMessages } from "../hooks/useMessages";
 
@@ -79,11 +79,10 @@ export function NotificationsPanel({
                                 }}
                                 className="fixed inset-y-0 right-0 sm:w-[350px] w-[250px] bg-surface shadow-xl">
                                 <div className="h-full flex flex-col">
-                                    <div className="px-6 py-4 border-b border-border">
+                                    <div className="px-4 py-4 border-b border-border">
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center space-x-3">
                                                 <div className="relative">
-                                                    <Bell className="w-6 h-6 text-primary" />
                                                     {unreadCount > 0 && (
                                                         <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-light text-xs font-medium rounded-full flex items-center justify-center">
                                                             {unreadCount}
@@ -153,7 +152,7 @@ export function NotificationsPanel({
                                                         <p className="text-lg font-medium">
                                                             No notifications yet
                                                         </p>
-                                                        <p className="text-sm">
+                                                        <p className="text-sm text-center px-2">
                                                             We'll notify you
                                                             when something
                                                             happens
