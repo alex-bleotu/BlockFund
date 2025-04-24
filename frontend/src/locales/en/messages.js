@@ -1,0 +1,1 @@
+/*eslint-disable*/module.exports={messages:JSON.parse("{\"PZDapt\":[\"Join the future of fundraising with blockchain technology. Transparent, secure, and efficient crowdfunding for the digital age.\"]}")};
