@@ -13,7 +13,7 @@ import {
     User,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ContactModal } from "../components/ContactModal";
 import { SupportModal } from "../components/SupportModal";
 import { useAuth } from "../hooks/useAuth";
@@ -49,7 +49,7 @@ export function CampaignDetails() {
             setLoading(true);
             const { data, error } = await supabase
                 .from("campaigns")
-                .select("*, profiles(username)")
+                .select("*, profiles(id, username)")
                 .eq("id", id)
                 .single();
 
@@ -354,12 +354,14 @@ export function CampaignDetails() {
                                 <h3 className="text-xl font-bold text-text mb-4">
                                     About the Creator
                                 </h3>
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center">
+                                <Link
+                                    to={`/profile/${campaign.creator_id}`}
+                                    className="flex items-center space-x-4 group hover:bg-background-alt p-2 rounded-lg transition-colors">
+                                    <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center group-hover:scale-105 transition-transform">
                                         <User className="w-6 h-6 text-primary" />
                                     </div>
                                     <div>
-                                        <div className="font-medium text-text">
+                                        <div className="font-medium text-text group-hover:text-primary transition-colors">
                                             {campaign.profiles?.username ||
                                                 "Campaign Creator"}
                                         </div>
@@ -367,7 +369,7 @@ export function CampaignDetails() {
                                             {campaign.location || "Creator"}
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                                 <button
                                     onClick={() => setIsContactModalOpen(true)}
                                     disabled={user?.id === campaign.creator_id}

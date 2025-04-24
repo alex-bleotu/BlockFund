@@ -226,11 +226,11 @@ export function MyCampaigns() {
                                             <span
                                                 className={`text-sm px-2 py-1 rounded-full ${
                                                     campaign.status !== "active"
-                                                        ? "bg-error/80"
+                                                        ? "bg-gray-800/80"
                                                         : new Date(
                                                               campaign.deadline
                                                           ) < new Date()
-                                                        ? "bg-gray-800/80"
+                                                        ? "bg-error/80"
                                                         : "bg-success/80"
                                                 }`}>
                                                 {campaign.status !== "active"

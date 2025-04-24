@@ -1,6 +1,6 @@
 import { AlertTriangle, Key, Lock, Shield, User, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useWallet } from "../hooks/useWallet";
 import { supabase } from "../lib/supabase";
@@ -311,6 +311,25 @@ export function Settings() {
                                                     ? "Saving..."
                                                     : "Save Changes"}
                                             </button>
+                                        </div>
+
+                                        <div className="border-t border-border mt-6 pt-6">
+                                            <div className="flex items-center justify-between">
+                                                <div>
+                                                    <h3 className="text-lg font-medium text-text">
+                                                        View Public Profile
+                                                    </h3>
+                                                    <p className="text-sm text-text-secondary">
+                                                        See how others view your
+                                                        profile
+                                                    </p>
+                                                </div>
+                                                <Link
+                                                    to={`/profile/${user?.id}`}
+                                                    className="px-4 py-2 text-sm font-medium text-primary border-2 border-primary hover:bg-primary hover:text-light rounded-lg transition-colors">
+                                                    View Profile
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
