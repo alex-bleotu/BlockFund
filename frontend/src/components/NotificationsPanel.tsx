@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, Mail, MessageCircle, X } from "lucide-react";
+import { Bell, Check, Mail, MessageCircle, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useMessages } from "../hooks/useMessages";
 
@@ -83,6 +83,7 @@ export function NotificationsPanel({
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center space-x-3">
                                                 <div className="relative">
+                                                    <Bell className="w-6 h-6 text-primary" />
                                                     {unreadCount > 0 && (
                                                         <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-light text-xs font-medium rounded-full flex items-center justify-center">
                                                             {unreadCount}
