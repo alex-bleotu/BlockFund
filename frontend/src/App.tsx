@@ -4,6 +4,7 @@ import { AppContent } from "./components/AppContent";
 import { MetaMaskStatus } from "./components/MetaMaskStatus";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { AuthProvider } from "./contexts/AuthContext";
+import { NotificationProvider } from "./contexts/NotificationContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
 const routerConfig = {
@@ -17,14 +18,16 @@ export default function App() {
     return (
         <Router {...routerConfig}>
             <ThemeProvider>
-                <AuthProvider>
-                    <div className="flex flex-col min-h-screen">
-                        <AppContent />
-                        <ScrollToTop />
-                        <MetaMaskStatus />
-                        <Toaster />
-                    </div>
-                </AuthProvider>
+                <NotificationProvider>
+                    <AuthProvider>
+                        <div className="flex flex-col min-h-screen">
+                            <AppContent />
+                            <ScrollToTop />
+                            <MetaMaskStatus />
+                            <Toaster />
+                        </div>
+                    </AuthProvider>
+                </NotificationProvider>
             </ThemeProvider>
         </Router>
     );

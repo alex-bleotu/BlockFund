@@ -1,7 +1,9 @@
+import { format } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bell, Check, Mail, MessageCircle, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Message, useMessages } from "../hooks/useMessages";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useNotifications } from "../contexts/NotificationContext";
+import { useMessages, type Message } from "../hooks/useMessages";
 import { NotificationModal } from "./NotificationModal";
 
 interface NotificationsPanelProps {
@@ -13,13 +15,28 @@ export function NotificationsPanel({
     isOpen,
     onClose,
 }: NotificationsPanelProps) {
-    const { messages, unreadCount, loading, markAsRead, markAllAsRead } =
-        useMessages();
+    const {
+        messages,
+        unreadCount,
+        loading,
+        markAsRead,
+        markAllAsRead,
+        refresh,
+    } = useMessages();
     const [activeTab, setActiveTab] = useState<"all" | "unread">("all");
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(
         null
     );
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [filteredMessages, setFilteredMessages] = useState<Message[]>([]);
+    const panelRef = useRef<HTMLDivElement>(null);
+    const { forceRefreshBadge } = useNotifications();
+
+    useEffect(() => {
+        if (isOpen) {
+            refresh();
+        }
+    }, [isOpen, refresh]);
 
     useEffect(() => {
         if (isOpen) {
@@ -32,50 +49,70 @@ export function NotificationsPanel({
         };
     }, [isOpen]);
 
-    const handleMessageClick = (message: Message) => {
-        if (!message.read) {
-            markAsRead(message.id);
+    useEffect(() => {
+        if (activeTab === "all") {
+            setFilteredMessages(messages);
+        } else {
+            setFilteredMessages(messages.filter((message) => !message.read));
         }
-        setSelectedMessage(message);
-        setIsModalOpen(true);
-        onClose(); // Close the notifications panel
-    };
+    }, [messages, activeTab]);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                panelRef.current &&
+                !panelRef.current.contains(event.target as Node)
+            ) {
+                onClose();
+            }
+        };
+
+        if (isOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isOpen, onClose]);
+
+    const handleMessageClick = useCallback(
+        async (message: Message) => {
+            if (!message.read) {
+                await markAsRead(message.id);
+            }
+            setSelectedMessage(message);
+            setIsModalOpen(true);
+        },
+        [markAsRead]
+    );
+
+    const handleMarkAllAsRead = useCallback(async () => {
+        const result = await markAllAsRead();
+        if (result.success) {
+            forceRefreshBadge();
+        }
+    }, [markAllAsRead, forceRefreshBadge]);
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setSelectedMessage(null);
     };
 
-    const handleMarkAllAsRead = () => {
-        markAllAsRead();
+    const formatDate = (dateString: string) => {
+        return format(new Date(dateString), "MMM d, yyyy h:mm a");
     };
 
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const now = new Date();
-        const diffInHours = Math.floor(
-            (now.getTime() - date.getTime()) / (1000 * 60 * 60)
-        );
-        const diffInDays = Math.floor(diffInHours / 24);
-
-        if (diffInHours < 1) {
-            return "Just now";
-        } else if (diffInHours < 24) {
-            return `${diffInHours}h ago`;
-        } else if (diffInDays === 1) {
-            return "Yesterday";
-        } else if (diffInDays < 7) {
-            return `${diffInDays}d ago`;
+    const handleTabChange = (tab: "all" | "unread") => {
+        setActiveTab(tab);
+        if (tab === "all") {
+            refresh();
         } else {
-            return date.toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-            });
+            refresh();
         }
     };
 
-    const filteredMessages =
-        activeTab === "all" ? messages : messages.filter((msg) => !msg.read);
+    if (!isOpen) return null;
 
     return (
         <div className="m-0">
@@ -128,7 +165,7 @@ export function NotificationsPanel({
                                         <div className="flex space-x-1 mt-4 bg-background-alt p-1 rounded-lg">
                                             <button
                                                 onClick={() =>
-                                                    setActiveTab("all")
+                                                    handleTabChange("all")
                                                 }
                                                 className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                                                     activeTab === "all"
@@ -139,7 +176,7 @@ export function NotificationsPanel({
                                             </button>
                                             <button
                                                 onClick={() =>
-                                                    setActiveTab("unread")
+                                                    handleTabChange("unread")
                                                 }
                                                 className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                                                     activeTab === "unread"

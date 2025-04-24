@@ -1,5 +1,5 @@
 import { MessageCircle, Send, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Message, useMessages } from "../hooks/useMessages";
 
 interface NotificationModalProps {
@@ -16,7 +16,17 @@ export function NotificationModal({
     const [replyContent, setReplyContent] = useState("");
     const [isReplying, setIsReplying] = useState(false);
     const [isSending, setIsSending] = useState(false);
-    const { sendMessage } = useMessages();
+    const { sendMessage, refresh } = useMessages();
+
+    useEffect(() => {
+        if (message) {
+            refresh();
+
+            return () => {
+                refresh();
+            };
+        }
+    }, [message, refresh]);
 
     if (!isOpen || !message) return null;
 
@@ -45,6 +55,7 @@ export function NotificationModal({
             if (result.success) {
                 setReplyContent("");
                 setIsReplying(false);
+                refresh();
                 onClose();
             }
         } catch (error) {
@@ -54,12 +65,18 @@ export function NotificationModal({
         }
     };
 
+    const handleClose = () => {
+        refresh();
+        setTimeout(() => refresh(), 300);
+        onClose();
+    };
+
     return (
         <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen p-4">
                 <div
                     className="fixed inset-0 bg-black/50"
-                    onClick={onClose}></div>
+                    onClick={handleClose}></div>
                 <div className="bg-surface rounded-xl shadow-xl w-full max-w-md z-10 relative">
                     <div className="flex justify-between items-center border-b border-border p-4">
                         <h2 className="text-xl font-bold text-text flex items-center">
@@ -67,7 +84,7 @@ export function NotificationModal({
                             Message
                         </h2>
                         <button
-                            onClick={onClose}
+                            onClick={handleClose}
                             className="text-text-secondary hover:text-text transition-colors">
                             <X className="w-5 h-5" />
                         </button>

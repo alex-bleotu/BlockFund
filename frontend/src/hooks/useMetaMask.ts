@@ -45,7 +45,6 @@ export function useMetaMask(): MetaMaskStatus {
 
         checkMetaMask();
 
-        // Listen for account changes
         if (window.ethereum) {
             window.ethereum.on(
                 "accountsChanged",
@@ -55,7 +54,6 @@ export function useMetaMask(): MetaMaskStatus {
                 }
             );
 
-            // Listen for lock/unlock events
             window.ethereum.on(
                 "unlockStateChanged",
                 async (isUnlocked: boolean) => {

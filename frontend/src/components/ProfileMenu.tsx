@@ -1,16 +1,46 @@
 import { Bell, FolderHeart, LogOut, Settings, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNotifications } from "../contexts/NotificationContext";
 import { useAuth } from "../hooks/useAuth";
 import { useMessages } from "../hooks/useMessages";
 import { NotificationsPanel } from "./NotificationsPanel";
 
 export function ProfileMenu() {
     const { user, signOut } = useAuth();
-    const { unreadCount } = useMessages();
+    const { unreadCount, refresh } = useMessages();
+    const { lastRefreshed } = useNotifications();
     const [isOpen, setIsOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (user) {
+            refresh();
+        }
+
+        const handleFocus = () => {
+            if (user) {
+                refresh();
+            }
+        };
+
+        window.addEventListener("focus", handleFocus);
+        return () => {
+            window.removeEventListener("focus", handleFocus);
+        };
+    }, [user, refresh]);
+
+    useEffect(() => {
+        if (user) {
+            refresh();
+        }
+    }, [lastRefreshed, user, refresh]);
+
+    const handleNotificationsPanelClose = () => {
+        setIsNotificationsOpen(false);
+        setTimeout(() => refresh(), 100);
+    };
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -45,7 +75,10 @@ export function ProfileMenu() {
             <div className="relative" ref={menuRef}>
                 <div className="flex items-center space-x-2">
                     <button
-                        onClick={() => setIsNotificationsOpen(true)}
+                        onClick={() => {
+                            refresh();
+                            setIsNotificationsOpen(true);
+                        }}
                         className="p-2 rounded-lg hover:bg-background-alt transition-colors relative">
                         <Bell className="w-5 h-5 text-text-secondary" />
                         {unreadCount > 0 && (
@@ -97,7 +130,7 @@ export function ProfileMenu() {
 
             <NotificationsPanel
                 isOpen={isNotificationsOpen}
-                onClose={() => setIsNotificationsOpen(false)}
+                onClose={handleNotificationsPanelClose}
             />
         </>
     );
