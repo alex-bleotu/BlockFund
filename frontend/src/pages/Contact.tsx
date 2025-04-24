@@ -1,5 +1,12 @@
 import emailjs from "@emailjs/browser";
-import { ArrowRight, Mail, MapPin, Phone, Send } from "lucide-react";
+import {
+    AlertTriangle,
+    ArrowRight,
+    Mail,
+    MapPin,
+    Phone,
+    Send,
+} from "lucide-react";
 import { useRef, useState } from "react";
 
 export function Contact() {
@@ -149,6 +156,14 @@ export function Contact() {
                                         <ArrowRight className="w-5 h-5 mr-2" />
                                         Message sent successfully! We'll be in
                                         touch soon.
+                                    </div>
+                                )}
+
+                                {error && (
+                                    <div className="mb-6 p-4 bg-error/10 text-error rounded-lg flex items-center">
+                                        <AlertTriangle className="w-5 h-5 mr-2" />
+                                        Failed to send message. Please try again
+                                        later.
                                     </div>
                                 )}
 

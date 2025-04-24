@@ -45,6 +45,7 @@ export function Campaigns() {
             const { data, error } = await supabase
                 .from("campaigns")
                 .select("*")
+                .eq("status", "active")
                 .order("created_at", { ascending: false });
 
             if (error) throw error;

@@ -31,7 +31,7 @@ declare global {
 
 export function NewFund() {
     const { user } = useAuth();
-    const { address, loading: walletLoading } = useWallet();
+    const { address } = useWallet();
     const navigate = useNavigate();
     const [currentStep, setCurrentStep] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -193,7 +193,6 @@ export function NewFund() {
         navigate(-1);
     };
 
-    // Render functions
     const renderMetaMaskRequired = () => (
         <div className="min-h-screen bg-background flex items-center justify-center">
             <div className="max-w-md w-full mx-auto px-4 py-8">
@@ -253,7 +252,6 @@ export function NewFund() {
         </div>
     );
 
-    // Main render logic
     if (!hasMetaMask) {
         return renderMetaMaskRequired();
     }
@@ -264,8 +262,8 @@ export function NewFund() {
 
     if (currentStep === 4) {
         return (
-            <div className="min-h-screen pt-8 bg-background">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="min-h-screen bg-background">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div className="bg-surface rounded-xl shadow-lg p-6 md:p-8">
                         <PreviewStep
                             campaign={{

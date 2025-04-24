@@ -1,32 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "./useAuth";
 
 export function useCampaignActions(campaignId: string) {
     const { user } = useAuth();
     const [isLiked, setIsLiked] = useState(false);
-    const [likeCount, setLikeCount] = useState(0);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (user && campaignId) {
+            const likedCampaigns = JSON.parse(
+                localStorage.getItem("likedCampaigns") || "{}"
+            );
+            setIsLiked(!!likedCampaigns[`${user.id}_${campaignId}`]);
+        }
+    }, [user, campaignId]);
 
     const toggleLike = async () => {
         if (!user) return;
 
         try {
             setLoading(true);
-            setIsLiked(!isLiked);
 
-            // Here you would typically update the likes in your database
-            // For now, we'll just toggle the state
+            const newIsLiked = !isLiked;
+            setIsLiked(newIsLiked);
 
-            // Example database interaction:
-            // const { error } = await supabase
-            //   .from('campaign_likes')
-            //   .upsert({
-            //     campaign_id: campaignId,
-            //     user_id: user.id,
-            //     liked: !isLiked
-            //   });
+            const likedCampaigns = JSON.parse(
+                localStorage.getItem("likedCampaigns") || "{}"
+            );
+            const key = `${user.id}_${campaignId}`;
 
-            // if (error) throw error;
+            if (newIsLiked) {
+                likedCampaigns[key] = true;
+            } else {
+                delete likedCampaigns[key];
+            }
+
+            localStorage.setItem(
+                "likedCampaigns",
+                JSON.stringify(likedCampaigns)
+            );
         } catch (error) {
             console.error("Error toggling like:", error);
             setIsLiked(!isLiked);
@@ -55,7 +67,6 @@ export function useCampaignActions(campaignId: string) {
 
     return {
         isLiked,
-        likeCount,
         loading,
         toggleLike,
         shareCampaign,

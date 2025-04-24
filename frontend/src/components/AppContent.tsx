@@ -11,6 +11,7 @@ import { FAQs } from "../pages/FAQs";
 import { Home } from "../pages/home/Home";
 import { Login } from "../pages/Login";
 import { MyCampaigns } from "../pages/MyCampaigns";
+import { NotFound } from "../pages/NotFound";
 import { Profile } from "../pages/Profile";
 import { Register } from "../pages/Register";
 import { Settings } from "../pages/Settings";
@@ -50,6 +51,7 @@ export function AppContent() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/faqs" element={<FAQs />} />
                 <Route path="/profile/:id" element={<Profile />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
             {!isAuthPage && !isFundPage && <Footer />}
         </div>

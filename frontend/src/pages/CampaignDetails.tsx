@@ -6,6 +6,7 @@ import {
     ChevronLeft,
     ChevronRight,
     Copy,
+    Edit,
     Heart,
     MapPin,
     MessageCircle,
@@ -56,6 +57,11 @@ export function CampaignDetails() {
                 .single();
 
             if (error) throw error;
+
+            if (data.status === "inactive" && data.creator_id !== user?.id) {
+                throw new Error("This campaign is not available");
+            }
+
             setCampaign(data);
         } catch (err) {
             console.error("Error fetching campaign:", err);
@@ -145,7 +151,7 @@ export function CampaignDetails() {
         <div className="min-h-screen bg-background pt-24 pb-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <button
-                    onClick={() => navigate(-1)}
+                    onClick={() => navigate("/campaigns")}
                     className="flex items-center text-text-secondary hover:text-text mb-8 transition-colors">
                     <ArrowLeft className="w-5 h-5 mr-2" />
                     Back to Campaigns
@@ -219,6 +225,17 @@ export function CampaignDetails() {
                                             }`}
                                         />
                                     </button>
+                                    {user?.id === campaign.creator_id && (
+                                        <button
+                                            onClick={() =>
+                                                navigate(
+                                                    `/campaign/edit/${campaign.id}`
+                                                )
+                                            }
+                                            className="p-2 text-text-secondary hover:text-primary transition-colors rounded-full hover:bg-primary-light/50">
+                                            <Edit className="w-5 h-5" />
+                                        </button>
+                                    )}
                                     <div className="relative">
                                         <button
                                             onClick={handleShare}
@@ -338,6 +355,15 @@ export function CampaignDetails() {
                                     <div className="flex flex-col gap-1.5">
                                         <button
                                             onClick={() => {
+                                                if (!user) {
+                                                    navigate("/login", {
+                                                        state: {
+                                                            from: `/campaign/${campaign.id}`,
+                                                        },
+                                                    });
+                                                    return;
+                                                }
+
                                                 if (!isConnected || isLocked) {
                                                     connect();
                                                     return;
@@ -347,8 +373,6 @@ export function CampaignDetails() {
                                             disabled={
                                                 campaignEndDate.hasEnded ||
                                                 !isInstalled ||
-                                                !isConnected ||
-                                                isLocked ||
                                                 user?.id === campaign.creator_id
                                             }
                                             className={`w-full py-3 rounded-lg transition-colors ${
@@ -370,6 +394,8 @@ export function CampaignDetails() {
                                                 : user?.id ===
                                                   campaign.creator_id
                                                 ? "You cannot support your own campaign."
+                                                : !user
+                                                ? "Please sign in to support this campaign."
                                                 : !isInstalled
                                                 ? "MetaMask is not installed."
                                                 : isLocked
@@ -403,7 +429,17 @@ export function CampaignDetails() {
                                     </div>
                                 </Link>
                                 <button
-                                    onClick={() => setIsContactModalOpen(true)}
+                                    onClick={() => {
+                                        if (!user) {
+                                            navigate("/login", {
+                                                state: {
+                                                    from: `/campaign/${campaign.id}`,
+                                                },
+                                            });
+                                            return;
+                                        }
+                                        setIsContactModalOpen(true);
+                                    }}
                                     disabled={user?.id === campaign.creator_id}
                                     className={`w-full mt-4 py-2 border-2 border-primary rounded-lg transition-colors flex items-center justify-center ${
                                         user?.id === campaign.creator_id
@@ -413,6 +449,8 @@ export function CampaignDetails() {
                                     <MessageCircle className="w-4 h-4 mr-2" />
                                     {user?.id === campaign.creator_id
                                         ? "You are the creator"
+                                        : !user
+                                        ? "Sign in to Contact"
                                         : "Contact Creator"}
                                 </button>
                             </div>

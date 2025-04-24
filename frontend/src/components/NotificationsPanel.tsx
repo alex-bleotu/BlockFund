@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Bell, Check, Mail, MessageCircle, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useMessages } from "../hooks/useMessages";
+import { Message, useMessages } from "../hooks/useMessages";
+import { NotificationModal } from "./NotificationModal";
 
 interface NotificationsPanelProps {
     isOpen: boolean;
@@ -12,8 +13,13 @@ export function NotificationsPanel({
     isOpen,
     onClose,
 }: NotificationsPanelProps) {
-    const { messages, unreadCount, loading, markAsRead } = useMessages();
+    const { messages, unreadCount, loading, markAsRead, markAllAsRead } =
+        useMessages();
     const [activeTab, setActiveTab] = useState<"all" | "unread">("all");
+    const [selectedMessage, setSelectedMessage] = useState<Message | null>(
+        null
+    );
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         if (isOpen) {
@@ -25,6 +31,24 @@ export function NotificationsPanel({
             document.body.style.overflow = "unset";
         };
     }, [isOpen]);
+
+    const handleMessageClick = (message: Message) => {
+        if (!message.read) {
+            markAsRead(message.id);
+        }
+        setSelectedMessage(message);
+        setIsModalOpen(true);
+        onClose(); // Close the notifications panel
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedMessage(null);
+    };
+
+    const handleMarkAllAsRead = () => {
+        markAllAsRead();
+    };
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -127,6 +151,15 @@ export function NotificationsPanel({
                                                     `(${unreadCount})`}
                                             </button>
                                         </div>
+
+                                        {unreadCount > 0 && (
+                                            <button
+                                                onClick={handleMarkAllAsRead}
+                                                className="flex items-center justify-center w-full mt-3 py-2 text-sm font-medium text-primary hover:bg-primary-light/30 transition-colors rounded-lg">
+                                                <Check className="w-4 h-4 mr-1" />
+                                                Mark all as read
+                                            </button>
+                                        )}
                                     </div>
 
                                     <div className="flex-1 overflow-y-auto">
@@ -168,9 +201,8 @@ export function NotificationsPanel({
                                                         <div
                                                             key={message.id}
                                                             onClick={() =>
-                                                                !message.read &&
-                                                                markAsRead(
-                                                                    message.id
+                                                                handleMessageClick(
+                                                                    message
                                                                 )
                                                             }
                                                             className={`p-4 hover:bg-background-alt transition-colors cursor-pointer ${
@@ -223,9 +255,7 @@ export function NotificationsPanel({
                                                                             <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
                                                                             Click
                                                                             to
-                                                                            mark
-                                                                            as
-                                                                            read
+                                                                            view
                                                                         </div>
                                                                     )}
                                                                 </div>
@@ -242,6 +272,12 @@ export function NotificationsPanel({
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            <NotificationModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                message={selectedMessage}
+            />
         </div>
     );
 }

@@ -34,10 +34,14 @@ export function EditFund() {
     const [campaignStatus, setCampaignStatus] = useState<string>("active");
 
     useEffect(() => {
+        if (!user) {
+            navigate("/login", { state: { from: `/campaign/edit/${id}` } });
+            return;
+        }
         if (id) {
             fetchCampaign();
         }
-    }, [id]);
+    }, [id, user]);
 
     const fetchCampaign = async () => {
         try {
@@ -50,7 +54,12 @@ export function EditFund() {
 
             if (error) throw error;
 
+            if (!data) {
+                throw new Error("Campaign not found");
+            }
+
             if (data.creator_id !== user?.id) {
+                navigate(`/campaign/${id}`);
                 throw new Error(
                     "You do not have permission to edit this campaign"
                 );
@@ -66,6 +75,14 @@ export function EditFund() {
         } catch (err: any) {
             console.error("Error fetching campaign:", err);
             setError(err.message || "Failed to load campaign");
+            if (
+                err.message ===
+                "You do not have permission to edit this campaign"
+            ) {
+                setTimeout(() => {
+                    navigate(`/campaign/${id}`);
+                }, 3000);
+            }
         } finally {
             setLoading(false);
         }
@@ -268,8 +285,8 @@ export function EditFund() {
 
     if (currentStep === 4) {
         return (
-            <div className="min-h-screen pt-16 bg-background">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="min-h-screen bg-background">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div className="bg-surface rounded-xl shadow-lg p-6 md:p-8">
                         <PreviewStep
                             campaign={formData}
