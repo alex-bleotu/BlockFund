@@ -113,42 +113,77 @@ export function EditFund() {
             setLoading(true);
             setError(null);
 
-            const newImages = formData.images.filter(
+            const newFiles = formData.images.filter(
                 (img): img is File => img instanceof File
             );
-            const imageUrls = await Promise.all(
-                newImages.map(async (file) => {
+            const existingUrls = formData.images.filter(
+                (img): img is string => typeof img === "string"
+            );
+
+            const { data: campaignData, error: fetchError } = await supabase
+                .from("campaigns")
+                .select("images")
+                .eq("id", id)
+                .single();
+            if (fetchError) throw fetchError;
+
+            const oldUrls: string[] = campaignData.images || [];
+            const removedUrls = oldUrls.filter(
+                (url) => !existingUrls.includes(url)
+            );
+            if (removedUrls.length) {
+                const removedPaths = removedUrls.map((url) => {
+                    const urlObj = new URL(url);
+                    const segments = urlObj.pathname.split("/");
+                    const idx = segments.findIndex(
+                        (seg) => seg === "campaign-images"
+                    );
+                    return segments.slice(idx + 1).join("/");
+                });
+
+                const { error: deleteError } = await supabase.storage
+                    .from("campaign-images")
+                    .remove(removedPaths);
+
+                if (deleteError) throw deleteError;
+            }
+
+            const newPaths = await Promise.all(
+                newFiles.map(async (file) => {
                     const fileName = `${user.id}/${Date.now()}-${file.name}`;
                     const { data, error } = await supabase.storage
                         .from("campaign-images")
                         .upload(fileName, file);
-
                     if (error) throw error;
                     return data.path;
                 })
             );
 
-            const existingImages = formData.images.filter(
-                (img): img is string => typeof img === "string"
+            const newPublicUrls = newPaths.map(
+                (path) =>
+                    supabase.storage.from("campaign-images").getPublicUrl(path)
+                        .data.publicUrl
             );
-            const allImages = [...existingImages, ...imageUrls];
+
+            const allImageUrls = [...existingUrls, ...newPublicUrls];
 
             const { error } = await supabase
                 .from("campaigns")
                 .update({
                     title: formData.title,
                     category: formData.category,
-                    goal: parseFloat(formData.goal),
+                    goal: parseFloat(formData.goal) || 0,
                     summary: formData.summary,
                     description: formData.description,
                     location: formData.location,
                     deadline: formData.deadline,
-                    images: allImages,
+                    images: allImageUrls,
                 })
                 .eq("id", id)
                 .eq("creator_id", user.id);
 
             if (error) throw error;
+
             navigate(`/campaign/${id}`);
         } catch (err: any) {
             console.error("Error updating campaign:", err);

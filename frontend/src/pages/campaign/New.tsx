@@ -129,17 +129,23 @@ export function NewFund() {
             setLoading(true);
             setError(null);
 
-            const imageUrls = await Promise.all(
+            const paths: string[] = await Promise.all(
                 formData.images.map(async (file) => {
                     const fileName = `${user.id}/${Date.now()}-${file.name}`;
                     const { data, error } = await supabase.storage
                         .from("campaign-images")
                         .upload(fileName, file);
-
                     if (error) throw error;
                     return data.path;
                 })
             );
+
+            const imageUrls: string[] = paths.map((path) => {
+                const {
+                    data: { publicUrl },
+                } = supabase.storage.from("campaign-images").getPublicUrl(path);
+                return publicUrl;
+            });
 
             const { supabaseData, error: launchError } = await launchCampaign(
                 {
