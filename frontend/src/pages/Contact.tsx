@@ -1,7 +1,9 @@
+import emailjs from "@emailjs/browser";
 import { ArrowRight, Mail, MapPin, Phone, Send } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function Contact() {
+    const formRef = useRef<HTMLFormElement>(null);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -10,15 +12,46 @@ export function Contact() {
     });
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!formRef.current) return;
+
         setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setSuccess(true);
-        setLoading(false);
-        setFormData({ name: "", email: "", subject: "", message: "" });
-        setTimeout(() => setSuccess(false), 5000);
+        setSuccess(false);
+        setError(false);
+
+        emailjs
+            .send(
+                "gmail",
+                "template",
+                {
+                    user_name: formData.name,
+                    user_email: formData.email,
+                    message: `Subject: ${formData.subject}\n\nMessage:\n${formData.message}`,
+                },
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+            )
+            .then(
+                () => {
+                    setLoading(false);
+                    setSuccess(true);
+                    setFormData({
+                        name: "",
+                        email: "",
+                        subject: "",
+                        message: "",
+                    });
+                    setTimeout(() => setSuccess(false), 5000);
+                },
+                (error) => {
+                    console.error("EmailJS Error:", error);
+                    setLoading(false);
+                    setError(true);
+                    setTimeout(() => setError(false), 5000);
+                }
+            );
     };
 
     const handleChange = (
@@ -53,13 +86,8 @@ export function Contact() {
                                         Email Us
                                     </h3>
                                     <p className="text-text-secondary hover:text-primary transition-colors">
-                                        <a href="mailto:support@blockfund.com">
-                                            support@blockfund.com
-                                        </a>
-                                    </p>
-                                    <p className="text-text-secondary hover:text-primary transition-colors">
-                                        <a href="mailto:info@blockfund.com">
-                                            info@blockfund.com
+                                        <a href="mailto:alexbleotu2006@gmail.com">
+                                            alexbleotu2006@gmail.com
                                         </a>
                                     </p>
                                 </div>
@@ -74,10 +102,7 @@ export function Contact() {
                                         Call Us
                                     </h3>
                                     <p className="text-text-secondary">
-                                        +1 (555) 123-4567
-                                    </p>
-                                    <p className="text-sm text-text-secondary mt-1">
-                                        Available Mon-Fri, 9am-6pm EST
+                                        +40 756 775 906
                                     </p>
                                 </div>
                             </div>
@@ -91,10 +116,7 @@ export function Contact() {
                                         Visit Us
                                     </h3>
                                     <p className="text-text-secondary">
-                                        123 Blockchain Street
-                                    </p>
-                                    <p className="text-text-secondary">
-                                        New York, NY 10001
+                                        Don't actually do that!
                                     </p>
                                 </div>
                             </div>
@@ -111,7 +133,6 @@ export function Contact() {
                         </div>
                     </div>
 
-                    {/* Contact Form */}
                     <div className="lg:col-span-3">
                         <div className="bg-surface rounded-2xl shadow-lg p-8 md:p-12">
                             <div className="max-w-2xl">
@@ -132,6 +153,7 @@ export function Contact() {
                                 )}
 
                                 <form
+                                    ref={formRef}
                                     onSubmit={handleSubmit}
                                     className="space-y-6">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -1,19 +1,11 @@
-import {
-    AlertTriangle,
-    Bell,
-    Key,
-    Lock,
-    Shield,
-    User,
-    Wallet,
-} from "lucide-react";
+import { AlertTriangle, Key, Lock, Shield, User, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useWallet } from "../hooks/useWallet";
 import { supabase } from "../lib/supabase";
 
-type SettingsTab = "profile" | "notifications" | "security" | "wallet";
+type SettingsTab = "profile" | "security" | "wallet";
 
 export function Settings() {
     const { user } = useAuth();
@@ -32,13 +24,6 @@ export function Settings() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
-
-    const [notifications, setNotifications] = useState({
-        emailUpdates: true,
-        campaignAlerts: true,
-        supportNotifications: true,
-        marketingEmails: false,
-    });
 
     const [securityForm, setSecurityForm] = useState({
         currentPassword: "",
@@ -66,13 +51,13 @@ export function Settings() {
 
     useEffect(() => {
         const tab = searchParams.get("tab") as SettingsTab;
-        if (
-            tab &&
-            ["profile", "notifications", "security", "wallet"].includes(tab)
-        ) {
+        if (tab && ["profile", "security", "wallet"].includes(tab)) {
             setActiveTab(tab);
+        } else {
+            setActiveTab("profile");
+            setSearchParams({ tab: "profile" });
         }
-    }, [searchParams]);
+    }, [searchParams, setSearchParams]);
 
     useEffect(() => {
         setError(null);
@@ -107,13 +92,6 @@ export function Settings() {
             console.error("Error loading profile:", err);
             setError("Failed to load profile data");
         }
-    };
-
-    const handleNotificationChange = (key: keyof typeof notifications) => {
-        setNotifications((prev) => ({
-            ...prev,
-            [key]: !prev[key],
-        }));
     };
 
     const handleSecurityFormChange = (
@@ -178,21 +156,6 @@ export function Settings() {
         }
     };
 
-    const handleSaveNotifications = async () => {
-        setLoading(true);
-        setError(null);
-        setSuccess(null);
-
-        try {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            setSuccess("Notification preferences updated");
-        } catch (err: any) {
-            setError(err.message || "Failed to update preferences");
-        } finally {
-            setLoading(false);
-        }
-    };
-
     const handleSaveProfile = async () => {
         setLoading(true);
         setError(null);
@@ -247,7 +210,6 @@ export function Settings() {
     const tabs: { id: SettingsTab; label: string; icon: any }[] = [
         { id: "profile", label: "Profile", icon: User },
         { id: "wallet", label: "Wallet", icon: Wallet },
-        { id: "notifications", label: "Notifications", icon: Bell },
         { id: "security", label: "Security", icon: Shield },
     ];
 
@@ -348,137 +310,6 @@ export function Settings() {
                                                 {loading
                                                     ? "Saving..."
                                                     : "Save Changes"}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {activeTab === "notifications" && (
-                                <div className="space-y-6">
-                                    <h2 className="text-2xl font-bold text-text">
-                                        Notification Preferences
-                                    </h2>
-
-                                    <div className="space-y-4">
-                                        <div className="flex items-center justify-between py-3">
-                                            <div>
-                                                <h3 className="text-text font-medium">
-                                                    Campaign Updates
-                                                </h3>
-                                                <p className="text-sm text-text-secondary">
-                                                    Receive updates about
-                                                    campaigns you've supported
-                                                </p>
-                                            </div>
-                                            <label className="relative inline-flex items-center cursor-pointer">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={
-                                                        notifications.emailUpdates
-                                                    }
-                                                    onChange={() =>
-                                                        handleNotificationChange(
-                                                            "emailUpdates"
-                                                        )
-                                                    }
-                                                    className="sr-only peer"
-                                                />
-                                                <div className="w-11 h-6 bg-background-alt peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                                            </label>
-                                        </div>
-
-                                        <div className="flex items-center justify-between py-3 border-t border-border">
-                                            <div>
-                                                <h3 className="text-text font-medium">
-                                                    Campaign Alerts
-                                                </h3>
-                                                <p className="text-sm text-text-secondary">
-                                                    Get notified about new
-                                                    campaigns in your interests
-                                                </p>
-                                            </div>
-                                            <label className="relative inline-flex items-center cursor-pointer">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={
-                                                        notifications.campaignAlerts
-                                                    }
-                                                    onChange={() =>
-                                                        handleNotificationChange(
-                                                            "campaignAlerts"
-                                                        )
-                                                    }
-                                                    className="sr-only peer"
-                                                />
-                                                <div className="w-11 h-6 bg-background-alt peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                                            </label>
-                                        </div>
-
-                                        <div className="flex items-center justify-between py-3 border-t border-border">
-                                            <div>
-                                                <h3 className="text-text font-medium">
-                                                    Support Notifications
-                                                </h3>
-                                                <p className="text-sm text-text-secondary">
-                                                    Notifications when someone
-                                                    supports your campaign
-                                                </p>
-                                            </div>
-                                            <label className="relative inline-flex items-center cursor-pointer">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={
-                                                        notifications.supportNotifications
-                                                    }
-                                                    onChange={() =>
-                                                        handleNotificationChange(
-                                                            "supportNotifications"
-                                                        )
-                                                    }
-                                                    className="sr-only peer"
-                                                />
-                                                <div className="w-11 h-6 bg-background-alt peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                                            </label>
-                                        </div>
-
-                                        <div className="flex items-center justify-between py-3 border-t border-border">
-                                            <div>
-                                                <h3 className="text-text font-medium">
-                                                    Marketing Emails
-                                                </h3>
-                                                <p className="text-sm text-text-secondary">
-                                                    Receive updates about
-                                                    BlockFund features and news
-                                                </p>
-                                            </div>
-                                            <label className="relative inline-flex items-center cursor-pointer">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={
-                                                        notifications.marketingEmails
-                                                    }
-                                                    onChange={() =>
-                                                        handleNotificationChange(
-                                                            "marketingEmails"
-                                                        )
-                                                    }
-                                                    className="sr-only peer"
-                                                />
-                                                <div className="w-11 h-6 bg-background-alt peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                                            </label>
-                                        </div>
-
-                                        <div className="flex justify-end pt-4">
-                                            <button
-                                                onClick={
-                                                    handleSaveNotifications
-                                                }
-                                                disabled={loading}
-                                                className="px-4 py-2 text-sm font-medium text-light bg-primary hover:bg-primary-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors disabled:opacity-50">
-                                                {loading
-                                                    ? "Saving..."
-                                                    : "Save Preferences"}
                                             </button>
                                         </div>
                                     </div>
