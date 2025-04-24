@@ -206,6 +206,13 @@ export function MobileDrawer() {
                                             About
                                         </Link>
                                         <Link
+                                            to="/faqs"
+                                            onClick={handleLinkClick}
+                                            className="flex items-center w-full px-4 py-2 text-text-secondary hover:bg-background-alt rounded-lg transition-colors">
+                                            <HelpCircle className="w-5 h-5 mr-3" />
+                                            FAQs
+                                        </Link>
+                                        <Link
                                             to="/contact"
                                             onClick={handleLinkClick}
                                             className="flex items-center w-full px-4 py-2 text-text-secondary hover:bg-background-alt rounded-lg transition-colors">
@@ -248,6 +255,13 @@ export function MobileDrawer() {
                                         className="flex items-center w-full px-4 py-2 text-text-secondary hover:bg-background-alt rounded-lg transition-colors">
                                         <HelpCircle className="w-5 h-5 mr-3" />
                                         About
+                                    </Link>
+                                    <Link
+                                        to="/faqs"
+                                        onClick={handleLinkClick}
+                                        className="flex items-center w-full px-4 py-2 text-text-secondary hover:bg-background-alt rounded-lg transition-colors">
+                                        <HelpCircle className="w-5 h-5 mr-3" />
+                                        FAQs
                                     </Link>
                                     <Link
                                         to="/contact"

@@ -7,6 +7,7 @@ import { NewFund } from "../pages/campaign/New";
 import { CampaignDetails } from "../pages/CampaignDetails";
 import { Campaigns } from "../pages/Campaigns";
 import { Contact } from "../pages/Contact";
+import { FAQs } from "../pages/FAQs";
 import { Home } from "../pages/home/Home";
 import { Login } from "../pages/Login";
 import { MyCampaigns } from "../pages/MyCampaigns";
@@ -46,6 +47,7 @@ export function AppContent() {
                 <Route path="/campaign/:id" element={<CampaignDetails />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/faqs" element={<FAQs />} />
             </Routes>
             {!isAuthPage && !isFundPage && <Footer />}
         </div>

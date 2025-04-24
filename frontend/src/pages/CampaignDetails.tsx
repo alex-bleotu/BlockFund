@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ContactModal } from "../components/ContactModal";
 import { SupportModal } from "../components/SupportModal";
+import { useAuth } from "../hooks/useAuth";
 import { useCampaignActions } from "../hooks/useCampaignActions";
 import { useEthPrice } from "../hooks/useEthPrice";
 import { useMetaMask } from "../hooks/useMetaMask";
@@ -26,6 +27,7 @@ export function CampaignDetails() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { ethPrice } = useEthPrice();
+    const { user } = useAuth();
     const [campaign, setCampaign] = useState<Campaign | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -314,20 +316,28 @@ export function CampaignDetails() {
                                                 campaignEndDate.hasEnded ||
                                                 !isInstalled ||
                                                 !isConnected ||
-                                                isLocked
+                                                isLocked ||
+                                                user?.id === campaign.creator_id
                                             }
                                             className={`w-full py-3 rounded-lg transition-colors ${
-                                                campaignEndDate.hasEnded
+                                                campaignEndDate.hasEnded ||
+                                                user?.id === campaign.creator_id
                                                     ? "bg-gray-400 cursor-not-allowed text-light/75"
                                                     : "bg-primary text-light hover:bg-primary-dark disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-light/75"
                                             }`}>
                                             {campaignEndDate.hasEnded
                                                 ? "Campaign Ended"
+                                                : user?.id ===
+                                                  campaign.creator_id
+                                                ? "You are the creator"
                                                 : "Support this Campaign"}
                                         </button>
                                         <p className="text-sm text-text-secondary text-center">
                                             {campaignEndDate.hasEnded
                                                 ? "This campaign has ended."
+                                                : user?.id ===
+                                                  campaign.creator_id
+                                                ? "You cannot support your own campaign."
                                                 : !isInstalled
                                                 ? "MetaMask is not installed."
                                                 : isLocked
@@ -360,9 +370,16 @@ export function CampaignDetails() {
                                 </div>
                                 <button
                                     onClick={() => setIsContactModalOpen(true)}
-                                    className="w-full mt-4 py-2 border-2 border-primary text-primary hover:bg-primary hover:text-light rounded-lg transition-colors flex items-center justify-center">
+                                    disabled={user?.id === campaign.creator_id}
+                                    className={`w-full mt-4 py-2 border-2 border-primary rounded-lg transition-colors flex items-center justify-center ${
+                                        user?.id === campaign.creator_id
+                                            ? "border-gray-400 text-gray-400 cursor-not-allowed"
+                                            : "text-primary hover:bg-primary hover:text-light"
+                                    }`}>
                                     <MessageCircle className="w-4 h-4 mr-2" />
-                                    Contact Creator
+                                    {user?.id === campaign.creator_id
+                                        ? "You are the creator"
+                                        : "Contact Creator"}
                                 </button>
                             </div>
                         </div>

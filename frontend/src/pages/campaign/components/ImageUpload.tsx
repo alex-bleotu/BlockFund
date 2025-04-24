@@ -47,7 +47,7 @@ export function ImageUpload({
                         </div>
                         <input
                             type="file"
-                            accept="image/*"
+                            accept="image/png, image/jpeg"
                             onChange={onImageChange}
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         />
@@ -55,7 +55,8 @@ export function ImageUpload({
                 )}
             </div>
             <p className="mt-2 text-sm text-text-secondary">
-                Add up to 4 images. First image will be the cover image.
+                Add up to 4 images (PNG or JPG only). First image will be the
+                cover image.
             </p>
         </div>
     );

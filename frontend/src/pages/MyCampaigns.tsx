@@ -65,7 +65,7 @@ export function MyCampaigns() {
                 return !isEnded && campaign.status === "active";
             case "ended":
                 return isEnded || campaign.status !== "active";
-            default: // "all"
+            default:
                 return true;
         }
     });
@@ -116,9 +116,10 @@ export function MyCampaigns() {
             (c) => new Date(c.deadline) >= now && c.status === "active"
         ).length;
         const ended = campaigns.filter(
-            (c) => new Date(c.deadline) < now || c.status !== "active"
+            (c) => new Date(c.deadline) < now && c.status === "active"
         ).length;
-        return { active, ended };
+        const inactive = campaigns.filter((c) => c.status !== "active").length;
+        return { active, ended, inactive };
     };
 
     const stats = getCampaignStats();
@@ -132,7 +133,8 @@ export function MyCampaigns() {
                             My Campaigns
                         </h1>
                         <div className="text-text-secondary">
-                            {stats.active} Active • {stats.ended} Ended
+                            {stats.active} Active • {stats.ended} Ended •{" "}
+                            {stats.inactive} Inactive
                         </div>
                     </div>
                     <button
@@ -223,18 +225,21 @@ export function MyCampaigns() {
                                             </div>
                                             <span
                                                 className={`text-sm px-2 py-1 rounded-full ${
-                                                    new Date(
-                                                        campaign.deadline
-                                                    ) >= new Date() &&
-                                                    campaign.status === "active"
-                                                        ? "bg-success/80"
-                                                        : "bg-error/80"
+                                                    campaign.status !== "active"
+                                                        ? "bg-error/80"
+                                                        : new Date(
+                                                              campaign.deadline
+                                                          ) < new Date()
+                                                        ? "bg-gray-800/80"
+                                                        : "bg-success/80"
                                                 }`}>
-                                                {new Date(campaign.deadline) >=
-                                                    new Date() &&
-                                                campaign.status === "active"
-                                                    ? "Active"
-                                                    : "Ended"}
+                                                {campaign.status !== "active"
+                                                    ? "Inactive"
+                                                    : new Date(
+                                                          campaign.deadline
+                                                      ) < new Date()
+                                                    ? "Ended"
+                                                    : "Active"}
                                             </span>
                                         </div>
                                     </div>

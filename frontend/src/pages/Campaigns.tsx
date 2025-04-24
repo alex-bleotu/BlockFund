@@ -58,13 +58,13 @@ export function Campaigns() {
     };
 
     const filterCampaigns = () => {
-        let filtered = [...campaigns];
+        let filtered = [...campaigns].filter(
+            (campaign) => campaign.status === "active"
+        );
 
         const now = new Date();
         filtered = filtered.filter((campaign) => {
-            const isEnded =
-                new Date(campaign.deadline) < now ||
-                campaign.status !== "active";
+            const isEnded = new Date(campaign.deadline) < now;
             return selectedStatus === "ended" ? isEnded : !isEnded;
         });
 
@@ -98,17 +98,11 @@ export function Campaigns() {
         return diffDays > 0 ? `${diffDays} days left` : "Ended";
     };
 
-    const isCampaignEnded = (campaign: Campaign) => {
-        return (
-            new Date(campaign.deadline) < new Date() ||
-            campaign.status !== "active"
-        );
-    };
-
     const stats = [
         {
             icon: TrendingUp,
             value: campaigns
+                .filter((c) => c.status === "active")
                 .reduce((acc, curr) => acc + (curr.raised || 0), 0)
                 .toFixed(2),
             label: "ETH Raised",
@@ -116,15 +110,19 @@ export function Campaigns() {
         },
         {
             icon: Users,
-            value: campaigns.filter((c) => new Date(c.deadline) >= new Date())
-                .length,
+            value: campaigns.filter(
+                (c) =>
+                    c.status === "active" && new Date(c.deadline) >= new Date()
+            ).length,
             label: "Active Campaigns",
             color: "text-success",
         },
         {
             icon: Clock,
-            value: campaigns.filter((c) => new Date(c.deadline) < new Date())
-                .length,
+            value: campaigns.filter(
+                (c) =>
+                    c.status === "active" && new Date(c.deadline) < new Date()
+            ).length,
             label: "Ended Campaigns",
             color: "text-error",
         },

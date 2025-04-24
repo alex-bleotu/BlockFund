@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function Footer() {
@@ -31,7 +31,7 @@ export function Footer() {
                                 <Link
                                     to="/campaign/new"
                                     className="text-text-secondary hover:text-primary transition-colors">
-                                    Start a Fund
+                                    Start a Campaign
                                 </Link>
                             </li>
                         </ul>
@@ -51,16 +51,9 @@ export function Footer() {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/faqs"
                                     className="text-text-secondary hover:text-primary transition-colors">
                                     FAQs
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-text-secondary hover:text-primary transition-colors">
-                                    Blog
                                 </a>
                             </li>
                         </ul>
@@ -72,22 +65,17 @@ export function Footer() {
                         </h3>
                         <div className="flex space-x-4">
                             <a
-                                href="#"
+                                href="https://github.com/alex-bleotu/BlockFund"
                                 className="text-text-secondary hover:text-primary transition-colors">
                                 <Github className="h-5 w-5" />
                             </a>
                             <a
-                                href="#"
-                                className="text-text-secondary hover:text-primary transition-colors">
-                                <Twitter className="h-5 w-5" />
-                            </a>
-                            <a
-                                href="#"
+                                href="https://www.linkedin.com/in/alexbleotu"
                                 className="text-text-secondary hover:text-primary transition-colors">
                                 <Linkedin className="h-5 w-5" />
                             </a>
                             <a
-                                href="#"
+                                href="mailto:alexbleotu2006@gmail.com"
                                 className="text-text-secondary hover:text-primary transition-colors">
                                 <Mail className="h-5 w-5" />
                             </a>
@@ -100,18 +88,6 @@ export function Footer() {
                         <p className="text-text-secondary text-sm">
                             © {currentYear} BlockFund. All rights reserved.
                         </p>
-                        <div className="flex space-x-6 mt-4 md:mt-0">
-                            <a
-                                href="#"
-                                className="text-text-secondary hover:text-primary text-sm transition-colors">
-                                Privacy Policy
-                            </a>
-                            <a
-                                href="#"
-                                className="text-text-secondary hover:text-primary text-sm transition-colors">
-                                Terms of Service
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
