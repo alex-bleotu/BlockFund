@@ -4,28 +4,32 @@ import CampaignArtifact from "../artifacts/contracts/Campaign.sol/Campaign.json"
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS as string;
 
-const CONTRACT_ADDRESS_LOCAL = "0x0165878A594ca255338adfa4d48449f69242Eb8F";
+const CONTRACT_ADDRESS_LOCAL = "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707";
 const USE_LOCAL = import.meta.env.VITE_USE_LOCAL === "true";
 
 export function useCampaignContract() {
     const [provider, setProvider] = useState<ethers.Provider | null>(null);
     const [signer, setSigner] = useState<ethers.Signer | null>(null);
     const [contract, setContract] = useState<ethers.Contract | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        if (USE_LOCAL) {
-            if (!(window as any).ethereum) {
-                console.error("MetaMask not detected");
-                return;
-            }
-            const browserProvider = new ethers.BrowserProvider(
-                (window as any).ethereum
-            );
-            setProvider(browserProvider);
+        const finish = () => setLoading(false);
 
-            (async () => {
-                try {
+        if (!(window as any).ethereum) {
+            console.error("MetaMask not detected");
+            finish();
+            return;
+        }
+
+        const browserProvider = new ethers.BrowserProvider(
+            (window as any).ethereum
+        );
+        setProvider(browserProvider);
+
+        (async () => {
+            try {
+                if (USE_LOCAL) {
                     try {
                         await browserProvider.send(
                             "wallet_switchEthereumChain",
@@ -48,28 +52,10 @@ export function useCampaignContract() {
                             webSigner
                         )
                     );
-                } catch (err) {
-                    console.error(
-                        "Error setting up local provider or switching network:",
-                        err
-                    );
+                    finish();
+                    return;
                 }
-            })();
-            return;
-        }
 
-        if (!(window as any).ethereum) {
-            console.error("MetaMask not detected");
-            return;
-        }
-
-        const browserProvider = new ethers.BrowserProvider(
-            (window as any).ethereum
-        );
-        setProvider(browserProvider);
-
-        (async () => {
-            try {
                 try {
                     await browserProvider.send("wallet_switchEthereumChain", [
                         { chainId: "0xaa36a7" },
@@ -108,17 +94,23 @@ export function useCampaignContract() {
                     "Error setting up provider or switching network:",
                     err
                 );
+            } finally {
+                finish();
             }
         })();
-    }, []);
+    }, [USE_LOCAL]);
 
     const createCampaign = async (
         goal: string,
         durationSec: number,
         metadataCID: string
-    ) => {
+    ): Promise<{
+        receipt: any;
+        id: number;
+    }> => {
         if (!contract) throw new Error("Contract not initialized");
         setLoading(true);
+
         try {
             const goalWei = ethers.parseEther(goal);
             const deadline = Math.floor(Date.now() / 1000) + durationSec;
@@ -127,7 +119,21 @@ export function useCampaignContract() {
                 deadline,
                 metadataCID
             );
-            return await tx.wait();
+            const receipt = await tx.wait();
+
+            let newId: number;
+            const createdEvent = receipt.events?.find(
+                (e: any) => e.event === "CampaignCreated"
+            );
+
+            if (createdEvent && createdEvent.args?.campaignId != null) {
+                newId = Number(createdEvent.args.campaignId);
+            } else {
+                const count = await contract.getCampaignCount();
+                newId = Number(count);
+            }
+
+            return { receipt, id: newId };
         } finally {
             setLoading(false);
         }
@@ -215,5 +221,6 @@ export function useCampaignContract() {
         closeCampaign,
         getBalance,
         loading,
+        contract,
     };
 }

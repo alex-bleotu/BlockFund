@@ -195,6 +195,7 @@ export function EditFund() {
                     location: formData.location,
                     deadline: formData.deadline,
                     images: allImageUrls,
+                    updated_at: new Date().toISOString(),
                 })
                 .eq("id", id)
                 .eq("creator_id", user.id);

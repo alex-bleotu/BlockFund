@@ -48,26 +48,34 @@ export function CampaignDetails() {
         null
     );
     const [loading, setLoading] = useState(true);
+    const [onchainLoading, setOnchainLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
     const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
     const [showCopiedTooltip, setShowCopiedTooltip] = useState(false);
+    const [onchainId, setOnchainId] = useState<number | null>(null);
     const { isLiked, toggleLike, shareCampaign } = useCampaignActions(id || "");
     const { isConnected, connect, isInstalled, isLocked } = useMetaMask();
     const {
         contribute,
         getCampaign,
         loading: contractLoading,
+        contract,
     } = useCampaignContract();
     const [transactionInProgress, setTransactionInProgress] = useState(false);
 
     useEffect(() => {
         if (id) {
             fetchCampaign();
-            fetchOnChainData();
         }
     }, [id]);
+
+    useEffect(() => {
+        if (contract && onchainId) {
+            fetchOnChainData(onchainId);
+        }
+    }, [contract, onchainId]);
 
     const fetchCampaign = async () => {
         try {
@@ -85,6 +93,10 @@ export function CampaignDetails() {
             }
 
             setCampaign(data);
+
+            if (data.onchain_id) {
+                setOnchainId(data.onchain_id);
+            }
         } catch (err) {
             console.error("Error fetching campaign:", err);
             setError("Failed to load campaign details");
@@ -93,14 +105,17 @@ export function CampaignDetails() {
         }
     };
 
-    const fetchOnChainData = async () => {
+    const fetchOnChainData = async (onchainId: number) => {
         try {
-            if (!id) return;
-            const campaignId = parseInt(id);
-            const onChainCampaign = await getCampaign(campaignId);
+            if (!onchainId || !contract) return;
+
+            setOnchainLoading(true);
+            const onChainCampaign = await getCampaign(onchainId);
             setOnChainData(onChainCampaign);
         } catch (err) {
             console.error("Error fetching on-chain data:", err);
+        } finally {
+            setOnchainLoading(false);
         }
     };
 
@@ -114,14 +129,61 @@ export function CampaignDetails() {
         try {
             setTransactionInProgress(true);
 
-            const campaignId = parseInt(id || "0");
+            if (!onchainId) return;
             const formattedAmount = amount.toFixed(18);
 
-            const tx = await contribute(campaignId, formattedAmount);
+            await contribute(onchainId, formattedAmount);
+            const onchainCampaign = await getCampaign(onchainId);
 
-            toast.success("Thank you for your support!");
-            fetchCampaign();
-            fetchOnChainData();
+            if (campaign && campaign.id && onchainCampaign) {
+                try {
+                    const { data, error: updateError } = await supabase
+                        .from("campaigns")
+                        .update({
+                            raised: onchainCampaign.totalFunded,
+                            updated_at: new Date().toISOString(),
+                        })
+                        .eq("id", campaign.id)
+                        .select()
+                        .single();
+
+                    if (updateError) {
+                        console.error(
+                            "Error updating campaign in database:",
+                            updateError
+                        );
+                        toast.error(
+                            "Transaction successful but failed to update database records"
+                        );
+                    } else {
+                        setCampaign((prev) =>
+                            prev
+                                ? {
+                                      ...prev,
+                                      raised: Number(
+                                          onchainCampaign.totalFunded
+                                      ),
+                                  }
+                                : prev
+                        );
+                        toast.success(
+                            "Thank you for your support! Campaign updated successfully."
+                        );
+                    }
+                } catch (dbError) {
+                    console.error("Database update error:", dbError);
+                    toast.error(
+                        "Transaction successful but failed to update campaign data"
+                    );
+                }
+            } else {
+                toast.success("Thank you for your support!");
+            }
+
+            if (onchainId) {
+                fetchOnChainData(onchainId);
+            }
+
             setIsSupportModalOpen(false);
         } catch (err: any) {
             console.error("Transaction error:", err);
@@ -195,7 +257,6 @@ export function CampaignDetails() {
         );
     }
 
-    // Use on-chain data if available, otherwise fall back to database data
     const campaignEndDate = formatDate(
         onChainData?.deadline || campaign.deadline
     );
@@ -339,7 +400,7 @@ export function CampaignDetails() {
                                 <div className="flex justify-between items-center mt-2">
                                     <div>
                                         <div className="text-2xl font-bold text-text">
-                                            {raised.toFixed(2)} ETH
+                                            {raised.toFixed(3)} ETH
                                         </div>
                                         {ethPrice && (
                                             <div className="text-sm text-text-secondary">
@@ -357,7 +418,7 @@ export function CampaignDetails() {
                                             %
                                         </div>
                                         <div className="text-sm text-text-secondary">
-                                            of {goal.toFixed(2)} ETH goal
+                                            of {goal.toFixed(3)} ETH goal
                                         </div>
                                     </div>
                                 </div>
@@ -394,7 +455,7 @@ export function CampaignDetails() {
                                     <div className="flex items-center text-text">
                                         <Target className="w-5 h-5 mr-2 text-primary" />
                                         <span className="font-medium">
-                                            Goal: {goal.toFixed(2)} ETH
+                                            Goal: {goal.toFixed(3)} ETH
                                         </span>
                                     </div>
 
@@ -406,17 +467,35 @@ export function CampaignDetails() {
                                     )}
 
                                     <div className="p-3 bg-primary-light rounded-lg text-sm">
-                                        <div className="font-medium text-primary mb-1">
-                                            Blockchain Status
-                                        </div>
-                                        <div className="text-text-secondary">
-                                            Status:{" "}
-                                            <span className="font-semibold">
-                                                {onChainData
-                                                    ? onChainData.status
-                                                    : "INACTIVE"}
-                                            </span>
-                                        </div>
+                                        {onchainLoading ? (
+                                            <>
+                                                <div className="font-medium text-primary mb-1">
+                                                    Blockchain Status
+                                                </div>
+                                                <div className="flex items-center text-text-secondary">
+                                                    <div className="w-4 h-4 mr-2 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                                                    Loading blockchain data...
+                                                </div>
+                                            </>
+                                        ) : onchainId && !onChainData ? (
+                                            <div className="text-error font-medium">
+                                                Please connect your wallet!
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <div className="font-medium text-primary mb-1">
+                                                    Blockchain Status
+                                                </div>
+                                                <div className="text-text-secondary">
+                                                    Status:{" "}
+                                                    <span className="font-semibold">
+                                                        {onChainData
+                                                            ? "ACTIVE"
+                                                            : "INACTIVE"}
+                                                    </span>
+                                                </div>
+                                            </>
+                                        )}
                                     </div>
 
                                     <div className="flex flex-col gap-1.5">
@@ -444,8 +523,7 @@ export function CampaignDetails() {
                                                     campaign.creator_id ||
                                                 transactionInProgress ||
                                                 contractLoading ||
-                                                !onChainData ||
-                                                onChainData?.status !== "ACTIVE"
+                                                !onChainData
                                             }
                                             className={`w-full py-3 rounded-lg transition-colors ${
                                                 campaignEndDate.hasEnded ||
@@ -453,8 +531,7 @@ export function CampaignDetails() {
                                                     campaign.creator_id ||
                                                 transactionInProgress ||
                                                 contractLoading ||
-                                                !onChainData ||
-                                                onChainData?.status !== "ACTIVE"
+                                                !onChainData
                                                     ? "bg-gray-400 cursor-not-allowed text-light/75"
                                                     : "bg-primary text-light hover:bg-primary-dark disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-light/75"
                                             }`}>
@@ -467,9 +544,7 @@ export function CampaignDetails() {
                                                 : user?.id ===
                                                   campaign.creator_id
                                                 ? "You are the creator"
-                                                : !onChainData ||
-                                                  onChainData?.status !==
-                                                      "ACTIVE"
+                                                : !onChainData
                                                 ? "Campaign Inactive"
                                                 : "Support this Campaign"}
                                         </button>
@@ -487,9 +562,7 @@ export function CampaignDetails() {
                                                 ? "Your wallet is locked. Please unlock it to continue."
                                                 : !isConnected
                                                 ? "Connect your wallet to support this campaign."
-                                                : !onChainData ||
-                                                  onChainData?.status !==
-                                                      "ACTIVE"
+                                                : !onChainData
                                                 ? "This campaign is not active on the blockchain."
                                                 : "Support this campaign with ETH."}
                                         </p>

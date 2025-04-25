@@ -175,6 +175,8 @@ export function NewFund() {
                 createCampaign
             );
 
+            if (onChainTx.status === "reverted")
+                throw new Error("Campaign creation on chain failed");
             if (launchError) throw launchError;
             if (!supabaseData) throw new Error("Failed to create campaign");
             navigate(`/campaign/${supabaseData.id}`);

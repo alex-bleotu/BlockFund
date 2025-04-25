@@ -26,10 +26,6 @@ export async function launchCampaign(
             campaign.id || userId
         );
 
-        if (onChainTx.status === "reverted") {
-            throw new Error("Campaign creation failed");
-        }
-
         const { data: supabaseData, error: supabaseError } = await supabase
             .from("campaigns")
             .insert([
@@ -45,13 +41,14 @@ export async function launchCampaign(
                     images: campaign.images || [],
                     status: "active",
                     tx_hash: onChainTx.hash,
+                    onchain_id: onChainTx.id,
                 },
             ])
             .select()
             .single();
 
         if (supabaseError) throw supabaseError;
-        return { supabaseData, onChainTx, error: null };
+        return { supabaseData, onChainTx: onChainTx.receipt, error: null };
     } catch (error) {
         console.error("Error launching campaign:", error);
         return { supabaseData: null, onChainTx: null, error: error as Error };

@@ -79,10 +79,16 @@
         function contribute(uint256 _campaignId) external payable {
             CampaignData storage campaignData = campaigns[_campaignId];
 
-            require(campaignData.status == CampaignStatus.ACTIVE, "Campaign not active");
+            require(
+                campaignData.status != CampaignStatus.CLOSED,
+                "Campaign is closed"
+            );
             require(block.timestamp < campaignData.deadline, "Campaign has ended");
             require(msg.value > 0, "No ETH sent");
-            require(msg.sender != campaignData.creator, "Creator cannot fund their own campaign");
+            require(
+                msg.sender != campaignData.creator,
+                "Creator cannot fund their own campaign"
+            );
 
             campaignData.totalFunded += msg.value;
             contributions[_campaignId][msg.sender] += msg.value;

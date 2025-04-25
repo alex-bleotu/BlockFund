@@ -11,7 +11,7 @@ interface SupportModalProps {
     campaignGoal: number;
     currentAmount: number;
     onSupport: (amount: number) => Promise<void>;
-    minAmount?: number; // Optional minimum amount
+    minAmount?: number;
 }
 
 export function SupportModal({
@@ -21,11 +21,11 @@ export function SupportModal({
     campaignGoal,
     currentAmount,
     onSupport,
-    minAmount = 0.005, // Changed minimum amount to 0.005 ETH
+    minAmount = 0.005,
 }: SupportModalProps) {
     const { address, connectWallet } = useWallet();
     const { ethPrice } = useEthPrice();
-    const [amount, setAmount] = useState<string>(""); // Removed default value
+    const [amount, setAmount] = useState<string>("");
     const [usdAmount, setUsdAmount] = useState<string>("0");
     const [error, setError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,7 +44,7 @@ export function SupportModal({
 
     useEffect(() => {
         if (isOpen) {
-            setAmount(""); // Reset to empty string when modal opens
+            setAmount("");
             setError(null);
             setIsSubmitting(false);
         }
@@ -53,12 +53,10 @@ export function SupportModal({
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
 
-        // Only accept valid numeric input
         if (value === "" || /^\d*\.?\d*$/.test(value)) {
             setAmount(value);
             setError(null);
 
-            // Update USD amount if possible
             if (ethPrice && value !== "") {
                 const ethValue = parseFloat(value);
                 if (!isNaN(ethValue)) {
@@ -74,7 +72,6 @@ export function SupportModal({
         setError(null);
 
         try {
-            // Ensure the amount is a valid number
             if (!amount || amount === "") {
                 setError("Please enter an amount");
                 return;
@@ -102,12 +99,11 @@ export function SupportModal({
             }
 
             setIsSubmitting(true);
-            // Pass a proper number to the support function
             await onSupport(ethAmount);
         } catch (err) {
             console.error("Support error:", err);
             setError("Failed to process transaction");
-            setIsSubmitting(false); // Reset submission state on error
+            setIsSubmitting(false);
         }
     };
 

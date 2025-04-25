@@ -14,7 +14,7 @@
       - `location` (text, nullable)
       - `deadline` (timestamptz)
       - `created_at` (timestamptz)
-      - `current_amount` (numeric)
+      - `raised` (numeric)
       - `status` (text)
 
   2. Security
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS campaigns (
   location text,
   deadline timestamptz NOT NULL,
   created_at timestamptz DEFAULT now(),
-  current_amount numeric NOT NULL DEFAULT 0 CHECK (current_amount >= 0),
+  raised numeric NOT NULL DEFAULT 0 CHECK (raised >= 0),
   status text NOT NULL CHECK (status IN ('draft', 'active', 'completed', 'cancelled')) DEFAULT 'active'
 );
 

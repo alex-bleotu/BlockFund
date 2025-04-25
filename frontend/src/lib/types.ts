@@ -34,6 +34,8 @@ export interface Campaign {
         username: string;
         wallet_address: string | null;
     };
+    tx_hash?: string;
+    onchain_id?: number;
 }
 
 export interface CampaignFormData extends Omit<Campaign, "goal" | "images"> {

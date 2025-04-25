@@ -24,7 +24,7 @@ export function TopCampaigns() {
                 .select("*")
                 .eq("status", "active")
                 .gt("deadline", now)
-                .order("current_amount", { ascending: false })
+                .order("raised", { ascending: false })
                 .limit(3);
 
             if (error) throw error;
