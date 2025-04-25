@@ -22,7 +22,7 @@ export function SupportModal({
     onSupport,
 }: SupportModalProps) {
     const { address, connectWallet } = useWallet();
-    const { ethPrice, convertUsdToEth } = useEthPrice();
+    const { ethPrice } = useEthPrice();
     const [amount, setAmount] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
