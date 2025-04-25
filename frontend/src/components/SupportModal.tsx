@@ -106,10 +106,14 @@ export function SupportModal({
                         </button>
 
                         <h2 className="text-2xl font-bold text-text mb-2">
-                            {t`Support this Campaign`}
+                            {t`Contribute to this Campaign`}
                         </h2>
                         <p className="text-text-secondary mb-6">
-                            {t`Support "${campaignTitle}" and help make it a reality`}
+                            {t`Contribute to` +
+                                " " +
+                                campaignTitle +
+                                " " +
+                                t`and help make it a reality`}
                         </p>
 
                         {error && (
@@ -126,7 +130,7 @@ export function SupportModal({
                                     {t`Connect your Wallet`}
                                 </h3>
                                 <p className="text-text-secondary mb-4">
-                                    {t`Connect your wallet to support this campaign`}
+                                    {t`Connect your wallet to contribute to this campaign`}
                                 </p>
                                 <button
                                     onClick={connectWallet}
@@ -224,7 +228,7 @@ export function SupportModal({
                                         className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                                         {isSubmitting
                                             ? t`Processing...`
-                                            : t`Support Campaign`}
+                                            : t`Contribute to Campaign`}
                                     </button>
                                 </div>
                             </form>

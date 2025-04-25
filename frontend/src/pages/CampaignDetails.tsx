@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { motion } from "framer-motion";
 import {
     AlertCircle,
@@ -14,12 +15,14 @@ import {
     Tag,
     Target,
     User,
+    Wallet,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ContactModal } from "../components/ContactModal";
 import { SupportModal } from "../components/SupportModal";
+import { WithdrawModal } from "../components/WithdrawModal";
 import { useAuth } from "../hooks/useAuth";
 import { useCampaignActions } from "../hooks/useCampaignActions";
 import { useCampaignContract } from "../hooks/useCampaignContract";
@@ -62,8 +65,10 @@ export function CampaignDetails() {
         getCampaign,
         loading: contractLoading,
         contract,
+        withdraw,
     } = useCampaignContract();
     const [transactionInProgress, setTransactionInProgress] = useState(false);
+    const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
 
     useEffect(() => {
         if (id) {
@@ -193,6 +198,69 @@ export function CampaignDetails() {
         }
     };
 
+    const handleWithdraw = async () => {
+        try {
+            setTransactionInProgress(true);
+
+            if (!onchainId) return;
+
+            await withdraw(onchainId);
+
+            if (campaign && campaign.id) {
+                try {
+                    const { error: updateError } = await supabase
+                        .from("campaigns")
+                        .update({
+                            status: "cancelled",
+                            updated_at: new Date().toISOString(),
+                        })
+                        .eq("id", campaign.id)
+                        .select()
+                        .single();
+
+                    if (updateError) {
+                        console.error(
+                            "Error updating campaign in database:",
+                            updateError
+                        );
+                        toast.error(
+                            "Withdrawal successful but failed to update database records"
+                        );
+                    } else {
+                        setCampaign((prev) => {
+                            if (!prev) return null;
+                            return {
+                                ...prev,
+                                status: "cancelled",
+                            };
+                        });
+                        toast.success(
+                            "Funds withdrawn successfully. Campaign is now closed."
+                        );
+                    }
+                } catch (dbError) {
+                    console.error("Database update error:", dbError);
+                    toast.error(
+                        "Withdrawal successful but failed to update campaign data"
+                    );
+                }
+            } else {
+                toast.success("Funds withdrawn successfully!");
+            }
+
+            if (onchainId) {
+                fetchOnChainData(onchainId);
+            }
+
+            setIsWithdrawModalOpen(false);
+        } catch (err: any) {
+            console.error("Withdrawal error:", err);
+            toast.error("Failed to withdraw funds. Please try again.");
+        } finally {
+            setTransactionInProgress(false);
+        }
+    };
+
     const calculateProgress = (current: number, goal: number) => {
         return Math.min((current / goal) * 100, 100);
     };
@@ -242,15 +310,15 @@ export function CampaignDetails() {
                 <div className="text-center">
                     <AlertCircle className="w-12 h-12 text-error mx-auto mb-4" />
                     <h2 className="text-xl font-bold text-text mb-2">
-                        Error Loading Campaign
+                        {t`Error Loading Campaign`}
                     </h2>
                     <p className="text-text-secondary mb-4">
-                        {error || "Campaign not found"}
+                        {error || t`Campaign not found`}
                     </p>
                     <button
                         onClick={() => navigate(-1)}
                         className="text-primary hover:text-primary-dark transition-colors">
-                        Go Back
+                        {t`Go Back`}
                     </button>
                 </div>
             </div>
@@ -272,7 +340,7 @@ export function CampaignDetails() {
                     onClick={() => navigate("/campaigns")}
                     className="flex items-center text-text-secondary hover:text-text mb-8 transition-colors">
                     <ArrowLeft className="w-5 h-5 mr-2" />
-                    Back to Campaigns
+                    {t`Back to Campaigns`}
                 </button>
 
                 <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
@@ -445,8 +513,9 @@ export function CampaignDetails() {
                                             <Calendar className="w-5 h-5 mr-2" />
                                             <span>
                                                 {campaignEndDate.hasEnded
-                                                    ? "Campaign Ended"
-                                                    : `${campaignEndDate.daysLeft} days left`}
+                                                    ? t`Campaign Ended`
+                                                    : campaignEndDate.daysLeft +
+                                                      t`days left`}
                                             </span>
                                         </div>
                                         <span>{campaignEndDate.formatted}</span>
@@ -455,7 +524,7 @@ export function CampaignDetails() {
                                     <div className="flex items-center text-text">
                                         <Target className="w-5 h-5 mr-2 text-primary" />
                                         <span className="font-medium">
-                                            Goal: {goal.toFixed(3)} ETH
+                                            {t`Goal:`} {goal.toFixed(3)} ETH
                                         </span>
                                     </div>
 
@@ -470,28 +539,28 @@ export function CampaignDetails() {
                                         {onchainLoading ? (
                                             <>
                                                 <div className="font-medium text-primary mb-1">
-                                                    Blockchain Status
+                                                    {t`Blockchain Status`}
                                                 </div>
                                                 <div className="flex items-center text-text-secondary">
                                                     <div className="w-4 h-4 mr-2 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-                                                    Loading blockchain data...
+                                                    {t`Loading blockchain data...`}
                                                 </div>
                                             </>
                                         ) : onchainId && !onChainData ? (
-                                            <div className="text-error font-medium">
-                                                Please connect your wallet!
+                                            <div className="text-primary font-medium">
+                                                {t`Please connect your wallet!`}
                                             </div>
                                         ) : (
                                             <>
                                                 <div className="font-medium text-primary mb-1">
-                                                    Blockchain Status
+                                                    {t`Blockchain Status`}
                                                 </div>
                                                 <div className="text-text-secondary">
-                                                    Status:{" "}
+                                                    {t`Status:`}{" "}
                                                     <span className="font-semibold">
                                                         {onChainData
-                                                            ? "ACTIVE"
-                                                            : "INACTIVE"}
+                                                            ? t`ACTIVE`
+                                                            : t`INACTIVE`}
                                                     </span>
                                                 </div>
                                             </>
@@ -499,72 +568,134 @@ export function CampaignDetails() {
                                     </div>
 
                                     <div className="flex flex-col gap-1.5">
-                                        <button
-                                            onClick={() => {
-                                                if (!user) {
-                                                    navigate("/login", {
-                                                        state: {
-                                                            from: `/campaign/${campaign.id}`,
-                                                        },
-                                                    });
-                                                    return;
+                                        {user?.id === campaign.creator_id ? (
+                                            <button
+                                                onClick={() => {
+                                                    if (
+                                                        !isConnected ||
+                                                        isLocked
+                                                    ) {
+                                                        connect();
+                                                        return;
+                                                    }
+                                                    setIsWithdrawModalOpen(
+                                                        true
+                                                    );
+                                                }}
+                                                disabled={
+                                                    transactionInProgress ||
+                                                    contractLoading ||
+                                                    !onChainData ||
+                                                    onChainData.status ===
+                                                        "CLOSED" ||
+                                                    Number(
+                                                        onChainData?.totalFunded ||
+                                                            0
+                                                    ) === 0 ||
+                                                    !isInstalled
                                                 }
+                                                className={`w-full py-3 rounded-lg transition-colors flex items-center justify-center space-x-2 ${
+                                                    transactionInProgress ||
+                                                    contractLoading ||
+                                                    !onChainData ||
+                                                    onChainData.status ===
+                                                        "CLOSED" ||
+                                                    Number(
+                                                        onChainData?.totalFunded ||
+                                                            0
+                                                    ) === 0 ||
+                                                    !isInstalled
+                                                        ? "bg-gray-400 cursor-not-allowed text-light/75"
+                                                        : "bg-primary text-light hover:bg-primary-dark disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-light/75"
+                                                }`}>
+                                                <Wallet className="w-4 h-4" />
+                                                <span>
+                                                    {transactionInProgress
+                                                        ? t`Transaction in progress...`
+                                                        : contractLoading
+                                                        ? t`Loading...`
+                                                        : t`Withdraw Funds`}
+                                                </span>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                onClick={() => {
+                                                    if (!user) {
+                                                        navigate("/login", {
+                                                            state: {
+                                                                from: `/campaign/${campaign.id}`,
+                                                            },
+                                                        });
+                                                        return;
+                                                    }
 
-                                                if (!isConnected || isLocked) {
-                                                    connect();
-                                                    return;
+                                                    if (
+                                                        !isConnected ||
+                                                        isLocked
+                                                    ) {
+                                                        connect();
+                                                        return;
+                                                    }
+                                                    setIsSupportModalOpen(true);
+                                                }}
+                                                disabled={
+                                                    campaignEndDate.hasEnded ||
+                                                    !isInstalled ||
+                                                    transactionInProgress ||
+                                                    contractLoading ||
+                                                    !onChainData
                                                 }
-                                                setIsSupportModalOpen(true);
-                                            }}
-                                            disabled={
-                                                campaignEndDate.hasEnded ||
-                                                !isInstalled ||
-                                                user?.id ===
-                                                    campaign.creator_id ||
-                                                transactionInProgress ||
-                                                contractLoading ||
-                                                !onChainData
-                                            }
-                                            className={`w-full py-3 rounded-lg transition-colors ${
-                                                campaignEndDate.hasEnded ||
-                                                user?.id ===
-                                                    campaign.creator_id ||
-                                                transactionInProgress ||
-                                                contractLoading ||
-                                                !onChainData
-                                                    ? "bg-gray-400 cursor-not-allowed text-light/75"
-                                                    : "bg-primary text-light hover:bg-primary-dark disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-light/75"
-                                            }`}>
-                                            {transactionInProgress
-                                                ? "Transaction in progress..."
-                                                : contractLoading
-                                                ? "Loading..."
-                                                : campaignEndDate.hasEnded
-                                                ? "Campaign Ended"
-                                                : user?.id ===
-                                                  campaign.creator_id
-                                                ? "You are the creator"
-                                                : !onChainData
-                                                ? "Campaign Inactive"
-                                                : "Support this Campaign"}
-                                        </button>
+                                                className={`w-full py-3 rounded-lg transition-colors ${
+                                                    campaignEndDate.hasEnded ||
+                                                    transactionInProgress ||
+                                                    contractLoading ||
+                                                    !onChainData ||
+                                                    !isInstalled
+                                                        ? "bg-gray-400 cursor-not-allowed text-light/75"
+                                                        : "bg-primary text-light hover:bg-primary-dark disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-light/75"
+                                                }`}>
+                                                {transactionInProgress
+                                                    ? t`Transaction in progress...`
+                                                    : contractLoading
+                                                    ? t`Loading...`
+                                                    : campaignEndDate.hasEnded
+                                                    ? t`Campaign Ended`
+                                                    : !onChainData
+                                                    ? t`Campaign Inactive`
+                                                    : t`Contribute to this Campaign`}
+                                            </button>
+                                        )}
                                         <p className="text-sm text-text-secondary text-center">
                                             {campaignEndDate.hasEnded
-                                                ? "This campaign has ended."
+                                                ? t`This campaign has ended.`
                                                 : user?.id ===
                                                   campaign.creator_id
-                                                ? "You cannot support your own campaign."
+                                                ? !isInstalled
+                                                    ? t`MetaMask is not installed.`
+                                                    : !isConnected || isLocked
+                                                    ? t`Connect your wallet to withdraw funds.`
+                                                    : !onChainData
+                                                    ? t`This campaign is not active on the blockchain.`
+                                                    : onChainData.status ===
+                                                      "CLOSED"
+                                                    ? t`This campaign is already closed.`
+                                                    : Number(
+                                                          onChainData.totalFunded ||
+                                                              0
+                                                      ) === 0
+                                                    ? t`No funds available to withdraw.`
+                                                    : t`Withdraw funds to close this campaign.`
                                                 : !user
-                                                ? "Please sign in to support this campaign."
+                                                ? t`Please sign in to contribute to this campaign.`
                                                 : !isInstalled
-                                                ? "MetaMask is not installed."
+                                                ? t`MetaMask is not installed.`
                                                 : isLocked
-                                                ? "Your wallet is locked. Please unlock it to continue."
+                                                ? t`Your wallet is locked. Please unlock it to continue.`
                                                 : !isConnected
-                                                ? "Connect your wallet to support this campaign."
+                                                ? t`Connect your wallet to contribute to this campaign.`
                                                 : !onChainData
-                                                ? "This campaign is not active on the blockchain."
-                                                : "Support this campaign with ETH."}
+                                                ? t`This campaign is not active on the blockchain.`
+                                                : t`Contribute to this campaign with ETH.`}
                                         </p>
                                     </div>
                                 </div>
@@ -572,7 +703,7 @@ export function CampaignDetails() {
 
                             <div className="bg-surface rounded-xl p-6 shadow-lg">
                                 <h3 className="text-xl font-bold text-text mb-4">
-                                    About the Creator
+                                    {t`About the Creator`}
                                 </h3>
                                 <Link
                                     to={`/profile/${campaign.creator_id}`}
@@ -603,17 +734,17 @@ export function CampaignDetails() {
                                         setIsContactModalOpen(true);
                                     }}
                                     disabled={user?.id === campaign.creator_id}
-                                    className={`w-full mt-4 py-2 border-2 border-primary rounded-lg transition-colors flex items-center justify-center ${
+                                    className={`w-full mt-4 py-2 border-2 rounded-lg transition-colors flex items-center justify-center ${
                                         user?.id === campaign.creator_id
                                             ? "border-gray-400 text-gray-400 cursor-not-allowed"
-                                            : "text-primary hover:bg-primary hover:text-light"
+                                            : "border-primary text-primary hover:bg-primary hover:text-light"
                                     }`}>
                                     <MessageCircle className="w-4 h-4 mr-2" />
                                     {user?.id === campaign.creator_id
-                                        ? "You are the creator"
+                                        ? t`You are the creator`
                                         : !user
-                                        ? "Sign in to Contact"
-                                        : "Contact Creator"}
+                                        ? t`Sign in to Contact`
+                                        : t`Contact Creator`}
                                 </button>
                             </div>
                         </div>
@@ -636,7 +767,15 @@ export function CampaignDetails() {
                 campaignGoal={goal}
                 currentAmount={raised}
                 onSupport={handleSupport}
-                minAmount={0.005}
+            />
+
+            <WithdrawModal
+                isOpen={isWithdrawModalOpen}
+                onClose={() => setIsWithdrawModalOpen(false)}
+                campaignTitle={campaign.title}
+                amount={onChainData?.totalFunded}
+                onConfirm={handleWithdraw}
+                isProcessing={transactionInProgress}
             />
         </div>
     );
