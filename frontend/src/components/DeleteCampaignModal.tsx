@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { motion } from "framer-motion";
 import { AlertCircle, X } from "lucide-react";
 
@@ -46,14 +47,12 @@ export function DeleteCampaignModal({
                             <AlertCircle className="w-6 h-6" />
                         </div>
                         <h3 className="text-xl font-bold text-text">
-                            Delete Campaign
+                            {t`Delete Campaign`}
                         </h3>
                     </div>
 
                     <p className="text-text-secondary mb-6">
-                        Are you sure you want to delete "{campaignTitle}"? This
-                        action will close the campaign on the blockchain. This
-                        action cannot be undone.
+                        {t`Are you sure you want to delete "${campaignTitle}"? This action will close the campaign on the blockchain and cannot be undone.`}
                     </p>
 
                     <div className="flex justify-end space-x-3">
@@ -61,13 +60,13 @@ export function DeleteCampaignModal({
                             onClick={onClose}
                             disabled={isDeleting}
                             className="px-4 py-2 text-text-secondary hover:text-text transition-colors disabled:opacity-50">
-                            Cancel
+                            {t`Cancel`}
                         </button>
                         <button
                             onClick={onConfirm}
                             disabled={isDeleting}
                             className="px-6 py-2 bg-error text-light rounded-lg hover:bg-error-dark transition-colors disabled:opacity-50">
-                            {isDeleting ? "Deleting..." : "Delete"}
+                            {isDeleting ? t`Deleting...` : t`Delete`}
                         </button>
                     </div>
                 </motion.div>

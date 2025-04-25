@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { motion } from "framer-motion";
 import { AlertCircle, Wallet, X } from "lucide-react";
 
@@ -48,21 +49,21 @@ export function WithdrawModal({
                             <Wallet className="w-6 h-6" />
                         </div>
                         <h3 className="text-xl font-bold text-text">
-                            Withdraw Funds
+                            {t`Withdraw Funds`}
                         </h3>
                     </div>
 
                     <div className="mb-6">
                         <div className="flex justify-between mb-2">
                             <span className="text-text-secondary">
-                                Campaign:
+                                {t`Campaign:`}
                             </span>
                             <span className="text-text font-medium">
                                 {campaignTitle}
                             </span>
                         </div>
                         <div className="flex justify-between mb-4">
-                            <span className="text-text-secondary">Amount:</span>
+                            <span className="text-text-secondary">{t`Amount:`}</span>
                             <span className="text-primary font-bold">
                                 {amount} ETH
                             </span>
@@ -73,12 +74,10 @@ export function WithdrawModal({
                                 <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mr-2 mt-0.5" />
                                 <div className="text-amber-700 dark:text-amber-300">
                                     <p className="font-medium mb-1">
-                                        Important
+                                        {t`Important`}
                                     </p>
                                     <p className="text-sm">
-                                        Withdrawing funds will close this
-                                        campaign permanently. This action cannot
-                                        be undone.
+                                        {t`Withdrawing funds will close this campaign permanently. This action cannot be undone.`}
                                     </p>
                                 </div>
                             </div>
@@ -90,13 +89,13 @@ export function WithdrawModal({
                             onClick={onClose}
                             disabled={isProcessing}
                             className="px-4 py-2 text-text-secondary hover:text-text transition-colors disabled:opacity-50">
-                            Cancel
+                            {t`Cancel`}
                         </button>
                         <button
                             onClick={onConfirm}
                             disabled={isProcessing}
                             className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50">
-                            {isProcessing ? "Processing..." : "Withdraw"}
+                            {isProcessing ? t`Processing...` : t`Withdraw`}
                         </button>
                     </div>
                 </motion.div>

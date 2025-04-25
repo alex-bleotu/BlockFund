@@ -80,6 +80,10 @@ export function Campaigns() {
             (campaign) => campaign.status === "active"
         );
 
+        filtered = filtered.filter(
+            (campaign) => campaign.status !== "completed"
+        );
+
         const now = new Date();
         filtered = filtered.filter((campaign) => {
             const isEnded = new Date(campaign.deadline) < now;

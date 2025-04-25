@@ -20,7 +20,7 @@ import { useEthPrice } from "../hooks/useEthPrice";
 import { supabase } from "../lib/supabase";
 import { Campaign } from "../lib/types";
 
-type CampaignStatus = "all" | "active" | "ended";
+type CampaignStatus = "all" | "active" | "ended" | "completed";
 
 export function MyCampaigns() {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -69,7 +69,9 @@ export function MyCampaigns() {
             case "active":
                 return !isEnded && campaign.status === "active";
             case "ended":
-                return isEnded || campaign.status !== "active";
+                return isEnded && campaign.status === "active";
+            case "completed":
+                return campaign.status === "completed";
             default:
                 return true;
         }
@@ -207,8 +209,13 @@ export function MyCampaigns() {
         const ended = campaigns.filter(
             (c) => new Date(c.deadline) < now && c.status === "active"
         ).length;
-        const inactive = campaigns.filter((c) => c.status !== "active").length;
-        return { active, ended, inactive };
+        const completed = campaigns.filter(
+            (c) => c.status === "completed"
+        ).length;
+        const inactive = campaigns.filter(
+            (c) => c.status !== "active" && c.status !== "completed"
+        ).length;
+        return { active, ended, inactive, completed };
     };
 
     const stats = getCampaignStats();
@@ -223,7 +230,8 @@ export function MyCampaigns() {
                         </h1>
                         <div className="text-text-secondary">
                             {stats.active} {t`Active`} • {stats.ended}{" "}
-                            {t`Ended`} • {stats.inactive} {t`Inactive`}
+                            {t`Ended`} • {stats.completed} {t`Completed`} •{" "}
+                            {stats.inactive} {t`Inactive`}
                         </div>
                     </div>
                     <button
@@ -234,23 +242,27 @@ export function MyCampaigns() {
                     </button>
                 </div>
 
-                <div className="flex items-center gap-2 mb-6">
-                    {(["all", "active", "ended"] as const).map((status) => (
-                        <button
-                            key={status}
-                            onClick={() => setSelectedStatus(status)}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                                selectedStatus === status
-                                    ? "bg-primary text-light"
-                                    : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
-                            }`}>
-                            {status === "all"
-                                ? t`All`
-                                : status === "active"
-                                ? t`Active`
-                                : t`Ended`}
-                        </button>
-                    ))}
+                <div className="flex items-center gap-2 mb-6 flex-wrap">
+                    {(["all", "active", "ended", "completed"] as const).map(
+                        (status) => (
+                            <button
+                                key={status}
+                                onClick={() => setSelectedStatus(status)}
+                                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                                    selectedStatus === status
+                                        ? "bg-primary text-light"
+                                        : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
+                                }`}>
+                                {status === "all"
+                                    ? t`All`
+                                    : status === "active"
+                                    ? t`Active`
+                                    : status === "completed"
+                                    ? t`Completed`
+                                    : t`Ended`}
+                            </button>
+                        )
+                    )}
                 </div>
 
                 {loading ? (
@@ -318,7 +330,10 @@ export function MyCampaigns() {
                                             <span
                                                 className={`text-sm px-2 py-1 rounded-full ${
                                                     campaign.status !== "active"
-                                                        ? "bg-gray-800/80"
+                                                        ? campaign.status ===
+                                                          "completed"
+                                                            ? "bg-primary/80"
+                                                            : "bg-gray-800/80"
                                                         : new Date(
                                                               campaign.deadline
                                                           ) < new Date()
@@ -326,7 +341,10 @@ export function MyCampaigns() {
                                                         : "bg-success/80"
                                                 }`}>
                                                 {campaign.status !== "active"
-                                                    ? t`Inactive`
+                                                    ? campaign.status ===
+                                                      "completed"
+                                                        ? t`Completed`
+                                                        : t`Inactive`
                                                     : new Date(
                                                           campaign.deadline
                                                       ) < new Date()

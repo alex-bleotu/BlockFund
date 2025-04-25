@@ -589,7 +589,9 @@ export function CampaignDetails() {
                                                         onChainData?.totalFunded ||
                                                             0
                                                     ) === 0 ||
-                                                    !isInstalled
+                                                    !isInstalled ||
+                                                    campaign.status ===
+                                                        "completed"
                                                 }
                                                 className={`w-full py-3 rounded-lg transition-colors flex items-center justify-center space-x-2 ${
                                                     transactionInProgress ||
@@ -599,7 +601,9 @@ export function CampaignDetails() {
                                                         onChainData?.totalFunded ||
                                                             0
                                                     ) === 0 ||
-                                                    !isInstalled
+                                                    !isInstalled ||
+                                                    campaign.status ===
+                                                        "completed"
                                                         ? "bg-gray-400 cursor-not-allowed text-light/75"
                                                         : "bg-primary text-light hover:bg-primary-dark disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-light/75"
                                                 }`}>
@@ -639,14 +643,18 @@ export function CampaignDetails() {
                                                     !isInstalled ||
                                                     transactionInProgress ||
                                                     contractLoading ||
-                                                    !onChainData
+                                                    !onChainData ||
+                                                    campaign.status ===
+                                                        "completed"
                                                 }
                                                 className={`w-full py-3 rounded-lg transition-colors ${
                                                     campaignEndDate.hasEnded ||
                                                     transactionInProgress ||
                                                     contractLoading ||
                                                     !onChainData ||
-                                                    !isInstalled
+                                                    !isInstalled ||
+                                                    campaign.status ===
+                                                        "completed"
                                                         ? "bg-gray-400 cursor-not-allowed text-light/75"
                                                         : "bg-primary text-light hover:bg-primary-dark disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-light/75"
                                                 }`}>
@@ -656,6 +664,9 @@ export function CampaignDetails() {
                                                     ? t`Loading...`
                                                     : campaignEndDate.hasEnded
                                                     ? t`Campaign Ended`
+                                                    : campaign.status ===
+                                                      "completed"
+                                                    ? t`Campaign Completed`
                                                     : !onChainData
                                                     ? t`Campaign Inactive`
                                                     : t`Contribute to this Campaign`}
@@ -664,6 +675,9 @@ export function CampaignDetails() {
                                         <p className="text-sm text-text-secondary text-center">
                                             {campaignEndDate.hasEnded
                                                 ? t`This campaign has ended.`
+                                                : campaign.status ===
+                                                  "completed"
+                                                ? t`This campaign has been completed. No further actions are possible.`
                                                 : user?.id ===
                                                   campaign.creator_id
                                                 ? !isInstalled

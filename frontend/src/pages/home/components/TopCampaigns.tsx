@@ -24,6 +24,7 @@ export function TopCampaigns() {
                 .from("campaigns")
                 .select("*")
                 .eq("status", "active")
+                .neq("status", "completed")
                 .gt("deadline", now)
                 .order("raised", { ascending: false })
                 .limit(3);
