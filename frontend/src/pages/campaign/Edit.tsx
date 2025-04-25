@@ -91,7 +91,7 @@ export function EditFund() {
             setPreviewUrls(data.images || []);
         } catch (err: any) {
             console.error("Error fetching campaign:", err);
-            setError(err.message || "Failed to load campaign");
+            setError(err.message || t`Failed to load campaign`);
             if (
                 err.message ===
                 "You do not have permission to edit this campaign"

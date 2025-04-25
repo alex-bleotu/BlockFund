@@ -205,10 +205,15 @@ export function NewFund() {
                     err.message.includes("User denied transaction signature"))
             ) {
                 setError(
-                    "Transaction rejected: You declined the MetaMask transaction"
+                    t`Transaction rejected: You declined the MetaMask transaction`
                 );
+            } else if (
+                err.message &&
+                err.message.includes("Cannot read properties of null ")
+            ) {
+                setError(t`Something went wrong. Please try again.`);
             } else {
-                setError(err.message || "Failed to create campaign");
+                setError(err.message || t`Failed to create campaign`);
             }
         } finally {
             setLoading(false);

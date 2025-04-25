@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
 import { About } from "../pages/About";
+import { ContractSettings } from "../pages/admin/ContractSettings";
 import { EditFund } from "../pages/campaign/Edit";
 import { NewFund } from "../pages/campaign/New";
 import { CampaignDetails } from "../pages/CampaignDetails";
@@ -25,6 +26,7 @@ export function AppContent() {
     const isFundPage = ["/campaign/new", "/campaign/edit"].some((path) =>
         location.pathname.startsWith(path)
     );
+    const isAdminPage = location.pathname.startsWith("/admin");
 
     useEffect(() => {
         if (theme === "dark") {
@@ -36,7 +38,7 @@ export function AppContent() {
 
     return (
         <div className="min-h-screen bg-background transition-colors duration-200">
-            {!isAuthPage && !isFundPage && <Navbar />}
+            {!isAuthPage && !isFundPage && !isAdminPage && <Navbar />}
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
@@ -51,9 +53,13 @@ export function AppContent() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/faqs" element={<FAQs />} />
                 <Route path="/profile/:id" element={<Profile />} />
+                <Route
+                    path="/admin/contract-settings"
+                    element={<ContractSettings />}
+                />
                 <Route path="*" element={<NotFound />} />
             </Routes>
-            {!isAuthPage && !isFundPage && <Footer />}
+            {!isAuthPage && !isFundPage && !isAdminPage && <Footer />}
         </div>
     );
 }
