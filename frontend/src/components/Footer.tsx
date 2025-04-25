@@ -1,4 +1,4 @@
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 

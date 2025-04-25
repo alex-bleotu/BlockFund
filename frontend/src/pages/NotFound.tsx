@@ -1,4 +1,4 @@
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import { ArrowLeft, Rocket } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 

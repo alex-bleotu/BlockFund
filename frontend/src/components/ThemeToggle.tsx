@@ -1,4 +1,4 @@
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
 

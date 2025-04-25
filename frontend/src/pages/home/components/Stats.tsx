@@ -1,6 +1,8 @@
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import { Shield, Sparkles, TrendingUp, Users } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useEthPrice } from "../../../hooks/useEthPrice";
+import { supabase } from "../../../lib/supabase";
 
 interface StatCardProps {
     icon: any;
@@ -89,12 +91,84 @@ function StatCard({
 }
 
 export function Stats() {
+    const { ethPrice } = useEthPrice();
+    const [statsData, setStatsData] = useState({
+        activeUsers: "0",
+        totalRaised: "0",
+        totalProjects: "0",
+        successRate: "0",
+    });
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            setIsLoading(true);
+            try {
+                const { count: usersCount, error: usersError } = await supabase
+                    .from("profiles")
+                    .select("*", { count: "exact", head: true })
+                    .not("wallet_address", "is", null);
+
+                if (usersError) throw usersError;
+
+                const { data: campaignsData, error: campaignsError } =
+                    await supabase.from("campaigns").select("raised");
+
+                if (campaignsError) throw campaignsError;
+
+                const totalRaisedEth = campaignsData.reduce(
+                    (sum, campaign) => sum + (parseFloat(campaign.raised) || 0),
+                    0
+                );
+
+                const totalRaisedUsd = ethPrice
+                    ? totalRaisedEth * ethPrice
+                    : totalRaisedEth * 2500;
+
+                const { count: projectsCount, error: projectsError } =
+                    await supabase
+                        .from("campaigns")
+                        .select("*", { count: "exact", head: true });
+
+                if (projectsError) throw projectsError;
+
+                const { count: successfulCount, error: successError } =
+                    await supabase
+                        .from("campaigns")
+                        .select("*", { count: "exact", head: true })
+                        .eq("status", "SUCCESSFUL");
+
+                if (successError) throw successError;
+
+                const successRate =
+                    projectsCount && projectsCount > 0
+                        ? Math.round(
+                              ((successfulCount || 0) / projectsCount) * 100
+                          )
+                        : 0;
+
+                setStatsData({
+                    activeUsers: String(usersCount || 0),
+                    totalRaised: String(Math.round(totalRaisedUsd)),
+                    totalProjects: String(projectsCount || 0),
+                    successRate: String(successRate),
+                });
+            } catch (error) {
+                console.error("Error fetching stats:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchStats();
+    }, [ethPrice]);
+
     const stats = [
         {
             id: "users",
             icon: Users,
             label: t`Active Users`,
-            value: "10000",
+            value: isLoading ? "0" : statsData.activeUsers,
             suffix: "+",
             increment: 1,
             duration: 2000,
@@ -103,7 +177,7 @@ export function Stats() {
             id: "funds",
             icon: TrendingUp,
             label: t`Total Raised`,
-            value: "250000",
+            value: isLoading ? "0" : statsData.totalRaised,
             prefix: "$",
             increment: 10000,
             duration: 2500,
@@ -112,7 +186,7 @@ export function Stats() {
             id: "projects",
             icon: Shield,
             label: t`Secure Projects`,
-            value: "1000",
+            value: isLoading ? "0" : statsData.totalProjects,
             suffix: "+",
             increment: 1,
             duration: 2000,
@@ -121,7 +195,7 @@ export function Stats() {
             id: "success",
             icon: Sparkles,
             label: t`Success Rate`,
-            value: "95",
+            value: isLoading ? "0" : statsData.successRate,
             suffix: "%",
             increment: 1,
             duration: 1500,

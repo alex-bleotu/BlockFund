@@ -1,4 +1,4 @@
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, DollarSign, Wallet, X } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -27,21 +27,8 @@ export function SupportModal({
     const { address, connectWallet } = useWallet();
     const { ethPrice } = useEthPrice();
     const [amount, setAmount] = useState<string>("");
-    const [usdAmount, setUsdAmount] = useState<string>("0");
     const [error, setError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    useEffect(() => {
-        if (ethPrice && amount) {
-            const eth = parseFloat(amount || "0");
-            if (!isNaN(eth)) {
-                const usd = eth * ethPrice;
-                setUsdAmount(usd.toFixed(2));
-            }
-        } else {
-            setUsdAmount("0");
-        }
-    }, [amount, ethPrice]);
 
     useEffect(() => {
         if (isOpen) {
@@ -57,14 +44,6 @@ export function SupportModal({
         if (value === "" || /^\d*\.?\d*$/.test(value)) {
             setAmount(value);
             setError(null);
-
-            if (ethPrice && value !== "") {
-                const ethValue = parseFloat(value);
-                if (!isNaN(ethValue)) {
-                    const usd = ethValue * ethPrice;
-                    setUsdAmount(usd.toFixed(2));
-                }
-            }
         }
     };
 

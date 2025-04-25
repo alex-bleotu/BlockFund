@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { Bell, FolderHeart, LogOut, Settings, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -108,20 +109,20 @@ export function ProfileMenu() {
                                 onClick={handleMenuClick}
                                 className="flex items-center px-4 py-2 text-sm text-text hover:bg-background-alt">
                                 <FolderHeart className="w-4 h-4 mr-2" />
-                                My Campaigns
+                                {t`My Campaigns`}
                             </Link>
                             <Link
                                 to="/settings"
                                 onClick={handleMenuClick}
                                 className="flex items-center px-4 py-2 text-sm text-text hover:bg-background-alt">
                                 <Settings className="w-4 h-4 mr-2" />
-                                Settings
+                                {t`Settings`}
                             </Link>
                             <button
                                 onClick={handleSignOut}
                                 className="flex items-center w-full px-4 py-2 text-sm text-text hover:bg-background-alt">
                                 <LogOut className="w-4 h-4 mr-2" />
-                                Sign out
+                                {t`Sign out`}
                             </button>
                         </div>
                     </div>

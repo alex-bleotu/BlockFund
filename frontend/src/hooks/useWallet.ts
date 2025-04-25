@@ -1,4 +1,4 @@
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import { ethers } from "ethers";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";

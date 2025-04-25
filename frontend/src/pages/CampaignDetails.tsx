@@ -137,7 +137,7 @@ export function CampaignDetails() {
 
             if (campaign && campaign.id && onchainCampaign) {
                 try {
-                    const { data, error: updateError } = await supabase
+                    const { error: updateError } = await supabase
                         .from("campaigns")
                         .update({
                             raised: onchainCampaign.totalFunded,

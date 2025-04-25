@@ -1,4 +1,4 @@
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import { AnimatePresence, motion } from "framer-motion";
 import {
     Calendar,

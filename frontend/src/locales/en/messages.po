@@ -49,7 +49,7 @@ msgstr "Active"
 msgid "Active Campaigns"
 msgstr "Active Campaigns"
 
-#: src/pages/home/components/Stats.tsx:96
+#: src/pages/home/components/Stats.tsx:170
 msgid "Active Users"
 msgstr "Active Users"
 
@@ -70,17 +70,21 @@ msgstr "All your campaigns have ended. Start a new one!"
 msgid "Already have an account?"
 msgstr "Already have an account?"
 
-#: src/components/SupportModal.tsx:210
+#: src/components/SupportModal.tsx:189
 msgid "Amount Remaining"
 msgstr "Amount Remaining"
 
-#: src/components/SupportModal.tsx:162
+#: src/components/SupportModal.tsx:141
 msgid "Amount to Contribute"
 msgstr "Amount to Contribute"
 
 #: src/pages/FAQs.tsx:21
 msgid "Are the campaigns real?"
 msgstr "Are the campaigns real?"
+
+#: src/lib/types.ts:5
+msgid "Art"
+msgstr "Art"
 
 #: src/pages/home/components/Features.tsx:42
 msgid "Automated fund distribution and milestone tracking through smart contracts, eliminating intermediaries."
@@ -118,7 +122,7 @@ msgstr "Campaign closed on blockchain"
 msgid "Campaign deleted successfully"
 msgstr "Campaign deleted successfully"
 
-#: src/components/SupportModal.tsx:202
+#: src/components/SupportModal.tsx:181
 msgid "Campaign Goal"
 msgstr "Campaign Goal"
 
@@ -135,7 +139,7 @@ msgstr "Can I actually donate to campaigns?"
 msgid "Can I use this for real crowdfunding?"
 msgstr "Can I use this for real crowdfunding?"
 
-#: src/components/SupportModal.tsx:236
+#: src/components/SupportModal.tsx:215
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -156,6 +160,10 @@ msgstr "Close menu"
 msgid "CoinGecko returned {0}"
 msgstr "CoinGecko returned {0}"
 
+#: src/lib/types.ts:12
+msgid "Community"
+msgstr "Community"
+
 #: src/pages/About.tsx:55
 msgid "Community First"
 msgstr "Community First"
@@ -165,7 +173,7 @@ msgid "Confirm New Password"
 msgstr "Confirm New Password"
 
 #: src/pages/Settings.tsx:510
-#: src/components/SupportModal.tsx:155
+#: src/components/SupportModal.tsx:134
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
@@ -181,11 +189,11 @@ msgstr "Connect With Us"
 msgid "Connect your MetaMask wallet to start creating campaigns"
 msgstr "Connect your MetaMask wallet to start creating campaigns"
 
-#: src/components/SupportModal.tsx:147
+#: src/components/SupportModal.tsx:126
 msgid "Connect your Wallet"
 msgstr "Connect your Wallet"
 
-#: src/components/SupportModal.tsx:150
+#: src/components/SupportModal.tsx:129
 msgid "Connect your wallet to support this campaign"
 msgstr "Connect your wallet to support this campaign"
 
@@ -268,6 +276,10 @@ msgstr "Documentation"
 msgid "Don't actually do that!"
 msgstr "Don't actually do that!"
 
+#: src/lib/types.ts:13
+msgid "Education"
+msgstr "Education"
+
 #: src/pages/FAQs.tsx:55
 msgid "Educational Project Disclaimer"
 msgstr "Educational Project Disclaimer"
@@ -310,6 +322,10 @@ msgstr "Enter your email"
 #: src/pages/Login.tsx:106
 msgid "Enter your password"
 msgstr "Enter your password"
+
+#: src/lib/types.ts:14
+msgid "Environment"
+msgstr "Environment"
 
 #: src/components/MetaMaskStatus.tsx:54
 msgid "Error connecting to MetaMask. Please check your wallet."
@@ -402,7 +418,7 @@ msgstr "Failed to load wallet"
 msgid "Failed to load your campaigns"
 msgstr "Failed to load your campaigns"
 
-#: src/components/SupportModal.tsx:97
+#: src/components/SupportModal.tsx:76
 msgid "Failed to process transaction"
 msgstr "Failed to process transaction"
 
@@ -428,9 +444,21 @@ msgstr "Failed to update profile"
 msgid "FAQs"
 msgstr "FAQs"
 
+#: src/lib/types.ts:10
+msgid "Fashion"
+msgstr "Fashion"
+
 #: src/pages/Contact.tsx:149
 msgid "Fill out the form below and we'll get back to you as soon as possible."
 msgstr "Fill out the form below and we'll get back to you as soon as possible."
+
+#: src/lib/types.ts:7
+msgid "Film"
+msgstr "Film"
+
+#: src/lib/types.ts:11
+msgid "Food"
+msgstr "Food"
 
 #: src/pages/Login.tsx:121
 msgid "Forgot password?"
@@ -439,6 +467,10 @@ msgstr "Forgot password?"
 #: src/pages/FAQs.tsx:40
 msgid "Frequently Asked Questions"
 msgstr "Frequently Asked Questions"
+
+#: src/lib/types.ts:8
+msgid "Games"
+msgstr "Games"
 
 #: src/pages/Contact.tsx:79
 msgid "Get in Touch"
@@ -456,6 +488,10 @@ msgstr "Go Back"
 #: src/pages/NotFound.tsx:37
 msgid "Go Home"
 msgstr "Go Home"
+
+#: src/lib/types.ts:15
+msgid "Health"
+msgstr "Health"
 
 #: src/pages/Contact.tsx:222
 msgid "How can we help?"
@@ -565,15 +601,20 @@ msgstr "MetaMask is ready to use"
 msgid "MetaMask Wallet"
 msgstr "MetaMask Wallet"
 
-#: src/components/SupportModal.tsx:89
+#: src/components/SupportModal.tsx:68
 msgid "Minimum contribution is {minAmount} ETH"
 msgstr "Minimum contribution is {minAmount} ETH"
 
-#: src/components/SupportModal.tsx:195
+#: src/components/SupportModal.tsx:174
 msgid "Minimum contribution: {minAmount} ETH"
 msgstr "Minimum contribution: {minAmount} ETH"
 
+#: src/lib/types.ts:6
+msgid "Music"
+msgstr "Music"
+
 #: src/pages/MyCampaigns.tsx:222
+#: src/components/ProfileMenu.tsx:112
 #: src/components/MobileDrawer.tsx:173
 msgid "My Campaigns"
 msgstr "My Campaigns"
@@ -630,6 +671,10 @@ msgstr "Notifications"
 msgid "Or"
 msgstr "Or"
 
+#: src/lib/types.ts:16
+msgid "Other"
+msgstr "Other"
+
 #: src/pages/About.tsx:56
 msgid "Our decisions are guided by what's best for our diverse and growing community."
 msgstr "Our decisions are guided by what's best for our diverse and growing community."
@@ -655,16 +700,16 @@ msgstr "Password"
 msgid "Password updated successfully"
 msgstr "Password updated successfully"
 
-#: src/components/SupportModal.tsx:84
+#: src/components/SupportModal.tsx:63
 msgid "Please enter a valid amount"
 msgstr "Please enter a valid amount"
 
-#: src/components/SupportModal.tsx:77
+#: src/components/SupportModal.tsx:56
 msgid "Please enter an amount"
 msgstr "Please enter an amount"
 
 #: src/pages/Settings.tsx:507
-#: src/components/SupportModal.tsx:247
+#: src/components/SupportModal.tsx:226
 msgid "Processing..."
 msgstr "Processing..."
 
@@ -688,6 +733,10 @@ msgstr "Profile updated successfully"
 #: src/hooks/useCampaignContract.ts:206
 msgid "Provider not initialized"
 msgstr "Provider not initialized"
+
+#: src/lib/types.ts:9
+msgid "Publishing"
+msgstr "Publishing"
 
 #: src/components/Footer.tsx:14
 msgid "Quick Links"
@@ -721,7 +770,7 @@ msgstr "Search campaigns..."
 msgid "Secure & Transparent"
 msgstr "Secure & Transparent"
 
-#: src/pages/home/components/Stats.tsx:114
+#: src/pages/home/components/Stats.tsx:188
 msgid "Secure Projects"
 msgstr "Secure Projects"
 
@@ -749,6 +798,7 @@ msgstr "Send us a Message"
 msgid "Sending..."
 msgstr "Sending..."
 
+#: src/components/ProfileMenu.tsx:119
 #: src/components/MobileDrawer.tsx:200
 msgid "Settings"
 msgstr "Settings"
@@ -758,6 +808,7 @@ msgstr "Settings"
 msgid "Sign in"
 msgstr "Sign in"
 
+#: src/components/ProfileMenu.tsx:125
 #: src/components/MobileDrawer.tsx:243
 msgid "Sign out"
 msgstr "Sign out"
@@ -800,15 +851,15 @@ msgstr "Stay ahead with cutting-edge blockchain technology and innovative fundin
 msgid "Subject"
 msgstr "Subject"
 
-#: src/pages/home/components/Stats.tsx:123
+#: src/pages/home/components/Stats.tsx:197
 msgid "Success Rate"
 msgstr "Success Rate"
 
-#: src/components/SupportModal.tsx:133
+#: src/components/SupportModal.tsx:112
 msgid "Support \"{campaignTitle}\" and help make it a reality"
 msgstr "Support \"{campaignTitle}\" and help make it a reality"
 
-#: src/components/SupportModal.tsx:248
+#: src/components/SupportModal.tsx:227
 msgid "Support Campaign"
 msgstr "Support Campaign"
 
@@ -816,9 +867,13 @@ msgstr "Support Campaign"
 msgid "Support this amazing campaign!"
 msgstr "Support this amazing campaign!"
 
-#: src/components/SupportModal.tsx:130
+#: src/components/SupportModal.tsx:109
 msgid "Support this Campaign"
 msgstr "Support this Campaign"
+
+#: src/lib/types.ts:4
+msgid "Technology"
+msgstr "Technology"
 
 #: src/pages/Login.tsx:141
 msgid "Technology background"
@@ -864,7 +919,7 @@ msgstr "Toggle theme"
 msgid "Top Active Campaigns"
 msgstr "Top Active Campaigns"
 
-#: src/pages/home/components/Stats.tsx:105
+#: src/pages/home/components/Stats.tsx:179
 msgid "Total Raised"
 msgstr "Total Raised"
 
@@ -971,6 +1026,6 @@ msgstr "Yes, while the campaigns themselves are fictional, the donation flow is 
 msgid "You don't have any ended campaigns yet."
 msgstr "You don't have any ended campaigns yet."
 
-#: src/components/SupportModal.tsx:218
+#: src/components/SupportModal.tsx:197
 msgid "Your Contribution"
 msgstr "Your Contribution"

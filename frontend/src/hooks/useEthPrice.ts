@@ -1,4 +1,4 @@
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import { useCallback, useEffect, useState } from "react";
 
 const FALLBACK_ETH_PRICE = 2500;

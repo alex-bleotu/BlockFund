@@ -1,4 +1,4 @@
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import CampaignArtifact from "../artifacts/contracts/Campaign.sol/Campaign.json";

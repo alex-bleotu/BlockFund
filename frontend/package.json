@@ -13,7 +13,7 @@
     "@emailjs/browser": "^4.4.1",
     "@lingui/cli": "^5.3.1",
     "@lingui/core": "^5.3.1",
-    "@lingui/macro": "^5.3.1",
+    "@lingui/core/macro": "^5.3.1",
     "@lingui/react": "^5.3.1",
     "@lingui/swc-plugin": "^5.5.2",
     "@supabase/supabase-js": "^2.39.3",

@@ -1,4 +1,4 @@
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Tag, Target } from "lucide-react";
 import { useEffect, useState } from "react";
