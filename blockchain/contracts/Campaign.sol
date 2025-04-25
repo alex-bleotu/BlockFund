@@ -124,7 +124,6 @@ contract Campaign {
         uint256 leftover = total - payout;
 
         campaignData.status = CampaignStatus.CLOSED;
-        campaignData.totalFunded = 0;
         campaignFees[_campaignId] = leftover;
 
         (bool success, ) = campaignData.creator.call{value: payout}("");
