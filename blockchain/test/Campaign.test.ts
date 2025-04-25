@@ -310,4 +310,30 @@ describe("Campaign Contract", function () {
             campaign.connect(addr1).closeCampaign(1)
         ).to.be.revertedWith("Only creator can close");
     });
+
+    it("Should allow contributions exceeding the campaign goal", async function () {
+        const goal = ethers.parseEther("5");
+        const deadline = Math.floor(Date.now() / 1000) + 3600;
+        const metadataCID = "QmExampleCID";
+
+        await campaign.createCampaign(goal, deadline, metadataCID);
+
+        await campaign
+            .connect(addr1)
+            .contribute(1, { value: ethers.parseEther("5") });
+
+        let campaignData = await campaign.getCampaign(1);
+        expect(campaignData.totalFunded).to.equal(ethers.parseEther("5"));
+        expect(campaignData.status).to.equal(1);
+
+        await campaign
+            .connect(addr2)
+            .contribute(1, { value: ethers.parseEther("3") });
+
+        campaignData = await campaign.getCampaign(1);
+        expect(campaignData.totalFunded).to.equal(ethers.parseEther("8"));
+        expect(campaignData.totalFunded).to.be.gt(campaignData.goal);
+
+        expect(campaignData.status).to.equal(1);
+    });
 });

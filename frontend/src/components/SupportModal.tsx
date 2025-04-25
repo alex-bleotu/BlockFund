@@ -89,15 +89,6 @@ export function SupportModal({
                 return;
             }
 
-            if (ethAmount + currentAmount > campaignGoal) {
-                setError(
-                    `Amount exceeds remaining goal (${(
-                        campaignGoal - currentAmount
-                    ).toFixed(2)} ETH)`
-                );
-                return;
-            }
-
             setIsSubmitting(true);
             await onSupport(ethAmount);
         } catch (err) {
