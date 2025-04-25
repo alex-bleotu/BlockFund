@@ -5,7 +5,7 @@ import CampaignArtifact from "../artifacts/contracts/Campaign.sol/Campaign.json"
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS as string;
 
-const CONTRACT_ADDRESS_LOCAL = "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707";
+const CONTRACT_ADDRESS_LOCAL = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 const USE_LOCAL = import.meta.env.VITE_USE_LOCAL === "true";
 
 export function useCampaignContract() {

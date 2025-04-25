@@ -13,7 +13,7 @@ export function Hero() {
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-5"></div>
             </div>
             <div className="relative z-10 max-w-3xl mx-auto">
-                <h1 className="mt-8 lg:mt-0 text-4xl sm:text-5xl lg:text-6xl font-bold text-text mb-6">
+                <h1 className="mt-8 lg:mt-0 text-4xl sm:text-5xl lg:text-6xl font-bold text-text mb-6 max-w-2xl mx-auto">
                     {t`Revolutionize Your`}{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-dark">
                         {t`Crowdfunding`}

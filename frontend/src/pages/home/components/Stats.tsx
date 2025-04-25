@@ -112,7 +112,7 @@ export function Stats() {
                 if (usersError) throw usersError;
 
                 const { data: campaignsData, error: campaignsError } =
-                    await supabase.from("campaigns").select("raised");
+                    await supabase.from("campaigns").select("raised, goal");
 
                 if (campaignsError) throw campaignsError;
 
@@ -132,18 +132,15 @@ export function Stats() {
 
                 if (projectsError) throw projectsError;
 
-                const { count: successfulCount, error: successError } =
-                    await supabase
-                        .from("campaigns")
-                        .select("*", { count: "exact", head: true })
-                        .eq("status", "SUCCESSFUL");
-
-                if (successError) throw successError;
+                const overGoalCount = campaignsData.filter(
+                    (campaign) =>
+                        parseFloat(campaign.raised) >= parseFloat(campaign.goal)
+                ).length;
 
                 const successRate =
-                    projectsCount && projectsCount > 0
+                    campaignsData.length > 0
                         ? Math.round(
-                              ((successfulCount || 0) / projectsCount) * 100
+                              (overGoalCount / campaignsData.length) * 100
                           )
                         : 0;
 
@@ -194,7 +191,7 @@ export function Stats() {
         {
             id: "success",
             icon: Sparkles,
-            label: t`Success Rate`,
+            label: t`Exceeded Goal Rate`,
             value: isLoading ? "0" : statsData.successRate,
             suffix: "%",
             increment: 1,

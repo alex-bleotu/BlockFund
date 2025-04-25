@@ -246,7 +246,7 @@ msgstr "Se creează contul..."
 
 #: src/pages/home/components/Hero.tsx:19
 msgid "Crowdfunding"
-msgstr "Crowdfunding"
+msgstr "strânsul de fonduri"
 
 #: src/pages/Settings.tsx:382
 msgid "Current Password"
@@ -282,7 +282,7 @@ msgstr "Educație"
 
 #: src/pages/FAQs.tsx:55
 msgid "Educational Project Disclaimer"
-msgstr "Declinare proiect educațional"
+msgstr "Proiect educațional!"
 
 #: src/pages/Settings.tsx:299
 #: src/pages/Contact.tsx:193
@@ -541,11 +541,11 @@ msgstr "john@example.com"
 
 #: src/pages/home/components/Hero.tsx:24
 msgid "Join the future of fundraising with blockchain technology. Transparent, secure, and efficient crowdfunding for the digital age."
-msgstr "Alătura-te viitorului crowdfunding cu tehnologia blockchain. Transparent, sigur, și eficient pentru vârstă digitală."
+msgstr "Alătura-te viitorului crowdfunding cu tehnologia blockchain. Transparent, sigur, și eficient pentru epoca digitală."
 
 #: src/pages/home/components/Hero.tsx:21
 msgid "Journey"
-msgstr "Călătorie"
+msgstr " "
 
 #: src/pages/home/components/Hero.tsx:31
 msgid "Launch Your Campaign"
@@ -752,7 +752,7 @@ msgstr "Resurse"
 
 #: src/pages/home/components/Hero.tsx:17
 msgid "Revolutionize Your"
-msgstr "Revoluționează-ți"
+msgstr "Revoluționează"
 
 #: src/pages/Settings.tsx:346
 msgid "Save Changes"
