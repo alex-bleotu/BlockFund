@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { Lock, Mail, User } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -22,7 +23,7 @@ export function Register() {
             await signUp(email, password);
             navigate("/");
         } catch (err) {
-            setError("Failed to create an account. Please try again.");
+            setError(t`Failed to create an account. Please try again.`);
             console.error("Registration error:", err);
         } finally {
             setLoading(false);
@@ -38,14 +39,14 @@ export function Register() {
                 <div className="mx-auto w-full max-w-sm">
                     <Logo />
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-text">
-                        Create your account
+                        {t`Create your account`}
                     </h2>
                     <p className="mt-2 text-center text-sm text-text-secondary">
-                        Already have an account?{" "}
+                        {t`Already have an account?`}{" "}
                         <Link
                             to="/login"
                             className="font-medium text-primary hover:text-primary-dark">
-                            Sign in
+                            {t`Sign in`}
                         </Link>
                     </p>
                 </div>
@@ -61,7 +62,7 @@ export function Register() {
                             <label
                                 htmlFor="username"
                                 className="block text-sm font-medium text-text">
-                                Username
+                                {t`Username`}
                             </label>
                             <div className="mt-1 relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -73,7 +74,7 @@ export function Register() {
                                     type="text"
                                     required
                                     className="appearance-none block w-full pl-10 px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                    placeholder="Choose a username"
+                                    placeholder={t`Choose a username`}
                                     value={username}
                                     onChange={(e) =>
                                         setUsername(e.target.value)
@@ -87,7 +88,7 @@ export function Register() {
                             <label
                                 htmlFor="email"
                                 className="block text-sm font-medium text-text">
-                                Email address
+                                {t`Email address`}
                             </label>
                             <div className="mt-1 relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -100,7 +101,7 @@ export function Register() {
                                     autoComplete="email"
                                     required
                                     className="appearance-none block w-full pl-10 px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                    placeholder="Enter your email"
+                                    placeholder={t`Enter your email`}
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     disabled={loading}
@@ -112,7 +113,7 @@ export function Register() {
                             <label
                                 htmlFor="password"
                                 className="block text-sm font-medium text-text">
-                                Password
+                                {t`Password`}
                             </label>
                             <div className="mt-1 relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -125,7 +126,7 @@ export function Register() {
                                     autoComplete="new-password"
                                     required
                                     className="appearance-none block w-full pl-10 px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                    placeholder="Create a password"
+                                    placeholder={t`Create a password`}
                                     value={password}
                                     onChange={(e) =>
                                         setPassword(e.target.value)
@@ -139,7 +140,9 @@ export function Register() {
                             type="submit"
                             className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-light bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={loading}>
-                            {loading ? "Creating account..." : "Create Account"}
+                            {loading
+                                ? t`Creating account...`
+                                : t`Create Account`}
                         </button>
                     </form>
                 </div>
@@ -151,7 +154,7 @@ export function Register() {
                     <img
                         className="h-full w-full object-cover"
                         src="https://images.unsplash.com/photo-1605792657660-596af9009e82?auto=format&fit=crop&q=80"
-                        alt="Blockchain visualization"
+                        alt={t`Blockchain visualization`}
                     />
                     <div className="absolute inset-0 bg-primary mix-blend-multiply opacity-20"></div>
                 </div>

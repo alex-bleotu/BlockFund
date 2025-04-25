@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { ArrowLeft, Rocket } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,10 +18,9 @@ export function NotFound() {
                 </div>
 
                 <h1 className="text-9xl font-bold text-primary">404</h1>
-                <h2 className="text-2xl font-bold text-text">Page Not Found</h2>
+                <h2 className="text-2xl font-bold text-text">{t`Page Not Found`}</h2>
                 <p className="text-text-secondary">
-                    The page you are looking for doesn't exist or has been
-                    moved.
+                    {t`The page you are looking for doesn't exist or has been moved.`}
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
@@ -28,13 +28,13 @@ export function NotFound() {
                         onClick={() => navigate(-1)}
                         className="flex items-center justify-center px-6 py-3 border-2 border-primary rounded-xl text-primary hover:bg-primary hover:text-light transition-colors w-full sm:w-auto">
                         <ArrowLeft className="w-5 h-5 mr-2" />
-                        Go Back
+                        {t`Go Back`}
                     </button>
 
                     <Link
                         to="/"
                         className="flex items-center justify-center px-6 py-3 bg-primary text-light rounded-xl hover:bg-primary-dark transition-colors w-full sm:w-auto">
-                        Go Home
+                        {t`Go Home`}
                         <Rocket className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform" />
                     </Link>
                 </div>

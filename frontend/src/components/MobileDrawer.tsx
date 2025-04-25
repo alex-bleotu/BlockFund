@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import {
     Bell,
     Compass,
@@ -90,7 +91,7 @@ export function MobileDrawer() {
                 id="mobile-menu-button"
                 onClick={() => setIsOpen(!isOpen)}
                 className="p-2 rounded-lg hover:bg-background transition-colors"
-                aria-label="Menu">
+                aria-label={t`Menu`}>
                 <Menu className="w-6 h-6 text-text" />
             </button>
 
@@ -121,7 +122,7 @@ export function MobileDrawer() {
                             <button
                                 onClick={() => setIsOpen(false)}
                                 className="p-2 rounded-lg hover:bg-background-alt transition-colors"
-                                aria-label="Close menu">
+                                aria-label={t`Close menu`}>
                                 <X className="w-6 h-6 text-text" />
                             </button>
                         </div>
@@ -156,7 +157,7 @@ export function MobileDrawer() {
                                                 : "text-text-secondary hover:bg-background-alt"
                                         }`}>
                                         <Compass className="w-5 h-5 mr-3" />
-                                        Explore
+                                        {t`Explore`}
                                     </Link>
 
                                     <Link
@@ -169,7 +170,7 @@ export function MobileDrawer() {
                                                 : "text-text-secondary hover:bg-background-alt"
                                         }`}>
                                         <FolderHeart className="w-5 h-5 mr-3" />
-                                        My Campaigns
+                                        {t`My Campaigns`}
                                     </Link>
 
                                     <button
@@ -179,7 +180,7 @@ export function MobileDrawer() {
                                         }}
                                         className="flex items-center w-full px-4 py-2 text-text-secondary hover:bg-background-alt rounded-lg transition-colors relative">
                                         <Bell className="w-5 h-5 mr-3" />
-                                        Notifications
+                                        {t`Notifications`}
                                         {unreadCount > 0 && (
                                             <span className="absolute top-2 left-8 w-4 h-4 bg-primary text-light text-xs font-medium rounded-full flex items-center justify-center">
                                                 {unreadCount}
@@ -196,7 +197,7 @@ export function MobileDrawer() {
                                                 : "text-text-secondary hover:bg-background-alt"
                                         }`}>
                                         <Settings className="w-5 h-5 mr-3" />
-                                        Settings
+                                        {t`Settings`}
                                     </Link>
                                 </nav>
 
@@ -207,21 +208,21 @@ export function MobileDrawer() {
                                             onClick={handleLinkClick}
                                             className="flex items-center w-full px-4 py-2 text-text-secondary hover:bg-background-alt rounded-lg transition-colors">
                                             <HelpCircle className="w-5 h-5 mr-3" />
-                                            About
+                                            {t`About`}
                                         </Link>
                                         <Link
                                             to="/faqs"
                                             onClick={handleLinkClick}
                                             className="flex items-center w-full px-4 py-2 text-text-secondary hover:bg-background-alt rounded-lg transition-colors">
                                             <HelpCircle className="w-5 h-5 mr-3" />
-                                            FAQs
+                                            {t`FAQs`}
                                         </Link>
                                         <Link
                                             to="/contact"
                                             onClick={handleLinkClick}
                                             className="flex items-center w-full px-4 py-2 text-text-secondary hover:bg-background-alt rounded-lg transition-colors">
                                             <Mail className="w-5 h-5 mr-3" />
-                                            Contact
+                                            {t`Contact`}
                                         </Link>
                                     </div>
                                 </div>
@@ -232,14 +233,14 @@ export function MobileDrawer() {
                                         onClick={handleLinkClick}
                                         className="flex items-center w-full px-4 py-2 text-light bg-primary hover:bg-primary-dark rounded-lg transition-colors justify-center">
                                         <PlusCircle className="w-5 h-5 mr-2" />
-                                        Start a Campaign
+                                        {t`Start a Campaign`}
                                     </Link>
 
                                     <button
                                         onClick={handleSignOut}
                                         className="flex items-center w-full px-4 py-2 text-text-secondary hover:bg-background-alt rounded-lg transition-colors">
                                         <LogOut className="w-5 h-5 mr-3" />
-                                        Sign out
+                                        {t`Sign out`}
                                     </button>
                                 </div>
                             </>
@@ -249,7 +250,7 @@ export function MobileDrawer() {
                                     to="/login"
                                     onClick={handleLinkClick}
                                     className="flex items-center w-full px-4 py-2 text-light bg-primary hover:bg-primary-dark rounded-lg transition-colors">
-                                    Login
+                                    {t`Login`}
                                 </Link>
 
                                 <div className="space-y-2">
@@ -258,21 +259,21 @@ export function MobileDrawer() {
                                         onClick={handleLinkClick}
                                         className="flex items-center w-full px-4 py-2 text-text-secondary hover:bg-background-alt rounded-lg transition-colors">
                                         <HelpCircle className="w-5 h-5 mr-3" />
-                                        About
+                                        {t`About`}
                                     </Link>
                                     <Link
                                         to="/faqs"
                                         onClick={handleLinkClick}
                                         className="flex items-center w-full px-4 py-2 text-text-secondary hover:bg-background-alt rounded-lg transition-colors">
                                         <HelpCircle className="w-5 h-5 mr-3" />
-                                        FAQs
+                                        {t`FAQs`}
                                     </Link>
                                     <Link
                                         to="/contact"
                                         onClick={handleLinkClick}
                                         className="flex items-center w-full px-4 py-2 text-text-secondary hover:bg-background-alt rounded-lg transition-colors">
                                         <Mail className="w-5 h-5 mr-3" />
-                                        Contact
+                                        {t`Contact`}
                                     </Link>
                                 </div>
                             </div>

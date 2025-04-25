@@ -1,4 +1,4 @@
-import { t } from "@lingui/core/macro";
+import { t } from "@lingui/macro";
 import { ChevronRight, Rocket } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
@@ -14,11 +14,11 @@ export function Hero() {
             </div>
             <div className="relative z-10 max-w-3xl mx-auto">
                 <h1 className="mt-8 lg:mt-0 text-4xl sm:text-5xl lg:text-6xl font-bold text-text mb-6">
-                    Revolutionize Your{" "}
+                    {t`Revolutionize Your`}{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-dark">
-                        Crowdfunding
+                        {t`Crowdfunding`}
                     </span>{" "}
-                    Journey
+                    {t`Journey`}
                 </h1>
                 <p className="text-xl text-text-secondary mb-8 leading-relaxed">
                     {t`Join the future of fundraising with blockchain technology. Transparent, secure, and efficient crowdfunding for the digital age.`}
@@ -28,13 +28,13 @@ export function Hero() {
                         <Link
                             to="/register"
                             className="w-full sm:w-auto group px-8 py-3 text-light font-medium bg-primary rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
-                            Launch Your Campaign
+                            {t`Launch Your Campaign`}
                             <Rocket className="ml-2 w-5 h-5 inline-block group-hover:rotate-12 transition-transform" />
                         </Link>
                         <Link
                             to="/about"
                             className="w-full sm:w-auto px-8 py-3 text-text dark:text-light hover:text-primary hover:dark:text-primary font-medium  border-2 border-text/20 hover:border-primary rounded-xl transition-colors duration-200">
-                            Learn More
+                            {t`Learn More`}
                             <ChevronRight className="ml-2 w-5 h-5 inline-block" />
                         </Link>
                     </div>

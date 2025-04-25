@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import CampaignArtifact from "../artifacts/contracts/Campaign.sol/Campaign.json";
@@ -108,7 +109,7 @@ export function useCampaignContract() {
         receipt: any;
         id: number;
     }> => {
-        if (!contract) throw new Error("Contract not initialized");
+        if (!contract) throw new Error(t`Contract not initialized`);
         setLoading(true);
 
         try {
@@ -140,7 +141,7 @@ export function useCampaignContract() {
     };
 
     const getCampaign = async (id: number) => {
-        if (!contract) throw new Error("Contract not initialized");
+        if (!contract) throw new Error(t`Contract not initialized`);
         setLoading(true);
         try {
             const c = await contract.getCampaign(id);
@@ -159,11 +160,11 @@ export function useCampaignContract() {
     };
 
     const contribute = async (id: number, amount: string) => {
-        if (!contract) throw new Error("Contract not initialized");
+        if (!contract) throw new Error(t`Contract not initialized`);
         setLoading(true);
         try {
             if (!amount || amount.trim() === "") {
-                throw new Error("Invalid amount");
+                throw new Error(t`Invalid amount`);
             }
 
             const value = ethers.parseEther(amount);
@@ -180,7 +181,7 @@ export function useCampaignContract() {
     };
 
     const withdraw = async (id: number) => {
-        if (!contract) throw new Error("Contract not initialized");
+        if (!contract) throw new Error(t`Contract not initialized`);
         setLoading(true);
         try {
             const tx = await contract.withdraw(id);
@@ -191,7 +192,7 @@ export function useCampaignContract() {
     };
 
     const closeCampaign = async (id: number) => {
-        if (!contract) throw new Error("Contract not initialized");
+        if (!contract) throw new Error(t`Contract not initialized`);
         setLoading(true);
         try {
             const tx = await contract.closeCampaign(id);
@@ -202,7 +203,7 @@ export function useCampaignContract() {
     };
 
     const getBalance = async () => {
-        if (!provider || !signer) throw new Error("Provider not initialized");
+        if (!provider || !signer) throw new Error(t`Provider not initialized`);
         setLoading(true);
         try {
             const addr = await signer.getAddress();

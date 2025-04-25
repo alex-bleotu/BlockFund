@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Tag, Target } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -45,7 +46,7 @@ export function TopCampaigns() {
         const today = new Date();
         const diffTime = date.getTime() - today.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays > 0 ? `${diffDays} days left` : "Ended";
+        return diffDays > 0 ? t`${diffDays} days left` : t`Ended`;
     };
 
     if (loading) {
@@ -75,7 +76,7 @@ export function TopCampaigns() {
         <div className="py-16 bg-background-alt">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 className="text-3xl font-bold text-text mb-8">
-                    Top Active Campaigns
+                    {t`Top Active Campaigns`}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {campaigns.map((campaign, index) => (
@@ -136,7 +137,7 @@ export function TopCampaigns() {
                                     <div className="flex justify-between items-center mt-2 text-sm">
                                         <span className="text-text-secondary">
                                             {(campaign.raised || 0).toFixed(2)}{" "}
-                                            ETH raised
+                                            {t`ETH raised`}
                                         </span>
                                         <span className="text-text font-medium">
                                             {(
@@ -154,7 +155,7 @@ export function TopCampaigns() {
                                                 (campaign.raised || 0) *
                                                 ethPrice
                                             ).toLocaleString()}{" "}
-                                            USD
+                                            {t`USD`}
                                         </div>
                                     )}
                                 </div>
@@ -178,7 +179,9 @@ export function TopCampaigns() {
 
                                 <div className="flex items-center text-primary font-medium mt-4">
                                     <Target className="w-4 h-4 mr-1" />
-                                    <span>{campaign.goal.toFixed(2)} ETH</span>
+                                    <span>
+                                        {campaign.goal.toFixed(2)} {t`ETH`}
+                                    </span>
                                 </div>
                             </div>
                         </motion.div>

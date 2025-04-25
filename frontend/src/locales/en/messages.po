@@ -13,6 +13,964 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/pages/Profile.tsx:90
+#: src/pages/MyCampaigns.tsx:199
+#: src/pages/Campaigns.tsx:100
+#: src/pages/home/components/TopCampaigns.tsx:49
+msgid "{diffDays} days left"
+msgstr "{diffDays} days left"
+
+#: src/components/MobileDrawer.tsx:211
+#: src/components/MobileDrawer.tsx:262
+msgid "About"
+msgstr "About"
+
+#: src/pages/About.tsx:80
+msgid "About BlockFund"
+msgstr "About BlockFund"
+
+#: src/components/Footer.tsx:21
+msgid "About Us"
+msgstr "About Us"
+
+#: src/pages/home/components/Features.tsx:54
+msgid "Access funding opportunities from anywhere in the world, breaking down geographical barriers."
+msgstr "Access funding opportunities from anywhere in the world, breaking down geographical barriers."
+
+#: src/pages/Profile.tsx:211
+#: src/pages/MyCampaigns.tsx:225
+#: src/pages/MyCampaigns.tsx:250
+#: src/pages/MyCampaigns.tsx:334
+#: src/pages/Campaigns.tsx:202
+msgid "Active"
+msgstr "Active"
+
+#: src/pages/Campaigns.tsx:119
+msgid "Active Campaigns"
+msgstr "Active Campaigns"
+
+#: src/pages/home/components/Stats.tsx:96
+msgid "Active Users"
+msgstr "Active Users"
+
+#: src/pages/MyCampaigns.tsx:248
+#: src/pages/Campaigns.tsx:226
+msgid "All"
+msgstr "All"
+
+#: src/pages/Campaigns.tsx:185
+msgid "All Categories"
+msgstr "All Categories"
+
+#: src/pages/MyCampaigns.tsx:286
+msgid "All your campaigns have ended. Start a new one!"
+msgstr "All your campaigns have ended. Start a new one!"
+
+#: src/pages/Register.tsx:45
+msgid "Already have an account?"
+msgstr "Already have an account?"
+
+#: src/components/SupportModal.tsx:210
+msgid "Amount Remaining"
+msgstr "Amount Remaining"
+
+#: src/components/SupportModal.tsx:162
+msgid "Amount to Contribute"
+msgstr "Amount to Contribute"
+
+#: src/pages/FAQs.tsx:21
+msgid "Are the campaigns real?"
+msgstr "Are the campaigns real?"
+
+#: src/pages/home/components/Features.tsx:42
+msgid "Automated fund distribution and milestone tracking through smart contracts, eliminating intermediaries."
+msgstr "Automated fund distribution and milestone tracking through smart contracts, eliminating intermediaries."
+
+#: src/pages/Profile.tsx:132
+msgid "Back"
+msgstr "Back"
+
+#: src/pages/Settings.tsx:324
+msgid "Bio"
+msgstr "Bio"
+
+#: src/pages/Register.tsx:157
+msgid "Blockchain visualization"
+msgstr "Blockchain visualization"
+
+#: src/components/Logo.tsx:12
+msgid "BlockFund"
+msgstr "BlockFund"
+
+#: src/components/Footer.tsx:90
+msgid "BlockFund. All rights reserved."
+msgstr "BlockFund. All rights reserved."
+
+#: src/pages/Contact.tsx:109
+msgid "Call Us"
+msgstr "Call Us"
+
+#: src/pages/MyCampaigns.tsx:96
+msgid "Campaign closed on blockchain"
+msgstr "Campaign closed on blockchain"
+
+#: src/pages/MyCampaigns.tsx:179
+msgid "Campaign deleted successfully"
+msgstr "Campaign deleted successfully"
+
+#: src/components/SupportModal.tsx:202
+msgid "Campaign Goal"
+msgstr "Campaign Goal"
+
+#: src/pages/Profile.tsx:140
+#: src/pages/Profile.tsx:355
+msgid "Campaigns"
+msgstr "Campaigns"
+
+#: src/pages/FAQs.tsx:13
+msgid "Can I actually donate to campaigns?"
+msgstr "Can I actually donate to campaigns?"
+
+#: src/pages/FAQs.tsx:25
+msgid "Can I use this for real crowdfunding?"
+msgstr "Can I use this for real crowdfunding?"
+
+#: src/components/SupportModal.tsx:236
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/hooks/useCampaignActions.ts:54
+msgid "Check out this campaign on BlockFund"
+msgstr "Check out this campaign on BlockFund"
+
+#: src/pages/Register.tsx:77
+msgid "Choose a username"
+msgstr "Choose a username"
+
+#: src/components/MobileDrawer.tsx:125
+msgid "Close menu"
+msgstr "Close menu"
+
+#. placeholder {0}: res.status
+#: src/hooks/useEthPrice.ts:39
+msgid "CoinGecko returned {0}"
+msgstr "CoinGecko returned {0}"
+
+#: src/pages/About.tsx:55
+msgid "Community First"
+msgstr "Community First"
+
+#: src/pages/Settings.tsx:424
+msgid "Confirm New Password"
+msgstr "Confirm New Password"
+
+#: src/pages/Settings.tsx:510
+#: src/components/SupportModal.tsx:155
+msgid "Connect Wallet"
+msgstr "Connect Wallet"
+
+#: src/pages/home/components/Features.tsx:48
+msgid "Connect with backers and creators from around the world in our vibrant ecosystem."
+msgstr "Connect with backers and creators from around the world in our vibrant ecosystem."
+
+#: src/components/Footer.tsx:65
+msgid "Connect With Us"
+msgstr "Connect With Us"
+
+#: src/pages/Settings.tsx:489
+msgid "Connect your MetaMask wallet to start creating campaigns"
+msgstr "Connect your MetaMask wallet to start creating campaigns"
+
+#: src/components/SupportModal.tsx:147
+msgid "Connect your Wallet"
+msgstr "Connect your Wallet"
+
+#: src/components/SupportModal.tsx:150
+msgid "Connect your wallet to support this campaign"
+msgstr "Connect your wallet to support this campaign"
+
+#: src/pages/Settings.tsx:477
+msgid "Connected:"
+msgstr "Connected:"
+
+#: src/hooks/useWallet.ts:91
+msgid "Connection already in progress. Please check MetaMask."
+msgstr "Connection already in progress. Please check MetaMask."
+
+#: src/pages/Profile.tsx:383
+#: src/components/MobileDrawer.tsx:225
+#: src/components/MobileDrawer.tsx:276
+#: src/components/Footer.tsx:28
+msgid "Contact"
+msgstr "Contact"
+
+#: src/hooks/useCampaignContract.ts:112
+#: src/hooks/useCampaignContract.ts:144
+#: src/hooks/useCampaignContract.ts:163
+#: src/hooks/useCampaignContract.ts:184
+#: src/hooks/useCampaignContract.ts:195
+msgid "Contract not initialized"
+msgstr "Contract not initialized"
+
+#: src/pages/MyCampaigns.tsx:114
+msgid "Could not close campaign on blockchain, but proceeding with removal from database"
+msgstr "Could not close campaign on blockchain, but proceeding with removal from database"
+
+#: src/pages/Register.tsx:129
+msgid "Create a password"
+msgstr "Create a password"
+
+#: src/pages/Register.tsx:145
+msgid "Create Account"
+msgstr "Create Account"
+
+#: src/pages/MyCampaigns.tsx:275
+msgid "Create Campaign"
+msgstr "Create Campaign"
+
+#: src/pages/Register.tsx:42
+msgid "Create your account"
+msgstr "Create your account"
+
+#: src/pages/Register.tsx:144
+msgid "Creating account..."
+msgstr "Creating account..."
+
+#: src/pages/home/components/Hero.tsx:19
+msgid "Crowdfunding"
+msgstr "Crowdfunding"
+
+#: src/pages/Settings.tsx:382
+msgid "Current Password"
+msgstr "Current Password"
+
+#: src/pages/Settings.tsx:147
+msgid "Current password is incorrect"
+msgstr "Current password is incorrect"
+
+#: src/pages/MyCampaigns.tsx:119
+msgid "Delete cancelled: Transaction was rejected"
+msgstr "Delete cancelled: Transaction was rejected"
+
+#: src/pages/Settings.tsx:509
+msgid "Disconnect"
+msgstr "Disconnect"
+
+#: src/pages/Settings.tsx:311
+msgid "Display Name"
+msgstr "Display Name"
+
+#: src/components/Footer.tsx:50
+msgid "Documentation"
+msgstr "Documentation"
+
+#: src/pages/Contact.tsx:126
+msgid "Don't actually do that!"
+msgstr "Don't actually do that!"
+
+#: src/pages/FAQs.tsx:55
+msgid "Educational Project Disclaimer"
+msgstr "Educational Project Disclaimer"
+
+#: src/pages/Settings.tsx:299
+#: src/pages/Contact.tsx:193
+msgid "Email"
+msgstr "Email"
+
+#: src/pages/Register.tsx:91
+#: src/pages/Login.tsx:68
+msgid "Email address"
+msgstr "Email address"
+
+#: src/pages/Contact.tsx:93
+msgid "Email Us"
+msgstr "Email Us"
+
+#: src/pages/Profile.tsx:90
+#: src/pages/Profile.tsx:210
+#: src/pages/MyCampaigns.tsx:199
+#: src/pages/MyCampaigns.tsx:226
+#: src/pages/MyCampaigns.tsx:251
+#: src/pages/MyCampaigns.tsx:333
+#: src/pages/Campaigns.tsx:100
+#: src/pages/Campaigns.tsx:211
+#: src/pages/home/components/TopCampaigns.tsx:49
+msgid "Ended"
+msgstr "Ended"
+
+#: src/pages/Campaigns.tsx:128
+msgid "Ended Campaigns"
+msgstr "Ended Campaigns"
+
+#: src/pages/Register.tsx:104
+#: src/pages/Login.tsx:81
+msgid "Enter your email"
+msgstr "Enter your email"
+
+#: src/pages/Login.tsx:106
+msgid "Enter your password"
+msgstr "Enter your password"
+
+#: src/components/MetaMaskStatus.tsx:54
+msgid "Error connecting to MetaMask. Please check your wallet."
+msgstr "Error connecting to MetaMask. Please check your wallet."
+
+#: src/pages/Profile.tsx:110
+msgid "Error Loading Profile"
+msgstr "Error Loading Profile"
+
+#: src/pages/Profile.tsx:309
+#: src/pages/Campaigns.tsx:351
+#: src/pages/home/components/TopCampaigns.tsx:183
+msgid "ETH"
+msgstr "ETH"
+
+#: src/pages/MyCampaigns.tsx:408
+msgid "ETH Goal"
+msgstr "ETH Goal"
+
+#: src/pages/Profile.tsx:255
+#: src/pages/MyCampaigns.tsx:365
+#: src/pages/Campaigns.tsx:302
+#: src/pages/home/components/TopCampaigns.tsx:140
+msgid "ETH raised"
+msgstr "ETH raised"
+
+#: src/pages/Profile.tsx:371
+#: src/pages/Campaigns.tsx:110
+msgid "ETH Raised"
+msgstr "ETH Raised"
+
+#: src/pages/home/components/Features.tsx:36
+msgid "Every transaction is recorded on the blockchain, ensuring complete transparency and security for all participants."
+msgstr "Every transaction is recorded on the blockchain, ensuring complete transparency and security for all participants."
+
+#: src/pages/About.tsx:65
+msgid "Excellence"
+msgstr "Excellence"
+
+#: src/pages/home/components/Features.tsx:78
+msgid "Experience the next generation of crowdfunding"
+msgstr "Experience the next generation of crowdfunding"
+
+#: src/components/Navbar.tsx:30
+#: src/components/MobileDrawer.tsx:160
+msgid "Explore"
+msgstr "Explore"
+
+#: src/hooks/useMetaMask.ts:87
+msgid "Failed to connect to MetaMask"
+msgstr "Failed to connect to MetaMask"
+
+#: src/hooks/useWallet.ts:94
+msgid "Failed to connect wallet"
+msgstr "Failed to connect wallet"
+
+#: src/pages/Register.tsx:26
+msgid "Failed to create an account. Please try again."
+msgstr "Failed to create an account. Please try again."
+
+#: src/pages/MyCampaigns.tsx:184
+msgid "Failed to delete campaign"
+msgstr "Failed to delete campaign"
+
+#: src/hooks/useWallet.ts:120
+msgid "Failed to disconnect wallet"
+msgstr "Failed to disconnect wallet"
+
+#: src/pages/Campaigns.tsx:56
+msgid "Failed to load campaigns"
+msgstr "Failed to load campaigns"
+
+#: src/hooks/useMessages.ts:121
+msgid "Failed to load messages"
+msgstr "Failed to load messages"
+
+#: src/pages/Profile.tsx:75
+msgid "Failed to load profile"
+msgstr "Failed to load profile"
+
+#: src/pages/Settings.tsx:104
+msgid "Failed to load profile data"
+msgstr "Failed to load profile data"
+
+#: src/hooks/useWallet.ts:44
+msgid "Failed to load wallet"
+msgstr "Failed to load wallet"
+
+#: src/pages/MyCampaigns.tsx:59
+msgid "Failed to load your campaigns"
+msgstr "Failed to load your campaigns"
+
+#: src/components/SupportModal.tsx:97
+msgid "Failed to process transaction"
+msgstr "Failed to process transaction"
+
+#: src/hooks/useMessages.ts:146
+msgid "Failed to send message"
+msgstr "Failed to send message"
+
+#: src/pages/Contact.tsx:162
+msgid "Failed to send message. Please try again later."
+msgstr "Failed to send message. Please try again later."
+
+#: src/pages/Settings.tsx:164
+msgid "Failed to update password"
+msgstr "Failed to update password"
+
+#: src/pages/Settings.tsx:209
+msgid "Failed to update profile"
+msgstr "Failed to update profile"
+
+#: src/components/MobileDrawer.tsx:218
+#: src/components/MobileDrawer.tsx:269
+#: src/components/Footer.tsx:57
+msgid "FAQs"
+msgstr "FAQs"
+
+#: src/pages/Contact.tsx:149
+msgid "Fill out the form below and we'll get back to you as soon as possible."
+msgstr "Fill out the form below and we'll get back to you as soon as possible."
+
+#: src/pages/Login.tsx:121
+msgid "Forgot password?"
+msgstr "Forgot password?"
+
+#: src/pages/FAQs.tsx:40
+msgid "Frequently Asked Questions"
+msgstr "Frequently Asked Questions"
+
+#: src/pages/Contact.tsx:79
+msgid "Get in Touch"
+msgstr "Get in Touch"
+
+#: src/pages/home/components/Features.tsx:47
+msgid "Global Community"
+msgstr "Global Community"
+
+#: src/pages/Profile.tsx:118
+#: src/pages/NotFound.tsx:31
+msgid "Go Back"
+msgstr "Go Back"
+
+#: src/pages/NotFound.tsx:37
+msgid "Go Home"
+msgstr "Go Home"
+
+#: src/pages/Contact.tsx:222
+msgid "How can we help?"
+msgstr "How can we help?"
+
+#: src/pages/FAQs.tsx:43
+msgid "Important information about this project"
+msgstr "Important information about this project"
+
+#: src/pages/Profile.tsx:206
+#: src/pages/MyCampaigns.tsx:226
+#: src/pages/MyCampaigns.tsx:329
+msgid "Inactive"
+msgstr "Inactive"
+
+#: src/pages/About.tsx:60
+msgid "Innovation"
+msgstr "Innovation"
+
+#: src/pages/home/components/Features.tsx:65
+msgid "Innovation First"
+msgstr "Innovation First"
+
+#: src/hooks/useCampaignContract.ts:167
+msgid "Invalid amount"
+msgstr "Invalid amount"
+
+#: src/pages/Login.tsx:29
+msgid "Invalid email or password. Please try again."
+msgstr "Invalid email or password. Please try again."
+
+#: src/hooks/useEthPrice.ts:44
+msgid "Invalid price data"
+msgstr "Invalid price data"
+
+#: src/pages/FAQs.tsx:8
+msgid "Is this a real crowdfunding platform?"
+msgstr "Is this a real crowdfunding platform?"
+
+#: src/pages/Contact.tsx:185
+msgid "John Doe"
+msgstr "John Doe"
+
+#: src/pages/Contact.tsx:203
+msgid "john@example.com"
+msgstr "john@example.com"
+
 #: src/pages/home/components/Hero.tsx:24
 msgid "Join the future of fundraising with blockchain technology. Transparent, secure, and efficient crowdfunding for the digital age."
 msgstr "Join the future of fundraising with blockchain technology. Transparent, secure, and efficient crowdfunding for the digital age."
+
+#: src/pages/home/components/Hero.tsx:21
+msgid "Journey"
+msgstr "Journey"
+
+#: src/pages/home/components/Hero.tsx:31
+msgid "Launch Your Campaign"
+msgstr "Launch Your Campaign"
+
+#: src/pages/home/components/Hero.tsx:37
+msgid "Learn More"
+msgstr "Learn More"
+
+#: src/components/Navbar.tsx:52
+#: src/components/MobileDrawer.tsx:253
+msgid "Login"
+msgstr "Login"
+
+#: src/pages/home/components/Features.tsx:60
+msgid "Make a real difference by supporting projects that matter to you and your community."
+msgstr "Make a real difference by supporting projects that matter to you and your community."
+
+#: src/components/MobileDrawer.tsx:94
+msgid "Menu"
+msgstr "Menu"
+
+#: src/pages/Contact.tsx:230
+msgid "Message"
+msgstr "Message"
+
+#: src/pages/Contact.tsx:155
+msgid "Message sent successfully! We'll be in touch soon."
+msgstr "Message sent successfully! We'll be in touch soon."
+
+#: src/hooks/useWallet.ts:93
+msgid "MetaMask connection was rejected"
+msgstr "MetaMask connection was rejected"
+
+#: src/components/MetaMaskStatus.tsx:42
+msgid "MetaMask is locked. Please unlock your wallet."
+msgstr "MetaMask is locked. Please unlock your wallet."
+
+#: src/hooks/useWallet.ts:63
+#: src/hooks/useMetaMask.ts:77
+msgid "MetaMask is not installed"
+msgstr "MetaMask is not installed"
+
+#: src/components/MetaMaskStatus.tsx:36
+msgid "MetaMask is not installed. Please install it to use this app."
+msgstr "MetaMask is not installed. Please install it to use this app."
+
+#: src/components/MetaMaskStatus.tsx:48
+msgid "MetaMask is ready to use"
+msgstr "MetaMask is ready to use"
+
+#: src/pages/Settings.tsx:473
+msgid "MetaMask Wallet"
+msgstr "MetaMask Wallet"
+
+#: src/components/SupportModal.tsx:89
+msgid "Minimum contribution is {minAmount} ETH"
+msgstr "Minimum contribution is {minAmount} ETH"
+
+#: src/components/SupportModal.tsx:195
+msgid "Minimum contribution: {minAmount} ETH"
+msgstr "Minimum contribution: {minAmount} ETH"
+
+#: src/pages/MyCampaigns.tsx:222
+#: src/components/MobileDrawer.tsx:173
+msgid "My Campaigns"
+msgstr "My Campaigns"
+
+#: src/pages/Contact.tsx:175
+msgid "Name"
+msgstr "Name"
+
+#: src/pages/MyCampaigns.tsx:233
+msgid "New Campaign"
+msgstr "New Campaign"
+
+#: src/pages/Settings.tsx:403
+msgid "New Password"
+msgstr "New Password"
+
+#: src/pages/Settings.tsx:131
+msgid "New passwords do not match"
+msgstr "New passwords do not match"
+
+#: src/pages/MyCampaigns.tsx:282
+msgid "No {selectedStatus} campaigns"
+msgstr "No {selectedStatus} campaigns"
+
+#: src/hooks/useWallet.ts:75
+msgid "No account found"
+msgstr "No account found"
+
+#: src/pages/Profile.tsx:144
+msgid "No campaigns yet"
+msgstr "No campaigns yet"
+
+#: src/pages/MyCampaigns.tsx:266
+msgid "No Campaigns Yet"
+msgstr "No Campaigns Yet"
+
+#: src/pages/FAQs.tsx:22
+msgid "No, all campaigns on this platform are fictional and created for demonstration purposes. They do not represent real fundraising initiatives."
+msgstr "No, all campaigns on this platform are fictional and created for demonstration purposes. They do not represent real fundraising initiatives."
+
+#: src/pages/FAQs.tsx:9
+msgid "No, BlockFund is not a real crowdfunding platform. This is a school project created for educational purposes only. No real transactions or fundraising activities take place on this platform."
+msgstr "No, BlockFund is not a real crowdfunding platform. This is a school project created for educational purposes only. No real transactions or fundraising activities take place on this platform."
+
+#: src/pages/FAQs.tsx:26
+msgid "No, this platform should not be used for real crowdfunding purposes. It is a prototype designed for educational demonstration only. For real crowdfunding, please use established platforms like Kickstarter, GoFundMe, or other legitimate services."
+msgstr "No, this platform should not be used for real crowdfunding purposes. It is a prototype designed for educational demonstration only. For real crowdfunding, please use established platforms like Kickstarter, GoFundMe, or other legitimate services."
+
+#: src/components/MobileDrawer.tsx:183
+msgid "Notifications"
+msgstr "Notifications"
+
+#: src/pages/Login.tsx:48
+msgid "Or"
+msgstr "Or"
+
+#: src/pages/About.tsx:56
+msgid "Our decisions are guided by what's best for our diverse and growing community."
+msgstr "Our decisions are guided by what's best for our diverse and growing community."
+
+#: src/pages/About.tsx:92
+msgid "Our Mission"
+msgstr "Our Mission"
+
+#: src/pages/Contact.tsx:82
+msgid "Our support team is spread across the globe to give you the best possible experience."
+msgstr "Our support team is spread across the globe to give you the best possible experience."
+
+#: src/pages/NotFound.tsx:21
+msgid "Page Not Found"
+msgstr "Page Not Found"
+
+#: src/pages/Register.tsx:116
+#: src/pages/Login.tsx:93
+msgid "Password"
+msgstr "Password"
+
+#: src/pages/Settings.tsx:156
+msgid "Password updated successfully"
+msgstr "Password updated successfully"
+
+#: src/components/SupportModal.tsx:84
+msgid "Please enter a valid amount"
+msgstr "Please enter a valid amount"
+
+#: src/components/SupportModal.tsx:77
+msgid "Please enter an amount"
+msgstr "Please enter an amount"
+
+#: src/pages/Settings.tsx:507
+#: src/components/SupportModal.tsx:247
+msgid "Processing..."
+msgstr "Processing..."
+
+#: src/pages/Settings.tsx:245
+msgid "Profile"
+msgstr "Profile"
+
+#: src/pages/Profile.tsx:58
+#: src/pages/Profile.tsx:113
+msgid "Profile not found"
+msgstr "Profile not found"
+
+#: src/pages/Settings.tsx:293
+msgid "Profile Settings"
+msgstr "Profile Settings"
+
+#: src/pages/Settings.tsx:202
+msgid "Profile updated successfully"
+msgstr "Profile updated successfully"
+
+#: src/hooks/useCampaignContract.ts:206
+msgid "Provider not initialized"
+msgstr "Provider not initialized"
+
+#: src/components/Footer.tsx:14
+msgid "Quick Links"
+msgstr "Quick Links"
+
+#: src/pages/Contact.tsx:134
+msgid "Quick Response Time"
+msgstr "Quick Response Time"
+
+#: src/components/Footer.tsx:43
+msgid "Resources"
+msgstr "Resources"
+
+#: src/pages/home/components/Hero.tsx:17
+msgid "Revolutionize Your"
+msgstr "Revolutionize Your"
+
+#: src/pages/Settings.tsx:346
+msgid "Save Changes"
+msgstr "Save Changes"
+
+#: src/pages/Settings.tsx:345
+msgid "Saving..."
+msgstr "Saving..."
+
+#: src/pages/Campaigns.tsx:173
+msgid "Search campaigns..."
+msgstr "Search campaigns..."
+
+#: src/pages/home/components/Features.tsx:35
+msgid "Secure & Transparent"
+msgstr "Secure & Transparent"
+
+#: src/pages/home/components/Stats.tsx:114
+msgid "Secure Projects"
+msgstr "Secure Projects"
+
+#: src/pages/Settings.tsx:247
+msgid "Security"
+msgstr "Security"
+
+#: src/pages/Settings.tsx:374
+msgid "Security Settings"
+msgstr "Security Settings"
+
+#: src/pages/Settings.tsx:357
+msgid "See how others view your profile"
+msgstr "See how others view your profile"
+
+#: src/pages/Contact.tsx:256
+msgid "Send Message"
+msgstr "Send Message"
+
+#: src/pages/Contact.tsx:146
+msgid "Send us a Message"
+msgstr "Send us a Message"
+
+#: src/pages/Contact.tsx:251
+msgid "Sending..."
+msgstr "Sending..."
+
+#: src/components/MobileDrawer.tsx:200
+msgid "Settings"
+msgstr "Settings"
+
+#: src/pages/Register.tsx:49
+#: src/pages/Login.tsx:130
+msgid "Sign in"
+msgstr "Sign in"
+
+#: src/components/MobileDrawer.tsx:243
+msgid "Sign out"
+msgstr "Sign out"
+
+#: src/pages/Login.tsx:130
+msgid "Signing in..."
+msgstr "Signing in..."
+
+#: src/pages/home/components/Features.tsx:41
+msgid "Smart Contracts"
+msgstr "Smart Contracts"
+
+#: src/pages/home/components/Features.tsx:59
+msgid "Social Impact"
+msgstr "Social Impact"
+
+#: src/components/Navbar.tsx:43
+#: src/components/MobileDrawer.tsx:236
+#: src/components/Footer.tsx:35
+msgid "Start a Campaign"
+msgstr "Start a Campaign"
+
+#: src/pages/Campaigns.tsx:370
+msgid "Start Your Campaign"
+msgstr "Start Your Campaign"
+
+#: src/pages/MyCampaigns.tsx:269
+msgid "Start your first campaign and begin your fundraising journey."
+msgstr "Start your first campaign and begin your fundraising journey."
+
+#: src/pages/Login.tsx:52
+msgid "start your journey today"
+msgstr "start your journey today"
+
+#: src/pages/home/components/Features.tsx:66
+msgid "Stay ahead with cutting-edge blockchain technology and innovative funding solutions."
+msgstr "Stay ahead with cutting-edge blockchain technology and innovative funding solutions."
+
+#: src/pages/Contact.tsx:212
+msgid "Subject"
+msgstr "Subject"
+
+#: src/pages/home/components/Stats.tsx:123
+msgid "Success Rate"
+msgstr "Success Rate"
+
+#: src/components/SupportModal.tsx:133
+msgid "Support \"{campaignTitle}\" and help make it a reality"
+msgstr "Support \"{campaignTitle}\" and help make it a reality"
+
+#: src/components/SupportModal.tsx:248
+msgid "Support Campaign"
+msgstr "Support Campaign"
+
+#: src/hooks/useCampaignActions.ts:55
+msgid "Support this amazing campaign!"
+msgstr "Support this amazing campaign!"
+
+#: src/components/SupportModal.tsx:130
+msgid "Support this Campaign"
+msgstr "Support this Campaign"
+
+#: src/pages/Login.tsx:141
+msgid "Technology background"
+msgstr "Technology background"
+
+#: src/pages/Settings.tsx:332
+msgid "Tell us about yourself..."
+msgstr "Tell us about yourself..."
+
+#: src/pages/Contact.tsx:240
+msgid "Tell us more about your inquiry..."
+msgstr "Tell us more about your inquiry..."
+
+#: src/pages/NotFound.tsx:23
+msgid "The page you are looking for doesn't exist or has been moved."
+msgstr "The page you are looking for doesn't exist or has been moved."
+
+#: src/pages/FAQs.tsx:30
+msgid "This project was built using React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts. It demonstrates the integration of blockchain technology with modern web development practices."
+msgstr "This project was built using React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts. It demonstrates the integration of blockchain technology with modern web development practices."
+
+#: src/pages/FAQs.tsx:18
+msgid "This project was created as an educational exercise to demonstrate the potential of blockchain technology in crowdfunding. It showcases the integration of Web3 technologies, smart contracts, and modern web development practices."
+msgstr "This project was created as an educational exercise to demonstrate the potential of blockchain technology in crowdfunding. It showcases the integration of Web3 technologies, smart contracts, and modern web development practices."
+
+#: src/pages/Settings.tsx:188
+msgid "This username is already taken"
+msgstr "This username is already taken"
+
+#: src/pages/FAQs.tsx:58
+msgid "This website is a school project and is not intended for real use. No actual transactions occur, and no real money or cryptocurrency is involved. All features, campaigns, and functionalities are simulated for educational purposes only."
+msgstr "This website is a school project and is not intended for real use. No actual transactions occur, and no real money or cryptocurrency is involved. All features, campaigns, and functionalities are simulated for educational purposes only."
+
+#: src/pages/About.tsx:95
+msgid "To democratize fundraising by leveraging blockchain technology, creating a transparent and efficient platform that connects innovators with supporters worldwide."
+msgstr "To democratize fundraising by leveraging blockchain technology, creating a transparent and efficient platform that connects innovators with supporters worldwide."
+
+#: src/components/ThemeToggle.tsx:12
+msgid "Toggle theme"
+msgstr "Toggle theme"
+
+#: src/pages/home/components/TopCampaigns.tsx:79
+msgid "Top Active Campaigns"
+msgstr "Top Active Campaigns"
+
+#: src/pages/home/components/Stats.tsx:105
+msgid "Total Raised"
+msgstr "Total Raised"
+
+#: src/pages/About.tsx:50
+msgid "Trust & Security"
+msgstr "Trust & Security"
+
+#: src/pages/Settings.tsx:450
+msgid "Update Password"
+msgstr "Update Password"
+
+#: src/pages/Settings.tsx:449
+msgid "Updating..."
+msgstr "Updating..."
+
+#: src/pages/Profile.tsx:275
+#: src/pages/MyCampaigns.tsx:383
+#: src/pages/Campaigns.tsx:321
+#: src/pages/home/components/TopCampaigns.tsx:158
+msgid "USD"
+msgstr "USD"
+
+#: src/pages/Register.tsx:65
+msgid "Username"
+msgstr "Username"
+
+#: src/hooks/useEthPrice.ts:60
+msgid "Using estimated ETH price"
+msgstr "Using estimated ETH price"
+
+#: src/pages/Settings.tsx:363
+msgid "View Profile"
+msgstr "View Profile"
+
+#: src/pages/Settings.tsx:354
+msgid "View Public Profile"
+msgstr "View Public Profile"
+
+#: src/pages/Contact.tsx:123
+msgid "Visit Us"
+msgstr "Visit Us"
+
+#: src/pages/Settings.tsx:246
+msgid "Wallet"
+msgstr "Wallet"
+
+#: src/hooks/useWallet.ts:86
+msgid "Wallet connected successfully!"
+msgstr "Wallet connected successfully!"
+
+#: src/pages/Settings.tsx:460
+msgid "Wallet Connection"
+msgstr "Wallet Connection"
+
+#: src/hooks/useWallet.ts:117
+msgid "Wallet disconnected successfully"
+msgstr "Wallet disconnected successfully"
+
+#: src/pages/About.tsx:61
+msgid "We continuously push the boundaries of what's possible in crowdfunding."
+msgstr "We continuously push the boundaries of what's possible in crowdfunding."
+
+#: src/pages/About.tsx:51
+msgid "We prioritize the security of our platform and the trust of our community above all else."
+msgstr "We prioritize the security of our platform and the trust of our community above all else."
+
+#: src/pages/About.tsx:66
+msgid "We strive for excellence in everything we do, from code to customer service."
+msgstr "We strive for excellence in everything we do, from code to customer service."
+
+#: src/pages/Contact.tsx:137
+msgid "We typically respond within 2-3 business hours during our working hours."
+msgstr "We typically respond within 2-3 business hours during our working hours."
+
+#: src/pages/About.tsx:83
+msgid "We're revolutionizing crowdfunding through blockchain technology, making it more transparent, secure, and accessible for everyone."
+msgstr "We're revolutionizing crowdfunding through blockchain technology, making it more transparent, secure, and accessible for everyone."
+
+#: src/pages/Login.tsx:45
+msgid "Welcome back"
+msgstr "Welcome back"
+
+#: src/pages/FAQs.tsx:17
+msgid "What is the purpose of this project?"
+msgstr "What is the purpose of this project?"
+
+#: src/pages/FAQs.tsx:29
+msgid "What technologies were used?"
+msgstr "What technologies were used?"
+
+#: src/pages/home/components/Features.tsx:75
+msgid "Why Choose BlockFund?"
+msgstr "Why Choose BlockFund?"
+
+#: src/pages/home/components/Features.tsx:53
+msgid "Worldwide Access"
+msgstr "Worldwide Access"
+
+#: src/pages/FAQs.tsx:14
+msgid "Yes, while the campaigns themselves are fictional, the donation flow is live. When you donate, real cryptocurrency is sent from your connected wallet to the campaign's specified address. Use testnet funds only, as this remains a demo environment."
+msgstr "Yes, while the campaigns themselves are fictional, the donation flow is live. When you donate, real cryptocurrency is sent from your connected wallet to the campaign's specified address. Use testnet funds only, as this remains a demo environment."
+
+#: src/pages/MyCampaigns.tsx:287
+msgid "You don't have any ended campaigns yet."
+msgstr "You don't have any ended campaigns yet."
+
+#: src/components/SupportModal.tsx:218
+msgid "Your Contribution"
+msgstr "Your Contribution"

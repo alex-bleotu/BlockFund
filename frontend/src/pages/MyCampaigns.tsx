@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { motion } from "framer-motion";
 import {
     AlertCircle,
@@ -55,7 +56,7 @@ export function MyCampaigns() {
             setCampaigns(data || []);
         } catch (err) {
             console.error("Error fetching campaigns:", err);
-            setError("Failed to load your campaigns");
+            setError(t`Failed to load your campaigns`);
         } finally {
             setLoading(false);
         }
@@ -85,7 +86,6 @@ export function MyCampaigns() {
         try {
             setIsDeleting(true);
 
-            // Close campaign on blockchain
             try {
                 const campaignIdStr: string = selectedCampaign.id;
                 const campaignId = parseInt(campaignIdStr);
@@ -93,14 +93,13 @@ export function MyCampaigns() {
                 const tx = await closeCampaign(campaignId);
                 await tx.wait();
 
-                toast.success("Campaign closed on blockchain");
+                toast.success(t`Campaign closed on blockchain`);
             } catch (chainError: any) {
                 console.error(
                     "Error closing campaign on blockchain:",
                     chainError
                 );
 
-                // Don't block Supabase deletion if blockchain deletion fails
                 if (
                     !(
                         chainError.code === 4001 ||
@@ -112,28 +111,22 @@ export function MyCampaigns() {
                     )
                 ) {
                     toast.error(
-                        "Could not close campaign on blockchain, but proceeding with removal from database"
+                        t`Could not close campaign on blockchain, but proceeding with removal from database`
                     );
                 } else {
-                    // If user rejected transaction, stop the delete process
                     setIsDeleting(false);
                     throw new Error(
-                        "Delete cancelled: Transaction was rejected"
+                        t`Delete cancelled: Transaction was rejected`
                     );
                 }
             }
 
-            // Delete campaign images from storage if they exist
             if (selectedCampaign.images && selectedCampaign.images.length > 0) {
                 try {
-                    // Extract the filenames from the full URLs
                     const imagePaths = selectedCampaign.images
                         .map((imageUrl) => {
-                            // Get the path part of the URL, which would be something like:
-                            // campaign-images/userId/timestamp-filename.jpg
                             const urlObj = new URL(imageUrl);
                             const pathParts = urlObj.pathname.split("/");
-                            // Find the index where "campaign-images" appears and take everything after it
                             const storagePathIndex = pathParts.findIndex(
                                 (part) => part === "campaign-images"
                             );
@@ -147,9 +140,8 @@ export function MyCampaigns() {
                             }
                             return null;
                         })
-                        .filter(Boolean); // Remove any null values
+                        .filter(Boolean);
 
-                    // Delete each image from storage
                     if (imagePaths.length > 0) {
                         const { error: storageError } = await supabase.storage
                             .from("campaign-images")
@@ -160,7 +152,6 @@ export function MyCampaigns() {
                                 "Error deleting campaign images:",
                                 storageError
                             );
-                            // Continue with campaign deletion even if image deletion fails
                         } else {
                             console.log("Successfully deleted campaign images");
                         }
@@ -170,11 +161,9 @@ export function MyCampaigns() {
                         "Error processing image deletion:",
                         storageError
                     );
-                    // Continue with campaign deletion even if image deletion fails
                 }
             }
 
-            // Delete campaign from database
             const { error } = await supabase
                 .from("campaigns")
                 .delete()
@@ -187,12 +176,12 @@ export function MyCampaigns() {
                 prev.filter((c) => c.id !== selectedCampaign.id)
             );
 
-            toast.success("Campaign deleted successfully");
+            toast.success(t`Campaign deleted successfully`);
             setShowDeleteModal(false);
             setSelectedCampaign(null);
         } catch (err: any) {
             console.error("Error deleting campaign:", err);
-            toast.error(err.message || "Failed to delete campaign");
+            toast.error(err.message || t`Failed to delete campaign`);
         } finally {
             setIsDeleting(false);
         }
@@ -207,7 +196,7 @@ export function MyCampaigns() {
         const today = new Date();
         const diffTime = date.getTime() - today.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays > 0 ? `${diffDays} days left` : "Ended";
+        return diffDays > 0 ? t`${diffDays} days left` : t`Ended`;
     };
 
     const getCampaignStats = () => {
@@ -230,18 +219,18 @@ export function MyCampaigns() {
                 <div className="flex justify-between items-center mb-8">
                     <div>
                         <h1 className="text-3xl font-bold text-text mb-2">
-                            My Campaigns
+                            {t`My Campaigns`}
                         </h1>
                         <div className="text-text-secondary">
-                            {stats.active} Active • {stats.ended} Ended •{" "}
-                            {stats.inactive} Inactive
+                            {stats.active} {t`Active`} • {stats.ended}{" "}
+                            {t`Ended`} • {stats.inactive} {t`Inactive`}
                         </div>
                     </div>
                     <button
                         onClick={() => navigate("/campaign/new")}
                         className="flex items-center px-4 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors group">
                         <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-                        New Campaign
+                        {t`New Campaign`}
                     </button>
                 </div>
 
@@ -255,7 +244,11 @@ export function MyCampaigns() {
                                     ? "bg-primary text-light"
                                     : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
                             }`}>
-                            {status.charAt(0).toUpperCase() + status.slice(1)}
+                            {status === "all"
+                                ? t`All`
+                                : status === "active"
+                                ? t`Active`
+                                : t`Ended`}
                         </button>
                     ))}
                 </div>
@@ -270,29 +263,28 @@ export function MyCampaigns() {
                     <div className="text-center py-16">
                         <AlertCircle className="w-16 h-16 text-text-secondary mx-auto mb-4" />
                         <h2 className="text-2xl font-bold text-text mb-2">
-                            No Campaigns Yet
+                            {t`No Campaigns Yet`}
                         </h2>
                         <p className="text-text-secondary mb-8">
-                            Start your first campaign and begin your fundraising
-                            journey.
+                            {t`Start your first campaign and begin your fundraising journey.`}
                         </p>
                         <button
                             onClick={() => navigate("/campaign/new")}
                             className="inline-flex items-center px-6 py-3 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors group">
                             <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-                            Create Campaign
+                            {t`Create Campaign`}
                         </button>
                     </div>
                 ) : filteredCampaigns.length === 0 ? (
                     <div className="text-center py-16">
                         <AlertCircle className="w-16 h-16 text-text-secondary mx-auto mb-4" />
                         <h2 className="text-2xl font-bold text-text mb-2">
-                            No {selectedStatus} campaigns
+                            {t`No ${selectedStatus} campaigns`}
                         </h2>
                         <p className="text-text-secondary">
                             {selectedStatus === "active"
-                                ? "All your campaigns have ended. Start a new one!"
-                                : "You don't have any ended campaigns yet."}
+                                ? t`All your campaigns have ended. Start a new one!`
+                                : t`You don't have any ended campaigns yet.`}
                         </p>
                     </div>
                 ) : (
@@ -334,12 +326,12 @@ export function MyCampaigns() {
                                                         : "bg-success/80"
                                                 }`}>
                                                 {campaign.status !== "active"
-                                                    ? "Inactive"
+                                                    ? t`Inactive`
                                                     : new Date(
                                                           campaign.deadline
                                                       ) < new Date()
-                                                    ? "Ended"
-                                                    : "Active"}
+                                                    ? t`Ended`
+                                                    : t`Active`}
                                             </span>
                                         </div>
                                     </div>
@@ -370,7 +362,7 @@ export function MyCampaigns() {
                                                 {(campaign.raised || 0).toFixed(
                                                     2
                                                 )}{" "}
-                                                ETH raised
+                                                {t`ETH raised`}
                                             </span>
                                             <span className="text-text font-medium">
                                                 {(
@@ -388,7 +380,7 @@ export function MyCampaigns() {
                                                     (campaign.raised || 0) *
                                                     ethPrice
                                                 ).toLocaleString()}{" "}
-                                                USD
+                                                {t`USD`}
                                             </div>
                                         )}
                                     </div>
@@ -412,8 +404,8 @@ export function MyCampaigns() {
                                         <button className="flex items-center text-primary transition-colors">
                                             <Target className="w-4 h-4 mr-1" />
                                             <span>
-                                                {campaign.goal.toFixed(2)} ETH
-                                                Goal
+                                                {campaign.goal.toFixed(2)}{" "}
+                                                {t`ETH Goal`}
                                             </span>
                                         </button>
                                         <div className="flex items-center space-x-2">

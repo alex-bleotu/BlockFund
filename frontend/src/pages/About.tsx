@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { Award, Rocket, Shield, Users } from "lucide-react";
 
 function TeamMember({
@@ -46,27 +47,23 @@ export function About() {
     const values = [
         {
             icon: Shield,
-            title: "Trust & Security",
-            description:
-                "We prioritize the security of our platform and the trust of our community above all else.",
+            title: t`Trust & Security`,
+            description: t`We prioritize the security of our platform and the trust of our community above all else.`,
         },
         {
             icon: Users,
-            title: "Community First",
-            description:
-                "Our decisions are guided by what's best for our diverse and growing community.",
+            title: t`Community First`,
+            description: t`Our decisions are guided by what's best for our diverse and growing community.`,
         },
         {
             icon: Rocket,
-            title: "Innovation",
-            description:
-                "We continuously push the boundaries of what's possible in crowdfunding.",
+            title: t`Innovation`,
+            description: t`We continuously push the boundaries of what's possible in crowdfunding.`,
         },
         {
             icon: Award,
-            title: "Excellence",
-            description:
-                "We strive for excellence in everything we do, from code to customer service.",
+            title: t`Excellence`,
+            description: t`We strive for excellence in everything we do, from code to customer service.`,
         },
     ];
 
@@ -80,12 +77,10 @@ export function About() {
                 <div className="relative py-24 sm:py-32">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <h1 className="text-4xl sm:text-5xl font-bold text-text mb-6">
-                            About BlockFund
+                            {t`About BlockFund`}
                         </h1>
                         <p className="text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
-                            We're revolutionizing crowdfunding through
-                            blockchain technology, making it more transparent,
-                            secure, and accessible for everyone.
+                            {t`We're revolutionizing crowdfunding through blockchain technology, making it more transparent, secure, and accessible for everyone.`}
                         </p>
                     </div>
                 </div>
@@ -94,13 +89,10 @@ export function About() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl font-bold text-text mb-4">
-                        Our Mission
+                        {t`Our Mission`}
                     </h2>
                     <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-                        To democratize fundraising by leveraging blockchain
-                        technology, creating a transparent and efficient
-                        platform that connects innovators with supporters
-                        worldwide.
+                        {t`To democratize fundraising by leveraging blockchain technology, creating a transparent and efficient platform that connects innovators with supporters worldwide.`}
                     </p>
                 </div>
 

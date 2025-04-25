@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, DollarSign, Wallet, X } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -73,19 +74,19 @@ export function SupportModal({
 
         try {
             if (!amount || amount === "") {
-                setError("Please enter an amount");
+                setError(t`Please enter an amount`);
                 return;
             }
 
             const ethAmount = parseFloat(amount);
 
             if (isNaN(ethAmount)) {
-                setError("Please enter a valid amount");
+                setError(t`Please enter a valid amount`);
                 return;
             }
 
             if (ethAmount < minAmount) {
-                setError(`Minimum contribution is ${minAmount} ETH`);
+                setError(t`Minimum contribution is ${minAmount} ETH`);
                 return;
             }
 
@@ -93,7 +94,7 @@ export function SupportModal({
             await onSupport(ethAmount);
         } catch (err) {
             console.error("Support error:", err);
-            setError("Failed to process transaction");
+            setError(t`Failed to process transaction`);
             setIsSubmitting(false);
         }
     };
@@ -126,10 +127,10 @@ export function SupportModal({
                         </button>
 
                         <h2 className="text-2xl font-bold text-text mb-2">
-                            Support this Campaign
+                            {t`Support this Campaign`}
                         </h2>
                         <p className="text-text-secondary mb-6">
-                            Support "{campaignTitle}" and help make it a reality
+                            {t`Support "${campaignTitle}" and help make it a reality`}
                         </p>
 
                         {error && (
@@ -143,22 +144,22 @@ export function SupportModal({
                             <div className="text-center py-6">
                                 <Wallet className="w-12 h-12 text-primary mx-auto mb-4" />
                                 <h3 className="text-lg font-medium text-text mb-2">
-                                    Connect your Wallet
+                                    {t`Connect your Wallet`}
                                 </h3>
                                 <p className="text-text-secondary mb-4">
-                                    Connect your wallet to support this campaign
+                                    {t`Connect your wallet to support this campaign`}
                                 </p>
                                 <button
                                     onClick={connectWallet}
                                     className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors">
-                                    Connect Wallet
+                                    {t`Connect Wallet`}
                                 </button>
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
                                     <label className="block text-sm font-medium text-text mb-2">
-                                        Amount to Contribute
+                                        {t`Amount to Contribute`}
                                     </label>
                                     <div className="relative">
                                         <input
@@ -191,14 +192,14 @@ export function SupportModal({
                                             </p>
                                         )}
                                     <div className="mt-1 text-xs text-primary">
-                                        Minimum contribution: {minAmount} ETH
+                                        {t`Minimum contribution: ${minAmount} ETH`}
                                     </div>
                                 </div>
 
                                 <div className="bg-background-alt rounded-lg p-4 space-y-2">
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-secondary">
-                                            Campaign Goal
+                                            {t`Campaign Goal`}
                                         </span>
                                         <span className="text-text font-medium">
                                             {campaignGoal.toFixed(2)} ETH
@@ -206,7 +207,7 @@ export function SupportModal({
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-secondary">
-                                            Amount Remaining
+                                            {t`Amount Remaining`}
                                         </span>
                                         <span className="text-text font-medium">
                                             {remainingAmount.toFixed(2)} ETH
@@ -214,7 +215,7 @@ export function SupportModal({
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-secondary">
-                                            Your Contribution
+                                            {t`Your Contribution`}
                                         </span>
                                         <span className="text-primary font-medium">
                                             {amount
@@ -232,7 +233,7 @@ export function SupportModal({
                                         onClick={onClose}
                                         className="px-4 py-2 text-text-secondary hover:text-text transition-colors"
                                         disabled={isSubmitting}>
-                                        Cancel
+                                        {t`Cancel`}
                                     </button>
                                     <button
                                         type="submit"
@@ -243,8 +244,8 @@ export function SupportModal({
                                         }
                                         className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                                         {isSubmitting
-                                            ? "Processing..."
-                                            : "Support Campaign"}
+                                            ? t`Processing...`
+                                            : t`Support Campaign`}
                                     </button>
                                 </div>
                             </form>

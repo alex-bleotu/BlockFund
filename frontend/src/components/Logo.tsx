@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { Rocket } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -8,7 +9,7 @@ export function Logo() {
             className="flex items-center justify-center space-x-2 group">
             <Rocket className="h-8 w-8 text-primary" />
             <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
-                BlockFund
+                {t`BlockFund`}
             </span>
         </Link>
     );

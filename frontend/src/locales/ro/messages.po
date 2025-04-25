@@ -13,6 +13,964 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/pages/Profile.tsx:90
+#: src/pages/MyCampaigns.tsx:199
+#: src/pages/Campaigns.tsx:100
+#: src/pages/home/components/TopCampaigns.tsx:49
+msgid "{diffDays} days left"
+msgstr "{diffDays} zile rămase"
+
+#: src/components/MobileDrawer.tsx:211
+#: src/components/MobileDrawer.tsx:262
+msgid "About"
+msgstr "Despre"
+
+#: src/pages/About.tsx:80
+msgid "About BlockFund"
+msgstr "Despre BlockFund"
+
+#: src/components/Footer.tsx:21
+msgid "About Us"
+msgstr "Despre noi"
+
+#: src/pages/home/components/Features.tsx:54
+msgid "Access funding opportunities from anywhere in the world, breaking down geographical barriers."
+msgstr "Accesează oportunități de finanțare de oriunde din lume, eliminând barierele geografice."
+
+#: src/pages/Profile.tsx:211
+#: src/pages/MyCampaigns.tsx:225
+#: src/pages/MyCampaigns.tsx:250
+#: src/pages/MyCampaigns.tsx:334
+#: src/pages/Campaigns.tsx:202
+msgid "Active"
+msgstr "Activ"
+
+#: src/pages/Campaigns.tsx:119
+msgid "Active Campaigns"
+msgstr "Campanii active"
+
+#: src/pages/home/components/Stats.tsx:96
+msgid "Active Users"
+msgstr "Utilizatori activi"
+
+#: src/pages/MyCampaigns.tsx:248
+#: src/pages/Campaigns.tsx:226
+msgid "All"
+msgstr "Toate"
+
+#: src/pages/Campaigns.tsx:185
+msgid "All Categories"
+msgstr "Toate categoriile"
+
+#: src/pages/MyCampaigns.tsx:286
+msgid "All your campaigns have ended. Start a new one!"
+msgstr "Toate campaniile tale s-au încheiat. Începe una nouă!"
+
+#: src/pages/Register.tsx:45
+msgid "Already have an account?"
+msgstr "Ai deja un cont?"
+
+#: src/components/SupportModal.tsx:210
+msgid "Amount Remaining"
+msgstr "Sumă rămasă"
+
+#: src/components/SupportModal.tsx:162
+msgid "Amount to Contribute"
+msgstr "Sumă de contribuit"
+
+#: src/pages/FAQs.tsx:21
+msgid "Are the campaigns real?"
+msgstr "Sunt campaniile reale?"
+
+#: src/pages/home/components/Features.tsx:42
+msgid "Automated fund distribution and milestone tracking through smart contracts, eliminating intermediaries."
+msgstr "Distribuție automată a fondurilor și urmărire a etapelor prin contracte inteligente, eliminând intermediarii."
+
+#: src/pages/Profile.tsx:132
+msgid "Back"
+msgstr "Înapoi"
+
+#: src/pages/Settings.tsx:324
+msgid "Bio"
+msgstr "Biografie"
+
+#: src/pages/Register.tsx:157
+msgid "Blockchain visualization"
+msgstr "Vizualizare blockchain"
+
+#: src/components/Logo.tsx:12
+msgid "BlockFund"
+msgstr "BlockFund"
+
+#: src/components/Footer.tsx:90
+msgid "BlockFund. All rights reserved."
+msgstr "BlockFund. Toate drepturile rezervate."
+
+#: src/pages/Contact.tsx:109
+msgid "Call Us"
+msgstr "Sună-ne"
+
+#: src/pages/MyCampaigns.tsx:96
+msgid "Campaign closed on blockchain"
+msgstr "Campanie închisă pe blockchain"
+
+#: src/pages/MyCampaigns.tsx:179
+msgid "Campaign deleted successfully"
+msgstr "Campanie ștearsă cu succes"
+
+#: src/components/SupportModal.tsx:202
+msgid "Campaign Goal"
+msgstr "Obiectiv campanie"
+
+#: src/pages/Profile.tsx:140
+#: src/pages/Profile.tsx:355
+msgid "Campaigns"
+msgstr "Campanii"
+
+#: src/pages/FAQs.tsx:13
+msgid "Can I actually donate to campaigns?"
+msgstr "Pot dona efectiv la campanii?"
+
+#: src/pages/FAQs.tsx:25
+msgid "Can I use this for real crowdfunding?"
+msgstr "Pot folosi aceasta pentru crowdfunding real?"
+
+#: src/components/SupportModal.tsx:236
+msgid "Cancel"
+msgstr "Anulează"
+
+#: src/hooks/useCampaignActions.ts:54
+msgid "Check out this campaign on BlockFund"
+msgstr "Vezi această campanie pe BlockFund"
+
+#: src/pages/Register.tsx:77
+msgid "Choose a username"
+msgstr "Alege un nume de utilizator"
+
+#: src/components/MobileDrawer.tsx:125
+msgid "Close menu"
+msgstr "Închide meniul"
+
+#. placeholder {0}: res.status
+#: src/hooks/useEthPrice.ts:39
+msgid "CoinGecko returned {0}"
+msgstr "CoinGecko a returnat {0}"
+
+#: src/pages/About.tsx:55
+msgid "Community First"
+msgstr "Comunitatea pe primul loc"
+
+#: src/pages/Settings.tsx:424
+msgid "Confirm New Password"
+msgstr "Confirmă noua parolă"
+
+#: src/pages/Settings.tsx:510
+#: src/components/SupportModal.tsx:155
+msgid "Connect Wallet"
+msgstr "Conectează portofel"
+
+#: src/pages/home/components/Features.tsx:48
+msgid "Connect with backers and creators from around the world in our vibrant ecosystem."
+msgstr "Conectează-te cu susținători și creatori din întreaga lume în ecosistemul nostru vibrant."
+
+#: src/components/Footer.tsx:65
+msgid "Connect With Us"
+msgstr "Conectează-te cu noi"
+
+#: src/pages/Settings.tsx:489
+msgid "Connect your MetaMask wallet to start creating campaigns"
+msgstr "Conectează-ți portofelul MetaMask pentru a începe crearea campaniilor"
+
+#: src/components/SupportModal.tsx:147
+msgid "Connect your Wallet"
+msgstr "Conectează portofelul tău"
+
+#: src/components/SupportModal.tsx:150
+msgid "Connect your wallet to support this campaign"
+msgstr "Conectează-ți portofelul pentru a susține această campanie"
+
+#: src/pages/Settings.tsx:477
+msgid "Connected:"
+msgstr "Conectat:"
+
+#: src/hooks/useWallet.ts:91
+msgid "Connection already in progress. Please check MetaMask."
+msgstr "Conexiune deja în curs. Verifică MetaMask."
+
+#: src/pages/Profile.tsx:383
+#: src/components/MobileDrawer.tsx:225
+#: src/components/MobileDrawer.tsx:276
+#: src/components/Footer.tsx:28
+msgid "Contact"
+msgstr "Contact"
+
+#: src/hooks/useCampaignContract.ts:112
+#: src/hooks/useCampaignContract.ts:144
+#: src/hooks/useCampaignContract.ts:163
+#: src/hooks/useCampaignContract.ts:184
+#: src/hooks/useCampaignContract.ts:195
+msgid "Contract not initialized"
+msgstr "Contract neinițializat"
+
+#: src/pages/MyCampaigns.tsx:114
+msgid "Could not close campaign on blockchain, but proceeding with removal from database"
+msgstr "Nu s-a putut închide campania pe blockchain, dar se continuă cu eliminarea din baza de date"
+
+#: src/pages/Register.tsx:129
+msgid "Create a password"
+msgstr "Creează o parolă"
+
+#: src/pages/Register.tsx:145
+msgid "Create Account"
+msgstr "Creează cont"
+
+#: src/pages/MyCampaigns.tsx:275
+msgid "Create Campaign"
+msgstr "Creează o campanie"
+
+#: src/pages/Register.tsx:42
+msgid "Create your account"
+msgstr "Creează-ți contul"
+
+#: src/pages/Register.tsx:144
+msgid "Creating account..."
+msgstr "Se creează contul..."
+
+#: src/pages/home/components/Hero.tsx:19
+msgid "Crowdfunding"
+msgstr "Crowdfunding"
+
+#: src/pages/Settings.tsx:382
+msgid "Current Password"
+msgstr "Parola curentă"
+
+#: src/pages/Settings.tsx:147
+msgid "Current password is incorrect"
+msgstr "Parola curentă este incorectă"
+
+#: src/pages/MyCampaigns.tsx:119
+msgid "Delete cancelled: Transaction was rejected"
+msgstr "Ștergere anulată: Tranzacția a fost respinsă"
+
+#: src/pages/Settings.tsx:509
+msgid "Disconnect"
+msgstr "Deconectează"
+
+#: src/pages/Settings.tsx:311
+msgid "Display Name"
+msgstr "Nume afișat"
+
+#: src/components/Footer.tsx:50
+msgid "Documentation"
+msgstr "Documentație"
+
+#: src/pages/Contact.tsx:126
+msgid "Don't actually do that!"
+msgstr "De fapt nu face asta!"
+
+#: src/pages/FAQs.tsx:55
+msgid "Educational Project Disclaimer"
+msgstr "Declinare proiect educațional"
+
+#: src/pages/Settings.tsx:299
+#: src/pages/Contact.tsx:193
+msgid "Email"
+msgstr "Email"
+
+#: src/pages/Register.tsx:91
+#: src/pages/Login.tsx:68
+msgid "Email address"
+msgstr "Adresă de email"
+
+#: src/pages/Contact.tsx:93
+msgid "Email Us"
+msgstr "Trimite-ne un email"
+
+#: src/pages/Profile.tsx:90
+#: src/pages/Profile.tsx:210
+#: src/pages/MyCampaigns.tsx:199
+#: src/pages/MyCampaigns.tsx:226
+#: src/pages/MyCampaigns.tsx:251
+#: src/pages/MyCampaigns.tsx:333
+#: src/pages/Campaigns.tsx:100
+#: src/pages/Campaigns.tsx:211
+#: src/pages/home/components/TopCampaigns.tsx:49
+msgid "Ended"
+msgstr "Încheiat"
+
+#: src/pages/Campaigns.tsx:128
+msgid "Ended Campaigns"
+msgstr "Campanii încheiate"
+
+#: src/pages/Register.tsx:104
+#: src/pages/Login.tsx:81
+msgid "Enter your email"
+msgstr "Introdu emailul tău"
+
+#: src/pages/Login.tsx:106
+msgid "Enter your password"
+msgstr "Introdu parola ta"
+
+#: src/components/MetaMaskStatus.tsx:54
+msgid "Error connecting to MetaMask. Please check your wallet."
+msgstr "Eroare la conectarea MetaMask. Verifică portofelul."
+
+#: src/pages/Profile.tsx:110
+msgid "Error Loading Profile"
+msgstr "Eroare la încărcarea profilului"
+
+#: src/pages/Profile.tsx:309
+#: src/pages/Campaigns.tsx:351
+#: src/pages/home/components/TopCampaigns.tsx:183
+msgid "ETH"
+msgstr "ETH"
+
+#: src/pages/MyCampaigns.tsx:408
+msgid "ETH Goal"
+msgstr "Obiectiv ETH@: src/pages/Profile.tsx:255, src/pages/MyCampaigns.tsx:365, src/pages/Campaigns.tsx:302, src/pages/home/components/TopCampaigns.tsx:140"
+
+#: src/pages/Profile.tsx:255
+#: src/pages/MyCampaigns.tsx:365
+#: src/pages/Campaigns.tsx:302
+#: src/pages/home/components/TopCampaigns.tsx:140
+msgid "ETH raised"
+msgstr "ETH strâns"
+
+#: src/pages/Profile.tsx:371
+#: src/pages/Campaigns.tsx:110
+msgid "ETH Raised"
+msgstr "ETH strâns"
+
+#: src/pages/home/components/Features.tsx:36
+msgid "Every transaction is recorded on the blockchain, ensuring complete transparency and security for all participants."
+msgstr "Fiecare tranzacție este înregistrată pe blockchain, asigurând transparență și securitate completă pentru toți participanții."
+
+#: src/pages/About.tsx:65
+msgid "Excellence"
+msgstr "Excelență"
+
+#: src/pages/home/components/Features.tsx:78
+msgid "Experience the next generation of crowdfunding"
+msgstr "Experimentează următoarea generație de crowdfunding"
+
+#: src/components/Navbar.tsx:30
+#: src/components/MobileDrawer.tsx:160
+msgid "Explore"
+msgstr "Explorează"
+
+#: src/hooks/useMetaMask.ts:87
+msgid "Failed to connect to MetaMask"
+msgstr "Conectare la MetaMask eșuată"
+
+#: src/hooks/useWallet.ts:94
+msgid "Failed to connect wallet"
+msgstr "Conectare portofel eșuată"
+
+#: src/pages/Register.tsx:26
+msgid "Failed to create an account. Please try again."
+msgstr "Creare cont eșuată. Încearcă din nou."
+
+#: src/pages/MyCampaigns.tsx:184
+msgid "Failed to delete campaign"
+msgstr "Ștergere campanie eșuată"
+
+#: src/hooks/useWallet.ts:120
+msgid "Failed to disconnect wallet"
+msgstr "Deconectare portofel eșuată"
+
+#: src/pages/Campaigns.tsx:56
+msgid "Failed to load campaigns"
+msgstr "Încărcare campanii eșuată"
+
+#: src/hooks/useMessages.ts:121
+msgid "Failed to load messages"
+msgstr "Încărcare mesaje eșuată"
+
+#: src/pages/Profile.tsx:75
+msgid "Failed to load profile"
+msgstr "Încărcare profil eșuată"
+
+#: src/pages/Settings.tsx:104
+msgid "Failed to load profile data"
+msgstr "Încărcare date profil eșuată"
+
+#: src/hooks/useWallet.ts:44
+msgid "Failed to load wallet"
+msgstr "Încărcare portofel eșuată"
+
+#: src/pages/MyCampaigns.tsx:59
+msgid "Failed to load your campaigns"
+msgstr "Încărcare campaniile tale eșuată"
+
+#: src/components/SupportModal.tsx:97
+msgid "Failed to process transaction"
+msgstr "Procesare tranzacție eșuată"
+
+#: src/hooks/useMessages.ts:146
+msgid "Failed to send message"
+msgstr "Trimitere mesaj eșuată"
+
+#: src/pages/Contact.tsx:162
+msgid "Failed to send message. Please try again later."
+msgstr "Trimiterea mesajului a eșuat. Vă rugăm să încercați din nou mai târziu."
+
+#: src/pages/Settings.tsx:164
+msgid "Failed to update password"
+msgstr "Actualizarea parolei a eșuat"
+
+#: src/pages/Settings.tsx:209
+msgid "Failed to update profile"
+msgstr "Actualizarea profilului a eșuat"
+
+#: src/components/MobileDrawer.tsx:218
+#: src/components/MobileDrawer.tsx:269
+#: src/components/Footer.tsx:57
+msgid "FAQs"
+msgstr "Întrebări frecvente"
+
+#: src/pages/Contact.tsx:149
+msgid "Fill out the form below and we'll get back to you as soon as possible."
+msgstr "Completați formularul de mai jos și vă vom contacta cât mai curând posibil."
+
+#: src/pages/Login.tsx:121
+msgid "Forgot password?"
+msgstr "Ați uitat parola?"
+
+#: src/pages/FAQs.tsx:40
+msgid "Frequently Asked Questions"
+msgstr "Întrebări frecvente"
+
+#: src/pages/Contact.tsx:79
+msgid "Get in Touch"
+msgstr "Contactează-ne"
+
+#: src/pages/home/components/Features.tsx:47
+msgid "Global Community"
+msgstr "Comunitate globală"
+
+#: src/pages/Profile.tsx:118
+#: src/pages/NotFound.tsx:31
+msgid "Go Back"
+msgstr "Înapoi"
+
+#: src/pages/NotFound.tsx:37
+msgid "Go Home"
+msgstr "Acasă"
+
+#: src/pages/Contact.tsx:222
+msgid "How can we help?"
+msgstr "Cu ce vă putem ajuta?"
+
+#: src/pages/FAQs.tsx:43
+msgid "Important information about this project"
+msgstr "Informații importante despre acest proiect"
+
+#: src/pages/Profile.tsx:206
+#: src/pages/MyCampaigns.tsx:226
+#: src/pages/MyCampaigns.tsx:329
+msgid "Inactive"
+msgstr "Inactiv"
+
+#: src/pages/About.tsx:60
+msgid "Innovation"
+msgstr "Inovație"
+
+#: src/pages/home/components/Features.tsx:65
+msgid "Innovation First"
+msgstr "Inovație întâi"
+
+#: src/hooks/useCampaignContract.ts:167
+msgid "Invalid amount"
+msgstr "Sumă nevalidă"
+
+#: src/pages/Login.tsx:29
+msgid "Invalid email or password. Please try again."
+msgstr "Email sau parolă nevalidă. Vă rugăm să încercați din nou."
+
+#: src/hooks/useEthPrice.ts:44
+msgid "Invalid price data"
+msgstr "Date de preț nevalide"
+
+#: src/pages/FAQs.tsx:8
+msgid "Is this a real crowdfunding platform?"
+msgstr "Este aceasta o platformă reală de crowdfunding?"
+
+#: src/pages/Contact.tsx:185
+msgid "John Doe"
+msgstr "John Doe"
+
+#: src/pages/Contact.tsx:203
+msgid "john@example.com"
+msgstr "john@example.com"
+
 #: src/pages/home/components/Hero.tsx:24
 msgid "Join the future of fundraising with blockchain technology. Transparent, secure, and efficient crowdfunding for the digital age."
 msgstr "Alătura-te viitorului crowdfunding cu tehnologia blockchain. Transparent, sigur, și eficient pentru vârstă digitală."
+
+#: src/pages/home/components/Hero.tsx:21
+msgid "Journey"
+msgstr "Călătorie"
+
+#: src/pages/home/components/Hero.tsx:31
+msgid "Launch Your Campaign"
+msgstr "Lansează campania ta"
+
+#: src/pages/home/components/Hero.tsx:37
+msgid "Learn More"
+msgstr "Află mai multe"
+
+#: src/components/Navbar.tsx:52
+#: src/components/MobileDrawer.tsx:253
+msgid "Login"
+msgstr "Autentificare"
+
+#: src/pages/home/components/Features.tsx:60
+msgid "Make a real difference by supporting projects that matter to you and your community."
+msgstr "Fă o diferență reală susținând proiecte care contează pentru tine și comunitatea ta."
+
+#: src/components/MobileDrawer.tsx:94
+msgid "Menu"
+msgstr "Meniu"
+
+#: src/pages/Contact.tsx:230
+msgid "Message"
+msgstr "Mesaj"
+
+#: src/pages/Contact.tsx:155
+msgid "Message sent successfully! We'll be in touch soon."
+msgstr "Mesaj trimis cu succes! Te vom contacta în curând."
+
+#: src/hooks/useWallet.ts:93
+msgid "MetaMask connection was rejected"
+msgstr "Conectarea MetaMask a fost respinsă"
+
+#: src/components/MetaMaskStatus.tsx:42
+msgid "MetaMask is locked. Please unlock your wallet."
+msgstr "MetaMask este blocat. Te rugăm deblochează-ți portofelul."
+
+#: src/hooks/useWallet.ts:63
+#: src/hooks/useMetaMask.ts:77
+msgid "MetaMask is not installed"
+msgstr "MetaMask nu este instalat"
+
+#: src/components/MetaMaskStatus.tsx:36
+msgid "MetaMask is not installed. Please install it to use this app."
+msgstr "MetaMask nu este instalat. Te rugăm să îl instalezi pentru a folosi această aplicație."
+
+#: src/components/MetaMaskStatus.tsx:48
+msgid "MetaMask is ready to use"
+msgstr "MetaMask este gata de utilizare"
+
+#: src/pages/Settings.tsx:473
+msgid "MetaMask Wallet"
+msgstr "Portofel MetaMask"
+
+#: src/components/SupportModal.tsx:89
+msgid "Minimum contribution is {minAmount} ETH"
+msgstr "Contribuția minimă este de {minAmount} ETH"
+
+#: src/components/SupportModal.tsx:195
+msgid "Minimum contribution: {minAmount} ETH"
+msgstr "Contribuția minimă: {minAmount} ETH"
+
+#: src/pages/MyCampaigns.tsx:222
+#: src/components/MobileDrawer.tsx:173
+msgid "My Campaigns"
+msgstr "Campaniile mele"
+
+#: src/pages/Contact.tsx:175
+msgid "Name"
+msgstr "Nume"
+
+#: src/pages/MyCampaigns.tsx:233
+msgid "New Campaign"
+msgstr "Campanie nouă"
+
+#: src/pages/Settings.tsx:403
+msgid "New Password"
+msgstr "Parolă nouă"
+
+#: src/pages/Settings.tsx:131
+msgid "New passwords do not match"
+msgstr "Noile parole nu coincid"
+
+#: src/pages/MyCampaigns.tsx:282
+msgid "No {selectedStatus} campaigns"
+msgstr "Nu există campanii {selectedStatus}"
+
+#: src/hooks/useWallet.ts:75
+msgid "No account found"
+msgstr "Nu a fost găsit niciun cont"
+
+#: src/pages/Profile.tsx:144
+msgid "No campaigns yet"
+msgstr "Nicio campanie deocamdată"
+
+#: src/pages/MyCampaigns.tsx:266
+msgid "No Campaigns Yet"
+msgstr "Nicio campanie deocamdată"
+
+#: src/pages/FAQs.tsx:22
+msgid "No, all campaigns on this platform are fictional and created for demonstration purposes. They do not represent real fundraising initiatives."
+msgstr "Nu, toate campaniile de pe această platformă sunt fictive și create în scop demonstrativ. Ele nu reprezintă inițiative reale de strângere de fonduri."
+
+#: src/pages/FAQs.tsx:9
+msgid "No, BlockFund is not a real crowdfunding platform. This is a school project created for educational purposes only. No real transactions or fundraising activities take place on this platform."
+msgstr "Nu, BlockFund nu este o platformă reală de crowdfunding. Acesta este un proiect școlar creat doar în scopuri educaționale. Pe această platformă nu au loc tranzacții sau activități reale de strângere de fonduri."
+
+#: src/pages/FAQs.tsx:26
+msgid "No, this platform should not be used for real crowdfunding purposes. It is a prototype designed for educational demonstration only. For real crowdfunding, please use established platforms like Kickstarter, GoFundMe, or other legitimate services."
+msgstr "Nu, această platformă nu ar trebui folosită pentru scopuri reale de crowdfunding. Este un prototip creat doar pentru demonstrație educațională. Pentru crowdfunding real, vă rugăm să folosiți platforme consacrate precum Kickstarter, GoFundMe sau alte servicii legitime."
+
+#: src/components/MobileDrawer.tsx:183
+msgid "Notifications"
+msgstr "Notificări"
+
+#: src/pages/Login.tsx:48
+msgid "Or"
+msgstr "Sau"
+
+#: src/pages/About.tsx:56
+msgid "Our decisions are guided by what's best for our diverse and growing community."
+msgstr "Deciziile noastre sunt ghidate de ceea ce este mai bine pentru comunitatea noastră diversă și în creștere."
+
+#: src/pages/About.tsx:92
+msgid "Our Mission"
+msgstr "Misiunea noastră"
+
+#: src/pages/Contact.tsx:82
+msgid "Our support team is spread across the globe to give you the best possible experience."
+msgstr "Echipa noastră de asistență este răspândită la nivel global pentru a vă oferi cea mai bună experiență posibilă."
+
+#: src/pages/NotFound.tsx:21
+msgid "Page Not Found"
+msgstr "Pagină negăsită"
+
+#: src/pages/Register.tsx:116
+#: src/pages/Login.tsx:93
+msgid "Password"
+msgstr "Parolă"
+
+#: src/pages/Settings.tsx:156
+msgid "Password updated successfully"
+msgstr "Parolă actualizată cu succes"
+
+#: src/components/SupportModal.tsx:84
+msgid "Please enter a valid amount"
+msgstr "Te rugăm să introduci o sumă validă"
+
+#: src/components/SupportModal.tsx:77
+msgid "Please enter an amount"
+msgstr "Te rugăm să introduci o sumă"
+
+#: src/pages/Settings.tsx:507
+#: src/components/SupportModal.tsx:247
+msgid "Processing..."
+msgstr "Se procesează..."
+
+#: src/pages/Settings.tsx:245
+msgid "Profile"
+msgstr "Profil"
+
+#: src/pages/Profile.tsx:58
+#: src/pages/Profile.tsx:113
+msgid "Profile not found"
+msgstr "Profil inexistent"
+
+#: src/pages/Settings.tsx:293
+msgid "Profile Settings"
+msgstr "Setări profil"
+
+#: src/pages/Settings.tsx:202
+msgid "Profile updated successfully"
+msgstr "Profil actualizat cu succes"
+
+#: src/hooks/useCampaignContract.ts:206
+msgid "Provider not initialized"
+msgstr "Furnizor neinițializat"
+
+#: src/components/Footer.tsx:14
+msgid "Quick Links"
+msgstr "Linkuri rapide"
+
+#: src/pages/Contact.tsx:134
+msgid "Quick Response Time"
+msgstr "Timp de răspuns rapid"
+
+#: src/components/Footer.tsx:43
+msgid "Resources"
+msgstr "Resurse"
+
+#: src/pages/home/components/Hero.tsx:17
+msgid "Revolutionize Your"
+msgstr "Revoluționează-ți"
+
+#: src/pages/Settings.tsx:346
+msgid "Save Changes"
+msgstr "Salvează modificările"
+
+#: src/pages/Settings.tsx:345
+msgid "Saving..."
+msgstr "Se salvează..."
+
+#: src/pages/Campaigns.tsx:173
+msgid "Search campaigns..."
+msgstr "Caută campanii..."
+
+#: src/pages/home/components/Features.tsx:35
+msgid "Secure & Transparent"
+msgstr "Securizat și transparent"
+
+#: src/pages/home/components/Stats.tsx:114
+msgid "Secure Projects"
+msgstr "Proiecte sigure"
+
+#: src/pages/Settings.tsx:247
+msgid "Security"
+msgstr "Securitate"
+
+#: src/pages/Settings.tsx:374
+msgid "Security Settings"
+msgstr "Setări de securitate"
+
+#: src/pages/Settings.tsx:357
+msgid "See how others view your profile"
+msgstr "Vezi cum îți vizualizează alții profilul"
+
+#: src/pages/Contact.tsx:256
+msgid "Send Message"
+msgstr "Trimite mesaj"
+
+#: src/pages/Contact.tsx:146
+msgid "Send us a Message"
+msgstr "Trimite-ne un mesaj"
+
+#: src/pages/Contact.tsx:251
+msgid "Sending..."
+msgstr "Se trimite..."
+
+#: src/components/MobileDrawer.tsx:200
+msgid "Settings"
+msgstr "Setări"
+
+#: src/pages/Register.tsx:49
+#: src/pages/Login.tsx:130
+msgid "Sign in"
+msgstr "Autentificare"
+
+#: src/components/MobileDrawer.tsx:243
+msgid "Sign out"
+msgstr "Deconectare"
+
+#: src/pages/Login.tsx:130
+msgid "Signing in..."
+msgstr "Se autentifică..."
+
+#: src/pages/home/components/Features.tsx:41
+msgid "Smart Contracts"
+msgstr "Contracte inteligente"
+
+#: src/pages/home/components/Features.tsx:59
+msgid "Social Impact"
+msgstr "Impact social"
+
+#: src/components/Navbar.tsx:43
+#: src/components/MobileDrawer.tsx:236
+#: src/components/Footer.tsx:35
+msgid "Start a Campaign"
+msgstr "Începe o campanie"
+
+#: src/pages/Campaigns.tsx:370
+msgid "Start Your Campaign"
+msgstr "Începe-ți campania"
+
+#: src/pages/MyCampaigns.tsx:269
+msgid "Start your first campaign and begin your fundraising journey."
+msgstr "Începe-ți prima campanie și pornește în călătoria ta de strângere de fonduri."
+
+#: src/pages/Login.tsx:52
+msgid "start your journey today"
+msgstr "Începe-ți călătoria astăzi"
+
+#: src/pages/home/components/Features.tsx:66
+msgid "Stay ahead with cutting-edge blockchain technology and innovative funding solutions."
+msgstr "Rămâi cu un pas înainte cu tehnologie blockchain de ultimă oră și soluții inovatoare de finanțare."
+
+#: src/pages/Contact.tsx:212
+msgid "Subject"
+msgstr "Subiect"
+
+#: src/pages/home/components/Stats.tsx:123
+msgid "Success Rate"
+msgstr "Rată de succes"
+
+#: src/components/SupportModal.tsx:133
+msgid "Support \"{campaignTitle}\" and help make it a reality"
+msgstr "Susține „{campaignTitle}” și ajută să devină realitate"
+
+#: src/components/SupportModal.tsx:248
+msgid "Support Campaign"
+msgstr "Susține campania"
+
+#: src/hooks/useCampaignActions.ts:55
+msgid "Support this amazing campaign!"
+msgstr "Susține această campanie uimitoare!"
+
+#: src/components/SupportModal.tsx:130
+msgid "Support this Campaign"
+msgstr "Susține această campanie"
+
+#: src/pages/Login.tsx:141
+msgid "Technology background"
+msgstr "Experiență tehnologică"
+
+#: src/pages/Settings.tsx:332
+msgid "Tell us about yourself..."
+msgstr "Povestește-ne despre tine…"
+
+#: src/pages/Contact.tsx:240
+msgid "Tell us more about your inquiry..."
+msgstr "Spune-ne mai multe despre solicitarea ta…"
+
+#: src/pages/NotFound.tsx:23
+msgid "The page you are looking for doesn't exist or has been moved."
+msgstr "Pagina pe care o cauți nu există sau a fost mutată."
+
+#: src/pages/FAQs.tsx:30
+msgid "This project was built using React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts. It demonstrates the integration of blockchain technology with modern web development practices."
+msgstr "Acest proiect a fost construit folosind React, TypeScript, Tailwind CSS, Supabase și contracte inteligente Ethereum. Demonstrează integrarea tehnologiei blockchain cu practici moderne de dezvoltare web."
+
+#: src/pages/FAQs.tsx:18
+msgid "This project was created as an educational exercise to demonstrate the potential of blockchain technology in crowdfunding. It showcases the integration of Web3 technologies, smart contracts, and modern web development practices."
+msgstr "Acest proiect a fost creat ca un exercițiu educațional pentru a demonstra potențialul tehnologiei blockchain în crowdfunding. Prezintă integrarea tehnologiilor Web3, a contractelor inteligente și a practicilor moderne de dezvoltare web."
+
+#: src/pages/Settings.tsx:188
+msgid "This username is already taken"
+msgstr "Acest nume de utilizator este deja folosit"
+
+#: src/pages/FAQs.tsx:58
+msgid "This website is a school project and is not intended for real use. No actual transactions occur, and no real money or cryptocurrency is involved. All features, campaigns, and functionalities are simulated for educational purposes only."
+msgstr "Acest website este un proiect școlar și nu este destinat utilizării reale. Nu se desfășoară tranzacții reale și nu este implicată nicio monedă reală sau criptomonedă. Toate funcționalitățile și campaniile sunt simulate exclusiv în scopuri educaționale."
+
+#: src/pages/About.tsx:95
+msgid "To democratize fundraising by leveraging blockchain technology, creating a transparent and efficient platform that connects innovators with supporters worldwide."
+msgstr "Să democratizăm strângerea de fonduri prin tehnologia blockchain, creând o platformă transparentă și eficientă care conectează inovatorii cu susținători din întreaga lume."
+
+#: src/components/ThemeToggle.tsx:12
+msgid "Toggle theme"
+msgstr "Schimbă tema"
+
+#: src/pages/home/components/TopCampaigns.tsx:79
+msgid "Top Active Campaigns"
+msgstr "Top campanii active"
+
+#: src/pages/home/components/Stats.tsx:105
+msgid "Total Raised"
+msgstr "Total strâns"
+
+#: src/pages/About.tsx:50
+msgid "Trust & Security"
+msgstr "Încredere și securitate"
+
+#: src/pages/Settings.tsx:450
+msgid "Update Password"
+msgstr "Actualizează parola"
+
+#: src/pages/Settings.tsx:449
+msgid "Updating..."
+msgstr "Se actualizează..."
+
+#: src/pages/Profile.tsx:275
+#: src/pages/MyCampaigns.tsx:383
+#: src/pages/Campaigns.tsx:321
+#: src/pages/home/components/TopCampaigns.tsx:158
+msgid "USD"
+msgstr "USD"
+
+#: src/pages/Register.tsx:65
+msgid "Username"
+msgstr "Nume utilizator"
+
+#: src/hooks/useEthPrice.ts:60
+msgid "Using estimated ETH price"
+msgstr "Se folosește prețul estimat ETH"
+
+#: src/pages/Settings.tsx:363
+msgid "View Profile"
+msgstr "Vezi profilul"
+
+#: src/pages/Settings.tsx:354
+msgid "View Public Profile"
+msgstr "Vezi profilul public"
+
+#: src/pages/Contact.tsx:123
+msgid "Visit Us"
+msgstr "Vizitează-ne"
+
+#: src/pages/Settings.tsx:246
+msgid "Wallet"
+msgstr "Portofel"
+
+#: src/hooks/useWallet.ts:86
+msgid "Wallet connected successfully!"
+msgstr "Portofel conectat cu succes!"
+
+#: src/pages/Settings.tsx:460
+msgid "Wallet Connection"
+msgstr "Conectare portofel"
+
+#: src/hooks/useWallet.ts:117
+msgid "Wallet disconnected successfully"
+msgstr "Portofel deconectat cu succes"
+
+#: src/pages/About.tsx:61
+msgid "We continuously push the boundaries of what's possible in crowdfunding."
+msgstr "Depășim constant limitele posibilului în crowdfunding."
+
+#: src/pages/About.tsx:51
+msgid "We prioritize the security of our platform and the trust of our community above all else."
+msgstr "Punem mai presus de toate securitatea platformei noastre și încrederea comunității."
+
+#: src/pages/About.tsx:66
+msgid "We strive for excellence in everything we do, from code to customer service."
+msgstr "Ne străduim să obținem excelență în tot ceea ce facem, de la cod până la serviciul pentru clienți."
+
+#: src/pages/Contact.tsx:137
+msgid "We typically respond within 2-3 business hours during our working hours."
+msgstr "De obicei, răspundem în decurs de 2-3 ore lucrătoare în timpul programului nostru."
+
+#: src/pages/About.tsx:83
+msgid "We're revolutionizing crowdfunding through blockchain technology, making it more transparent, secure, and accessible for everyone."
+msgstr "Revoluționăm crowdfunding-ul prin tehnologia blockchain, făcându-l mai transparent, sigur și accesibil pentru toată lumea."
+
+#: src/pages/Login.tsx:45
+msgid "Welcome back"
+msgstr "Bine ai revenit"
+
+#: src/pages/FAQs.tsx:17
+msgid "What is the purpose of this project?"
+msgstr "Care este scopul acestui proiect?"
+
+#: src/pages/FAQs.tsx:29
+msgid "What technologies were used?"
+msgstr "Ce tehnologii au fost folosite?"
+
+#: src/pages/home/components/Features.tsx:75
+msgid "Why Choose BlockFund?"
+msgstr "De ce să alegi BlockFund?"
+
+#: src/pages/home/components/Features.tsx:53
+msgid "Worldwide Access"
+msgstr "Acces la nivel mondial"
+
+#: src/pages/FAQs.tsx:14
+msgid "Yes, while the campaigns themselves are fictional, the donation flow is live. When you donate, real cryptocurrency is sent from your connected wallet to the campaign's specified address. Use testnet funds only, as this remains a demo environment."
+msgstr "Da, deși campaniile în sine sunt fictive, fluxul de donație este activ. Când donezi, criptomonede reale sunt trimise din portofelul tău conectat către adresa specificată a campaniei. Folosește doar fonduri din testnet, deoarece acesta rămâne un mediu demonstrativ."
+
+#: src/pages/MyCampaigns.tsx:287
+msgid "You don't have any ended campaigns yet."
+msgstr "Nu ai încă campanii încheiate."
+
+#: src/components/SupportModal.tsx:218
+msgid "Your Contribution"
+msgstr "Contribuția ta"

@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { useEffect, useState } from "react";
 import { useAuth } from "./useAuth";
 
@@ -50,8 +51,8 @@ export function useCampaignActions(campaignId: string) {
     const shareCampaign = async () => {
         try {
             const shareData = {
-                title: "Check out this campaign on BlockFund",
-                text: "Support this amazing campaign!",
+                title: t`Check out this campaign on BlockFund`,
+                text: t`Support this amazing campaign!`,
                 url: window.location.href,
             };
 

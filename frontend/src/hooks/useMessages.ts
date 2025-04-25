@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useAuth } from "./useAuth";
@@ -117,7 +118,7 @@ export function useMessages() {
             setUnreadCount(count || 0);
         } catch (err) {
             console.error("Error fetching messages:", err);
-            setError("Failed to load messages");
+            setError(t`Failed to load messages`);
         } finally {
             setLoading(false);
         }
@@ -142,7 +143,7 @@ export function useMessages() {
             return { success: true };
         } catch (err) {
             console.error("Error sending message:", err);
-            return { success: false, error: "Failed to send message" };
+            return { success: false, error: t`Failed to send message` };
         }
     };
 

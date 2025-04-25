@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 
@@ -32,27 +33,25 @@ export function MetaMaskStatus() {
         switch (status) {
             case "not-installed":
                 return {
-                    message:
-                        "MetaMask is not installed. Please install it to use this app.",
+                    message: t`MetaMask is not installed. Please install it to use this app.`,
                     icon: "🦊",
                     className: "bg-red-600",
                 };
             case "locked":
                 return {
-                    message: "MetaMask is locked. Please unlock your wallet.",
+                    message: t`MetaMask is locked. Please unlock your wallet.`,
                     icon: "🔒",
                     className: "bg-red-600",
                 };
             case "ready":
                 return {
-                    message: "MetaMask is ready to use",
+                    message: t`MetaMask is ready to use`,
                     icon: "✅",
                     className: "bg-gray-600",
                 };
             case "error":
                 return {
-                    message:
-                        "Error connecting to MetaMask. Please check your wallet.",
+                    message: t`Error connecting to MetaMask. Please check your wallet.`,
                     icon: "⚠️",
                     className: "bg-red-500",
                 };

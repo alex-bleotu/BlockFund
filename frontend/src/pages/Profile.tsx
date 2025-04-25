@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { AnimatePresence, motion } from "framer-motion";
 import {
     ArrowLeft,
@@ -54,7 +55,7 @@ export function Profile() {
                 .single();
 
             if (profileError) throw profileError;
-            if (!profileData) throw new Error("Profile not found");
+            if (!profileData) throw new Error(t`Profile not found`);
 
             setProfile(profileData);
 
@@ -71,7 +72,7 @@ export function Profile() {
             setCampaigns(campaignsData || []);
         } catch (err) {
             console.error("Error fetching profile:", err);
-            setError("Failed to load profile");
+            setError(t`Failed to load profile`);
         } finally {
             setLoading(false);
         }
@@ -86,7 +87,7 @@ export function Profile() {
         const today = new Date();
         const diffTime = date.getTime() - today.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays > 0 ? `${diffDays} days left` : "Ended";
+        return diffDays > 0 ? t`${diffDays} days left` : t`Ended`;
     };
 
     const isCampaignEnded = (deadline: string) => {
@@ -106,15 +107,15 @@ export function Profile() {
             <div className="min-h-screen bg-background pt-24 flex items-center justify-center">
                 <div className="text-center">
                     <h2 className="text-xl font-bold text-text mb-2">
-                        Error Loading Profile
+                        {t`Error Loading Profile`}
                     </h2>
                     <p className="text-text-secondary mb-4">
-                        {error || "Profile not found"}
+                        {error || t`Profile not found`}
                     </p>
                     <button
                         onClick={() => navigate(-1)}
                         className="text-primary hover:text-primary-dark transition-colors">
-                        Go Back
+                        {t`Go Back`}
                     </button>
                 </div>
             </div>
@@ -128,7 +129,7 @@ export function Profile() {
                     onClick={() => navigate(-1)}
                     className="flex items-center text-text-secondary hover:text-text mb-8 transition-colors">
                     <ArrowLeft className="w-5 h-5 mr-2" />
-                    Back
+                    {t`Back`}
                 </button>
 
                 <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
@@ -136,11 +137,11 @@ export function Profile() {
                         {/* User's Campaigns */}
                         <div className="bg-surface rounded-xl p-6 shadow-lg">
                             <h2 className="text-2xl font-bold text-text mb-6">
-                                Campaigns
+                                {t`Campaigns`}
                             </h2>
                             {campaigns.length === 0 ? (
                                 <p className="text-text-secondary">
-                                    No campaigns yet
+                                    {t`No campaigns yet`}
                                 </p>
                             ) : (
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -202,12 +203,12 @@ export function Profile() {
                                                                 }`}>
                                                                 {campaign.status !==
                                                                 "active"
-                                                                    ? "Inactive"
+                                                                    ? t`Inactive`
                                                                     : isCampaignEnded(
                                                                           campaign.deadline
                                                                       )
-                                                                    ? "Ended"
-                                                                    : "Active"}
+                                                                    ? t`Ended`
+                                                                    : t`Active`}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -251,7 +252,7 @@ export function Profile() {
                                                                 ).toFixed(
                                                                     2
                                                                 )}{" "}
-                                                                ETH raised
+                                                                {t`ETH raised`}
                                                             </span>
                                                             <span className="text-text font-medium">
                                                                 {(
@@ -271,7 +272,7 @@ export function Profile() {
                                                                         0) *
                                                                     ethPrice
                                                                 ).toLocaleString()}{" "}
-                                                                USD
+                                                                {t`USD`}
                                                             </div>
                                                         )}
                                                     </div>
@@ -305,7 +306,7 @@ export function Profile() {
                                                             {campaign.goal.toFixed(
                                                                 2
                                                             )}{" "}
-                                                            ETH
+                                                            {t`ETH`}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -351,7 +352,7 @@ export function Profile() {
                                                 {campaigns.length}
                                             </div>
                                             <div className="text-sm text-text-secondary">
-                                                Campaigns
+                                                {t`Campaigns`}
                                             </div>
                                         </div>
                                         <div className="bg-background rounded-lg p-3">
@@ -367,7 +368,7 @@ export function Profile() {
                                                     .toFixed(2)}
                                             </div>
                                             <div className="text-sm text-text-secondary">
-                                                ETH Raised
+                                                {t`ETH Raised`}
                                             </div>
                                         </div>
                                     </div>
@@ -379,7 +380,7 @@ export function Profile() {
                                             }
                                             className="w-full py-2 border-2 border-primary rounded-lg text-primary hover:bg-primary hover:text-light transition-colors flex items-center justify-center">
                                             <MessageCircle className="w-4 h-4 mr-2" />
-                                            Contact
+                                            {t`Contact`}
                                         </button>
                                     )}
                                 </div>

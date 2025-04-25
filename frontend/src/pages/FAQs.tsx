@@ -1,32 +1,33 @@
+import { t } from "@lingui/macro";
 import { motion } from "framer-motion";
 import { AlertTriangle, HelpCircle } from "lucide-react";
 
 export function FAQs() {
     const faqs = [
         {
-            question: "Is this a real crowdfunding platform?",
-            answer: "No, BlockFund is not a real crowdfunding platform. This is a school project created for educational purposes only. No real transactions or fundraising activities take place on this platform.",
+            question: t`Is this a real crowdfunding platform?`,
+            answer: t`No, BlockFund is not a real crowdfunding platform. This is a school project created for educational purposes only. No real transactions or fundraising activities take place on this platform.`,
             important: true,
         },
         {
-            question: "Can I actually donate to campaigns?",
-            answer: "Yes, while the campaigns themselves are fictional, the donation flow is live. When you donate, real cryptocurrency is sent from your connected wallet to the campaign’s specified address. Use testnet funds only, as this remains a demo environment.",
+            question: t`Can I actually donate to campaigns?`,
+            answer: t`Yes, while the campaigns themselves are fictional, the donation flow is live. When you donate, real cryptocurrency is sent from your connected wallet to the campaign's specified address. Use testnet funds only, as this remains a demo environment.`,
         },
         {
-            question: "What is the purpose of this project?",
-            answer: "This project was created as an educational exercise to demonstrate the potential of blockchain technology in crowdfunding. It showcases the integration of Web3 technologies, smart contracts, and modern web development practices.",
+            question: t`What is the purpose of this project?`,
+            answer: t`This project was created as an educational exercise to demonstrate the potential of blockchain technology in crowdfunding. It showcases the integration of Web3 technologies, smart contracts, and modern web development practices.`,
         },
         {
-            question: "Are the campaigns real?",
-            answer: "No, all campaigns on this platform are fictional and created for demonstration purposes. They do not represent real fundraising initiatives.",
+            question: t`Are the campaigns real?`,
+            answer: t`No, all campaigns on this platform are fictional and created for demonstration purposes. They do not represent real fundraising initiatives.`,
         },
         {
-            question: "Can I use this for real crowdfunding?",
-            answer: "No, this platform should not be used for real crowdfunding purposes. It is a prototype designed for educational demonstration only. For real crowdfunding, please use established platforms like Kickstarter, GoFundMe, or other legitimate services.",
+            question: t`Can I use this for real crowdfunding?`,
+            answer: t`No, this platform should not be used for real crowdfunding purposes. It is a prototype designed for educational demonstration only. For real crowdfunding, please use established platforms like Kickstarter, GoFundMe, or other legitimate services.`,
         },
         {
-            question: "What technologies were used?",
-            answer: "This project was built using React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts. It demonstrates the integration of blockchain technology with modern web development practices.",
+            question: t`What technologies were used?`,
+            answer: t`This project was built using React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts. It demonstrates the integration of blockchain technology with modern web development practices.`,
         },
     ];
 
@@ -36,10 +37,10 @@ export function FAQs() {
                 <div className="text-center mb-12">
                     <HelpCircle className="w-16 h-16 text-primary mx-auto mb-4" />
                     <h1 className="text-4xl font-bold text-text mb-4">
-                        Frequently Asked Questions
+                        {t`Frequently Asked Questions`}
                     </h1>
                     <p className="text-text-secondary text-lg">
-                        Important information about this project
+                        {t`Important information about this project`}
                     </p>
                 </div>
 
@@ -51,15 +52,10 @@ export function FAQs() {
                         <AlertTriangle className="w-6 h-6 text-warning flex-shrink-0 mt-1" />
                         <div>
                             <h2 className="text-lg font-semibold text-text mb-2">
-                                Educational Project Disclaimer
+                                {t`Educational Project Disclaimer`}
                             </h2>
                             <p className="text-text-secondary">
-                                This website is a school project and is not
-                                intended for real use. No actual transactions
-                                occur, and no real money or cryptocurrency is
-                                involved. All features, campaigns, and
-                                functionalities are simulated for educational
-                                purposes only.
+                                {t`This website is a school project and is not intended for real use. No actual transactions occur, and no real money or cryptocurrency is involved. All features, campaigns, and functionalities are simulated for educational purposes only.`}
                             </p>
                         </div>
                     </div>

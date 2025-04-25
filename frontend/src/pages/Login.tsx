@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -25,7 +26,7 @@ export function Login() {
             await signIn(email, password);
             navigate(redirectTo);
         } catch (err: any) {
-            setError("Invalid email or password. Please try again.");
+            setError(t`Invalid email or password. Please try again.`);
             console.error("Login error:", err);
         } finally {
             setLoading(false);
@@ -41,14 +42,14 @@ export function Login() {
                 <div className="mx-auto w-full max-w-sm">
                     <Logo />
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-text">
-                        Welcome back
+                        {t`Welcome back`}
                     </h2>
                     <p className="mt-2 text-center text-sm text-text-secondary">
-                        Or{" "}
+                        {t`Or`}{" "}
                         <Link
                             to="/register"
                             className="font-medium text-primary hover:text-primary-dark">
-                            start your journey today
+                            {t`start your journey today`}
                         </Link>
                     </p>
                 </div>
@@ -64,7 +65,7 @@ export function Login() {
                             <label
                                 htmlFor="email"
                                 className="block text-sm font-medium text-text">
-                                Email address
+                                {t`Email address`}
                             </label>
                             <div className="mt-1 relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -77,7 +78,7 @@ export function Login() {
                                     autoComplete="email"
                                     required
                                     className="appearance-none block w-full pl-10 px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                    placeholder="Enter your email"
+                                    placeholder={t`Enter your email`}
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     disabled={loading}
@@ -89,7 +90,7 @@ export function Login() {
                             <label
                                 htmlFor="password"
                                 className="block text-sm font-medium text-text">
-                                Password
+                                {t`Password`}
                             </label>
                             <div className="mt-1 relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -102,7 +103,7 @@ export function Login() {
                                     autoComplete="current-password"
                                     required
                                     className="appearance-none block w-full pl-10 px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                    placeholder="Enter your password"
+                                    placeholder={t`Enter your password`}
                                     value={password}
                                     onChange={(e) =>
                                         setPassword(e.target.value)
@@ -117,7 +118,7 @@ export function Login() {
                                 <a
                                     href="#"
                                     className="font-medium text-primary hover:text-primary-dark">
-                                    Forgot password?
+                                    {t`Forgot password?`}
                                 </a>
                             </div>
                         </div>
@@ -126,7 +127,7 @@ export function Login() {
                             type="submit"
                             className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-light bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={loading}>
-                            {loading ? "Signing in..." : "Sign in"}
+                            {loading ? t`Signing in...` : t`Sign in`}
                         </button>
                     </form>
                 </div>
@@ -137,7 +138,7 @@ export function Login() {
                     <img
                         className="h-full w-full object-cover"
                         src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80"
-                        alt="Technology background"
+                        alt={t`Technology background`}
                     />
                     <div className="absolute inset-0 bg-primary mix-blend-multiply opacity-20"></div>
                 </div>

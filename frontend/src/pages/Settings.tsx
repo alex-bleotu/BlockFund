@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { AlertTriangle, Key, Lock, Shield, User, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
@@ -100,7 +101,7 @@ export function Settings() {
             }
         } catch (err) {
             console.error("Error loading profile:", err);
-            setError("Failed to load profile data");
+            setError(t`Failed to load profile data`);
         }
     };
 
@@ -127,7 +128,7 @@ export function Settings() {
     const handlePasswordChange = async (e: React.FormEvent) => {
         e.preventDefault();
         if (securityForm.newPassword !== securityForm.confirmPassword) {
-            setError("New passwords do not match");
+            setError(t`New passwords do not match`);
             return;
         }
 
@@ -143,7 +144,7 @@ export function Settings() {
                 });
 
             if (signInError) {
-                throw new Error("Current password is incorrect");
+                throw new Error(t`Current password is incorrect`);
             }
 
             const { error: updateError } = await supabase.auth.updateUser({
@@ -152,7 +153,7 @@ export function Settings() {
 
             if (updateError) throw updateError;
 
-            setSuccess("Password updated successfully");
+            setSuccess(t`Password updated successfully`);
             setSecurityForm({
                 currentPassword: "",
                 newPassword: "",
@@ -160,7 +161,7 @@ export function Settings() {
             });
         } catch (err: any) {
             console.error("Error updating password:", err);
-            setError(err.message || "Failed to update password");
+            setError(err.message || t`Failed to update password`);
         } finally {
             setLoading(false);
         }
@@ -184,7 +185,7 @@ export function Settings() {
             }
 
             if (existingUser) {
-                throw new Error("This username is already taken");
+                throw new Error(t`This username is already taken`);
             }
 
             const { error } = await supabase
@@ -198,14 +199,14 @@ export function Settings() {
 
             if (error) throw error;
 
-            setSuccess("Profile updated successfully");
+            setSuccess(t`Profile updated successfully`);
             setInitialProfileForm(profileForm);
         } catch (err: any) {
             console.error("Error updating profile:", err);
             if (err.message === "This username is already taken") {
                 setError(err.message);
             } else {
-                setError("Failed to update profile");
+                setError(t`Failed to update profile`);
             }
         } finally {
             setLoading(false);
@@ -241,9 +242,9 @@ export function Settings() {
     };
 
     const tabs: { id: SettingsTab; label: string; icon: any }[] = [
-        { id: "profile", label: "Profile", icon: User },
-        { id: "wallet", label: "Wallet", icon: Wallet },
-        { id: "security", label: "Security", icon: Shield },
+        { id: "profile", label: t`Profile`, icon: User },
+        { id: "wallet", label: t`Wallet`, icon: Wallet },
+        { id: "security", label: t`Security`, icon: Shield },
     ];
 
     return (
@@ -289,13 +290,13 @@ export function Settings() {
                             {activeTab === "profile" && (
                                 <div className="space-y-6">
                                     <h2 className="text-2xl font-bold text-text">
-                                        Profile Settings
+                                        {t`Profile Settings`}
                                     </h2>
 
                                     <div className="space-y-4">
                                         <div>
                                             <label className="block text-sm font-medium text-text">
-                                                Email
+                                                {t`Email`}
                                             </label>
                                             <input
                                                 type="email"
@@ -307,7 +308,7 @@ export function Settings() {
 
                                         <div>
                                             <label className="block text-sm font-medium text-text">
-                                                Display Name
+                                                {t`Display Name`}
                                             </label>
                                             <input
                                                 type="text"
@@ -320,7 +321,7 @@ export function Settings() {
 
                                         <div>
                                             <label className="block text-sm font-medium text-text">
-                                                Bio
+                                                {t`Bio`}
                                             </label>
                                             <textarea
                                                 name="bio"
@@ -328,7 +329,7 @@ export function Settings() {
                                                 value={profileForm.bio}
                                                 onChange={handleProfileChange}
                                                 className="mt-1 block w-full px-3 py-2 border border-border rounded-lg focus:ring-primary focus:border-primary bg-surface text-text"
-                                                placeholder="Tell us about yourself..."
+                                                placeholder={t`Tell us about yourself...`}
                                             />
                                         </div>
 
@@ -341,8 +342,8 @@ export function Settings() {
                                                 }
                                                 className="px-4 py-2 text-sm font-medium text-light bg-primary hover:bg-primary-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors disabled:opacity-50">
                                                 {loading
-                                                    ? "Saving..."
-                                                    : "Save Changes"}
+                                                    ? t`Saving...`
+                                                    : t`Save Changes`}
                                             </button>
                                         </div>
 
@@ -350,17 +351,16 @@ export function Settings() {
                                             <div className="flex items-center justify-between">
                                                 <div>
                                                     <h3 className="text-lg font-medium text-text">
-                                                        View Public Profile
+                                                        {t`View Public Profile`}
                                                     </h3>
                                                     <p className="text-sm text-text-secondary">
-                                                        See how others view your
-                                                        profile
+                                                        {t`See how others view your profile`}
                                                     </p>
                                                 </div>
                                                 <Link
                                                     to={`/profile/${user?.id}`}
                                                     className="px-4 py-2 text-sm font-medium text-primary border-2 border-primary hover:bg-primary hover:text-light rounded-lg transition-colors">
-                                                    View Profile
+                                                    {t`View Profile`}
                                                 </Link>
                                             </div>
                                         </div>
@@ -371,7 +371,7 @@ export function Settings() {
                             {activeTab === "security" && (
                                 <div className="space-y-6">
                                     <h2 className="text-2xl font-bold text-text">
-                                        Security Settings
+                                        {t`Security Settings`}
                                     </h2>
 
                                     <form
@@ -379,7 +379,7 @@ export function Settings() {
                                         className="space-y-4">
                                         <div>
                                             <label className="block text-sm font-medium text-text">
-                                                Current Password
+                                                {t`Current Password`}
                                             </label>
                                             <div className="mt-1 relative">
                                                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-secondary" />
@@ -400,7 +400,7 @@ export function Settings() {
 
                                         <div>
                                             <label className="block text-sm font-medium text-text">
-                                                New Password
+                                                {t`New Password`}
                                             </label>
                                             <div className="mt-1 relative">
                                                 <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-secondary" />
@@ -421,7 +421,7 @@ export function Settings() {
 
                                         <div>
                                             <label className="block text-sm font-medium text-text">
-                                                Confirm New Password
+                                                {t`Confirm New Password`}
                                             </label>
                                             <div className="mt-1 relative">
                                                 <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-secondary" />
@@ -446,8 +446,8 @@ export function Settings() {
                                                 disabled={loading}
                                                 className="px-4 py-2 text-sm font-medium text-light bg-primary hover:bg-primary-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors disabled:opacity-50">
                                                 {loading
-                                                    ? "Updating..."
-                                                    : "Update Password"}
+                                                    ? t`Updating...`
+                                                    : t`Update Password`}
                                             </button>
                                         </div>
                                     </form>
@@ -457,7 +457,7 @@ export function Settings() {
                             {activeTab === "wallet" && (
                                 <div className="space-y-6">
                                     <h2 className="text-2xl font-bold text-text">
-                                        Wallet Connection
+                                        {t`Wallet Connection`}
                                     </h2>
 
                                     {walletError && (
@@ -470,11 +470,11 @@ export function Settings() {
                                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                                             <div className="min-w-0">
                                                 <h3 className="text-lg font-medium text-text truncate">
-                                                    MetaMask Wallet
+                                                    {t`MetaMask Wallet`}
                                                 </h3>
                                                 {address ? (
                                                     <p className="mt-1 text-sm text-text-secondary flex items-center gap-1 truncate">
-                                                        Connected:{" "}
+                                                        {t`Connected:`}{" "}
                                                         <span className="text-primary font-semibold">
                                                             {address.slice(
                                                                 0,
@@ -486,9 +486,7 @@ export function Settings() {
                                                     </p>
                                                 ) : (
                                                     <p className="mt-1 text-sm text-text-secondary">
-                                                        Connect your MetaMask
-                                                        wallet to start creating
-                                                        campaigns
+                                                        {t`Connect your MetaMask wallet to start creating campaigns`}
                                                     </p>
                                                 )}
                                             </div>
@@ -506,10 +504,10 @@ export function Settings() {
                                   : "text-light bg-primary hover:bg-primary-dark focus:ring-primary"
                           } disabled:opacity-50`}>
                                                 {walletLoading
-                                                    ? "Processing..."
+                                                    ? t`Processing...`
                                                     : address
-                                                    ? "Disconnect"
-                                                    : "Connect Wallet"}
+                                                    ? t`Disconnect`
+                                                    : t`Connect Wallet`}
                                             </button>
                                         </div>
                                     </div>

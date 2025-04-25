@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { useCallback, useEffect, useState } from "react";
 
 const FALLBACK_ETH_PRICE = 2500;
@@ -35,12 +36,12 @@ export function useEthPrice() {
                     "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
                 );
                 if (!res.ok) {
-                    throw new Error(`CoinGecko returned ${res.status}`);
+                    throw new Error(t`CoinGecko returned ${res.status}`);
                 }
                 const json = await res.json();
                 const price = json?.ethereum?.usd;
                 if (typeof price !== "number") {
-                    throw new Error("Invalid price data");
+                    throw new Error(t`Invalid price data`);
                 }
 
                 priceCache = {
@@ -56,7 +57,7 @@ export function useEthPrice() {
                 console.warn("ETH price fetch failed, using fallback", err);
                 if (isMounted) {
                     setEthPrice(FALLBACK_ETH_PRICE);
-                    setError("Using estimated ETH price");
+                    setError(t`Using estimated ETH price`);
                 }
             } finally {
                 if (isMounted) {

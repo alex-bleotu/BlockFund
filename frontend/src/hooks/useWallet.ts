@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { ethers } from "ethers";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -40,7 +41,7 @@ export function useWallet() {
                 }
             } catch (err) {
                 console.error("Error loading wallet address:", err);
-                if (isMounted) setError("Failed to load wallet");
+                if (isMounted) setError(t`Failed to load wallet`);
             } finally {
                 if (isMounted) setLoading(false);
             }
@@ -59,7 +60,7 @@ export function useWallet() {
 
         try {
             if (!window.ethereum) {
-                throw new Error("MetaMask is not installed");
+                throw new Error(t`MetaMask is not installed`);
             }
 
             const provider = new ethers.BrowserProvider(window.ethereum);
@@ -71,7 +72,7 @@ export function useWallet() {
 
             const newAddress = accounts[0].address;
             if (!newAddress) {
-                throw new Error("No account found");
+                throw new Error(t`No account found`);
             }
 
             const { error: updateErr } = await supabase
@@ -82,15 +83,15 @@ export function useWallet() {
 
             setAddress(newAddress);
             localStorage.setItem("walletAddress", newAddress);
-            toast.success("Wallet connected successfully!");
+            toast.success(t`Wallet connected successfully!`);
         } catch (err: any) {
             console.error("Error connecting wallet:", err);
             const msg =
                 err.code === -32002
-                    ? "Connection already in progress. Please check MetaMask."
+                    ? t`Connection already in progress. Please check MetaMask.`
                     : err.message?.toLowerCase().includes("user rejected")
-                    ? "MetaMask connection was rejected"
-                    : err.message || "Failed to connect wallet";
+                    ? t`MetaMask connection was rejected`
+                    : err.message || t`Failed to connect wallet`;
             setError(msg);
             toast.error(msg);
         } finally {
@@ -113,10 +114,10 @@ export function useWallet() {
 
             setAddress(null);
             localStorage.removeItem("walletAddress");
-            toast.success("Wallet disconnected successfully");
+            toast.success(t`Wallet disconnected successfully`);
         } catch (err: any) {
             console.error("Error disconnecting wallet:", err);
-            const msg = err.message || "Failed to disconnect wallet";
+            const msg = err.message || t`Failed to disconnect wallet`;
             setError(msg);
             toast.error(msg);
         } finally {

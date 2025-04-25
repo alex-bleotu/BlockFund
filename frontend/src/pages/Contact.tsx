@@ -1,4 +1,5 @@
 import emailjs from "@emailjs/browser";
+import { t } from "@lingui/macro";
 import {
     AlertTriangle,
     ArrowRight,
@@ -75,11 +76,10 @@ export function Contact() {
                     <div className="lg:col-span-2 space-y-8 mt-10 md:mt-0">
                         <div>
                             <h2 className="text-3xl font-bold text-text mb-8">
-                                Get in Touch
+                                {t`Get in Touch`}
                             </h2>
                             <p className="text-text-secondary mb-12 text-lg">
-                                Our support team is spread across the globe to
-                                give you the best possible experience.
+                                {t`Our support team is spread across the globe to give you the best possible experience.`}
                             </p>
                         </div>
 
@@ -90,7 +90,7 @@ export function Contact() {
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-semibold text-text mb-2">
-                                        Email Us
+                                        {t`Email Us`}
                                     </h3>
                                     <p className="text-text-secondary hover:text-primary transition-colors">
                                         <a href="mailto:alexbleotu2006@gmail.com">
@@ -106,7 +106,7 @@ export function Contact() {
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-semibold text-text mb-2">
-                                        Call Us
+                                        {t`Call Us`}
                                     </h3>
                                     <p className="text-text-secondary">
                                         +40 756 775 906
@@ -120,10 +120,10 @@ export function Contact() {
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-semibold text-text mb-2">
-                                        Visit Us
+                                        {t`Visit Us`}
                                     </h3>
                                     <p className="text-text-secondary">
-                                        Don't actually do that!
+                                        {t`Don't actually do that!`}
                                     </p>
                                 </div>
                             </div>
@@ -131,11 +131,10 @@ export function Contact() {
 
                         <div className="mt-12 p-6 bg-surface rounded-2xl shadow-lg">
                             <h3 className="text-lg font-semibold text-text mb-2">
-                                Quick Response Time
+                                {t`Quick Response Time`}
                             </h3>
                             <p className="text-text-secondary">
-                                We typically respond within 2-3 business hours
-                                during our working hours.
+                                {t`We typically respond within 2-3 business hours during our working hours.`}
                             </p>
                         </div>
                     </div>
@@ -144,26 +143,23 @@ export function Contact() {
                         <div className="bg-surface rounded-2xl shadow-lg p-8 md:p-12">
                             <div className="max-w-2xl">
                                 <h2 className="text-2xl font-bold text-text mb-2">
-                                    Send us a Message
+                                    {t`Send us a Message`}
                                 </h2>
                                 <p className="text-text-secondary mb-8">
-                                    Fill out the form below and we'll get back
-                                    to you as soon as possible.
+                                    {t`Fill out the form below and we'll get back to you as soon as possible.`}
                                 </p>
 
                                 {success && (
                                     <div className="mb-6 p-4 bg-success-light text-success rounded-lg flex items-center">
                                         <ArrowRight className="w-5 h-5 mr-2" />
-                                        Message sent successfully! We'll be in
-                                        touch soon.
+                                        {t`Message sent successfully! We'll be in touch soon.`}
                                     </div>
                                 )}
 
                                 {error && (
                                     <div className="mb-6 p-4 bg-error/10 text-error rounded-lg flex items-center">
                                         <AlertTriangle className="w-5 h-5 mr-2" />
-                                        Failed to send message. Please try again
-                                        later.
+                                        {t`Failed to send message. Please try again later.`}
                                     </div>
                                 )}
 
@@ -176,7 +172,7 @@ export function Contact() {
                                             <label
                                                 htmlFor="name"
                                                 className="block text-sm font-medium text-text mb-2">
-                                                Name
+                                                {t`Name`}
                                             </label>
                                             <input
                                                 type="text"
@@ -186,7 +182,7 @@ export function Contact() {
                                                 onChange={handleChange}
                                                 required
                                                 className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text placeholder-text-secondary/60 transition-colors"
-                                                placeholder="John Doe"
+                                                placeholder={t`John Doe`}
                                             />
                                         </div>
 
@@ -194,7 +190,7 @@ export function Contact() {
                                             <label
                                                 htmlFor="email"
                                                 className="block text-sm font-medium text-text mb-2">
-                                                Email
+                                                {t`Email`}
                                             </label>
                                             <input
                                                 type="email"
@@ -204,7 +200,7 @@ export function Contact() {
                                                 onChange={handleChange}
                                                 required
                                                 className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text placeholder-text-secondary/60 transition-colors"
-                                                placeholder="john@example.com"
+                                                placeholder={t`john@example.com`}
                                             />
                                         </div>
                                     </div>
@@ -213,7 +209,7 @@ export function Contact() {
                                         <label
                                             htmlFor="subject"
                                             className="block text-sm font-medium text-text mb-2">
-                                            Subject
+                                            {t`Subject`}
                                         </label>
                                         <input
                                             type="text"
@@ -223,7 +219,7 @@ export function Contact() {
                                             onChange={handleChange}
                                             required
                                             className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text placeholder-text-secondary/60 transition-colors"
-                                            placeholder="How can we help?"
+                                            placeholder={t`How can we help?`}
                                         />
                                     </div>
 
@@ -231,7 +227,7 @@ export function Contact() {
                                         <label
                                             htmlFor="message"
                                             className="block text-sm font-medium text-text mb-2">
-                                            Message
+                                            {t`Message`}
                                         </label>
                                         <textarea
                                             id="message"
@@ -241,20 +237,23 @@ export function Contact() {
                                             required
                                             rows={6}
                                             className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text placeholder-text-secondary/60 transition-colors resize-none"
-                                            placeholder="Tell us more about your inquiry..."
+                                            placeholder={t`Tell us more about your inquiry...`}
                                         />
                                     </div>
 
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="w-full flex items-center justify-center px-8 py-4 text-light font-medium bg-primary hover:bg-primary-dark rounded-xl transition-colors duration-200 disabled:opacity-50 group">
+                                        className="inline-flex items-center px-6 py-3 border border-transparent rounded-xl shadow-sm text-base font-medium text-light bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                                         {loading ? (
-                                            "Sending..."
+                                            <>
+                                                <div className="w-5 h-5 border-2 border-light border-t-transparent rounded-full animate-spin mr-3"></div>
+                                                {t`Sending...`}
+                                            </>
                                         ) : (
                                             <>
-                                                Send Message
-                                                <Send className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                                                <Send className="w-5 h-5 mr-2" />
+                                                {t`Send Message`}
                                             </>
                                         )}
                                     </button>

@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -10,28 +11,28 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div>
                         <h3 className="text-sm font-semibold text-text uppercase tracking-wider mb-4">
-                            Quick Links
+                            {t`Quick Links`}
                         </h3>
                         <ul className="space-y-2">
                             <li>
                                 <Link
                                     to="/about"
                                     className="text-text-secondary hover:text-primary transition-colors">
-                                    About Us
+                                    {t`About Us`}
                                 </Link>
                             </li>
                             <li>
                                 <Link
                                     to="/contact"
                                     className="text-text-secondary hover:text-primary transition-colors">
-                                    Contact
+                                    {t`Contact`}
                                 </Link>
                             </li>
                             <li>
                                 <Link
                                     to="/campaign/new"
                                     className="text-text-secondary hover:text-primary transition-colors">
-                                    Start a Campaign
+                                    {t`Start a Campaign`}
                                 </Link>
                             </li>
                         </ul>
@@ -39,21 +40,21 @@ export function Footer() {
 
                     <div>
                         <h3 className="text-sm font-semibold text-text uppercase tracking-wider mb-4">
-                            Resources
+                            {t`Resources`}
                         </h3>
                         <ul className="space-y-2">
                             <li>
                                 <a
                                     href="#"
                                     className="text-text-secondary hover:text-primary transition-colors">
-                                    Documentation
+                                    {t`Documentation`}
                                 </a>
                             </li>
                             <li>
                                 <a
                                     href="/faqs"
                                     className="text-text-secondary hover:text-primary transition-colors">
-                                    FAQs
+                                    {t`FAQs`}
                                 </a>
                             </li>
                         </ul>
@@ -61,7 +62,7 @@ export function Footer() {
 
                     <div>
                         <h3 className="text-sm font-semibold text-text uppercase tracking-wider mb-4">
-                            Connect With Us
+                            {t`Connect With Us`}
                         </h3>
                         <div className="flex space-x-4">
                             <a
@@ -86,7 +87,7 @@ export function Footer() {
                 <div className="mt-8 pt-8 border-t border-border">
                     <div className="flex flex-col md:flex-row justify-between items-center">
                         <p className="text-text-secondary text-sm">
-                            © {currentYear} BlockFund. All rights reserved.
+                            © {currentYear} {t`BlockFund. All rights reserved.`}
                         </p>
                     </div>
                 </div>

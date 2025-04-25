@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { AnimatePresence, motion } from "framer-motion";
 import {
     Calendar,
@@ -52,7 +53,7 @@ export function Campaigns() {
             setCampaigns(data || []);
         } catch (err) {
             console.error("Error fetching campaigns:", err);
-            setError("Failed to load campaigns");
+            setError(t`Failed to load campaigns`);
         } finally {
             setLoading(false);
         }
@@ -96,7 +97,7 @@ export function Campaigns() {
         const today = new Date();
         const diffTime = date.getTime() - today.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays > 0 ? `${diffDays} days left` : "Ended";
+        return diffDays > 0 ? t`${diffDays} days left` : t`Ended`;
     };
 
     const stats = [
@@ -106,7 +107,7 @@ export function Campaigns() {
                 .filter((c) => c.status === "active")
                 .reduce((acc, curr) => acc + (curr.raised || 0), 0)
                 .toFixed(2),
-            label: "ETH Raised",
+            label: t`ETH Raised`,
             color: "text-primary",
         },
         {
@@ -115,7 +116,7 @@ export function Campaigns() {
                 (c) =>
                     c.status === "active" && new Date(c.deadline) >= new Date()
             ).length,
-            label: "Active Campaigns",
+            label: t`Active Campaigns`,
             color: "text-success",
         },
         {
@@ -124,7 +125,7 @@ export function Campaigns() {
                 (c) =>
                     c.status === "active" && new Date(c.deadline) < new Date()
             ).length,
-            label: "Ended Campaigns",
+            label: t`Ended Campaigns`,
             color: "text-error",
         },
     ];
@@ -169,7 +170,7 @@ export function Campaigns() {
                                 type="text"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                placeholder="Search campaigns..."
+                                placeholder={t`Search campaigns...`}
                                 className="w-full pl-10 pr-4 py-2 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text"
                             />
                         </div>
@@ -181,7 +182,7 @@ export function Campaigns() {
                                     setSelectedCategory(e.target.value)
                                 }
                                 className="w-full pl-10 pr-8 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text appearance-none cursor-pointer">
-                                <option value="all">All Categories</option>
+                                <option value="all">{t`All Categories`}</option>
                                 {CAMPAIGN_CATEGORIES.map((category) => (
                                     <option key={category} value={category}>
                                         {category}
@@ -198,7 +199,7 @@ export function Campaigns() {
                                         ? "bg-primary text-light"
                                         : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
                                 }`}>
-                                Active
+                                {t`Active`}
                             </button>
                             <button
                                 onClick={() => setSelectedStatus("ended")}
@@ -207,7 +208,7 @@ export function Campaigns() {
                                         ? "bg-primary text-light"
                                         : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
                                 }`}>
-                                Ended
+                                {t`Ended`}
                             </button>
                         </div>
                     </div>
@@ -222,7 +223,7 @@ export function Campaigns() {
                                         ? "bg-primary text-light"
                                         : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
                                 }`}>
-                                {category === "all" ? "All" : category}
+                                {category === "all" ? t`All` : category}
                             </button>
                         ))}
                     </div>
@@ -298,7 +299,7 @@ export function Campaigns() {
                                                     {(
                                                         campaign.raised || 0
                                                     ).toFixed(2)}{" "}
-                                                    ETH raised
+                                                    {t`ETH raised`}
                                                 </span>
                                                 <span className="text-text font-medium">
                                                     {(
@@ -317,7 +318,7 @@ export function Campaigns() {
                                                         (campaign.raised || 0) *
                                                         ethPrice
                                                     ).toLocaleString()}{" "}
-                                                    USD
+                                                    {t`USD`}
                                                 </div>
                                             )}
                                         </div>
@@ -346,7 +347,8 @@ export function Campaigns() {
                                         <div className="flex items-center text-primary font-medium mt-4">
                                             <Target className="w-4 h-4 mr-1" />
                                             <span>
-                                                {campaign.goal.toFixed(2)} ETH
+                                                {campaign.goal.toFixed(2)}{" "}
+                                                {t`ETH`}
                                             </span>
                                         </div>
                                     </div>
@@ -365,7 +367,7 @@ export function Campaigns() {
                         onClick={() => navigate("/campaign/new")}
                         className="inline-flex items-center px-8 py-4 bg-primary text-light rounded-xl hover:bg-primary-dark transition-colors group shadow-lg hover:shadow-xl">
                         <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-                        Start Your Campaign
+                        {t`Start Your Campaign`}
                     </button>
                 </motion.div>
             </div>

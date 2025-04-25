@@ -1,3 +1,4 @@
+import { t } from "@lingui/macro";
 import { useEffect, useState } from "react";
 
 declare global {
@@ -73,7 +74,7 @@ export function useMetaMask(): MetaMaskStatus {
 
     const connect = async () => {
         if (!window.ethereum) {
-            setError("MetaMask is not installed");
+            setError(t`MetaMask is not installed`);
             return;
         }
 
@@ -83,7 +84,7 @@ export function useMetaMask(): MetaMaskStatus {
             setIsLocked(false);
             setError(null);
         } catch (err: any) {
-            setError(err.message || "Failed to connect to MetaMask");
+            setError(err.message || t`Failed to connect to MetaMask`);
         }
     };
 
