@@ -184,8 +184,19 @@ export function useCampaignContract() {
         if (!contract) throw new Error(t`Contract not initialized`);
         setLoading(true);
         try {
+            const campaign = await getCampaign(id);
+
+            if (campaign.status !== "CLOSED") {
+                console.log("Closing campaign before withdrawal");
+                const closeTx = await contract.closeCampaign(id);
+                await closeTx.wait();
+            }
+
             const tx = await contract.withdraw(id);
             return await tx.wait();
+        } catch (error) {
+            console.error("Error during withdrawal process:", error);
+            throw error;
         } finally {
             setLoading(false);
         }

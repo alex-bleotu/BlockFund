@@ -13,7 +13,7 @@ export interface Campaign {
     updated_at?: string;
     raised?: number;
     supporters?: number;
-    status?: "active" | "completed" | "cancelled";
+    status?: "active" | "completed";
     profiles?: {
         username: string;
         wallet_address: string | null;

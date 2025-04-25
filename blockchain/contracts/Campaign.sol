@@ -122,8 +122,7 @@
             require(campaignData.totalFunded > 0, "No funds available to withdraw");
 
             uint256 amount = campaignData.totalFunded;
-            campaignData.totalFunded = 0;
-            campaignData.status = CampaignStatus.CLOSED; // Mark campaign as closed if withdrawing from successful state.
+            campaignData.status = CampaignStatus.CLOSED;
 
             (bool success, ) = campaignData.creator.call{value: amount}("");
             require(success, "Withdraw transfer failed");

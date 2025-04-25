@@ -211,12 +211,10 @@ export function CampaignDetails() {
                     const { error: updateError } = await supabase
                         .from("campaigns")
                         .update({
-                            status: "cancelled",
+                            status: "completed",
                             updated_at: new Date().toISOString(),
                         })
-                        .eq("id", campaign.id)
-                        .select()
-                        .single();
+                        .eq("id", campaign.id);
 
                     if (updateError) {
                         console.error(
@@ -231,7 +229,7 @@ export function CampaignDetails() {
                             if (!prev) return null;
                             return {
                                 ...prev,
-                                status: "cancelled",
+                                status: "completed",
                             };
                         });
                         toast.success(
@@ -515,6 +513,7 @@ export function CampaignDetails() {
                                                 {campaignEndDate.hasEnded
                                                     ? t`Campaign Ended`
                                                     : campaignEndDate.daysLeft +
+                                                      " " +
                                                       t`days left`}
                                             </span>
                                         </div>
@@ -586,8 +585,6 @@ export function CampaignDetails() {
                                                     transactionInProgress ||
                                                     contractLoading ||
                                                     !onChainData ||
-                                                    onChainData.status ===
-                                                        "CLOSED" ||
                                                     Number(
                                                         onChainData?.totalFunded ||
                                                             0
@@ -598,8 +595,6 @@ export function CampaignDetails() {
                                                     transactionInProgress ||
                                                     contractLoading ||
                                                     !onChainData ||
-                                                    onChainData.status ===
-                                                        "CLOSED" ||
                                                     Number(
                                                         onChainData?.totalFunded ||
                                                             0
@@ -636,6 +631,7 @@ export function CampaignDetails() {
                                                         connect();
                                                         return;
                                                     }
+
                                                     setIsSupportModalOpen(true);
                                                 }}
                                                 disabled={
@@ -672,7 +668,7 @@ export function CampaignDetails() {
                                                   campaign.creator_id
                                                 ? !isInstalled
                                                     ? t`MetaMask is not installed.`
-                                                    : !isConnected || isLocked
+                                                    : isLocked
                                                     ? t`Connect your wallet to withdraw funds.`
                                                     : !onChainData
                                                     ? t`This campaign is not active on the blockchain.`
