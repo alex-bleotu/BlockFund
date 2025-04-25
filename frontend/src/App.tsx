@@ -18,8 +18,8 @@ const routerConfig = {
 export default function App() {
     return (
         <Router {...routerConfig}>
-            <LanguageProvider>
-                <ThemeProvider>
+            <ThemeProvider>
+                <LanguageProvider>
                     <NotificationProvider>
                         <AuthProvider>
                             <div className="flex flex-col min-h-screen">
@@ -30,8 +30,8 @@ export default function App() {
                             </div>
                         </AuthProvider>
                     </NotificationProvider>
-                </ThemeProvider>
-            </LanguageProvider>
+                </LanguageProvider>
+            </ThemeProvider>
         </Router>
     );
 }
