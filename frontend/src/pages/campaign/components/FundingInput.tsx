@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { DollarSign, Feather as Ethereum } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useEthPrice } from "../../../hooks/useEthPrice";
@@ -84,7 +85,7 @@ export function FundingInput({
             <label
                 htmlFor="goal"
                 className="block text-sm font-medium text-text mb-2">
-                Funding Goal *
+                {t`Funding Goal`} *
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="relative">
@@ -99,7 +100,7 @@ export function FundingInput({
                         onChange={handleUsdChange}
                         onKeyDown={handleKeyDown}
                         className="appearance-none block w-full pl-10 px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                        placeholder="USD Amount"
+                        placeholder={t`USD Amount`}
                         min="10"
                     />
                 </div>
@@ -115,13 +116,13 @@ export function FundingInput({
                         onChange={handleEthChange}
                         onKeyDown={handleKeyDown}
                         className="appearance-none block w-full pl-10 px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text font-medium"
-                        placeholder="ETH Amount"
+                        placeholder={t`ETH Amount`}
                     />
                 </div>
             </div>
             {ethPrice && (
                 <p className="mt-2 text-sm text-text-secondary">
-                    Current ETH Price: ${ethPrice.toLocaleString()}
+                    {t`Current ETH Price:`} ${ethPrice.toLocaleString()}
                 </p>
             )}
         </div>

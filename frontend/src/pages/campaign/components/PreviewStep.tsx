@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { motion } from "framer-motion";
 import {
     AlertTriangle,
@@ -53,7 +54,7 @@ export function PreviewStep({
                 externalError.includes("Transaction rejected")
             ) {
                 setError(
-                    "Transaction declined: You cancelled the MetaMask transaction"
+                    t`Transaction declined: You cancelled the MetaMask transaction`
                 );
             } else {
                 setError(externalError);
@@ -63,7 +64,7 @@ export function PreviewStep({
 
     const handleSubmit = () => {
         if (!user) {
-            setError("Please sign in to create a campaign");
+            setError(t`Please sign in to create a campaign`);
             return;
         }
         onSubmit();
@@ -90,22 +91,22 @@ export function PreviewStep({
     return (
         <div className="space-y-8">
             <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-text">Preview</h2>
+                <h2 className="text-2xl font-bold text-text">{t`Preview`}</h2>
                 <div className="space-x-4">
                     <button
                         onClick={onBack}
                         className="px-4 py-2 text-text-secondary hover:text-text transition-colors">
-                        Back
+                        {t`Back`}
                     </button>
                     <button
                         onClick={handleSubmit}
                         disabled={loading}
                         className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50">
                         {loading
-                            ? "Saving..."
+                            ? t`Saving...`
                             : mode === "create"
-                            ? "Launch Campaign"
-                            : "Save Changes"}
+                            ? t`Launch Campaign`
+                            : t`Save Changes`}
                     </button>
                 </div>
             </div>
@@ -166,7 +167,7 @@ export function PreviewStep({
                             </>
                         ) : (
                             <div className="w-full h-[400px] bg-background-alt flex items-center justify-center text-text-secondary">
-                                No images uploaded
+                                {t`No images uploaded`}
                             </div>
                         )}
                     </div>
@@ -221,9 +222,9 @@ export function PreviewStep({
                                         0%
                                     </div>
                                     <div className="text-sm text-text-secondary">
-                                        of{" "}
+                                        {t`of`}{" "}
                                         {parseFloat(campaign.goal).toFixed(2)}{" "}
-                                        ETH goal
+                                        ETH {t`goal`}
                                     </div>
                                 </div>
                             </div>
@@ -248,7 +249,7 @@ export function PreviewStep({
                                 <div className="flex items-center justify-between text-text-secondary">
                                     <div className="flex items-center">
                                         <Calendar className="w-5 h-5 mr-2" />
-                                        <span>Campaign End Date</span>
+                                        <span>{t`Campaign End Date`}</span>
                                     </div>
                                     <span>
                                         {new Date(
@@ -260,7 +261,7 @@ export function PreviewStep({
                                 <div className="flex items-center text-text">
                                     <Target className="w-5 h-5 mr-2 text-primary" />
                                     <span className="font-medium">
-                                        Goal:{" "}
+                                        {t`Goal:`}{" "}
                                         {parseFloat(campaign.goal).toFixed(2)}{" "}
                                         ETH
                                     </span>
@@ -277,11 +278,10 @@ export function PreviewStep({
                                     <button
                                         disabled
                                         className="w-full py-3 rounded-lg bg-gray-400 cursor-not-allowed text-light/75">
-                                        Preview Mode
+                                        {t`Preview Mode`}
                                     </button>
                                     <p className="text-sm text-text-secondary text-center">
-                                        Support button will be enabled after
-                                        campaign launch
+                                        {t`Support button will be enabled after campaign launch`}
                                     </p>
                                 </div>
                             </div>

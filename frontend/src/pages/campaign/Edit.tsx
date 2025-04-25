@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { AlertTriangle, ArrowLeft, Power } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -272,12 +273,12 @@ export function EditFund() {
             <div className="min-h-screen bg-background pt-24 flex items-center justify-center">
                 <div className="text-center">
                     <AlertTriangle className="w-12 h-12 text-error mx-auto mb-4" />
-                    <h2 className="text-xl font-bold text-text mb-2">Error</h2>
+                    <h2 className="text-xl font-bold text-text mb-2">{t`Error`}</h2>
                     <p className="text-text-secondary mb-4">{error}</p>
                     <button
                         onClick={() => navigate(-1)}
                         className="text-primary hover:text-primary-dark transition-colors">
-                        Go Back
+                        {t`Go Back`}
                     </button>
                 </div>
             </div>
@@ -312,7 +313,7 @@ export function EditFund() {
                         onClick={() => navigate(-1)}
                         className="flex items-center text-text-secondary hover:text-text transition-colors">
                         <ArrowLeft className="w-5 h-5 mr-2" />
-                        Back
+                        {t`Back`}
                     </button>
                     <button
                         onClick={() => setShowStatusModal(true)}
@@ -322,14 +323,14 @@ export function EditFund() {
                                 : "bg-error/10 text-error hover:bg-error/20"
                         }`}>
                         <Power className="w-4 h-4 mr-2" />
-                        {campaignStatus === "active" ? "Active" : "Inactive"}
+                        {campaignStatus === "active" ? t`Active` : t`Inactive`}
                     </button>
                 </div>
 
                 <div className="bg-surface rounded-xl shadow-lg p-6 md:p-8">
                     <div className="flex justify-between items-center mb-6">
                         <h1 className="text-3xl font-bold text-text">
-                            Edit Campaign
+                            {t`Edit Campaign`}
                         </h1>
                     </div>
 
@@ -345,7 +346,7 @@ export function EditFund() {
                                     <label
                                         htmlFor="title"
                                         className="block text-sm font-medium text-text mb-2">
-                                        Campaign Title *
+                                        {t`Campaign Title`} *
                                     </label>
                                     <input
                                         type="text"
@@ -355,13 +356,13 @@ export function EditFund() {
                                         value={formData.title}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                        placeholder="Give your campaign a catchy title"
+                                        placeholder={t`Give your campaign a catchy title`}
                                     />
                                 </div>
 
                                 <div>
                                     <label className="block text-sm font-medium text-text mb-3">
-                                        Category *
+                                        {t`Category`} *
                                     </label>
                                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                                         {CAMPAIGN_CATEGORIES.map((category) => (
@@ -389,7 +390,7 @@ export function EditFund() {
                                     <label
                                         htmlFor="deadline"
                                         className="block text-sm font-medium text-text mb-2">
-                                        End Date
+                                        {t`End Date`}
                                     </label>
                                     <input
                                         type="date"
@@ -408,7 +409,7 @@ export function EditFund() {
 
                                 <div>
                                     <label className="block text-sm font-medium text-text mb-2">
-                                        Funding Goal
+                                        {t`Funding Goal`}
                                     </label>
                                     <div className="space-y-2">
                                         <div className="w-full px-4 py-3 border border-border rounded-lg bg-background-alt text-text">
@@ -436,8 +437,7 @@ export function EditFund() {
                                             </div>
                                         </div>
                                         <p className="text-sm text-text-secondary">
-                                            The funding goal cannot be modified
-                                            after campaign creation
+                                            {t`The funding goal cannot be modified after campaign creation`}
                                         </p>
                                     </div>
                                 </div>
@@ -450,7 +450,7 @@ export function EditFund() {
                                     <label
                                         htmlFor="summary"
                                         className="block text-sm font-medium text-text mb-2">
-                                        Summary *
+                                        {t`Summary`} *
                                     </label>
                                     <textarea
                                         id="summary"
@@ -460,7 +460,7 @@ export function EditFund() {
                                         value={formData.summary}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                        placeholder="Write a brief summary of your campaign"
+                                        placeholder={t`Write a brief summary of your campaign`}
                                     />
                                 </div>
 
@@ -468,7 +468,7 @@ export function EditFund() {
                                     <label
                                         htmlFor="description"
                                         className="block text-sm font-medium text-text mb-2">
-                                        Full Description *
+                                        {t`Full Description`} *
                                     </label>
                                     <textarea
                                         id="description"
@@ -478,7 +478,7 @@ export function EditFund() {
                                         value={formData.description}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                        placeholder="Provide detailed information about your campaign"
+                                        placeholder={t`Provide detailed information about your campaign`}
                                     />
                                 </div>
 
@@ -486,7 +486,7 @@ export function EditFund() {
                                     <label
                                         htmlFor="location"
                                         className="block text-sm font-medium text-text mb-2">
-                                        Location
+                                        {t`Location`}
                                     </label>
                                     <input
                                         type="text"
@@ -495,7 +495,7 @@ export function EditFund() {
                                         value={formData.location}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                        placeholder="Where is your campaign based?"
+                                        placeholder={t`Where is your campaign based?`}
                                     />
                                 </div>
                             </div>
@@ -515,14 +515,14 @@ export function EditFund() {
                                     type="button"
                                     onClick={prevStep}
                                     className="px-6 py-2 text-text-secondary hover:text-text transition-colors">
-                                    Back
+                                    {t`Back`}
                                 </button>
                             )}
                             <button
                                 type="button"
                                 onClick={nextStep}
                                 className="ml-auto px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors">
-                                {currentStep === 3 ? "Preview" : "Next Step"}
+                                {currentStep === 3 ? t`Preview` : t`Next Step`}
                             </button>
                         </div>
                     </form>

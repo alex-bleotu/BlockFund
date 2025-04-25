@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { ArrowLeft } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -231,25 +232,22 @@ export function NewFund() {
                 <div className="bg-surface rounded-xl shadow-lg p-8 text-center">
                     <div className="text-6xl mb-4">🦊</div>
                     <h1 className="text-2xl font-bold text-text mb-4">
-                        MetaMask Required
+                        {t`MetaMask Required`}
                     </h1>
                     <p className="text-text-secondary mb-6">
-                        To create a campaign, you need to have MetaMask
-                        installed in your browser. MetaMask allows you to
-                        securely manage your cryptocurrency and interact with
-                        blockchain applications.
+                        {t`To create a campaign, you need to have MetaMask installed in your browser. MetaMask allows you to securely manage your cryptocurrency and interact with blockchain applications.`}
                     </p>
                     <a
                         href="https://metamask.io/download/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="block w-full px-6 py-3 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors mb-4">
-                        Install MetaMask
+                        {t`Install MetaMask`}
                     </a>
                     <button
                         onClick={() => navigate(-1)}
                         className="w-full px-6 py-3 bg-background text-text-secondary rounded-lg hover:bg-background-alt transition-colors">
-                        Go Back
+                        {t`Go Back`}
                     </button>
                 </div>
             </div>
@@ -262,22 +260,20 @@ export function NewFund() {
                 <div className="bg-surface rounded-xl shadow-lg p-8 text-center">
                     <div className="text-6xl mb-4">🔑</div>
                     <h1 className="text-2xl font-bold text-text mb-4">
-                        Connect Your Wallet
+                        {t`Connect Your Wallet`}
                     </h1>
                     <p className="text-text-secondary mb-6">
-                        You need to connect your wallet to create a new
-                        campaign. This allows you to receive funds and manage
-                        your campaign securely.
+                        {t`You need to connect your wallet to create a new campaign. This allows you to receive funds and manage your campaign securely.`}
                     </p>
                     <button
                         onClick={() => navigate("/settings?tab=wallet")}
                         className="w-full px-6 py-3 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors mb-4">
-                        Connect Wallet
+                        {t`Connect Wallet`}
                     </button>
                     <button
                         onClick={() => navigate(-1)}
                         className="w-full px-6 py-3 bg-background text-text-secondary rounded-lg hover:bg-background-alt transition-colors">
-                        Go Back
+                        {t`Go Back`}
                     </button>
                 </div>
             </div>
@@ -328,10 +324,10 @@ export function NewFund() {
                 <div className="bg-surface rounded-xl shadow-lg p-6 md:p-8">
                     <div className="flex justify-between items-center mb-6">
                         <h1 className="text-3xl font-bold text-text">
-                            Create Your Campaign
+                            {t`Create Your Campaign`}
                         </h1>
                         <div className="text-sm text-text-secondary">
-                            Completion:{" "}
+                            {t`Completion:`}{" "}
                             <span className="font-bold text-primary">
                                 {completionScore}%
                             </span>
@@ -356,7 +352,7 @@ export function NewFund() {
                                     <label
                                         htmlFor="title"
                                         className="block text-sm font-medium text-text mb-2">
-                                        Campaign Title *
+                                        {t`Campaign Title`} *
                                     </label>
                                     <input
                                         type="text"
@@ -366,13 +362,13 @@ export function NewFund() {
                                         value={formData.title}
                                         onChange={handleChange}
                                         className="appearance-none block w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                        placeholder="Give your campaign a catchy title"
+                                        placeholder={t`Give your campaign a catchy title`}
                                     />
                                 </div>
 
                                 <div>
                                     <label className="block text-sm font-medium text-text mb-3">
-                                        Category *
+                                        {t`Category`} *
                                     </label>
                                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                                         {CAMPAIGN_CATEGORIES.map((category) => (
@@ -406,7 +402,7 @@ export function NewFund() {
                                     <label
                                         htmlFor="deadline"
                                         className="block text-sm font-medium text-text mb-2">
-                                        End Date
+                                        {t`End Date`}
                                     </label>
                                     <input
                                         type="date"
@@ -431,7 +427,7 @@ export function NewFund() {
                                     <label
                                         htmlFor="summary"
                                         className="block text-sm font-medium text-text mb-2">
-                                        Summary *
+                                        {t`Summary`} *
                                     </label>
                                     <textarea
                                         id="summary"
@@ -441,7 +437,7 @@ export function NewFund() {
                                         value={formData.summary}
                                         onChange={handleChange}
                                         className="appearance-none block w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                        placeholder="Write a brief summary of your campaign"
+                                        placeholder={t`Write a brief summary of your campaign`}
                                     />
                                 </div>
 
@@ -449,7 +445,7 @@ export function NewFund() {
                                     <label
                                         htmlFor="description"
                                         className="block text-sm font-medium text-text mb-2">
-                                        Full Description *
+                                        {t`Full Description`} *
                                     </label>
                                     <textarea
                                         id="description"
@@ -459,7 +455,7 @@ export function NewFund() {
                                         value={formData.description}
                                         onChange={handleChange}
                                         className="appearance-none block w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                        placeholder="Provide detailed information about your campaign"
+                                        placeholder={t`Provide detailed information about your campaign`}
                                     />
                                 </div>
 
@@ -467,7 +463,7 @@ export function NewFund() {
                                     <label
                                         htmlFor="location"
                                         className="block text-sm font-medium text-text mb-2">
-                                        Location
+                                        {t`Location`}
                                     </label>
                                     <input
                                         type="text"
@@ -476,7 +472,7 @@ export function NewFund() {
                                         value={formData.location}
                                         onChange={handleChange}
                                         className="appearance-none block w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                        placeholder="Where is your campaign based?"
+                                        placeholder={t`Where is your campaign based?`}
                                     />
                                 </div>
                             </div>
@@ -496,7 +492,7 @@ export function NewFund() {
                                     type="button"
                                     onClick={prevStep}
                                     className="px-6 py-2 text-text-secondary hover:text-text transition-colors">
-                                    Back
+                                    {t`Back`}
                                 </button>
                             )}
                             <button
@@ -510,7 +506,7 @@ export function NewFund() {
                                         ? "bg-primary/50 text-light/50 cursor-not-allowed"
                                         : "bg-primary text-light hover:bg-primary-dark"
                                 }`}>
-                                {currentStep === 3 ? "Preview" : "Next Step"}
+                                {currentStep === 3 ? t`Preview` : t`Next Step`}
                             </button>
                         </div>
                     </form>

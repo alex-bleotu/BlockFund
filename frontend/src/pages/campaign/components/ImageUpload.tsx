@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { Upload, X } from "lucide-react";
 
 interface ImageUploadProps {
@@ -14,7 +15,7 @@ export function ImageUpload({
     return (
         <div>
             <label className="block text-sm font-medium text-text mb-2">
-                Campaign Images *
+                {t`Campaign Images`} *
             </label>
             <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {previewUrls.map((url, index) => (
@@ -26,7 +27,7 @@ export function ImageUpload({
                         />
                         {index === 0 && (
                             <div className="absolute top-2 left-2 px-2 py-1 bg-primary/90 text-light text-xs font-medium rounded">
-                                Cover Image
+                                {t`Cover Image`}
                             </div>
                         )}
                         <button
@@ -42,7 +43,7 @@ export function ImageUpload({
                         <div className="text-center">
                             <Upload className="mx-auto w-8 h-8 text-text-secondary" />
                             <span className="mt-2 block text-sm font-medium text-text-secondary">
-                                Add Image
+                                {t`Add Image`}
                             </span>
                         </div>
                         <input
@@ -55,8 +56,7 @@ export function ImageUpload({
                 )}
             </div>
             <p className="mt-2 text-sm text-text-secondary">
-                Add up to 4 images (PNG or JPG only). First image will be the
-                cover image.
+                {t`Add up to 4 images (PNG or JPG only). First image will be the cover image.`}
             </p>
         </div>
     );

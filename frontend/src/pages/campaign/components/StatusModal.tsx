@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { AlertTriangle } from "lucide-react";
 
 interface StatusModalProps {
@@ -29,26 +30,27 @@ export function StatusModal({
                     </div>
                 </div>
                 <h3 className="text-xl font-bold text-text text-center mb-2">
-                    Change Campaign Status
+                    {t`Change Campaign Status`}
                 </h3>
                 <p className="text-text-secondary text-center mb-6">
-                    Are you sure you want to mark this campaign as {newStatus}?
+                    {t`Are you sure you want to mark this campaign as`}{" "}
+                    {newStatus}?{" "}
                     {currentStatus === "active"
-                        ? " This will prevent further contributions to your campaign."
-                        : " This will allow contributions to your campaign again."}
+                        ? t`This will prevent further contributions to your campaign.`
+                        : t`This will allow contributions to your campaign again.`}
                 </p>
                 <div className="flex gap-4">
                     <button
                         onClick={onClose}
                         className="flex-1 px-4 py-2 border border-border rounded-lg text-text-secondary hover:text-text transition-colors"
                         disabled={loading}>
-                        Cancel
+                        {t`Cancel`}
                     </button>
                     <button
                         onClick={onConfirm}
                         className="flex-1 px-4 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50"
                         disabled={loading}>
-                        {loading ? "Updating..." : "Confirm"}
+                        {loading ? t`Updating...` : t`Confirm`}
                     </button>
                 </div>
             </div>
