@@ -1,21 +1,3 @@
-import { t } from "@lingui/core/macro";
-
-export const CAMPAIGN_CATEGORIES = [
-    t`Technology`,
-    t`Art`,
-    t`Music`,
-    t`Film`,
-    t`Games`,
-    t`Publishing`,
-    t`Fashion`,
-    t`Food`,
-    t`Community`,
-    t`Education`,
-    t`Environment`,
-    t`Health`,
-    t`Other`,
-] as const;
-
 export interface Campaign {
     id?: string;
     title: string;

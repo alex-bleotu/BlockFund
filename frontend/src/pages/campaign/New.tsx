@@ -6,7 +6,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { useCampaignContract } from "../../hooks/useCampaignContract";
 import { useWallet } from "../../hooks/useWallet";
 import { supabase } from "../../lib/supabase";
-import { CAMPAIGN_CATEGORIES } from "../../lib/types";
 import { FundingInput } from "./components/FundingInput";
 import { ImageUpload } from "./components/ImageUpload";
 import { PreviewStep } from "./components/PreviewStep";
@@ -54,6 +53,22 @@ export function NewFund() {
             .split("T")[0],
         images: [],
     });
+
+    const CampaignCategories = [
+        t`Technology`,
+        t`Art`,
+        t`Music`,
+        t`Film`,
+        t`Games`,
+        t`Publishing`,
+        t`Fashion`,
+        t`Food`,
+        t`Community`,
+        t`Education`,
+        t`Environment`,
+        t`Health`,
+        t`Other`,
+    ] as const;
 
     useEffect(() => {
         if (!user) {
@@ -318,7 +333,7 @@ export function NewFund() {
                     onClick={handleBack}
                     className="flex items-center text-text-secondary hover:text-text mb-6 transition-colors">
                     <ArrowLeft className="w-5 h-5 mr-2" />
-                    Back
+                    {t`Back`}
                 </button>
 
                 <div className="bg-surface rounded-xl shadow-lg p-6 md:p-8">
@@ -371,7 +386,7 @@ export function NewFund() {
                                         {t`Category`} *
                                     </label>
                                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                                        {CAMPAIGN_CATEGORIES.map((category) => (
+                                        {CampaignCategories.map((category) => (
                                             <button
                                                 key={category}
                                                 type="button"

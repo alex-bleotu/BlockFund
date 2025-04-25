@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEthPrice } from "../hooks/useEthPrice";
 import { supabase } from "../lib/supabase";
-import { Campaign, CAMPAIGN_CATEGORIES } from "../lib/types";
+import { Campaign } from "../lib/types";
 
 type CampaignStatus = "active" | "ended";
 
@@ -31,6 +31,22 @@ export function Campaigns() {
     const [error, setError] = useState<string | null>(null);
     const { ethPrice } = useEthPrice();
     const navigate = useNavigate();
+
+    const CampaignCategories = [
+        t`Technology`,
+        t`Art`,
+        t`Music`,
+        t`Film`,
+        t`Games`,
+        t`Publishing`,
+        t`Fashion`,
+        t`Food`,
+        t`Community`,
+        t`Education`,
+        t`Environment`,
+        t`Health`,
+        t`Other`,
+    ] as const;
 
     useEffect(() => {
         fetchCampaigns();
@@ -183,7 +199,7 @@ export function Campaigns() {
                                 }
                                 className="w-full pl-10 pr-8 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text appearance-none cursor-pointer">
                                 <option value="all">{t`All Categories`}</option>
-                                {CAMPAIGN_CATEGORIES.map((category) => (
+                                {CampaignCategories.map((category) => (
                                     <option key={category} value={category}>
                                         {category}
                                     </option>
@@ -214,7 +230,7 @@ export function Campaigns() {
                     </div>
 
                     <div className="hidden md:flex mt-4 flex-wrap gap-4">
-                        {["all", ...CAMPAIGN_CATEGORIES].map((category) => (
+                        {["all", ...CampaignCategories].map((category) => (
                             <button
                                 key={category}
                                 onClick={() => setSelectedCategory(category)}

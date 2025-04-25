@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useEthPrice } from "../../hooks/useEthPrice";
 import { supabase } from "../../lib/supabase";
-import { CAMPAIGN_CATEGORIES, CampaignFormData } from "../../lib/types";
+import { CampaignFormData } from "../../lib/types";
 import { ImageUpload } from "./components/ImageUpload";
 import { PreviewStep } from "./components/PreviewStep";
 import { StatusModal } from "./components/StatusModal";
@@ -33,6 +33,22 @@ export function EditFund() {
     const [showStatusModal, setShowStatusModal] = useState(false);
     const [statusLoading, setStatusLoading] = useState(false);
     const [campaignStatus, setCampaignStatus] = useState<string>("active");
+
+    const CampaignCategories = [
+        t`Technology`,
+        t`Art`,
+        t`Music`,
+        t`Film`,
+        t`Games`,
+        t`Publishing`,
+        t`Fashion`,
+        t`Food`,
+        t`Community`,
+        t`Education`,
+        t`Environment`,
+        t`Health`,
+        t`Other`,
+    ] as const;
 
     useEffect(() => {
         if (!user) {
@@ -365,7 +381,7 @@ export function EditFund() {
                                         {t`Category`} *
                                     </label>
                                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                                        {CAMPAIGN_CATEGORIES.map((category) => (
+                                        {CampaignCategories.map((category) => (
                                             <button
                                                 key={category}
                                                 type="button"

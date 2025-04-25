@@ -2,7 +2,10 @@ import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { createContext, useEffect, useState } from "react";
 
-export const LanguageContext = createContext<any>(null);
+export const LanguageContext = createContext<{
+    language: Locale;
+    setLanguage: (l: Locale) => void;
+} | null>(null);
 
 export type Locale = "en" | "ro";
 
@@ -22,27 +25,40 @@ async function dynamicActivate(locale: Locale) {
     i18n.activate(locale);
 }
 
-export const LanguageProvider = ({ children }: { children: any }) => {
+export const LanguageProvider = ({
+    children,
+}: {
+    children: React.ReactNode;
+}) => {
     const [language, setLanguage] = useState<Locale>(() => {
         return (localStorage.getItem("language") as Locale) || "ro";
     });
+    const [ready, setReady] = useState(false);
 
     useEffect(() => {
-        dynamicActivate(language);
+        setReady(false);
+        (async () => {
+            try {
+                await dynamicActivate(language);
+            } catch (err) {
+                console.error("i18n activation failed:", err);
+            } finally {
+                setReady(true);
+            }
+        })();
         localStorage.setItem("language", language);
     }, [language]);
 
+    if (!ready) {
+        return <div>Loading translations…</div>;
+    }
+
     return (
-        <LanguageContext.Provider
-            value={{
-                language,
-                setLanguage,
-            }}>
+        <LanguageContext.Provider value={{ language, setLanguage }}>
             <I18nProvider i18n={i18n}>{children}</I18nProvider>
         </LanguageContext.Provider>
     );
 };
 
 export { i18n };
-
 export default LanguageProvider;
