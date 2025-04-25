@@ -68,6 +68,15 @@ export function WithdrawModal({
                                 {amount} ETH
                             </span>
                         </div>
+                        <div className="flex justify-between mb-4">
+                            <span className="text-text-secondary">{t`You will receive:`}</span>
+                            <span className="text-primary font-bold">
+                                {Number(amount) * 0.8} ETH
+                            </span>
+                        </div>
+                        <div className="text-xs text-text-secondary mb-4 text-center">
+                            {t`A platform fee of 20% is applied to all withdrawals.`}
+                        </div>
 
                         <div className="p-4 rounded-lg bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/50">
                             <div className="flex">
@@ -77,7 +86,7 @@ export function WithdrawModal({
                                         {t`Important`}
                                     </p>
                                     <p className="text-sm">
-                                        {t`Withdrawing funds will close this campaign permanently. This action cannot be undone.`}
+                                        {t`Withdrawing funds will close this campaign permanently. This action cannot be undone. You will receive 80% of the total funds raised.`}
                                     </p>
                                 </div>
                             </div>

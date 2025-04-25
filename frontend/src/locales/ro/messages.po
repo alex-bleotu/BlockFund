@@ -20,6 +20,10 @@ msgstr ""
 msgid "{diffDays} days left"
 msgstr "{diffDays} zile rămase"
 
+#: src/components/WithdrawModal.tsx:78
+msgid "A platform fee of 20% is applied to all withdrawals."
+msgstr "O taxă de platformă de 20% este aplicată tuturor retragerilor."
+
 #: src/components/MobileDrawer.tsx:211
 #: src/components/MobileDrawer.tsx:262
 msgid "About"
@@ -95,6 +99,10 @@ msgstr "Sumă rămasă"
 msgid "Amount to Contribute"
 msgstr "Sumă de contribuit"
 
+#: src/components/WithdrawModal.tsx:66
+msgid "Amount:"
+msgstr "Sumă:"
+
 #: src/components/SupportModal.tsx:116
 msgid "and help make it a reality"
 msgstr "și ajut-o să se facă realitate"
@@ -102,6 +110,10 @@ msgstr "și ajut-o să se facă realitate"
 #: src/pages/FAQs.tsx:21
 msgid "Are the campaigns real?"
 msgstr "Sunt campaniile reale?"
+
+#: src/components/DeleteCampaignModal.tsx:55
+msgid "Are you sure you want to delete"
+msgstr "Sunteți sigur că doriți să ștergeți"
 
 #: src/pages/campaign/components/StatusModal.tsx:36
 msgid "Are you sure you want to mark this campaign as"
@@ -201,6 +213,10 @@ msgstr "Campania nu există"
 msgid "Campaign Title"
 msgstr "Titlu campanie"
 
+#: src/components/WithdrawModal.tsx:59
+msgid "Campaign:"
+msgstr "Campanie:"
+
 #: src/pages/Profile.tsx:140
 #: src/pages/Profile.tsx:355
 msgid "Campaigns"
@@ -215,7 +231,9 @@ msgid "Can I use this for real crowdfunding?"
 msgstr "Pot folosi aceasta pentru crowdfunding real?"
 
 #: src/pages/campaign/components/StatusModal.tsx:47
+#: src/components/WithdrawModal.tsx:101
 #: src/components/SupportModal.tsx:219
+#: src/components/DeleteCampaignModal.tsx:67
 msgid "Cancel"
 msgstr "Anulează"
 
@@ -407,9 +425,21 @@ msgstr "Parola curentă este incorectă"
 msgid "days left"
 msgstr "zile rămase"
 
+#: src/components/DeleteCampaignModal.tsx:73
+msgid "Delete"
+msgstr "Șterge"
+
+#: src/components/DeleteCampaignModal.tsx:50
+msgid "Delete Campaign"
+msgstr "Șterge campanie"
+
 #: src/pages/MyCampaigns.tsx:121
 msgid "Delete cancelled: Transaction was rejected"
 msgstr "Ștergere anulată: Tranzacția a fost respinsă"
+
+#: src/components/DeleteCampaignModal.tsx:73
+msgid "Deleting..."
+msgstr "Ștergere..."
 
 #: src/pages/Settings.tsx:509
 msgid "Disconnect"
@@ -711,6 +741,10 @@ msgstr "Sănătate"
 msgid "How can we help?"
 msgstr "Cu ce vă putem ajuta?"
 
+#: src/components/WithdrawModal.tsx:86
+msgid "Important"
+msgstr "Important"
+
 #: src/pages/FAQs.tsx:43
 msgid "Important information about this project"
 msgstr "Informații importante despre acest proiect"
@@ -1006,6 +1040,7 @@ msgid "Preview Mode"
 msgstr "Mod previzualizare"
 
 #: src/pages/Settings.tsx:507
+#: src/components/WithdrawModal.tsx:107
 #: src/components/SupportModal.tsx:230
 msgid "Processing..."
 msgstr "Se procesează..."
@@ -1212,6 +1247,10 @@ msgstr "Obiectivul de finanțare nu poate fi modificat după crearea campaniei"
 msgid "The page you are looking for doesn't exist or has been moved."
 msgstr "Pagina pe care o cauți nu există sau a fost mutată."
 
+#: src/components/DeleteCampaignModal.tsx:59
+msgid "This action will close the campaign on the blockchain and cannot be undone."
+msgstr "Această acțiune va închide campania pe blockchain și nu poate fi anulată."
+
 #: src/pages/CampaignDetails.tsx:680
 msgid "This campaign has been completed. No further actions are possible."
 msgstr "Această campanie a fost încheiată. Nu sunt posibile alte acțiuni."
@@ -1383,13 +1422,22 @@ msgstr "Unde este bazată campania ta?"
 msgid "Why Choose BlockFund?"
 msgstr "De ce să alegi BlockFund?"
 
+#: src/components/WithdrawModal.tsx:107
+msgid "Withdraw"
+msgstr "Retragere"
+
 #: src/pages/CampaignDetails.tsx:616
+#: src/components/WithdrawModal.tsx:52
 msgid "Withdraw Funds"
 msgstr "Retragere fonduri"
 
 #: src/pages/CampaignDetails.tsx:697
 msgid "Withdraw funds to close this campaign."
 msgstr "Retragere fonduri pentru a închide această campanie."
+
+#: src/components/WithdrawModal.tsx:89
+msgid "Withdrawing funds will close this campaign permanently. This action cannot be undone. You will receive 80% of the total funds raised."
+msgstr "Retragerea fondurilor va închide această campanie permanent. Această acțiune nu poate fi anulată. Veți primi 80% din fondurile totale strânse."
 
 #: src/pages/home/components/Features.tsx:53
 msgid "Worldwide Access"
@@ -1415,6 +1463,10 @@ msgstr "Nu ai încă campanii încheiate."
 #: src/pages/campaign/New.tsx:281
 msgid "You need to connect your wallet to create a new campaign. This allows you to receive funds and manage your campaign securely."
 msgstr "Trebuie să conectezi portofelul dvs. pentru a crea o nouă campanie. Acesta vă permite să primiți fonduri și să gestionați campania în siguranță."
+
+#: src/components/WithdrawModal.tsx:72
+msgid "You will receive:"
+msgstr "Veți primi:"
 
 #: src/components/SupportModal.tsx:201
 msgid "Your Contribution"

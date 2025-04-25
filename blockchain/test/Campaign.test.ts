@@ -159,7 +159,7 @@ describe("Campaign Contract", function () {
         const finalBalance = await ethers.provider.getBalance(owner.address);
 
         expect(finalBalance - initialBalance + gasUsed).to.equal(
-            ethers.parseEther("5")
+            ethers.parseEther("4")
         );
     });
 
@@ -201,7 +201,7 @@ describe("Campaign Contract", function () {
         const finalBalance = await ethers.provider.getBalance(owner.address);
 
         expect(finalBalance - initialBalance + gasUsed).to.equal(
-            ethers.parseEther("5")
+            ethers.parseEther("4")
         );
     });
 
@@ -335,5 +335,34 @@ describe("Campaign Contract", function () {
         expect(campaignData.totalFunded).to.be.gt(campaignData.goal);
 
         expect(campaignData.status).to.equal(1);
+    });
+
+    it("Should hold 20% fee on withdraw and allow feeReceiver to collect it", async function () {
+        const goal = ethers.parseEther("5");
+        const deadline = Math.floor(Date.now() / 1000) + 3600;
+        const metadataCID = "QmExampleCID";
+
+        await campaign.createCampaign(goal, deadline, metadataCID);
+        await campaign
+            .connect(addr1)
+            .contribute(1, { value: ethers.parseEther("5") });
+        await campaign.connect(owner).closeCampaign(1);
+
+        await campaign.connect(owner).withdraw(1);
+
+        const fee = await campaign.campaignFees(1);
+        expect(fee).to.equal(ethers.parseEther("1"));
+
+        const initialBalance = await ethers.provider.getBalance(owner.address);
+        const tx = await campaign.connect(owner).collectFees(1);
+        const receipt = await tx.wait();
+        const effectiveGasPrice = receipt.effectiveGasPrice || receipt.gasPrice;
+        const gasUsed =
+            BigInt(receipt.gasUsed) * BigInt(effectiveGasPrice || 0);
+        const finalBalance = await ethers.provider.getBalance(owner.address);
+
+        expect(finalBalance - initialBalance + gasUsed).to.equal(fee);
+
+        expect(await campaign.campaignFees(1)).to.equal(0n);
     });
 });

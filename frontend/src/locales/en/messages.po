@@ -20,6 +20,10 @@ msgstr ""
 msgid "{diffDays} days left"
 msgstr "{diffDays} days left"
 
+#: src/components/WithdrawModal.tsx:78
+msgid "A platform fee of 20% is applied to all withdrawals."
+msgstr "A platform fee of 20% is applied to all withdrawals."
+
 #: src/components/MobileDrawer.tsx:211
 #: src/components/MobileDrawer.tsx:262
 msgid "About"
@@ -95,6 +99,10 @@ msgstr "Amount Remaining"
 msgid "Amount to Contribute"
 msgstr "Amount to Contribute"
 
+#: src/components/WithdrawModal.tsx:66
+msgid "Amount:"
+msgstr "Amount:"
+
 #: src/components/SupportModal.tsx:116
 msgid "and help make it a reality"
 msgstr "and help make it a reality"
@@ -102,6 +110,10 @@ msgstr "and help make it a reality"
 #: src/pages/FAQs.tsx:21
 msgid "Are the campaigns real?"
 msgstr "Are the campaigns real?"
+
+#: src/components/DeleteCampaignModal.tsx:55
+msgid "Are you sure you want to delete"
+msgstr "Are you sure you want to delete"
 
 #: src/pages/campaign/components/StatusModal.tsx:36
 msgid "Are you sure you want to mark this campaign as"
@@ -201,6 +213,10 @@ msgstr "Campaign not found"
 msgid "Campaign Title"
 msgstr "Campaign Title"
 
+#: src/components/WithdrawModal.tsx:59
+msgid "Campaign:"
+msgstr "Campaign:"
+
 #: src/pages/Profile.tsx:140
 #: src/pages/Profile.tsx:355
 msgid "Campaigns"
@@ -215,7 +231,9 @@ msgid "Can I use this for real crowdfunding?"
 msgstr "Can I use this for real crowdfunding?"
 
 #: src/pages/campaign/components/StatusModal.tsx:47
+#: src/components/WithdrawModal.tsx:101
 #: src/components/SupportModal.tsx:219
+#: src/components/DeleteCampaignModal.tsx:67
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -407,9 +425,21 @@ msgstr "Current password is incorrect"
 msgid "days left"
 msgstr "days left"
 
+#: src/components/DeleteCampaignModal.tsx:73
+msgid "Delete"
+msgstr "Delete"
+
+#: src/components/DeleteCampaignModal.tsx:50
+msgid "Delete Campaign"
+msgstr "Delete Campaign"
+
 #: src/pages/MyCampaigns.tsx:121
 msgid "Delete cancelled: Transaction was rejected"
 msgstr "Delete cancelled: Transaction was rejected"
+
+#: src/components/DeleteCampaignModal.tsx:73
+msgid "Deleting..."
+msgstr "Deleting..."
 
 #: src/pages/Settings.tsx:509
 msgid "Disconnect"
@@ -711,6 +741,10 @@ msgstr "Health"
 msgid "How can we help?"
 msgstr "How can we help?"
 
+#: src/components/WithdrawModal.tsx:86
+msgid "Important"
+msgstr "Important"
+
 #: src/pages/FAQs.tsx:43
 msgid "Important information about this project"
 msgstr "Important information about this project"
@@ -1006,6 +1040,7 @@ msgid "Preview Mode"
 msgstr "Preview Mode"
 
 #: src/pages/Settings.tsx:507
+#: src/components/WithdrawModal.tsx:107
 #: src/components/SupportModal.tsx:230
 msgid "Processing..."
 msgstr "Processing..."
@@ -1212,6 +1247,10 @@ msgstr "The funding goal cannot be modified after campaign creation"
 msgid "The page you are looking for doesn't exist or has been moved."
 msgstr "The page you are looking for doesn't exist or has been moved."
 
+#: src/components/DeleteCampaignModal.tsx:59
+msgid "This action will close the campaign on the blockchain and cannot be undone."
+msgstr "This action will close the campaign on the blockchain and cannot be undone."
+
 #: src/pages/CampaignDetails.tsx:680
 msgid "This campaign has been completed. No further actions are possible."
 msgstr "This campaign has been completed. No further actions are possible."
@@ -1383,13 +1422,22 @@ msgstr "Where is your campaign based?"
 msgid "Why Choose BlockFund?"
 msgstr "Why Choose BlockFund?"
 
+#: src/components/WithdrawModal.tsx:107
+msgid "Withdraw"
+msgstr "Withdraw"
+
 #: src/pages/CampaignDetails.tsx:616
+#: src/components/WithdrawModal.tsx:52
 msgid "Withdraw Funds"
 msgstr "Withdraw Funds"
 
 #: src/pages/CampaignDetails.tsx:697
 msgid "Withdraw funds to close this campaign."
 msgstr "Withdraw funds to close this campaign."
+
+#: src/components/WithdrawModal.tsx:89
+msgid "Withdrawing funds will close this campaign permanently. This action cannot be undone. You will receive 80% of the total funds raised."
+msgstr "Withdrawing funds will close this campaign permanently. This action cannot be undone. You will receive 80% of the total funds raised."
 
 #: src/pages/home/components/Features.tsx:53
 msgid "Worldwide Access"
@@ -1415,6 +1463,10 @@ msgstr "You don't have any ended campaigns yet."
 #: src/pages/campaign/New.tsx:281
 msgid "You need to connect your wallet to create a new campaign. This allows you to receive funds and manage your campaign securely."
 msgstr "You need to connect your wallet to create a new campaign. This allows you to receive funds and manage your campaign securely."
+
+#: src/components/WithdrawModal.tsx:72
+msgid "You will receive:"
+msgstr "You will receive:"
 
 #: src/components/SupportModal.tsx:201
 msgid "Your Contribution"

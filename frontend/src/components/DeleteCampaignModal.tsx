@@ -52,7 +52,11 @@ export function DeleteCampaignModal({
                     </div>
 
                     <p className="text-text-secondary mb-6">
-                        {t`Are you sure you want to delete "${campaignTitle}"? This action will close the campaign on the blockchain and cannot be undone.`}
+                        {t`Are you sure you want to delete` +
+                            " " +
+                            campaignTitle +
+                            "? " +
+                            t`This action will close the campaign on the blockchain and cannot be undone.`}
                     </p>
 
                     <div className="flex justify-end space-x-3">

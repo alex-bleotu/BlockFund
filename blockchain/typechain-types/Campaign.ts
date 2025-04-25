@@ -26,11 +26,14 @@ import type {
 export interface CampaignInterface extends Interface {
   getFunction(
     nameOrSignature:
+      | "campaignFees"
       | "campaigns"
       | "closeCampaign"
+      | "collectFees"
       | "contribute"
       | "contributions"
       | "createCampaign"
+      | "feeReceiver"
       | "getCampaign"
       | "getCampaignCount"
       | "updateCampaign"
@@ -43,15 +46,24 @@ export interface CampaignInterface extends Interface {
       | "CampaignCreated"
       | "CampaignUpdated"
       | "ContributionMade"
+      | "FeesCollected"
       | "FundsWithdrawn"
   ): EventFragment;
 
+  encodeFunctionData(
+    functionFragment: "campaignFees",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(
     functionFragment: "campaigns",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "closeCampaign",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "collectFees",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -65,6 +77,10 @@ export interface CampaignInterface extends Interface {
   encodeFunctionData(
     functionFragment: "createCampaign",
     values: [BigNumberish, BigNumberish, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "feeReceiver",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getCampaign",
@@ -83,9 +99,17 @@ export interface CampaignInterface extends Interface {
     values: [BigNumberish]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "campaignFees",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "campaigns", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "closeCampaign",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "collectFees",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "contribute", data: BytesLike): Result;
@@ -95,6 +119,10 @@ export interface CampaignInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "createCampaign",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "feeReceiver",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -200,6 +228,19 @@ export namespace ContributionMadeEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
+export namespace FeesCollectedEvent {
+  export type InputTuple = [campaignId: BigNumberish, amount: BigNumberish];
+  export type OutputTuple = [campaignId: bigint, amount: bigint];
+  export interface OutputObject {
+    campaignId: bigint;
+    amount: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
 export namespace FundsWithdrawnEvent {
   export type InputTuple = [
     campaignId: BigNumberish,
@@ -265,6 +306,8 @@ export interface Campaign extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
+  campaignFees: TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
+
   campaigns: TypedContractMethod<
     [arg0: BigNumberish],
     [
@@ -288,6 +331,12 @@ export interface Campaign extends BaseContract {
     "nonpayable"
   >;
 
+  collectFees: TypedContractMethod<
+    [_campaignId: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
   contribute: TypedContractMethod<
     [_campaignId: BigNumberish],
     [void],
@@ -305,6 +354,8 @@ export interface Campaign extends BaseContract {
     [void],
     "nonpayable"
   >;
+
+  feeReceiver: TypedContractMethod<[], [string], "view">;
 
   getCampaign: TypedContractMethod<
     [_campaignId: BigNumberish],
@@ -347,6 +398,9 @@ export interface Campaign extends BaseContract {
   ): T;
 
   getFunction(
+    nameOrSignature: "campaignFees"
+  ): TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
+  getFunction(
     nameOrSignature: "campaigns"
   ): TypedContractMethod<
     [arg0: BigNumberish],
@@ -368,6 +422,9 @@ export interface Campaign extends BaseContract {
     nameOrSignature: "closeCampaign"
   ): TypedContractMethod<[_campaignId: BigNumberish], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "collectFees"
+  ): TypedContractMethod<[_campaignId: BigNumberish], [void], "nonpayable">;
+  getFunction(
     nameOrSignature: "contribute"
   ): TypedContractMethod<[_campaignId: BigNumberish], [void], "payable">;
   getFunction(
@@ -384,6 +441,9 @@ export interface Campaign extends BaseContract {
     [void],
     "nonpayable"
   >;
+  getFunction(
+    nameOrSignature: "feeReceiver"
+  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "getCampaign"
   ): TypedContractMethod<
@@ -450,6 +510,13 @@ export interface Campaign extends BaseContract {
     ContributionMadeEvent.OutputObject
   >;
   getEvent(
+    key: "FeesCollected"
+  ): TypedContractEvent<
+    FeesCollectedEvent.InputTuple,
+    FeesCollectedEvent.OutputTuple,
+    FeesCollectedEvent.OutputObject
+  >;
+  getEvent(
     key: "FundsWithdrawn"
   ): TypedContractEvent<
     FundsWithdrawnEvent.InputTuple,
@@ -500,6 +567,17 @@ export interface Campaign extends BaseContract {
       ContributionMadeEvent.InputTuple,
       ContributionMadeEvent.OutputTuple,
       ContributionMadeEvent.OutputObject
+    >;
+
+    "FeesCollected(uint256,uint256)": TypedContractEvent<
+      FeesCollectedEvent.InputTuple,
+      FeesCollectedEvent.OutputTuple,
+      FeesCollectedEvent.OutputObject
+    >;
+    FeesCollected: TypedContractEvent<
+      FeesCollectedEvent.InputTuple,
+      FeesCollectedEvent.OutputTuple,
+      FeesCollectedEvent.OutputObject
     >;
 
     "FundsWithdrawn(uint256,address,uint256)": TypedContractEvent<
