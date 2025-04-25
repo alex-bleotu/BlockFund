@@ -1009,7 +1009,7 @@ msgstr "Începe-ți prima campanie și pornește în călătoria ta de strânger
 
 #: src/pages/Login.tsx:52
 msgid "start your journey today"
-msgstr "Începe-ți călătoria astăzi"
+msgstr "începe-ți călătoria astăzi"
 
 #: src/pages/home/components/Features.tsx:66
 msgid "Stay ahead with cutting-edge blockchain technology and innovative funding solutions."

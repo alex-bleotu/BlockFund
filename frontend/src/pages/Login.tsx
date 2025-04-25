@@ -113,7 +113,7 @@ export function Login() {
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-end">
+                        {/* <div className="flex items-center justify-end">
                             <div className="text-sm">
                                 <a
                                     href="#"
@@ -121,7 +121,7 @@ export function Login() {
                                     {t`Forgot password?`}
                                 </a>
                             </div>
-                        </div>
+                        </div> */}
 
                         <button
                             type="submit"
