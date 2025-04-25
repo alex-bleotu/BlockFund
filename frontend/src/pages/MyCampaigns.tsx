@@ -19,6 +19,7 @@ import { useCampaignContract } from "../hooks/useCampaignContract";
 import { useEthPrice } from "../hooks/useEthPrice";
 import { supabase } from "../lib/supabase";
 import { Campaign } from "../lib/types";
+import { getCampaignCategory } from "../lib/utils";
 
 type CampaignStatus = "all" | "active" | "ended" | "completed";
 
@@ -83,19 +84,18 @@ export function MyCampaigns() {
     };
 
     const handleDelete = async () => {
-        if (!selectedCampaign || !selectedCampaign.id) return;
+        if (
+            !selectedCampaign ||
+            !selectedCampaign.id ||
+            !selectedCampaign.onchain_id
+        )
+            return;
 
         try {
             setIsDeleting(true);
 
             try {
-                const campaignIdStr: string = selectedCampaign.id;
-                const campaignId = parseInt(campaignIdStr);
-
-                const tx = await closeCampaign(campaignId);
-                await tx.wait();
-
-                toast.success(t`Campaign closed on blockchain`);
+                await closeCampaign(selectedCampaign.onchain_id);
             } catch (chainError: any) {
                 console.error(
                     "Error closing campaign on blockchain:",
@@ -325,7 +325,11 @@ export function MyCampaigns() {
                                         <div className="flex items-center justify-between text-light">
                                             <div className="flex items-center space-x-2 text-light text-sm">
                                                 <Tag className="w-4 h-4" />
-                                                <span>{campaign.category}</span>
+                                                <span>
+                                                    {getCampaignCategory(
+                                                        campaign.category
+                                                    )}
+                                                </span>
                                             </div>
                                             <span
                                                 className={`text-sm px-2 py-1 rounded-full ${

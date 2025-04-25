@@ -16,7 +16,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEthPrice } from "../hooks/useEthPrice";
 import { supabase } from "../lib/supabase";
-import { Campaign } from "../lib/types";
+import { Campaign, CampaignCategories } from "../lib/types";
+import { getCampaignCategory } from "../lib/utils";
 
 type CampaignStatus = "active" | "ended";
 
@@ -31,22 +32,6 @@ export function Campaigns() {
     const [error, setError] = useState<string | null>(null);
     const { ethPrice } = useEthPrice();
     const navigate = useNavigate();
-
-    const CampaignCategories = [
-        t`Technology`,
-        t`Art`,
-        t`Music`,
-        t`Film`,
-        t`Games`,
-        t`Publishing`,
-        t`Fashion`,
-        t`Food`,
-        t`Community`,
-        t`Education`,
-        t`Environment`,
-        t`Health`,
-        t`Other`,
-    ] as const;
 
     useEffect(() => {
         fetchCampaigns();
@@ -205,7 +190,7 @@ export function Campaigns() {
                                 <option value="all">{t`All Categories`}</option>
                                 {CampaignCategories.map((category) => (
                                     <option key={category} value={category}>
-                                        {category}
+                                        {getCampaignCategory(category)}
                                     </option>
                                 ))}
                             </select>
@@ -243,7 +228,9 @@ export function Campaigns() {
                                         ? "bg-primary text-light"
                                         : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
                                 }`}>
-                                {category === "all" ? t`All` : category}
+                                {category === "all"
+                                    ? t`All`
+                                    : getCampaignCategory(category)}
                             </button>
                         ))}
                     </div>
@@ -283,7 +270,11 @@ export function Campaigns() {
                                         <div className="absolute bottom-4 left-4 right-4">
                                             <div className="flex items-center space-x-2 text-light text-sm">
                                                 <Tag className="w-4 h-4" />
-                                                <span>{campaign.category}</span>
+                                                <span>
+                                                    {getCampaignCategory(
+                                                        campaign.category
+                                                    )}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

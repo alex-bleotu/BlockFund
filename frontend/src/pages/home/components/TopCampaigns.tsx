@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useEthPrice } from "../../../hooks/useEthPrice";
 import { supabase } from "../../../lib/supabase";
 import { Campaign } from "../../../lib/types";
+import { getCampaignCategory } from "../../../lib/utils";
 
 export function TopCampaigns() {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -104,7 +105,11 @@ export function TopCampaigns() {
                                     <div className="flex items-center justify-between text-light">
                                         <div className="flex items-center space-x-2 text-light text-sm">
                                             <Tag className="w-4 h-4" />
-                                            <span>{campaign.category}</span>
+                                            <span>
+                                                {getCampaignCategory(
+                                                    campaign.category
+                                                )}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

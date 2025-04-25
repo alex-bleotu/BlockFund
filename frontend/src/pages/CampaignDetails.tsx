@@ -30,6 +30,7 @@ import { useEthPrice } from "../hooks/useEthPrice";
 import { useMetaMask } from "../hooks/useMetaMask";
 import { supabase } from "../lib/supabase";
 import { Campaign } from "../lib/types";
+import { getCampaignCategory } from "../lib/utils";
 
 interface OnChainCampaign {
     id: number;
@@ -392,7 +393,7 @@ export function CampaignDetails() {
                                 <div className="flex items-center space-x-4">
                                     <Tag className="w-5 h-5 text-primary" />
                                     <span className="text-text-secondary">
-                                        {campaign.category}
+                                        {getCampaignCategory(campaign.category)}
                                     </span>
                                 </div>
                                 <div className="flex items-center space-x-4">

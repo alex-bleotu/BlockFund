@@ -6,6 +6,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { useCampaignContract } from "../../hooks/useCampaignContract";
 import { useWallet } from "../../hooks/useWallet";
 import { supabase } from "../../lib/supabase";
+import { CampaignCategories } from "../../lib/types";
+import { getCampaignCategory } from "../../lib/utils";
 import { FundingInput } from "./components/FundingInput";
 import { ImageUpload } from "./components/ImageUpload";
 import { PreviewStep } from "./components/PreviewStep";
@@ -53,22 +55,6 @@ export function NewFund() {
             .split("T")[0],
         images: [],
     });
-
-    const CampaignCategories = [
-        t`Technology`,
-        t`Art`,
-        t`Music`,
-        t`Film`,
-        t`Games`,
-        t`Publishing`,
-        t`Fashion`,
-        t`Food`,
-        t`Community`,
-        t`Education`,
-        t`Environment`,
-        t`Health`,
-        t`Other`,
-    ] as const;
 
     useEffect(() => {
         if (!user) {
@@ -406,7 +392,7 @@ export function NewFund() {
                                                         ? "bg-primary text-light scale-105"
                                                         : "bg-background-alt text-text-secondary hover:bg-primary/10 hover:text-primary"
                                                 }`}>
-                                                {category}
+                                                {getCampaignCategory(category)}
                                             </button>
                                         ))}
                                     </div>

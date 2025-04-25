@@ -5,7 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useEthPrice } from "../../hooks/useEthPrice";
 import { supabase } from "../../lib/supabase";
-import { CampaignFormData } from "../../lib/types";
+import { CampaignCategories, CampaignFormData } from "../../lib/types";
+import { getCampaignCategory } from "../../lib/utils";
 import { ImageUpload } from "./components/ImageUpload";
 import { PreviewStep } from "./components/PreviewStep";
 import { StatusModal } from "./components/StatusModal";
@@ -33,22 +34,6 @@ export function EditFund() {
     const [showStatusModal, setShowStatusModal] = useState(false);
     const [statusLoading, setStatusLoading] = useState(false);
     const [campaignStatus, setCampaignStatus] = useState<string>("active");
-
-    const CampaignCategories = [
-        t`Technology`,
-        t`Art`,
-        t`Music`,
-        t`Film`,
-        t`Games`,
-        t`Publishing`,
-        t`Fashion`,
-        t`Food`,
-        t`Community`,
-        t`Education`,
-        t`Environment`,
-        t`Health`,
-        t`Other`,
-    ] as const;
 
     useEffect(() => {
         if (!user) {
@@ -396,7 +381,7 @@ export function EditFund() {
                                                         ? "bg-primary text-light scale-105"
                                                         : "bg-background-alt text-text-secondary hover:bg-primary/10 hover:text-primary"
                                                 }`}>
-                                                {category}
+                                                {getCampaignCategory(category)}
                                             </button>
                                         ))}
                                     </div>

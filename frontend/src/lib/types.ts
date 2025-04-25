@@ -1,3 +1,19 @@
+export const CampaignCategories = [
+    "Technology",
+    "Art",
+    "Music",
+    "Film",
+    "Games",
+    "Publishing",
+    "Fashion",
+    "Food",
+    "Community",
+    "Education",
+    "Environment",
+    "Health",
+    "Other",
+] as const;
+
 export interface Campaign {
     id?: string;
     title: string;
