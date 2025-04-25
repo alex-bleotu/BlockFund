@@ -94,6 +94,22 @@ export function EditFund() {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         const { name, value } = e.target;
+
+        if (name === "deadline") {
+            const oneWeekFromNow = new Date();
+            oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7);
+            const minDate = oneWeekFromNow.toISOString().split("T")[0];
+
+            if (value < minDate) {
+                setError(
+                    t`Campaign deadline must be at least 1 week from today`
+                );
+                return;
+            } else {
+                setError(null);
+            }
+        }
+
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
@@ -400,12 +416,18 @@ export function EditFund() {
                                         value={formData.deadline?.split("T")[0]}
                                         onChange={handleChange}
                                         min={
-                                            new Date()
+                                            new Date(
+                                                Date.now() +
+                                                    7 * 24 * 60 * 60 * 1000
+                                            )
                                                 .toISOString()
                                                 .split("T")[0]
                                         }
                                         className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                     />
+                                    <p className="text-xs text-text-secondary mt-1">
+                                        {t`Campaign must run for at least 1 week from today`}
+                                    </p>
                                 </div>
 
                                 <div>
