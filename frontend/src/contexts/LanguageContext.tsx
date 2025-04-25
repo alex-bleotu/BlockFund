@@ -1,6 +1,7 @@
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { createContext, useEffect, useState } from "react";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 
 export const LanguageContext = createContext<{
     language: Locale;
@@ -50,7 +51,7 @@ export const LanguageProvider = ({
     }, [language]);
 
     if (!ready) {
-        return <div>Loading translations…</div>;
+        return <LoadingSpinner />;
     }
 
     return (
