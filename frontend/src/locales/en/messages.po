@@ -13,14 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/campaign/components/StatusModal.tsx:40
-#~ msgid " This will allow contributions to your campaign again."
-#~ msgstr " This will allow contributions to your campaign again."
-
-#: src/pages/campaign/components/StatusModal.tsx:39
-#~ msgid " This will prevent further contributions to your campaign."
-#~ msgstr " This will prevent further contributions to your campaign."
-
 #: src/pages/Profile.tsx:90
 #: src/pages/MyCampaigns.tsx:199
 #: src/pages/Campaigns.tsx:100
@@ -454,10 +446,6 @@ msgstr "ETH Raised"
 #: src/pages/home/components/Features.tsx:36
 msgid "Every transaction is recorded on the blockchain, ensuring complete transparency and security for all participants."
 msgstr "Every transaction is recorded on the blockchain, ensuring complete transparency and security for all participants."
-
-#: src/pages/home/components/Stats.tsx:194
-msgid "Exceeded Goal Rate"
-msgstr "Exceeded Goal Rate"
 
 #: src/pages/About.tsx:65
 msgid "Excellence"
@@ -1035,9 +1023,9 @@ msgstr "Story"
 msgid "Subject"
 msgstr "Subject"
 
-#: src/pages/home/components/Stats.tsx:197
-#~ msgid "Success Rate"
-#~ msgstr "Success Rate"
+#: src/pages/home/components/Stats.tsx:194
+msgid "Success Rate"
+msgstr "Success Rate"
 
 #: src/pages/campaign/New.tsx:430
 #: src/pages/campaign/Edit.tsx:453

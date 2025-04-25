@@ -447,10 +447,6 @@ msgstr "ETH strâns"
 msgid "Every transaction is recorded on the blockchain, ensuring complete transparency and security for all participants."
 msgstr "Fiecare tranzacție este înregistrată pe blockchain, asigurând transparență și securitate completă pentru toți participanții."
 
-#: src/pages/home/components/Stats.tsx:194
-msgid "Exceeded Goal Rate"
-msgstr "Rata depășirii obiectivului"
-
 #: src/pages/About.tsx:65
 msgid "Excellence"
 msgstr "Excelență"
@@ -1027,9 +1023,9 @@ msgstr "Poveste"
 msgid "Subject"
 msgstr "Subiect"
 
-#: src/pages/home/components/Stats.tsx:197
-#~ msgid "Success Rate"
-#~ msgstr "Rată de succes"
+#: src/pages/home/components/Stats.tsx:194
+msgid "Success Rate"
+msgstr "Rată de succes"
 
 #: src/pages/campaign/New.tsx:430
 #: src/pages/campaign/Edit.tsx:453

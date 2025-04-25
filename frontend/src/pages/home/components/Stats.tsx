@@ -191,7 +191,7 @@ export function Stats() {
         {
             id: "success",
             icon: Sparkles,
-            label: t`Exceeded Goal Rate`,
+            label: t`Success Rate`,
             value: isLoading ? "0" : statsData.successRate,
             suffix: "%",
             increment: 1,
