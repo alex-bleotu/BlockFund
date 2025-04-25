@@ -10,9 +10,11 @@ import {
     Trash2,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { DeleteCampaignModal } from "../components/DeleteCampaignModal";
 import { useAuth } from "../hooks/useAuth";
+import { useCampaignContract } from "../hooks/useCampaignContract";
 import { useEthPrice } from "../hooks/useEthPrice";
 import { supabase } from "../lib/supabase";
 import { Campaign } from "../lib/types";
@@ -28,8 +30,10 @@ export function MyCampaigns() {
         null
     );
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
     const { user } = useAuth();
     const { ethPrice } = useEthPrice();
+    const { closeCampaign } = useCampaignContract();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -76,9 +80,101 @@ export function MyCampaigns() {
     };
 
     const handleDelete = async () => {
-        if (!selectedCampaign) return;
+        if (!selectedCampaign || !selectedCampaign.id) return;
 
         try {
+            setIsDeleting(true);
+
+            // Close campaign on blockchain
+            try {
+                const campaignIdStr: string = selectedCampaign.id;
+                const campaignId = parseInt(campaignIdStr);
+
+                const tx = await closeCampaign(campaignId);
+                await tx.wait();
+
+                toast.success("Campaign closed on blockchain");
+            } catch (chainError: any) {
+                console.error(
+                    "Error closing campaign on blockchain:",
+                    chainError
+                );
+
+                // Don't block Supabase deletion if blockchain deletion fails
+                if (
+                    !(
+                        chainError.code === 4001 ||
+                        (chainError.error && chainError.error.code === 4001) ||
+                        (chainError.message &&
+                            chainError.message.includes(
+                                "User denied transaction signature"
+                            ))
+                    )
+                ) {
+                    toast.error(
+                        "Could not close campaign on blockchain, but proceeding with removal from database"
+                    );
+                } else {
+                    // If user rejected transaction, stop the delete process
+                    setIsDeleting(false);
+                    throw new Error(
+                        "Delete cancelled: Transaction was rejected"
+                    );
+                }
+            }
+
+            // Delete campaign images from storage if they exist
+            if (selectedCampaign.images && selectedCampaign.images.length > 0) {
+                try {
+                    // Extract the filenames from the full URLs
+                    const imagePaths = selectedCampaign.images
+                        .map((imageUrl) => {
+                            // Get the path part of the URL, which would be something like:
+                            // campaign-images/userId/timestamp-filename.jpg
+                            const urlObj = new URL(imageUrl);
+                            const pathParts = urlObj.pathname.split("/");
+                            // Find the index where "campaign-images" appears and take everything after it
+                            const storagePathIndex = pathParts.findIndex(
+                                (part) => part === "campaign-images"
+                            );
+                            if (
+                                storagePathIndex >= 0 &&
+                                storagePathIndex < pathParts.length - 1
+                            ) {
+                                return pathParts
+                                    .slice(storagePathIndex + 1)
+                                    .join("/");
+                            }
+                            return null;
+                        })
+                        .filter(Boolean); // Remove any null values
+
+                    // Delete each image from storage
+                    if (imagePaths.length > 0) {
+                        const { error: storageError } = await supabase.storage
+                            .from("campaign-images")
+                            .remove(imagePaths as string[]);
+
+                        if (storageError) {
+                            console.error(
+                                "Error deleting campaign images:",
+                                storageError
+                            );
+                            // Continue with campaign deletion even if image deletion fails
+                        } else {
+                            console.log("Successfully deleted campaign images");
+                        }
+                    }
+                } catch (storageError) {
+                    console.error(
+                        "Error processing image deletion:",
+                        storageError
+                    );
+                    // Continue with campaign deletion even if image deletion fails
+                }
+            }
+
+            // Delete campaign from database
             const { error } = await supabase
                 .from("campaigns")
                 .delete()
@@ -90,11 +186,15 @@ export function MyCampaigns() {
             setCampaigns((prev) =>
                 prev.filter((c) => c.id !== selectedCampaign.id)
             );
+
+            toast.success("Campaign deleted successfully");
             setShowDeleteModal(false);
             setSelectedCampaign(null);
-        } catch (err) {
+        } catch (err: any) {
             console.error("Error deleting campaign:", err);
-            throw new Error("Failed to delete campaign");
+            toast.error(err.message || "Failed to delete campaign");
+        } finally {
+            setIsDeleting(false);
         }
     };
 
@@ -352,6 +452,7 @@ export function MyCampaigns() {
                 }}
                 onConfirm={handleDelete}
                 campaignTitle={selectedCampaign?.title || ""}
+                isDeleting={isDeleting}
             />
         </div>
     );

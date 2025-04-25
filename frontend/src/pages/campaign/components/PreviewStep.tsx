@@ -48,7 +48,16 @@ export function PreviewStep({
 
     useEffect(() => {
         if (externalError) {
-            setError(externalError);
+            if (
+                externalError.includes("User denied transaction signature") ||
+                externalError.includes("Transaction rejected")
+            ) {
+                setError(
+                    "Transaction declined: You cancelled the MetaMask transaction"
+                );
+            } else {
+                setError(externalError);
+            }
         }
     }, [externalError]);
 

@@ -3,9 +3,33 @@ import { Campaign } from "../../../lib/types";
 
 export async function launchCampaign(
     campaign: Partial<Campaign>,
-    userId: string
-): Promise<{ supabaseData: Campaign | null; error: Error | null }> {
+    userId: string,
+    createCampaign: (
+        goal: string,
+        durationSec: number,
+        metadataCID: string
+    ) => Promise<any>
+): Promise<{
+    supabaseData: Campaign | null;
+    onChainTx: any | null;
+    error: Error | null;
+}> {
     try {
+        const deadline = new Date(campaign.deadline || new Date());
+        const durationSec = Math.floor(
+            (deadline.getTime() - Date.now()) / 1000
+        );
+
+        const onChainTx = await createCampaign(
+            campaign.goal?.toString() || "0",
+            durationSec,
+            campaign.id || userId
+        );
+
+        if (onChainTx.status === "reverted") {
+            throw new Error("Campaign creation failed");
+        }
+
         const { data: supabaseData, error: supabaseError } = await supabase
             .from("campaigns")
             .insert([
@@ -20,15 +44,16 @@ export async function launchCampaign(
                     deadline: campaign.deadline || new Date().toISOString(),
                     images: campaign.images || [],
                     status: "active",
+                    tx_hash: onChainTx.hash,
                 },
             ])
             .select()
             .single();
 
         if (supabaseError) throw supabaseError;
-        return { supabaseData, error: null };
+        return { supabaseData, onChainTx, error: null };
     } catch (error) {
         console.error("Error launching campaign:", error);
-        return { supabaseData: null, error: error as Error };
+        return { supabaseData: null, onChainTx: null, error: error as Error };
     }
 }

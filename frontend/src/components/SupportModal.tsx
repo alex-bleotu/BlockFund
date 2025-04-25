@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, DollarSign, Wallet, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useEthPrice } from "../hooks/useEthPrice";
 import { useWallet } from "../hooks/useWallet";
 
@@ -11,6 +11,7 @@ interface SupportModalProps {
     campaignGoal: number;
     currentAmount: number;
     onSupport: (amount: number) => Promise<void>;
+    minAmount?: number; // Optional minimum amount
 }
 
 export function SupportModal({
@@ -20,43 +21,94 @@ export function SupportModal({
     campaignGoal,
     currentAmount,
     onSupport,
+    minAmount = 0.005, // Changed minimum amount to 0.005 ETH
 }: SupportModalProps) {
     const { address, connectWallet } = useWallet();
     const { ethPrice } = useEthPrice();
-    const [amount, setAmount] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [amount, setAmount] = useState<string>(""); // Removed default value
+    const [usdAmount, setUsdAmount] = useState<string>("0");
     const [error, setError] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!address) {
-            setError("Please connect your wallet first");
-            return;
+    useEffect(() => {
+        if (ethPrice && amount) {
+            const eth = parseFloat(amount || "0");
+            if (!isNaN(eth)) {
+                const usd = eth * ethPrice;
+                setUsdAmount(usd.toFixed(2));
+            }
+        } else {
+            setUsdAmount("0");
         }
+    }, [amount, ethPrice]);
 
-        const ethAmount = parseFloat(amount);
-        if (isNaN(ethAmount) || ethAmount <= 0) {
-            setError("Please enter a valid amount");
-            return;
-        }
-
-        try {
-            setLoading(true);
+    useEffect(() => {
+        if (isOpen) {
+            setAmount(""); // Reset to empty string when modal opens
             setError(null);
-            await onSupport(ethAmount);
-            onClose();
-        } catch (err: any) {
-            console.error("Error supporting campaign:", err);
-            setError(err.message || "Failed to process support");
-        } finally {
-            setLoading(false);
+            setIsSubmitting(false);
         }
-    };
+    }, [isOpen]);
 
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        setAmount(value);
+
+        // Only accept valid numeric input
+        if (value === "" || /^\d*\.?\d*$/.test(value)) {
+            setAmount(value);
+            setError(null);
+
+            // Update USD amount if possible
+            if (ethPrice && value !== "") {
+                const ethValue = parseFloat(value);
+                if (!isNaN(ethValue)) {
+                    const usd = ethValue * ethPrice;
+                    setUsdAmount(usd.toFixed(2));
+                }
+            }
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
         setError(null);
+
+        try {
+            // Ensure the amount is a valid number
+            if (!amount || amount === "") {
+                setError("Please enter an amount");
+                return;
+            }
+
+            const ethAmount = parseFloat(amount);
+
+            if (isNaN(ethAmount)) {
+                setError("Please enter a valid amount");
+                return;
+            }
+
+            if (ethAmount < minAmount) {
+                setError(`Minimum contribution is ${minAmount} ETH`);
+                return;
+            }
+
+            if (ethAmount + currentAmount > campaignGoal) {
+                setError(
+                    `Amount exceeds remaining goal (${(
+                        campaignGoal - currentAmount
+                    ).toFixed(2)} ETH)`
+                );
+                return;
+            }
+
+            setIsSubmitting(true);
+            // Pass a proper number to the support function
+            await onSupport(ethAmount);
+        } catch (err) {
+            console.error("Support error:", err);
+            setError("Failed to process transaction");
+            setIsSubmitting(false); // Reset submission state on error
+        }
     };
 
     if (!isOpen) return null;
@@ -126,11 +178,11 @@ export function SupportModal({
                                             type="number"
                                             value={amount}
                                             onChange={handleAmountChange}
-                                            step="0.000001"
-                                            min="0"
+                                            step="0.001"
+                                            min={minAmount}
                                             required
                                             className="w-full pl-10 pr-16 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
-                                            placeholder="0.00"
+                                            placeholder={`${minAmount} or more`}
                                         />
                                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                             <DollarSign className="h-5 w-5 text-text-secondary" />
@@ -151,6 +203,9 @@ export function SupportModal({
                                                 USD
                                             </p>
                                         )}
+                                    <div className="mt-1 text-xs text-primary">
+                                        Minimum contribution: {minAmount} ETH
+                                    </div>
                                 </div>
 
                                 <div className="bg-background-alt rounded-lg p-4 space-y-2">
@@ -189,14 +244,18 @@ export function SupportModal({
                                         type="button"
                                         onClick={onClose}
                                         className="px-4 py-2 text-text-secondary hover:text-text transition-colors"
-                                        disabled={loading}>
+                                        disabled={isSubmitting}>
                                         Cancel
                                     </button>
                                     <button
                                         type="submit"
-                                        disabled={loading}
-                                        className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50">
-                                        {loading
+                                        disabled={
+                                            isSubmitting ||
+                                            !amount ||
+                                            parseFloat(amount) <= 0
+                                        }
+                                        className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                        {isSubmitting
                                             ? "Processing..."
                                             : "Support Campaign"}
                                     </button>

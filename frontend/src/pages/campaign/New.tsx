@@ -2,6 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { useCampaignContract } from "../../hooks/useCampaignContract";
 import { useWallet } from "../../hooks/useWallet";
 import { supabase } from "../../lib/supabase";
 import { CAMPAIGN_CATEGORIES } from "../../lib/types";
@@ -30,6 +31,7 @@ declare global {
 }
 
 export function NewFund() {
+    const { createCampaign } = useCampaignContract();
     const { user } = useAuth();
     const { address } = useWallet();
     const navigate = useNavigate();
@@ -51,6 +53,13 @@ export function NewFund() {
             .split("T")[0],
         images: [],
     });
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login", { state: { from: "/campaign/new" } });
+            return;
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         const checkMetaMask = () => {
@@ -125,6 +134,11 @@ export function NewFund() {
             return;
         }
 
+        if (!address) {
+            setError("Please connect your wallet to create a campaign");
+            return;
+        }
+
         try {
             setLoading(true);
             setError(null);
@@ -147,13 +161,18 @@ export function NewFund() {
                 return publicUrl;
             });
 
-            const { supabaseData, error: launchError } = await launchCampaign(
+            const {
+                supabaseData,
+                onChainTx,
+                error: launchError,
+            } = await launchCampaign(
                 {
                     ...formData,
                     goal: parseFloat(formData.goal || "0"),
                     images: imageUrls,
                 },
-                user.id
+                user.id,
+                createCampaign
             );
 
             if (launchError) throw launchError;
@@ -161,7 +180,18 @@ export function NewFund() {
             navigate(`/campaign/${supabaseData.id}`);
         } catch (err: any) {
             console.error("Error creating campaign:", err);
-            setError(err.message || "Failed to create campaign");
+            if (
+                err.code === 4001 ||
+                (err.error && err.error.code === 4001) ||
+                (err.message &&
+                    err.message.includes("User denied transaction signature"))
+            ) {
+                setError(
+                    "Transaction rejected: You declined the MetaMask transaction"
+                );
+            } else {
+                setError(err.message || "Failed to create campaign");
+            }
         } finally {
             setLoading(false);
         }

@@ -1,6 +1,6 @@
 import { AlertTriangle, Key, Lock, Shield, User, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useWallet } from "../hooks/useWallet";
 import { supabase } from "../lib/supabase";
@@ -9,6 +9,7 @@ type SettingsTab = "profile" | "security" | "wallet";
 
 export function Settings() {
     const { user } = useAuth();
+    const navigate = useNavigate();
     const {
         address,
         loading: walletLoading,
@@ -44,6 +45,15 @@ export function Settings() {
     const isProfileFormChanged =
         profileForm.username !== initialProfileForm.username ||
         profileForm.bio !== initialProfileForm.bio;
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login", {
+                state: { from: "/settings", tab: activeTab },
+            });
+            return;
+        }
+    }, [user, navigate, activeTab]);
 
     useEffect(() => {
         setSearchParams({ tab: activeTab });
@@ -205,6 +215,29 @@ export function Settings() {
     const handleTabChange = (tab: SettingsTab) => {
         setActiveTab(tab);
         setSearchParams({ tab });
+    };
+
+    const handleConnectWallet = async () => {
+        try {
+            if (address) {
+                await disconnectWallet();
+            }
+
+            if (window.ethereum && window.ethereum.selectedAddress) {
+                try {
+                    await window.ethereum.request({
+                        method: "wallet_requestPermissions",
+                        params: [{ eth_accounts: {} }],
+                    });
+                } catch (permissionError) {
+                    console.error("Permission request error:", permissionError);
+                }
+            }
+
+            await connectWallet();
+        } catch (error) {
+            console.error("Wallet connection error:", error);
+        }
     };
 
     const tabs: { id: SettingsTab; label: string; icon: any }[] = [
@@ -463,7 +496,7 @@ export function Settings() {
                                                 onClick={
                                                     address
                                                         ? disconnectWallet
-                                                        : connectWallet
+                                                        : handleConnectWallet
                                                 }
                                                 disabled={walletLoading}
                                                 className={`shrink-0 px-4 py-2 text-sm font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors

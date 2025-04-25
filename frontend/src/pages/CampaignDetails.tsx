@@ -16,15 +16,27 @@ import {
     User,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ContactModal } from "../components/ContactModal";
 import { SupportModal } from "../components/SupportModal";
 import { useAuth } from "../hooks/useAuth";
 import { useCampaignActions } from "../hooks/useCampaignActions";
+import { useCampaignContract } from "../hooks/useCampaignContract";
 import { useEthPrice } from "../hooks/useEthPrice";
 import { useMetaMask } from "../hooks/useMetaMask";
 import { supabase } from "../lib/supabase";
 import { Campaign } from "../lib/types";
+
+interface OnChainCampaign {
+    id: number;
+    creator: string;
+    goal: string;
+    deadline: Date;
+    totalFunded: string;
+    metadataCID: string;
+    status: string;
+}
 
 export function CampaignDetails() {
     const { id } = useParams<{ id: string }>();
@@ -32,6 +44,9 @@ export function CampaignDetails() {
     const { ethPrice } = useEthPrice();
     const { user } = useAuth();
     const [campaign, setCampaign] = useState<Campaign | null>(null);
+    const [onChainData, setOnChainData] = useState<OnChainCampaign | null>(
+        null
+    );
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -40,10 +55,17 @@ export function CampaignDetails() {
     const [showCopiedTooltip, setShowCopiedTooltip] = useState(false);
     const { isLiked, toggleLike, shareCampaign } = useCampaignActions(id || "");
     const { isConnected, connect, isInstalled, isLocked } = useMetaMask();
+    const {
+        contribute,
+        getCampaign,
+        loading: contractLoading,
+    } = useCampaignContract();
+    const [transactionInProgress, setTransactionInProgress] = useState(false);
 
     useEffect(() => {
         if (id) {
             fetchCampaign();
+            fetchOnChainData();
         }
     }, [id]);
 
@@ -71,6 +93,17 @@ export function CampaignDetails() {
         }
     };
 
+    const fetchOnChainData = async () => {
+        try {
+            if (!id) return;
+            const campaignId = parseInt(id);
+            const onChainCampaign = await getCampaign(campaignId);
+            setOnChainData(onChainCampaign);
+        } catch (err) {
+            console.error("Error fetching on-chain data:", err);
+        }
+    };
+
     const handleShare = async () => {
         await shareCampaign();
         setShowCopiedTooltip(true);
@@ -78,15 +111,33 @@ export function CampaignDetails() {
     };
 
     const handleSupport = async (amount: number) => {
-        console.log("Supporting campaign with", amount, "ETH");
+        try {
+            setTransactionInProgress(true);
+
+            const campaignId = parseInt(id || "0");
+            const formattedAmount = amount.toFixed(18);
+
+            const tx = await contribute(campaignId, formattedAmount);
+
+            toast.success("Thank you for your support!");
+            fetchCampaign();
+            fetchOnChainData();
+            setIsSupportModalOpen(false);
+        } catch (err: any) {
+            console.error("Transaction error:", err);
+            throw err;
+        } finally {
+            setTransactionInProgress(false);
+        }
     };
 
     const calculateProgress = (current: number, goal: number) => {
         return Math.min((current / goal) * 100, 100);
     };
 
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
+    const formatDate = (dateString: string | Date) => {
+        const date =
+            dateString instanceof Date ? dateString : new Date(dateString);
         const today = new Date();
         const diffTime = date.getTime() - today.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -144,8 +195,14 @@ export function CampaignDetails() {
         );
     }
 
-    const campaignEndDate = formatDate(campaign.deadline);
-    const raised = campaign.raised || 0;
+    // Use on-chain data if available, otherwise fall back to database data
+    const campaignEndDate = formatDate(
+        onChainData?.deadline || campaign.deadline
+    );
+    const goal = onChainData ? parseFloat(onChainData.goal) : campaign.goal;
+    const raised = onChainData
+        ? parseFloat(onChainData.totalFunded)
+        : campaign.raised || 0;
 
     return (
         <div className="min-h-screen bg-background pt-24 pb-16">
@@ -272,7 +329,7 @@ export function CampaignDetails() {
                                         animate={{
                                             width: `${calculateProgress(
                                                 raised,
-                                                campaign.goal
+                                                goal
                                             )}%`,
                                         }}
                                         transition={{ duration: 1 }}
@@ -296,15 +353,11 @@ export function CampaignDetails() {
                                     </div>
                                     <div className="text-right">
                                         <div className="text-lg font-medium text-text">
-                                            {(
-                                                (raised / campaign.goal) *
-                                                100
-                                            ).toFixed(1)}
+                                            {((raised / goal) * 100).toFixed(1)}
                                             %
                                         </div>
                                         <div className="text-sm text-text-secondary">
-                                            of {campaign.goal.toFixed(2)} ETH
-                                            goal
+                                            of {goal.toFixed(2)} ETH goal
                                         </div>
                                     </div>
                                 </div>
@@ -323,7 +376,7 @@ export function CampaignDetails() {
                     </div>
 
                     <aside className="lg:relative">
-                        <div className="lg:sticky lg:top-24 space-y-6 pb-4 px-4 max-h-[calc(100vh-6rem)] overflow-y-auto scrollbar-hide">
+                        <div className="lg:sticky lg:top-24 space-y-6 pb-4 lg:px-4 max-h-[calc(100vh-6rem)] overflow-y-auto scrollbar-hide">
                             <div className="bg-surface rounded-xl p-6 shadow-lg">
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-between text-text-secondary">
@@ -341,7 +394,7 @@ export function CampaignDetails() {
                                     <div className="flex items-center text-text">
                                         <Target className="w-5 h-5 mr-2 text-primary" />
                                         <span className="font-medium">
-                                            Goal: {campaign.goal.toFixed(2)} ETH
+                                            Goal: {goal.toFixed(2)} ETH
                                         </span>
                                     </div>
 
@@ -351,6 +404,20 @@ export function CampaignDetails() {
                                             <span>{campaign.location}</span>
                                         </div>
                                     )}
+
+                                    <div className="p-3 bg-primary-light rounded-lg text-sm">
+                                        <div className="font-medium text-primary mb-1">
+                                            Blockchain Status
+                                        </div>
+                                        <div className="text-text-secondary">
+                                            Status:{" "}
+                                            <span className="font-semibold">
+                                                {onChainData
+                                                    ? onChainData.status
+                                                    : "INACTIVE"}
+                                            </span>
+                                        </div>
+                                    </div>
 
                                     <div className="flex flex-col gap-1.5">
                                         <button
@@ -373,19 +440,37 @@ export function CampaignDetails() {
                                             disabled={
                                                 campaignEndDate.hasEnded ||
                                                 !isInstalled ||
-                                                user?.id === campaign.creator_id
+                                                user?.id ===
+                                                    campaign.creator_id ||
+                                                transactionInProgress ||
+                                                contractLoading ||
+                                                !onChainData ||
+                                                onChainData?.status !== "ACTIVE"
                                             }
                                             className={`w-full py-3 rounded-lg transition-colors ${
                                                 campaignEndDate.hasEnded ||
-                                                user?.id === campaign.creator_id
+                                                user?.id ===
+                                                    campaign.creator_id ||
+                                                transactionInProgress ||
+                                                contractLoading ||
+                                                !onChainData ||
+                                                onChainData?.status !== "ACTIVE"
                                                     ? "bg-gray-400 cursor-not-allowed text-light/75"
                                                     : "bg-primary text-light hover:bg-primary-dark disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-light/75"
                                             }`}>
-                                            {campaignEndDate.hasEnded
+                                            {transactionInProgress
+                                                ? "Transaction in progress..."
+                                                : contractLoading
+                                                ? "Loading..."
+                                                : campaignEndDate.hasEnded
                                                 ? "Campaign Ended"
                                                 : user?.id ===
                                                   campaign.creator_id
                                                 ? "You are the creator"
+                                                : !onChainData ||
+                                                  onChainData?.status !==
+                                                      "ACTIVE"
+                                                ? "Campaign Inactive"
                                                 : "Support this Campaign"}
                                         </button>
                                         <p className="text-sm text-text-secondary text-center">
@@ -402,6 +487,10 @@ export function CampaignDetails() {
                                                 ? "Your wallet is locked. Please unlock it to continue."
                                                 : !isConnected
                                                 ? "Connect your wallet to support this campaign."
+                                                : !onChainData ||
+                                                  onChainData?.status !==
+                                                      "ACTIVE"
+                                                ? "This campaign is not active on the blockchain."
                                                 : "Support this campaign with ETH."}
                                         </p>
                                     </div>
@@ -471,9 +560,10 @@ export function CampaignDetails() {
                 isOpen={isSupportModalOpen}
                 onClose={() => setIsSupportModalOpen(false)}
                 campaignTitle={campaign.title}
-                campaignGoal={campaign.goal}
+                campaignGoal={goal}
                 currentAmount={raised}
                 onSupport={handleSupport}
+                minAmount={0.005}
             />
         </div>
     );
