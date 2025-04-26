@@ -1,5 +1,5 @@
 import { t } from "@lingui/core/macro";
-import { Lock, Mail, User } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Logo } from "../components/Logo";
@@ -9,6 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 export function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [username, setUsername] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -33,7 +34,7 @@ export function Register() {
     return (
         <div className="min-h-screen flex -mt-12 sm:mt-0">
             <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-background relative">
-                <div className="absolute top-16 right-4">
+                <div className="absolute top-4 right-4">
                     <ThemeToggle />
                 </div>
                 <div className="mx-auto w-full max-w-sm">
@@ -122,10 +123,10 @@ export function Register() {
                                 <input
                                     id="password"
                                     name="password"
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     autoComplete="new-password"
                                     required
-                                    className="appearance-none block w-full pl-10 px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
+                                    className="appearance-none block w-full pl-10 pr-10 px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                     placeholder={t`Create a password`}
                                     value={password}
                                     onChange={(e) =>
@@ -133,6 +134,23 @@ export function Register() {
                                     }
                                     disabled={loading}
                                 />
+                                <button
+                                    type="button"
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-text-tertiary hover:text-text transition-colors"
+                                    onClick={() =>
+                                        setShowPassword(!showPassword)
+                                    }>
+                                    {showPassword ? (
+                                        <EyeOff className="h-5 w-5" />
+                                    ) : (
+                                        <Eye className="h-5 w-5" />
+                                    )}
+                                    <span className="sr-only">
+                                        {showPassword
+                                            ? t`Hide password`
+                                            : t`Show password`}
+                                    </span>
+                                </button>
                             </div>
                         </div>
 
@@ -148,7 +166,6 @@ export function Register() {
                 </div>
             </div>
 
-            {/* Right side - Image */}
             <div className="hidden lg:block relative flex-1">
                 <div className="absolute inset-0">
                     <img

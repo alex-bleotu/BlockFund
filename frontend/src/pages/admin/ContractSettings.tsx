@@ -10,7 +10,9 @@ export function ContractSettings() {
     const navigate = useNavigate();
     const { user } = useAuth();
     const [contractAddress, setContractAddress] = useState("");
-    const [useLocalNetwork, setUseLocalNetwork] = useState(false);
+    const [network, setNetwork] = useState<"local" | "sepolia" | "mainnet">(
+        "sepolia"
+    );
     const [isLoading, setIsLoading] = useState(false);
     const [isAuthChecking, setIsAuthChecking] = useState(true);
 
@@ -31,12 +33,12 @@ export function ContractSettings() {
 
     useEffect(() => {
         const savedAddress = localStorage.getItem("CONTRACT_ADDRESS_LOCAL");
-        const savedUseLocal = localStorage.getItem("USE_LOCAL") === "true";
+        const savedNetwork = localStorage.getItem("NETWORK") || "sepolia";
 
         if (savedAddress) {
             setContractAddress(savedAddress);
         }
-        setUseLocalNetwork(savedUseLocal);
+        setNetwork(savedNetwork as "local" | "sepolia" | "mainnet");
     }, []);
 
     const handleSave = async () => {
@@ -52,10 +54,7 @@ export function ContractSettings() {
             }
 
             localStorage.setItem("CONTRACT_ADDRESS_LOCAL", contractAddress);
-            localStorage.setItem(
-                "USE_LOCAL",
-                useLocalNetwork ? "true" : "false"
-            );
+            localStorage.setItem("NETWORK", network);
 
             toast.success(t`Contract settings saved successfully`);
 
@@ -112,38 +111,41 @@ export function ContractSettings() {
                             </p>
                         </div>
 
-                        <div className="flex items-center">
-                            <label
-                                htmlFor="use-local"
-                                className="text-sm font-medium text-text mr-2">
-                                {t`Use Local Network`}
+                        <div>
+                            <label className="block text-sm font-medium text-text mb-3">
+                                {t`Network`}
                             </label>
-                            <div
-                                className="relative inline-block w-12 h-6 cursor-pointer"
-                                onClick={() =>
-                                    setUseLocalNetwork(!useLocalNetwork)
-                                }>
-                                <input
-                                    type="checkbox"
-                                    id="use-local"
-                                    className="sr-only"
-                                    checked={useLocalNetwork}
-                                    onChange={() => {}}
-                                />
-                                <div
-                                    className={`absolute w-full h-full rounded-full transition ${
-                                        useLocalNetwork
-                                            ? "bg-primary"
-                                            : "bg-border"
+                            <div className="flex items-center space-x-3">
+                                <button
+                                    type="button"
+                                    className={`px-4 py-2 rounded-lg transition-colors ${
+                                        network === "local"
+                                            ? "bg-primary text-light"
+                                            : "bg-background-alt text-text-secondary hover:bg-primary/10"
                                     }`}
-                                />
-                                <div
-                                    className={`absolute w-4 h-4 bg-light rounded-full transition transform ${
-                                        useLocalNetwork
-                                            ? "translate-x-7"
-                                            : "translate-x-1"
-                                    } top-1`}
-                                />
+                                    onClick={() => setNetwork("local")}>
+                                    {t`Local`}
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`px-4 py-2 rounded-lg transition-colors ${
+                                        network === "sepolia"
+                                            ? "bg-primary text-light"
+                                            : "bg-background-alt text-text-secondary hover:bg-primary/10"
+                                    }`}
+                                    onClick={() => setNetwork("sepolia")}>
+                                    {t`Sepolia`}
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`px-4 py-2 rounded-lg transition-colors ${
+                                        network === "mainnet"
+                                            ? "bg-primary text-light"
+                                            : "bg-background-alt text-text-secondary hover:bg-primary/10"
+                                    }`}
+                                    onClick={() => setNetwork("mainnet")}>
+                                    {t`Mainnet`}
+                                </button>
                             </div>
                         </div>
 

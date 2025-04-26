@@ -4,15 +4,17 @@ import { useEffect, useState } from "react";
 import CampaignArtifact from "../artifacts/contracts/Campaign.sol/Campaign.json";
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS as string;
+const MAINNET_CONTRACT_ADDRESS = import.meta.env
+    .VITE_MAINNET_CONTRACT_ADDRESS as string;
 
 const getContractAddressLocal = () => {
     const savedAddress = localStorage.getItem("CONTRACT_ADDRESS_LOCAL");
     return savedAddress ?? "";
 };
 
-const getUseLocal = () => {
-    const savedUseLocal = localStorage.getItem("USE_LOCAL");
-    return savedUseLocal !== null ? savedUseLocal === "true" : false;
+const getNetwork = () => {
+    const savedNetwork = localStorage.getItem("NETWORK");
+    return savedNetwork ?? "local";
 };
 
 export function useCampaignContract() {
@@ -38,9 +40,9 @@ export function useCampaignContract() {
         (async () => {
             try {
                 const CONTRACT_ADDRESS_LOCAL = getContractAddressLocal();
-                const USE_LOCAL = getUseLocal();
+                const network = getNetwork();
 
-                if (USE_LOCAL) {
+                if (network === "local") {
                     try {
                         await browserProvider.send(
                             "wallet_switchEthereumChain",
@@ -65,41 +67,65 @@ export function useCampaignContract() {
                     );
                     finish();
                     return;
-                }
+                } else if (network === "sepolia") {
+                    try {
+                        await browserProvider.send(
+                            "wallet_switchEthereumChain",
+                            [{ chainId: "0xaa36a7" }]
+                        );
+                    } catch (switchError: any) {
+                        if (switchError.code === 4902) {
+                            await browserProvider.send(
+                                "wallet_addEthereumChain",
+                                [
+                                    {
+                                        chainId: "0xaa36a7",
+                                        chainName: "Sepolia Test Network",
+                                        rpcUrls: ["https://rpc.sepolia.org"],
+                                        nativeCurrency: {
+                                            name: "Sepolia ETH",
+                                            symbol: "SepoliaETH",
+                                            decimals: 18,
+                                        },
+                                    },
+                                ]
+                            );
+                        } else {
+                            throw switchError;
+                        }
+                    }
 
-                try {
-                    await browserProvider.send("wallet_switchEthereumChain", [
-                        { chainId: "0xaa36a7" },
-                    ]);
-                } catch (switchError: any) {
-                    if (switchError.code === 4902) {
-                        await browserProvider.send("wallet_addEthereumChain", [
-                            {
-                                chainId: "0xaa36a7",
-                                chainName: "Sepolia Test Network",
-                                rpcUrls: ["https://rpc.sepolia.org"],
-                                nativeCurrency: {
-                                    name: "Sepolia ETH",
-                                    symbol: "SepoliaETH",
-                                    decimals: 18,
-                                },
-                            },
-                        ]);
-                    } else {
+                    await browserProvider.send("eth_requestAccounts", []);
+                    const webSigner = await browserProvider.getSigner();
+                    setSigner(webSigner);
+                    setContract(
+                        new ethers.Contract(
+                            CONTRACT_ADDRESS,
+                            CampaignArtifact.abi,
+                            webSigner
+                        )
+                    );
+                } else if (network === "mainnet") {
+                    try {
+                        await browserProvider.send(
+                            "wallet_switchEthereumChain",
+                            [{ chainId: "0x1" }]
+                        );
+                    } catch (switchError: any) {
                         throw switchError;
                     }
-                }
 
-                await browserProvider.send("eth_requestAccounts", []);
-                const webSigner = await browserProvider.getSigner();
-                setSigner(webSigner);
-                setContract(
-                    new ethers.Contract(
-                        CONTRACT_ADDRESS,
-                        CampaignArtifact.abi,
-                        webSigner
-                    )
-                );
+                    await browserProvider.send("eth_requestAccounts", []);
+                    const webSigner = await browserProvider.getSigner();
+                    setSigner(webSigner);
+                    setContract(
+                        new ethers.Contract(
+                            MAINNET_CONTRACT_ADDRESS,
+                            CampaignArtifact.abi,
+                            webSigner
+                        )
+                    );
+                }
             } catch (err) {
                 console.error(
                     "Error setting up provider or switching network:",

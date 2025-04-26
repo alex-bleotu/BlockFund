@@ -181,7 +181,7 @@ export function Contact() {
                                                 value={formData.name}
                                                 onChange={handleChange}
                                                 required
-                                                className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text placeholder-text-secondary/60 transition-colors"
+                                                className="w-full px-3 py-2 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text placeholder-text-secondary/60 transition-colors"
                                                 placeholder={t`John Doe`}
                                             />
                                         </div>
@@ -199,7 +199,7 @@ export function Contact() {
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 required
-                                                className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text placeholder-text-secondary/60 transition-colors"
+                                                className="w-full px-3 py-2 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text placeholder-text-secondary/60 transition-colors"
                                                 placeholder={t`john@example.com`}
                                             />
                                         </div>
@@ -218,7 +218,7 @@ export function Contact() {
                                             value={formData.subject}
                                             onChange={handleChange}
                                             required
-                                            className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text placeholder-text-secondary/60 transition-colors"
+                                            className="w-full px-3 py-2 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text placeholder-text-secondary/60 transition-colors"
                                             placeholder={t`How can we help?`}
                                         />
                                     </div>
@@ -236,7 +236,7 @@ export function Contact() {
                                             onChange={handleChange}
                                             required
                                             rows={6}
-                                            className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text placeholder-text-secondary/60 transition-colors resize-none"
+                                            className="w-full px-3 py-2 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text placeholder-text-secondary/60 transition-colors resize-none"
                                             placeholder={t`Tell us more about your inquiry...`}
                                         />
                                     </div>
