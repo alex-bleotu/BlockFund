@@ -1,5 +1,5 @@
 import { t } from "@lingui/core/macro";
-import { ArrowLeft } from "lucide-react";
+import { AlertTriangle, ArrowLeft } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -45,6 +45,9 @@ export function NewFund() {
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
     const [hasMetaMask, setHasMetaMask] = useState<boolean>(false);
     const hasConnected = useRef(false);
+    const [currentNetwork, setCurrentNetwork] = useState<
+        "local" | "sepolia" | "mainnet"
+    >("sepolia");
     const [formData, setFormData] = useState<FormData>({
         title: "",
         category: "",
@@ -83,6 +86,11 @@ export function NewFund() {
 
         connectWallet();
     }, [connect]);
+
+    useEffect(() => {
+        const savedNetwork = localStorage.getItem("NETWORK") || "sepolia";
+        setCurrentNetwork(savedNetwork as "local" | "sepolia" | "mainnet");
+    }, []);
 
     const completionScore = useMemo(() => {
         const requiredFields = {
@@ -193,19 +201,18 @@ export function NewFund() {
                 return publicUrl;
             });
 
+            const campaignData = {
+                ...formData,
+                goal: parseFloat(formData.goal || "0"),
+                images: imageUrls,
+                network_created: currentNetwork,
+            };
+
             const {
                 supabaseData,
                 onChainTx,
                 error: launchError,
-            } = await launchCampaign(
-                {
-                    ...formData,
-                    goal: parseFloat(formData.goal || "0"),
-                    images: imageUrls,
-                },
-                user.id,
-                createCampaign
-            );
+            } = await launchCampaign(campaignData, user.id, createCampaign);
 
             if (onChainTx.status === "reverted")
                 throw new Error("Campaign creation on chain failed");
@@ -260,6 +267,19 @@ export function NewFund() {
 
     const handleBack = () => {
         navigate(-1);
+    };
+
+    const getNetworkDisplayName = (network: string): string => {
+        switch (network) {
+            case "local":
+                return "Local Development Network";
+            case "sepolia":
+                return "Sepolia Test Network";
+            case "mainnet":
+                return "Ethereum Mainnet";
+            default:
+                return network;
+        }
     };
 
     const renderMetaMaskRequired = () => (
@@ -333,6 +353,7 @@ export function NewFund() {
                             campaign={{
                                 ...formData,
                                 images: previewUrls,
+                                network: currentNetwork,
                             }}
                             previewUrls={previewUrls}
                             onBack={prevStep}
@@ -367,6 +388,25 @@ export function NewFund() {
                             <span className="font-bold text-primary">
                                 {completionScore}%
                             </span>
+                        </div>
+                    </div>
+
+                    <div className="mb-6 p-4 bg-primary-light text-primary rounded-lg flex items-start">
+                        <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
+                        <div>
+                            <p className="font-medium">{t`Network: ${getNetworkDisplayName(
+                                currentNetwork
+                            )}`}</p>
+                            <p className="text-sm text-text-secondary mt-1">
+                                {t`Your campaign will be created on the ${getNetworkDisplayName(
+                                    currentNetwork
+                                )}. It will not be visible on other networks. You can change the network in Contract Settings.`}
+                            </p>
+                            {currentNetwork === "mainnet" && (
+                                <p className="text-sm font-medium mt-2">
+                                    {t`Warning: Creating a campaign on mainnet will use real ETH.`}
+                                </p>
+                            )}
                         </div>
                     </div>
 

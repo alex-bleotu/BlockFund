@@ -36,6 +36,7 @@ export interface Campaign {
     };
     tx_hash?: string;
     onchain_id?: number;
+    network: "local" | "sepolia" | "mainnet";
 }
 
 export interface CampaignFormData extends Omit<Campaign, "goal" | "images"> {

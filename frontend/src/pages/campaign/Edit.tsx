@@ -36,6 +36,7 @@ export function EditFund() {
         location: "",
         deadline: "",
         images: [],
+        network: "local",
     });
     const [showStatusModal, setShowStatusModal] = useState(false);
     const [statusLoading, setStatusLoading] = useState(false);
@@ -181,10 +182,13 @@ export function EditFund() {
 
             const { data: campaignData, error: fetchError } = await supabase
                 .from("campaigns")
-                .select("images")
+                .select("images, network_created")
                 .eq("id", id)
                 .single();
             if (fetchError) throw fetchError;
+
+            const originalNetwork =
+                campaignData.network_created || formData.network || "local";
 
             const oldUrls: string[] = campaignData.images || [];
             const removedUrls = oldUrls.filter(
@@ -238,6 +242,7 @@ export function EditFund() {
                     deadline: formData.deadline,
                     images: allImageUrls,
                     updated_at: new Date().toISOString(),
+                    network_created: originalNetwork,
                 })
                 .eq("id", id)
                 .eq("creator_id", user.id);
@@ -298,6 +303,19 @@ export function EditFund() {
             setError(err.message || "Failed to update campaign status");
         } finally {
             setStatusLoading(false);
+        }
+    };
+
+    const getNetworkDisplayName = (network: string): string => {
+        switch (network) {
+            case "local":
+                return "Local Development Network";
+            case "sepolia":
+                return "Sepolia Test Network";
+            case "mainnet":
+                return "Ethereum Mainnet";
+            default:
+                return network;
         }
     };
 
@@ -394,7 +412,10 @@ export function EditFund() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div className="bg-surface rounded-xl shadow-lg p-6 md:p-8">
                         <PreviewStep
-                            campaign={formData}
+                            campaign={{
+                                ...formData,
+                                network: formData.network || "local",
+                            }}
                             previewUrls={previewUrls}
                             onBack={prevStep}
                             onSubmit={handleSubmit}
@@ -436,6 +457,31 @@ export function EditFund() {
                             {t`Edit Campaign`}
                         </h1>
                     </div>
+
+                    <div className="mb-6 p-4 bg-primary-light text-primary rounded-lg flex items-start">
+                        <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
+                        <div>
+                            <p className="font-medium">{t`Network: ${getNetworkDisplayName(
+                                formData.network || "local"
+                            )}`}</p>
+                            <p className="text-sm text-text-secondary mt-1">
+                                {t`This campaign was created on the ${getNetworkDisplayName(
+                                    formData.network || "local"
+                                )}. The network cannot be changed after campaign creation.`}
+                            </p>
+                            {formData.network === "mainnet" && (
+                                <p className="text-sm font-medium mt-2">
+                                    {t`This campaign is on mainnet and uses real ETH.`}
+                                </p>
+                            )}
+                        </div>
+                    </div>
+
+                    {error && (
+                        <div className="mb-6 p-4 bg-error-light text-error rounded-lg">
+                            {error}
+                        </div>
+                    )}
 
                     <StepIndicator
                         currentStep={currentStep}
