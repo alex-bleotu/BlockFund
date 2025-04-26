@@ -71,7 +71,7 @@ export function WithdrawModal({
                         <div className="flex justify-between mb-4">
                             <span className="text-text-secondary">{t`You will receive:`}</span>
                             <span className="text-primary font-bold">
-                                {Number(amount) * 0.8} ETH
+                                {(Number(amount) * 0.8).toFixed(3)} ETH
                             </span>
                         </div>
                         <div className="text-xs text-text-secondary mb-4 text-center">

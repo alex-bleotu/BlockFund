@@ -22,7 +22,7 @@ export function SupportModal({
     campaignGoal,
     currentAmount,
     onSupport,
-    minAmount = 0.005,
+    minAmount = 0.001,
 }: SupportModalProps) {
     const { address, connectWallet } = useWallet();
     const { ethPrice } = useEthPrice();

@@ -19,6 +19,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
 import { useAuth } from "../hooks/useAuth";
 import { useMessages } from "../hooks/useMessages";
+import { useWallet } from "../hooks/useWallet";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { NotificationsPanel } from "./NotificationsPanel";
 
@@ -28,6 +29,7 @@ export function MobileDrawer() {
     const { user, signOut } = useAuth();
     const { theme, toggleTheme } = useTheme();
     const { unreadCount } = useMessages();
+    const { disconnectWallet } = useWallet();
     const location = useLocation();
 
     useEffect(() => {
@@ -75,6 +77,7 @@ export function MobileDrawer() {
     const handleSignOut = async () => {
         try {
             await signOut();
+            disconnectWallet();
             setIsOpen(false);
         } catch (error) {
             console.error("Error signing out:", error);

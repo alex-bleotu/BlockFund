@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 import { useNotifications } from "../contexts/NotificationContext";
 import { useAuth } from "../hooks/useAuth";
 import { useMessages } from "../hooks/useMessages";
+import { useWallet } from "../hooks/useWallet";
 import { NotificationsPanel } from "./NotificationsPanel";
 
 export function ProfileMenu() {
     const { user, signOut } = useAuth();
     const { unreadCount, refresh } = useMessages();
     const { lastRefreshed } = useNotifications();
+    const { disconnectWallet } = useWallet();
     const [isOpen, setIsOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -61,6 +63,7 @@ export function ProfileMenu() {
     const handleSignOut = async () => {
         try {
             await signOut();
+            disconnectWallet();
             setIsOpen(false);
         } catch (error) {
             console.error("Error signing out:", error);
