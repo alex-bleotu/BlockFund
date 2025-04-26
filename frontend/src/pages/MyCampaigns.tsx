@@ -33,41 +33,39 @@ export function MyCampaigns() {
     );
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
-    const [currentNetwork, setCurrentNetwork] = useState<string>("local");
+    const [currentNetwork, setCurrentNetwork] = useState<string | null>(null);
     const { user } = useAuth();
     const { ethPrice } = useEthPrice();
     const { closeCampaign } = useCampaignContract();
     const navigate = useNavigate();
 
     useEffect(() => {
-        const savedNetwork = localStorage.getItem("NETWORK") || "local";
+        const savedNetwork = localStorage.getItem("NETWORK");
         setCurrentNetwork(savedNetwork);
     }, []);
 
     useEffect(() => {
-        if (user) {
+        if (user && currentNetwork) {
             fetchMyCampaigns();
         }
     }, [user, currentNetwork]);
 
     const fetchMyCampaigns = async () => {
+        if (!user) return;
+
         try {
             setLoading(true);
+
             const { data, error } = await supabase
                 .from("campaigns")
                 .select("*")
-                .eq("creator_id", user?.id)
+                .eq("creator_id", user.id)
+                .eq("network", currentNetwork)
                 .order("created_at", { ascending: false });
 
             if (error) throw error;
 
-            // Filter campaigns based on current network
-            const filteredData =
-                data?.filter(
-                    (campaign) => campaign.network === currentNetwork
-                ) || [];
-
-            setCampaigns(filteredData);
+            setCampaigns(data || []);
         } catch (err) {
             console.error("Error fetching campaigns:", err);
             setError(t`Failed to load your campaigns`);

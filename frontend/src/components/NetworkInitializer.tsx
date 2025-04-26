@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { supabase } from "../lib/supabase";
 
 export function NetworkInitializer() {
-    const [isInitialized, setIsInitialized] = useState(false);
-
     useEffect(() => {
         const fetchNetworkConfig = async () => {
             try {
@@ -28,19 +26,12 @@ export function NetworkInitializer() {
                             `Network initialized to ${networkValue} from database config`
                         );
                     } else {
-                        // Set default network if no value in database
                         localStorage.setItem("NETWORK", "sepolia");
                         console.log("Network initialized to default (sepolia)");
                     }
-                } else {
-                    console.log(
-                        `Using existing network (${localNetwork}) from localStorage`
-                    );
                 }
             } catch (err) {
                 console.error("Failed to initialize network setting:", err);
-            } finally {
-                setIsInitialized(true);
             }
         };
 

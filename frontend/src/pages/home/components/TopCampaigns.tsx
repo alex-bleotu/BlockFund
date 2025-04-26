@@ -11,17 +11,19 @@ import { getCampaignCategory } from "../../../lib/utils";
 export function TopCampaigns() {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [loading, setLoading] = useState(true);
-    const [currentNetwork, setCurrentNetwork] = useState<string>("local");
+    const [currentNetwork, setCurrentNetwork] = useState<string | null>(null);
     const { ethPrice } = useEthPrice();
     const navigate = useNavigate();
 
     useEffect(() => {
-        const savedNetwork = localStorage.getItem("NETWORK") || "local";
+        const savedNetwork = localStorage.getItem("NETWORK");
         setCurrentNetwork(savedNetwork);
     }, []);
 
     useEffect(() => {
-        fetchTopCampaigns();
+        if (currentNetwork) {
+            fetchTopCampaigns();
+        }
     }, [currentNetwork]);
 
     const fetchTopCampaigns = async () => {
@@ -31,6 +33,7 @@ export function TopCampaigns() {
                 .from("campaigns")
                 .select("*")
                 .eq("status", "active")
+                .eq("network", currentNetwork)
                 .neq("status", "completed")
                 .gt("deadline", now)
                 .order("raised", { ascending: false })
@@ -38,13 +41,7 @@ export function TopCampaigns() {
 
             if (error) throw error;
 
-            // Filter campaigns based on current network
-            const filteredData =
-                data?.filter(
-                    (campaign) => campaign.network === currentNetwork
-                ) || [];
-
-            setCampaigns(filteredData);
+            setCampaigns(data || []);
         } catch (err) {
             console.error("Error fetching top campaigns:", err);
         } finally {
