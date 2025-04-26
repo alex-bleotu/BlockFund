@@ -277,12 +277,12 @@ export function NotificationsPanel({
                                                                             ?.title ||
                                                                             "Campaign"}
                                                                     </p>
-                                                                    <p className="text-sm font-medium text-text mb-1">
+                                                                    <p className="text-sm font-medium text-text mb-1 truncate">
                                                                         {
                                                                             message.subject
                                                                         }
                                                                     </p>
-                                                                    <p className="text-sm text-text-secondary line-clamp-2">
+                                                                    <p className="text-sm text-text-secondary break-words whitespace-normal overflow-hidden line-clamp-2">
                                                                         {
                                                                             message.content
                                                                         }

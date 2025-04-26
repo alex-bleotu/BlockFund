@@ -422,17 +422,19 @@ export function CampaignDetails() {
                                             }`}
                                         />
                                     </button>
-                                    {user?.id === campaign.creator_id && (
-                                        <button
-                                            onClick={() =>
-                                                navigate(
-                                                    `/campaign/edit/${campaign.id}`
-                                                )
-                                            }
-                                            className="p-2 text-text-secondary hover:text-primary transition-colors rounded-full hover:bg-primary-light/50">
-                                            <Edit className="w-5 h-5" />
-                                        </button>
-                                    )}
+                                    {user?.id === campaign.creator_id &&
+                                        new Date(campaign.deadline) >
+                                            new Date() && (
+                                            <button
+                                                onClick={() =>
+                                                    navigate(
+                                                        `/campaign/edit/${campaign.id}`
+                                                    )
+                                                }
+                                                className="p-2 text-text-secondary hover:text-primary transition-colors rounded-full hover:bg-primary-light/50">
+                                                <Edit className="w-5 h-5" />
+                                            </button>
+                                        )}
                                     <div className="relative">
                                         <button
                                             onClick={handleShare}

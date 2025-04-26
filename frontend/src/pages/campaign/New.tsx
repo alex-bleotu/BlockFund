@@ -245,8 +245,16 @@ export function NewFund() {
             setLoading(true);
             setError(null);
 
+            const trimmedFormData = {
+                ...formData,
+                title: formData.title.trim(),
+                summary: formData.summary.trim(),
+                description: formData.description.trim(),
+                location: formData.location.trim(),
+            };
+
             const paths: string[] = await Promise.all(
-                formData.images.map(async (file) => {
+                trimmedFormData.images.map(async (file) => {
                     const fileName = `${user.id}/${Date.now()}-${file.name}`;
                     const { data, error } = await supabase.storage
                         .from("campaign-images")
@@ -269,8 +277,8 @@ export function NewFund() {
                 error: launchError,
             } = await launchCampaign(
                 {
-                    ...formData,
-                    goal: parseFloat(formData.goal || "0"),
+                    ...trimmedFormData,
+                    goal: parseFloat(trimmedFormData.goal || "0"),
                     images: imageUrls,
                 },
                 user.id,

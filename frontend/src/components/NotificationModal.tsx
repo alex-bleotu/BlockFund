@@ -117,7 +117,7 @@ export function NotificationModal({
                             </div>
 
                             <div className="mb-4">
-                                <h3 className="font-bold text-text mb-2">
+                                <h3 className="font-bold text-text mb-2 break-words whitespace-normal overflow-hidden">
                                     {message.subject}
                                 </h3>
                                 <div className="bg-background-alt p-4 rounded-lg text-text-secondary whitespace-pre-wrap break-words">

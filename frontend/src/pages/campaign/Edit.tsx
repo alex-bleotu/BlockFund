@@ -118,6 +118,11 @@ export function EditFund() {
                 );
             }
 
+            if (new Date(data.deadline) < new Date()) {
+                navigate(`/campaign/${id}`);
+                throw new Error("Campaign has ended and cannot be edited");
+            }
+
             setFormData({
                 ...data,
                 goal: data.goal.toString(),
@@ -130,7 +135,8 @@ export function EditFund() {
             setError(err.message || t`Failed to load campaign`);
             if (
                 err.message ===
-                "You do not have permission to edit this campaign"
+                    "You do not have permission to edit this campaign" ||
+                err.message === "Campaign has ended and cannot be edited"
             ) {
                 setTimeout(() => {
                     navigate(`/campaign/${id}`);
@@ -231,10 +237,19 @@ export function EditFund() {
             setLoading(true);
             setError(null);
 
-            const newFiles = formData.images.filter(
+            // Trim all string values
+            const trimmedFormData = {
+                ...formData,
+                title: formData.title.trim(),
+                summary: formData.summary.trim(),
+                description: formData.description.trim(),
+                location: formData.location.trim(),
+            };
+
+            const newFiles = trimmedFormData.images.filter(
                 (img): img is File => img instanceof File
             );
-            const existingUrls = formData.images.filter(
+            const existingUrls = trimmedFormData.images.filter(
                 (img): img is string => typeof img === "string"
             );
 
@@ -288,13 +303,13 @@ export function EditFund() {
             const { error } = await supabase
                 .from("campaigns")
                 .update({
-                    title: formData.title,
-                    category: formData.category,
-                    goal: parseFloat(formData.goal) || 0,
-                    summary: formData.summary,
-                    description: formData.description,
-                    location: formData.location,
-                    deadline: formData.deadline,
+                    title: trimmedFormData.title,
+                    category: trimmedFormData.category,
+                    goal: parseFloat(trimmedFormData.goal) || 0,
+                    summary: trimmedFormData.summary,
+                    description: trimmedFormData.description,
+                    location: trimmedFormData.location,
+                    deadline: trimmedFormData.deadline,
                     images: allImageUrls,
                     updated_at: new Date().toISOString(),
                 })
