@@ -42,6 +42,7 @@ export async function launchCampaign(
                     status: "active",
                     tx_hash: onChainTx.hash,
                     onchain_id: onChainTx.id,
+                    network: campaign.network || "sepolia",
                 },
             ])
             .select()
