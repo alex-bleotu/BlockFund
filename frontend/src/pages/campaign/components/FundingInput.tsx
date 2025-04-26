@@ -25,7 +25,7 @@ export function FundingInput({
             const parsed = parseFloat(inputVal);
 
             if (!isNaN(parsed) && parsed >= 0 && ethPrice) {
-                const convertedEth = (parsed / ethPrice).toFixed(4);
+                const convertedEth = (parsed / ethPrice).toFixed(3);
                 setEthAmount(convertedEth);
                 onChange(convertedEth);
             } else {
@@ -37,7 +37,22 @@ export function FundingInput({
 
     const handleEthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputVal = e.target.value;
+
         if (/^\d*\.?\d*$/.test(inputVal)) {
+            const parts = inputVal.split(".");
+            if (parts.length > 1 && parts[1].length > 3) {
+                const truncated = parts[0] + "." + parts[1].substring(0, 3);
+                setEthAmount(truncated);
+                onChange(truncated);
+
+                const parsed = parseFloat(truncated);
+                if (!isNaN(parsed) && parsed >= 0 && ethPrice) {
+                    const convertedUsd = (parsed * ethPrice).toFixed(2);
+                    setUsdAmount(convertedUsd);
+                }
+                return;
+            }
+
             setEthAmount(inputVal);
             onChange(inputVal);
 

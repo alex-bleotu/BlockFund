@@ -249,7 +249,7 @@ export function Profile() {
                                                                     campaign.raised ||
                                                                     0
                                                                 ).toFixed(
-                                                                    2
+                                                                    3
                                                                 )}{" "}
                                                                 {t`ETH raised`}
                                                             </span>
@@ -303,7 +303,7 @@ export function Profile() {
                                                         <Target className="w-4 h-4 mr-1" />
                                                         <span>
                                                             {campaign.goal.toFixed(
-                                                                2
+                                                                3
                                                             )}{" "}
                                                             {t`ETH`}
                                                         </span>
@@ -363,7 +363,7 @@ export function Profile() {
                                                                 0),
                                                         0
                                                     )
-                                                    .toFixed(2)}
+                                                    .toFixed(3)}
                                             </div>
                                             <div className="text-sm text-text-secondary">
                                                 {t`ETH Raised`}

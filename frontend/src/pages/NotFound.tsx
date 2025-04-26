@@ -7,7 +7,7 @@ export function NotFound() {
 
     return (
         <div className="min-h-screen bg-background flex items-center justify-center px-4">
-            <div className="max-w-md w-full text-center space-y-8">
+            <div className="max-w-md w-full text-center space-y-4">
                 <div className="flex justify-center">
                     <div className="w-24 h-24 relative">
                         <div className="absolute inset-0 bg-primary-light rounded-full animate-pulse"></div>
@@ -17,23 +17,25 @@ export function NotFound() {
                     </div>
                 </div>
 
-                <h1 className="text-9xl font-bold text-primary">404</h1>
-                <h2 className="text-2xl font-bold text-text">{t`Page Not Found`}</h2>
-                <p className="text-text-secondary">
-                    {t`The page you are looking for doesn't exist or has been moved.`}
-                </p>
+                <h1 className="text-8xl font-bold text-primary">404</h1>
+                <div className="space-y-2">
+                    <h2 className="text-2xl font-bold text-text">{t`Page Not Found`}</h2>
+                    <p className="text-text-secondary">
+                        {t`The page you are looking for doesn't exist or has been moved.`}
+                    </p>
+                </div>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
                     <button
                         onClick={() => navigate(-1)}
-                        className="flex items-center justify-center px-6 py-3 border-2 border-primary rounded-xl text-primary hover:bg-primary hover:text-light transition-colors w-full sm:w-auto">
+                        className="flex items-center justify-center px-4 py-2.5 text-sm font-medium border-2 border-primary rounded-xl text-primary hover:bg-primary hover:text-light transition-colors w-full sm:w-auto">
                         <ArrowLeft className="w-5 h-5 mr-2" />
                         {t`Go Back`}
                     </button>
 
                     <Link
                         to="/"
-                        className="flex items-center justify-center px-6 py-3 bg-primary text-light rounded-xl hover:bg-primary-dark transition-colors w-full sm:w-auto">
+                        className="flex items-center justify-center px-4 py-2.5 text-sm font-medium bg-primary text-light rounded-xl hover:bg-primary-dark transition-colors w-full sm:w-auto">
                         {t`Go Home`}
                         <Rocket className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform" />
                     </Link>
