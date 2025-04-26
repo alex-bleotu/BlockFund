@@ -60,7 +60,7 @@ msgstr "ACTIVE"
 msgid "Active Campaigns"
 msgstr "Active Campaigns"
 
-#: src/pages/home/components/Stats.tsx:169
+#: src/pages/home/components/Stats.tsx:191
 msgid "Active Users"
 msgstr "Active Users"
 
@@ -74,7 +74,7 @@ msgstr "Add up to 4 images (PNG or JPG only). First image will be the cover imag
 
 #: src/pages/MyCampaigns.tsx:268
 #: src/pages/Campaigns.tsx:243
-#: src/components/NotificationsPanel.tsx:187
+#: src/components/NotificationsPanel.tsx:214
 msgid "All"
 msgstr "All"
 
@@ -82,7 +82,7 @@ msgstr "All"
 msgid "All Categories"
 msgstr "All Categories"
 
-#: src/components/NotificationsPanel.tsx:225
+#: src/components/NotificationsPanel.tsx:252
 msgid "All caught up!"
 msgstr "All caught up!"
 
@@ -105,6 +105,14 @@ msgstr "Amount to Contribute"
 #: src/components/WithdrawModal.tsx:66
 msgid "Amount:"
 msgstr "Amount:"
+
+#: src/components/NotificationsPanel.tsx:148
+msgid "An error occurred"
+msgstr "An error occurred"
+
+#: src/components/NotificationModal.tsx:94
+msgid "An error occurred while deleting the message"
+msgstr "An error occurred while deleting the message"
 
 #: src/components/SupportModal.tsx:127
 msgid "and help make it a reality"
@@ -246,7 +254,7 @@ msgstr "Can I use this for real crowdfunding?"
 #: src/pages/campaign/components/StatusModal.tsx:47
 #: src/components/WithdrawModal.tsx:101
 #: src/components/SupportModal.tsx:230
-#: src/components/NotificationModal.tsx:163
+#: src/components/NotificationModal.tsx:195
 #: src/components/DeleteCampaignModal.tsx:67
 msgid "Cancel"
 msgstr "Cancel"
@@ -280,7 +288,7 @@ msgstr "Change Campaign Status"
 #: src/pages/campaign/Edit.tsx:729
 #: src/pages/campaign/Edit.tsx:761
 #: src/pages/campaign/Edit.tsx:792
-#: src/components/NotificationModal.tsx:157
+#: src/components/NotificationModal.tsx:189
 #: src/components/ContactModal.tsx:126
 #: src/components/ContactModal.tsx:159
 msgid "characters"
@@ -294,7 +302,7 @@ msgstr "Check out this campaign on BlockFund"
 msgid "Choose a username"
 msgstr "Choose a username"
 
-#: src/components/NotificationsPanel.tsx:301
+#: src/components/NotificationsPanel.tsx:331
 msgid "Click to view"
 msgstr "Click to view"
 
@@ -660,6 +668,12 @@ msgstr "Failed to create campaign"
 msgid "Failed to delete campaign"
 msgstr "Failed to delete campaign"
 
+#: src/hooks/useMessages.ts:233
+#: src/components/NotificationsPanel.tsx:144
+#: src/components/NotificationModal.tsx:90
+msgid "Failed to delete message"
+msgstr "Failed to delete message"
+
 #: src/hooks/useWallet.ts:142
 msgid "Failed to disconnect wallet"
 msgstr "Failed to disconnect wallet"
@@ -750,7 +764,7 @@ msgstr "Food"
 msgid "Frequently Asked Questions"
 msgstr "Frequently Asked Questions"
 
-#: src/components/NotificationModal.tsx:106
+#: src/components/NotificationModal.tsx:138
 msgid "From:"
 msgstr "From:"
 
@@ -921,6 +935,7 @@ msgstr "Loading blockchain data..."
 msgid "Loading..."
 msgstr "Loading..."
 
+#: src/pages/home/components/Stats.tsx:177
 #: src/pages/admin/ContractSettings.tsx:149
 msgid "Local"
 msgstr "Local"
@@ -961,6 +976,7 @@ msgstr "Location is limited to"
 msgid "Login"
 msgstr "Login"
 
+#: src/pages/home/components/Stats.tsx:181
 #: src/pages/admin/ContractSettings.tsx:169
 msgid "Mainnet"
 msgstr "Mainnet"
@@ -969,7 +985,7 @@ msgstr "Mainnet"
 msgid "Make a real difference by supporting projects that matter to you and your community."
 msgstr "Make a real difference by supporting projects that matter to you and your community."
 
-#: src/components/NotificationsPanel.tsx:209
+#: src/components/NotificationsPanel.tsx:236
 msgid "Mark all as read"
 msgstr "Mark all as read"
 
@@ -987,10 +1003,15 @@ msgid "Menu"
 msgstr "Menu"
 
 #: src/pages/Contact.tsx:230
-#: src/components/NotificationModal.tsx:92
+#: src/components/NotificationModal.tsx:116
 #: src/components/ContactModal.tsx:133
 msgid "Message"
 msgstr "Message"
+
+#: src/components/NotificationsPanel.tsx:140
+#: src/components/NotificationModal.tsx:86
+msgid "Message deleted"
+msgstr "Message deleted"
 
 #: src/components/ContactModal.tsx:59
 msgid "Message sent successfully!"
@@ -1077,6 +1098,10 @@ msgstr "Network cannot be changed after campaign creation"
 msgid "Network settings saved for all users."
 msgstr "Network settings saved for all users."
 
+#: src/pages/home/components/Stats.tsx:233
+msgid "Network:"
+msgstr "Network:"
+
 #: src/pages/MyCampaigns.tsx:252
 msgid "New Campaign"
 msgstr "New Campaign"
@@ -1122,11 +1147,11 @@ msgstr "No funds available to withdraw."
 msgid "No images uploaded"
 msgstr "No images uploaded"
 
-#: src/components/NotificationsPanel.tsx:235
+#: src/components/NotificationsPanel.tsx:262
 msgid "No notifications yet"
 msgstr "No notifications yet"
 
-#: src/components/NotificationsPanel.tsx:228
+#: src/components/NotificationsPanel.tsx:255
 msgid "No unread notifications"
 msgstr "No unread notifications"
 
@@ -1142,7 +1167,7 @@ msgstr "No, BlockFund is not a real crowdfunding platform. This is a school proj
 msgid "No, this platform should not be used for real crowdfunding purposes. It is a prototype designed for educational demonstration only. For real crowdfunding, please use established platforms like Kickstarter, GoFundMe, or other legitimate services."
 msgstr "No, this platform should not be used for real crowdfunding purposes. It is a prototype designed for educational demonstration only. For real crowdfunding, please use established platforms like Kickstarter, GoFundMe, or other legitimate services."
 
-#: src/components/NotificationsPanel.tsx:167
+#: src/components/NotificationsPanel.tsx:194
 #: src/components/MobileDrawer.tsx:189
 msgid "Notifications"
 msgstr "Notifications"
@@ -1222,8 +1247,8 @@ msgid "Processing..."
 msgstr "Processing..."
 
 #: src/pages/Settings.tsx:253
-#: src/components/NotificationsPanel.tsx:286
-#: src/components/NotificationModal.tsx:115
+#: src/components/NotificationsPanel.tsx:315
+#: src/components/NotificationModal.tsx:147
 msgid "Profile"
 msgstr "Profile"
 
@@ -1266,7 +1291,7 @@ msgstr "Quick Response Time"
 #~ msgid "Re:"
 #~ msgstr "Re:"
 
-#: src/components/NotificationModal.tsx:189
+#: src/components/NotificationModal.tsx:221
 msgid "Reply"
 msgstr "Reply"
 
@@ -1300,7 +1325,7 @@ msgstr "Search campaigns..."
 msgid "Secure & Transparent"
 msgstr "Secure & Transparent"
 
-#: src/pages/home/components/Stats.tsx:187
+#: src/pages/home/components/Stats.tsx:209
 msgid "Secure Projects"
 msgstr "Secure Projects"
 
@@ -1316,7 +1341,7 @@ msgstr "Security Settings"
 msgid "See how others view your profile"
 msgstr "See how others view your profile"
 
-#: src/components/NotificationModal.tsx:176
+#: src/components/NotificationModal.tsx:208
 msgid "Send"
 msgstr "Send"
 
@@ -1330,11 +1355,12 @@ msgid "Send us a Message"
 msgstr "Send us a Message"
 
 #: src/pages/Contact.tsx:251
-#: src/components/NotificationModal.tsx:173
+#: src/components/NotificationModal.tsx:205
 #: src/components/ContactModal.tsx:174
 msgid "Sending..."
 msgstr "Sending..."
 
+#: src/pages/home/components/Stats.tsx:179
 #: src/pages/admin/ContractSettings.tsx:159
 msgid "Sepolia"
 msgstr "Sepolia"
@@ -1429,7 +1455,7 @@ msgstr "Story"
 msgid "Subject"
 msgstr "Subject"
 
-#: src/pages/home/components/Stats.tsx:196
+#: src/pages/home/components/Stats.tsx:218
 msgid "Success Rate"
 msgstr "Success Rate"
 
@@ -1559,7 +1585,7 @@ msgstr "Toggle theme"
 msgid "Top Active Campaigns"
 msgstr "Top Active Campaigns"
 
-#: src/pages/home/components/Stats.tsx:178
+#: src/pages/home/components/Stats.tsx:200
 msgid "Total Raised"
 msgstr "Total Raised"
 
@@ -1584,19 +1610,19 @@ msgstr "Trust & Security"
 msgid "Type your message here..."
 msgstr "Type your message here..."
 
-#: src/components/NotificationModal.tsx:137
+#: src/components/NotificationModal.tsx:169
 msgid "Type your reply..."
 msgstr "Type your reply..."
 
-#: src/components/NotificationModal.tsx:107
+#: src/components/NotificationModal.tsx:139
 msgid "Unknown"
 msgstr "Unknown"
 
-#: src/components/NotificationsPanel.tsx:274
+#: src/components/NotificationsPanel.tsx:301
 msgid "Unknown User"
 msgstr "Unknown User"
 
-#: src/components/NotificationsPanel.tsx:198
+#: src/components/NotificationsPanel.tsx:225
 msgid "Unread"
 msgstr "Unread"
 
@@ -1676,7 +1702,7 @@ msgstr "We strive for excellence in everything we do, from code to customer serv
 msgid "We typically respond within 2-3 business hours during our working hours."
 msgstr "We typically respond within 2-3 business hours during our working hours."
 
-#: src/components/NotificationsPanel.tsx:238
+#: src/components/NotificationsPanel.tsx:265
 msgid "We'll notify you when something happens"
 msgstr "We'll notify you when something happens"
 

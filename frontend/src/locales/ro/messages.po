@@ -60,7 +60,7 @@ msgstr "ACTIV"
 msgid "Active Campaigns"
 msgstr "Campanii active"
 
-#: src/pages/home/components/Stats.tsx:169
+#: src/pages/home/components/Stats.tsx:191
 msgid "Active Users"
 msgstr "Utilizatori activi"
 
@@ -74,7 +74,7 @@ msgstr "Adaugă până la 4 imagini (PNG sau JPG doar). Prima imagine va fi imag
 
 #: src/pages/MyCampaigns.tsx:268
 #: src/pages/Campaigns.tsx:243
-#: src/components/NotificationsPanel.tsx:187
+#: src/components/NotificationsPanel.tsx:214
 msgid "All"
 msgstr "Toate"
 
@@ -82,7 +82,7 @@ msgstr "Toate"
 msgid "All Categories"
 msgstr "Toate categoriile"
 
-#: src/components/NotificationsPanel.tsx:225
+#: src/components/NotificationsPanel.tsx:252
 msgid "All caught up!"
 msgstr "Toate notificările au fost citite!"
 
@@ -105,6 +105,14 @@ msgstr "Sumă de contribuit"
 #: src/components/WithdrawModal.tsx:66
 msgid "Amount:"
 msgstr "Sumă:"
+
+#: src/components/NotificationsPanel.tsx:148
+msgid "An error occurred"
+msgstr "A apărut o eroare"
+
+#: src/components/NotificationModal.tsx:94
+msgid "An error occurred while deleting the message"
+msgstr "A apărut o eroare la ștergerea mesajului"
 
 #: src/components/SupportModal.tsx:127
 msgid "and help make it a reality"
@@ -246,7 +254,7 @@ msgstr "Pot folosi aceasta pentru crowdfunding real?"
 #: src/pages/campaign/components/StatusModal.tsx:47
 #: src/components/WithdrawModal.tsx:101
 #: src/components/SupportModal.tsx:230
-#: src/components/NotificationModal.tsx:163
+#: src/components/NotificationModal.tsx:195
 #: src/components/DeleteCampaignModal.tsx:67
 msgid "Cancel"
 msgstr "Anulează"
@@ -280,7 +288,7 @@ msgstr "Schimbă statusul campaniei"
 #: src/pages/campaign/Edit.tsx:729
 #: src/pages/campaign/Edit.tsx:761
 #: src/pages/campaign/Edit.tsx:792
-#: src/components/NotificationModal.tsx:157
+#: src/components/NotificationModal.tsx:189
 #: src/components/ContactModal.tsx:126
 #: src/components/ContactModal.tsx:159
 msgid "characters"
@@ -294,7 +302,7 @@ msgstr "Vezi această campanie pe BlockFund"
 msgid "Choose a username"
 msgstr "Alege un nume de utilizator"
 
-#: src/components/NotificationsPanel.tsx:301
+#: src/components/NotificationsPanel.tsx:331
 msgid "Click to view"
 msgstr "Click pentru a vedea"
 
@@ -660,49 +668,55 @@ msgstr "Creare campanie eșuată"
 msgid "Failed to delete campaign"
 msgstr "Ștergere campanie eșuată"
 
+#: src/hooks/useMessages.ts:233
+#: src/components/NotificationsPanel.tsx:144
+#: src/components/NotificationModal.tsx:90
+msgid "Failed to delete message"
+msgstr "Ștergerea mesajului a eșuat"
+
 #: src/hooks/useWallet.ts:142
 msgid "Failed to disconnect wallet"
-msgstr "Deconectare portofel eșuată"
+msgstr "Deconectarea portofelului a eșuat"
 
 #: src/pages/campaign/Edit.tsx:135
 msgid "Failed to load campaign"
-msgstr "Încărcare campanie eșuată"
+msgstr "Încărcarea campaniei a eșuat"
 
 #: src/pages/Campaigns.tsx:68
 msgid "Failed to load campaigns"
-msgstr "Încărcare campanii eșuată"
+msgstr "Încărcarea campaniilor a eșuat"
 
 #: src/hooks/useMessages.ts:121
 msgid "Failed to load messages"
-msgstr "Încărcare mesaje eșuată"
+msgstr "Încărcarea mesajelor a eșuat"
 
 #: src/pages/Profile.tsx:75
 msgid "Failed to load profile"
-msgstr "Încărcare profil eșuată"
+msgstr "Încărcarea profilului a eșuat"
 
 #: src/pages/Settings.tsx:112
 msgid "Failed to load profile data"
-msgstr "Încărcare date profil eșuată"
+msgstr "Încărcarea datelor profilului a eșuat"
 
 #: src/hooks/useWallet.ts:43
 msgid "Failed to load wallet"
-msgstr "Încărcare portofel eșuată"
+msgstr "Încărcarea portofelului a eșuat"
 
 #: src/pages/MyCampaigns.tsx:71
 msgid "Failed to load your campaigns"
-msgstr "Încărcare campaniile tale eșuată"
+msgstr "Încărcarea campaniilor tale a eșuat"
 
 #: src/components/SupportModal.tsx:86
 msgid "Failed to process transaction"
-msgstr "Procesare tranzacție eșuată"
+msgstr "Procesarea tranzacției a eșuat"
 
 #: src/pages/admin/ContractSettings.tsx:82
 msgid "Failed to save settings"
-msgstr "Salvare setări eșuată"
+msgstr "Salvare setărilor a eșuat"
 
 #: src/hooks/useMessages.ts:146
 msgid "Failed to send message"
-msgstr "Trimitere mesaj eșuată"
+msgstr "Trimiterea mesajului a eșuat"
 
 #: src/pages/Contact.tsx:162
 msgid "Failed to send message. Please try again later."
@@ -750,7 +764,7 @@ msgstr "Mâncare"
 msgid "Frequently Asked Questions"
 msgstr "Întrebări frecvente"
 
-#: src/components/NotificationModal.tsx:106
+#: src/components/NotificationModal.tsx:138
 msgid "From:"
 msgstr "De la:"
 
@@ -921,6 +935,7 @@ msgstr "Se încarcă datele blockchain..."
 msgid "Loading..."
 msgstr "Se încarcă..."
 
+#: src/pages/home/components/Stats.tsx:177
 #: src/pages/admin/ContractSettings.tsx:149
 msgid "Local"
 msgstr "Local"
@@ -961,6 +976,7 @@ msgstr "Locația este limitată la"
 msgid "Login"
 msgstr "Autentificare"
 
+#: src/pages/home/components/Stats.tsx:181
 #: src/pages/admin/ContractSettings.tsx:169
 msgid "Mainnet"
 msgstr "Mainnet"
@@ -969,7 +985,7 @@ msgstr "Mainnet"
 msgid "Make a real difference by supporting projects that matter to you and your community."
 msgstr "Fă o diferență reală susținând proiecte care contează pentru tine și comunitatea ta."
 
-#: src/components/NotificationsPanel.tsx:209
+#: src/components/NotificationsPanel.tsx:236
 msgid "Mark all as read"
 msgstr "Marchează toate ca citite"
 
@@ -987,10 +1003,15 @@ msgid "Menu"
 msgstr "Meniu"
 
 #: src/pages/Contact.tsx:230
-#: src/components/NotificationModal.tsx:92
+#: src/components/NotificationModal.tsx:116
 #: src/components/ContactModal.tsx:133
 msgid "Message"
 msgstr "Mesaj"
+
+#: src/components/NotificationsPanel.tsx:140
+#: src/components/NotificationModal.tsx:86
+msgid "Message deleted"
+msgstr "Mesaj șters"
 
 #: src/components/ContactModal.tsx:59
 msgid "Message sent successfully!"
@@ -1077,6 +1098,10 @@ msgstr "Rețeaua nu poate fi schimbată după crearea campaniei"
 msgid "Network settings saved for all users."
 msgstr "Setările rețelei au fost salvate pentru toți utilizatorii"
 
+#: src/pages/home/components/Stats.tsx:233
+msgid "Network:"
+msgstr "Rețea:"
+
 #: src/pages/MyCampaigns.tsx:252
 msgid "New Campaign"
 msgstr "Campanie nouă"
@@ -1122,11 +1147,11 @@ msgstr "Nu există fonduri disponibile pentru retragere."
 msgid "No images uploaded"
 msgstr "Nu există imagini încărcate"
 
-#: src/components/NotificationsPanel.tsx:235
+#: src/components/NotificationsPanel.tsx:262
 msgid "No notifications yet"
 msgstr "Nu există notificări deocamdată"
 
-#: src/components/NotificationsPanel.tsx:228
+#: src/components/NotificationsPanel.tsx:255
 msgid "No unread notifications"
 msgstr "Nu există notificări necitite"
 
@@ -1142,7 +1167,7 @@ msgstr "Nu, BlockFund nu este o platformă reală de crowdfunding. Acesta este u
 msgid "No, this platform should not be used for real crowdfunding purposes. It is a prototype designed for educational demonstration only. For real crowdfunding, please use established platforms like Kickstarter, GoFundMe, or other legitimate services."
 msgstr "Nu, această platformă nu ar trebui folosită pentru scopuri reale de crowdfunding. Este un prototip creat doar pentru demonstrație educațională. Pentru crowdfunding real, vă rugăm să folosiți platforme consacrate precum Kickstarter, GoFundMe sau alte servicii legitime."
 
-#: src/components/NotificationsPanel.tsx:167
+#: src/components/NotificationsPanel.tsx:194
 #: src/components/MobileDrawer.tsx:189
 msgid "Notifications"
 msgstr "Notificări"
@@ -1222,8 +1247,8 @@ msgid "Processing..."
 msgstr "Se procesează..."
 
 #: src/pages/Settings.tsx:253
-#: src/components/NotificationsPanel.tsx:286
-#: src/components/NotificationModal.tsx:115
+#: src/components/NotificationsPanel.tsx:315
+#: src/components/NotificationModal.tsx:147
 msgid "Profile"
 msgstr "Profil"
 
@@ -1266,7 +1291,7 @@ msgstr "Timp de răspuns rapid"
 #~ msgid "Re:"
 #~ msgstr "Re:"
 
-#: src/components/NotificationModal.tsx:189
+#: src/components/NotificationModal.tsx:221
 msgid "Reply"
 msgstr "Răspuns"
 
@@ -1300,7 +1325,7 @@ msgstr "Caută campanii..."
 msgid "Secure & Transparent"
 msgstr "Securizat și transparent"
 
-#: src/pages/home/components/Stats.tsx:187
+#: src/pages/home/components/Stats.tsx:209
 msgid "Secure Projects"
 msgstr "Proiecte sigure"
 
@@ -1316,7 +1341,7 @@ msgstr "Setări de securitate"
 msgid "See how others view your profile"
 msgstr "Vezi cum îți vizualizează alții profilul"
 
-#: src/components/NotificationModal.tsx:176
+#: src/components/NotificationModal.tsx:208
 msgid "Send"
 msgstr "Trimite"
 
@@ -1330,11 +1355,12 @@ msgid "Send us a Message"
 msgstr "Trimite-ne un mesaj"
 
 #: src/pages/Contact.tsx:251
-#: src/components/NotificationModal.tsx:173
+#: src/components/NotificationModal.tsx:205
 #: src/components/ContactModal.tsx:174
 msgid "Sending..."
 msgstr "Se trimite..."
 
+#: src/pages/home/components/Stats.tsx:179
 #: src/pages/admin/ContractSettings.tsx:159
 msgid "Sepolia"
 msgstr "Sepolia"
@@ -1429,7 +1455,7 @@ msgstr "Poveste"
 msgid "Subject"
 msgstr "Subiect"
 
-#: src/pages/home/components/Stats.tsx:196
+#: src/pages/home/components/Stats.tsx:218
 msgid "Success Rate"
 msgstr "Rată de succes"
 
@@ -1559,7 +1585,7 @@ msgstr "Schimbă tema"
 msgid "Top Active Campaigns"
 msgstr "Top campanii active"
 
-#: src/pages/home/components/Stats.tsx:178
+#: src/pages/home/components/Stats.tsx:200
 msgid "Total Raised"
 msgstr "Total strâns"
 
@@ -1584,19 +1610,19 @@ msgstr "Încredere și securitate"
 msgid "Type your message here..."
 msgstr "Scrieți mesajul aici..."
 
-#: src/components/NotificationModal.tsx:137
+#: src/components/NotificationModal.tsx:169
 msgid "Type your reply..."
 msgstr "Scrieți răspunsul aici..."
 
-#: src/components/NotificationModal.tsx:107
+#: src/components/NotificationModal.tsx:139
 msgid "Unknown"
 msgstr "Necunoscut"
 
-#: src/components/NotificationsPanel.tsx:274
+#: src/components/NotificationsPanel.tsx:301
 msgid "Unknown User"
 msgstr "Utilizator necunoscut"
 
-#: src/components/NotificationsPanel.tsx:198
+#: src/components/NotificationsPanel.tsx:225
 msgid "Unread"
 msgstr "Necitite"
 
@@ -1676,7 +1702,7 @@ msgstr "Ne străduim să obținem excelență în tot ceea ce facem, de la cod p
 msgid "We typically respond within 2-3 business hours during our working hours."
 msgstr "De obicei, răspundem în decurs de 2-3 ore lucrătoare în timpul programului nostru."
 
-#: src/components/NotificationsPanel.tsx:238
+#: src/components/NotificationsPanel.tsx:265
 msgid "We'll notify you when something happens"
 msgstr "Vom vă informa când se întâmplă ceva"
 
