@@ -1,5 +1,5 @@
 import { t } from "@lingui/core/macro";
-import { Shield, Sparkles, TrendingUp, Users } from "lucide-react";
+import { GlobeIcon, Shield, Sparkles, TrendingUp, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useEthPrice } from "../../../hooks/useEthPrice";
 import { supabase } from "../../../lib/supabase";
@@ -99,9 +99,17 @@ export function Stats() {
         successRate: "0",
     });
     const [isLoading, setIsLoading] = useState(true);
+    const [currentNetwork, setCurrentNetwork] = useState<string>("local");
+
+    useEffect(() => {
+        const savedNetwork = localStorage.getItem("NETWORK") || "local";
+        setCurrentNetwork(savedNetwork);
+    }, []);
 
     useEffect(() => {
         const fetchStats = async () => {
+            if (!currentNetwork) return;
+
             setIsLoading(true);
             try {
                 const { count: usersCount, error: usersError } = await supabase
@@ -114,7 +122,8 @@ export function Stats() {
                 const { data: campaignsData, error: campaignsError } =
                     await supabase
                         .from("campaigns")
-                        .select("raised, goal, status");
+                        .select("raised, goal, status, network")
+                        .eq("network", currentNetwork);
 
                 if (campaignsError) throw campaignsError;
 
@@ -130,11 +139,11 @@ export function Stats() {
                 const { count: projectsCount, error: projectsError } =
                     await supabase
                         .from("campaigns")
-                        .select("*", { count: "exact", head: true });
+                        .select("*", { count: "exact", head: true })
+                        .eq("network", currentNetwork);
 
                 if (projectsError) throw projectsError;
 
-                // Count completed campaigns for success rate
                 const completedCount = campaignsData.filter(
                     (campaign) => campaign.status === "completed"
                 ).length;
@@ -160,7 +169,20 @@ export function Stats() {
         };
 
         fetchStats();
-    }, [ethPrice]);
+    }, [ethPrice, currentNetwork]);
+
+    const getNetworkDisplay = (network: string) => {
+        switch (network) {
+            case "local":
+                return t`Local`;
+            case "sepolia":
+                return t`Sepolia`;
+            case "mainnet":
+                return t`Mainnet`;
+            default:
+                return network;
+        }
+    };
 
     const stats = [
         {
@@ -204,6 +226,14 @@ export function Stats() {
     return (
         <div className="py-16 bg-background-alt">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-center mb-8">
+                    <div className="inline-flex items-center bg-surface px-4 py-2 rounded-lg shadow">
+                        <GlobeIcon className="w-5 h-5 text-primary mr-2" />
+                        <span className="text-text font-medium">
+                            {t`Network:`} {getNetworkDisplay(currentNetwork)}
+                        </span>
+                    </div>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {stats.map((stat, index) => (
                         <StatCard
