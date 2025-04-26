@@ -26,7 +26,7 @@ msgstr "About"
 msgid "About BlockFund"
 msgstr "About BlockFund"
 
-#: src/pages/CampaignDetails.tsx:727
+#: src/pages/CampaignDetails.tsx:734
 msgid "About the Creator"
 msgstr "About the Creator"
 
@@ -52,7 +52,7 @@ msgstr "Access funding opportunities from anywhere in the world, breaking down g
 msgid "Active"
 msgstr "Active"
 
-#: src/pages/CampaignDetails.tsx:576
+#: src/pages/CampaignDetails.tsx:583
 msgid "ACTIVE"
 msgstr "ACTIVE"
 
@@ -142,7 +142,7 @@ msgstr "Automated fund distribution and milestone tracking through smart contrac
 #: src/pages/campaign/New.tsx:467
 #: src/pages/campaign/New.tsx:704
 #: src/pages/campaign/Edit.tsx:531
-#: src/pages/campaign/Edit.tsx:813
+#: src/pages/campaign/Edit.tsx:815
 #: src/pages/campaign/components/PreviewStep.tsx:125
 #: src/pages/admin/ContractSettings.tsx:99
 msgid "Back"
@@ -160,8 +160,8 @@ msgstr "Basics"
 msgid "Bio"
 msgstr "Bio"
 
-#: src/pages/CampaignDetails.tsx:556
-#: src/pages/CampaignDetails.tsx:570
+#: src/pages/CampaignDetails.tsx:563
+#: src/pages/CampaignDetails.tsx:577
 msgid "Blockchain Status"
 msgstr "Blockchain Status"
 
@@ -181,7 +181,7 @@ msgstr "BlockFund. All rights reserved."
 msgid "Call Us"
 msgstr "Call Us"
 
-#: src/pages/CampaignDetails.tsx:682
+#: src/pages/CampaignDetails.tsx:689
 msgid "Campaign Completed"
 msgstr "Campaign Completed"
 
@@ -207,8 +207,8 @@ msgstr "Campaign deleted successfully"
 msgid "Campaign End Date"
 msgstr "Campaign End Date"
 
-#: src/pages/CampaignDetails.tsx:529
-#: src/pages/CampaignDetails.tsx:679
+#: src/pages/CampaignDetails.tsx:536
+#: src/pages/CampaignDetails.tsx:686
 msgid "Campaign Ended"
 msgstr "Campaign Ended"
 
@@ -285,9 +285,9 @@ msgstr "Change Campaign Status"
 #: src/pages/campaign/Edit.tsx:202
 #: src/pages/campaign/Edit.tsx:211
 #: src/pages/campaign/Edit.tsx:585
-#: src/pages/campaign/Edit.tsx:729
-#: src/pages/campaign/Edit.tsx:761
-#: src/pages/campaign/Edit.tsx:792
+#: src/pages/campaign/Edit.tsx:731
+#: src/pages/campaign/Edit.tsx:763
+#: src/pages/campaign/Edit.tsx:794
 #: src/components/NotificationModal.tsx:189
 #: src/components/ContactModal.tsx:126
 #: src/components/ContactModal.tsx:159
@@ -342,7 +342,7 @@ msgid "Confirm New Password"
 msgstr "Confirm New Password"
 
 #: src/pages/Settings.tsx:532
-#: src/pages/CampaignDetails.tsx:598
+#: src/pages/CampaignDetails.tsx:605
 #: src/pages/campaign/New.tsx:417
 #: src/pages/campaign/Edit.tsx:458
 #: src/components/SupportModal.tsx:149
@@ -389,7 +389,7 @@ msgstr "Connection already in progress. Please check MetaMask."
 msgid "Contact"
 msgstr "Contact"
 
-#: src/pages/CampaignDetails.tsx:768
+#: src/pages/CampaignDetails.tsx:775
 #: src/components/ContactModal.tsx:77
 msgid "Contact Creator"
 msgstr "Contact Creator"
@@ -418,12 +418,12 @@ msgstr "Contribute to"
 msgid "Contribute to Campaign"
 msgstr "Contribute to Campaign"
 
-#: src/pages/CampaignDetails.tsx:683
+#: src/pages/CampaignDetails.tsx:690
 #: src/components/SupportModal.tsx:120
 msgid "Contribute to this Campaign"
 msgstr "Contribute to this Campaign"
 
-#: src/pages/CampaignDetails.tsx:718
+#: src/pages/CampaignDetails.tsx:725
 msgid "Contribute to this campaign with ETH."
 msgstr "Contribute to this campaign with ETH."
 
@@ -463,7 +463,7 @@ msgstr "Creating account..."
 msgid "Crowdfunding"
 msgstr "Crowdfunding"
 
-#: src/pages/campaign/components/FundingInput.tsx:125
+#: src/pages/campaign/components/FundingInput.tsx:129
 msgid "Current ETH Price:"
 msgstr "Current ETH Price:"
 
@@ -478,7 +478,7 @@ msgstr "Current password is incorrect"
 #: src/pages/Profile.tsx:90
 #: src/pages/MyCampaigns.tsx:212
 #: src/pages/Campaigns.tsx:116
-#: src/pages/CampaignDetails.tsx:532
+#: src/pages/CampaignDetails.tsx:539
 #: src/pages/home/components/TopCampaigns.tsx:61
 msgid "days left"
 msgstr "days left"
@@ -609,7 +609,7 @@ msgstr "Error Loading Profile"
 msgid "ETH"
 msgstr "ETH"
 
-#: src/pages/campaign/components/FundingInput.tsx:119
+#: src/pages/campaign/components/FundingInput.tsx:123
 msgid "ETH Amount"
 msgstr "ETH Amount"
 
@@ -769,7 +769,7 @@ msgid "From:"
 msgstr "From:"
 
 #: src/pages/campaign/New.tsx:629
-#: src/pages/campaign/Edit.tsx:738
+#: src/pages/campaign/Edit.tsx:740
 msgid "Full Description"
 msgstr "Full Description"
 
@@ -824,7 +824,7 @@ msgstr "goal"
 msgid "Goal"
 msgstr "Goal"
 
-#: src/pages/CampaignDetails.tsx:541
+#: src/pages/CampaignDetails.tsx:548
 #: src/pages/campaign/components/PreviewStep.tsx:303
 msgid "Goal:"
 msgstr "Goal:"
@@ -861,7 +861,7 @@ msgstr "Important Note"
 msgid "Inactive"
 msgstr "Inactive"
 
-#: src/pages/CampaignDetails.tsx:577
+#: src/pages/CampaignDetails.tsx:584
 msgid "INACTIVE"
 msgstr "INACTIVE"
 
@@ -926,12 +926,12 @@ msgstr "Launch Your Campaign"
 msgid "Learn More"
 msgstr "Learn More"
 
-#: src/pages/CampaignDetails.tsx:560
+#: src/pages/CampaignDetails.tsx:567
 msgid "Loading blockchain data..."
 msgstr "Loading blockchain data..."
 
-#: src/pages/CampaignDetails.tsx:637
-#: src/pages/CampaignDetails.tsx:677
+#: src/pages/CampaignDetails.tsx:644
+#: src/pages/CampaignDetails.tsx:684
 msgid "Loading..."
 msgstr "Loading..."
 
@@ -962,7 +962,7 @@ msgid "Local network settings saved for this device only."
 msgstr "Local network settings saved for this device only."
 
 #: src/pages/campaign/New.tsx:661
-#: src/pages/campaign/Edit.tsx:770
+#: src/pages/campaign/Edit.tsx:772
 msgid "Location"
 msgstr "Location"
 
@@ -990,7 +990,6 @@ msgid "Mark all as read"
 msgstr "Mark all as read"
 
 #: src/pages/campaign/New.tsx:559
-#: src/pages/campaign/Edit.tsx:694
 msgid "Maximum funding goal: {MAX_FUNDING_GOAL} ETH"
 msgstr "Maximum funding goal: {MAX_FUNDING_GOAL} ETH"
 
@@ -1034,8 +1033,8 @@ msgstr "MetaMask is locked or not connected. Please unlock your wallet."
 msgid "MetaMask is not installed"
 msgstr "MetaMask is not installed"
 
-#: src/pages/CampaignDetails.tsx:700
-#: src/pages/CampaignDetails.tsx:715
+#: src/pages/CampaignDetails.tsx:707
+#: src/pages/CampaignDetails.tsx:722
 msgid "MetaMask is not installed."
 msgstr "MetaMask is not installed."
 
@@ -1047,7 +1046,7 @@ msgstr "MetaMask is not installed. Please install it to use this app."
 msgid "MetaMask is ready to use"
 msgstr "MetaMask is ready to use"
 
-#: src/pages/CampaignDetails.tsx:597
+#: src/pages/CampaignDetails.tsx:604
 msgid "MetaMask Not Installed"
 msgstr "MetaMask Not Installed"
 
@@ -1115,7 +1114,7 @@ msgid "New passwords do not match"
 msgstr "New passwords do not match"
 
 #: src/pages/campaign/New.tsx:718
-#: src/pages/campaign/Edit.tsx:820
+#: src/pages/campaign/Edit.tsx:822
 msgid "Next Step"
 msgstr "Next Step"
 
@@ -1139,7 +1138,7 @@ msgstr "No campaigns yet"
 msgid "No Campaigns Yet"
 msgstr "No Campaigns Yet"
 
-#: src/pages/CampaignDetails.tsx:710
+#: src/pages/CampaignDetails.tsx:717
 msgid "No funds available to withdraw."
 msgstr "No funds available to withdraw."
 
@@ -1210,7 +1209,7 @@ msgstr "Password"
 msgid "Password updated successfully"
 msgstr "Password updated successfully"
 
-#: src/pages/CampaignDetails.tsx:565
+#: src/pages/CampaignDetails.tsx:572
 msgid "Please connect your wallet!"
 msgstr "Please connect your wallet!"
 
@@ -1222,7 +1221,7 @@ msgstr "Please enter a valid amount"
 msgid "Please enter an amount"
 msgstr "Please enter an amount"
 
-#: src/pages/CampaignDetails.tsx:713
+#: src/pages/CampaignDetails.tsx:720
 msgid "Please sign in to contribute to this campaign."
 msgstr "Please sign in to contribute to this campaign."
 
@@ -1231,7 +1230,7 @@ msgid "Please sign in to create a campaign"
 msgstr "Please sign in to create a campaign"
 
 #: src/pages/campaign/New.tsx:718
-#: src/pages/campaign/Edit.tsx:820
+#: src/pages/campaign/Edit.tsx:822
 #: src/pages/campaign/components/PreviewStep.tsx:120
 msgid "Preview"
 msgstr "Preview"
@@ -1266,7 +1265,7 @@ msgid "Profile updated successfully"
 msgstr "Profile updated successfully"
 
 #: src/pages/campaign/New.tsx:640
-#: src/pages/campaign/Edit.tsx:749
+#: src/pages/campaign/Edit.tsx:751
 msgid "Provide detailed information about your campaign"
 msgstr "Provide detailed information about your campaign"
 
@@ -1394,7 +1393,7 @@ msgstr "Show password"
 msgid "Sign in"
 msgstr "Sign in"
 
-#: src/pages/CampaignDetails.tsx:767
+#: src/pages/CampaignDetails.tsx:774
 msgid "Sign in to Contact"
 msgstr "Sign in to Contact"
 
@@ -1438,7 +1437,7 @@ msgstr "Start your first campaign and begin your fundraising journey."
 msgid "start your journey today"
 msgstr "start your journey today"
 
-#: src/pages/CampaignDetails.tsx:573
+#: src/pages/CampaignDetails.tsx:580
 msgid "Status:"
 msgstr "Status:"
 
@@ -1460,7 +1459,7 @@ msgid "Success Rate"
 msgstr "Success Rate"
 
 #: src/pages/campaign/New.tsx:598
-#: src/pages/campaign/Edit.tsx:707
+#: src/pages/campaign/Edit.tsx:709
 msgid "Summary"
 msgstr "Summary"
 
@@ -1497,7 +1496,7 @@ msgstr "Tell us more about your inquiry..."
 msgid "The Ethereum address of your locally deployed contract."
 msgstr "The Ethereum address of your locally deployed contract."
 
-#: src/pages/campaign/Edit.tsx:691
+#: src/pages/campaign/Edit.tsx:696
 msgid "The funding goal cannot be modified after campaign creation"
 msgstr "The funding goal cannot be modified after campaign creation"
 
@@ -1509,15 +1508,15 @@ msgstr "The page you are looking for doesn't exist or has been moved."
 msgid "This action will close the campaign on the blockchain and cannot be undone."
 msgstr "This action will close the campaign on the blockchain and cannot be undone."
 
-#: src/pages/CampaignDetails.tsx:696
+#: src/pages/CampaignDetails.tsx:703
 msgid "This campaign has been completed. No further actions are possible."
 msgstr "This campaign has been completed. No further actions are possible."
 
-#: src/pages/CampaignDetails.tsx:693
+#: src/pages/CampaignDetails.tsx:700
 msgid "This campaign has ended."
 msgstr "This campaign has ended."
 
-#: src/pages/CampaignDetails.tsx:705
+#: src/pages/CampaignDetails.tsx:712
 msgid "This campaign is already closed."
 msgstr "This campaign is already closed."
 
@@ -1526,8 +1525,8 @@ msgstr "This campaign is already closed."
 msgid "This campaign is deployed on the {0}. Note that the network cannot be changed after campaign creation. Any edits you make will only affect the campaign metadata, not its blockchain configuration."
 msgstr "This campaign is deployed on the {0}. Note that the network cannot be changed after campaign creation. Any edits you make will only affect the campaign metadata, not its blockchain configuration."
 
-#: src/pages/CampaignDetails.tsx:702
-#: src/pages/CampaignDetails.tsx:717
+#: src/pages/CampaignDetails.tsx:709
+#: src/pages/CampaignDetails.tsx:724
 msgid "This campaign is not active on the blockchain."
 msgstr "This campaign is not active on the blockchain."
 
@@ -1593,8 +1592,8 @@ msgstr "Total Raised"
 msgid "Transaction declined: You cancelled the MetaMask transaction"
 msgstr "Transaction declined: You cancelled the MetaMask transaction"
 
-#: src/pages/CampaignDetails.tsx:635
-#: src/pages/CampaignDetails.tsx:675
+#: src/pages/CampaignDetails.tsx:642
+#: src/pages/CampaignDetails.tsx:682
 msgid "Transaction in progress..."
 msgstr "Transaction in progress..."
 
@@ -1723,7 +1722,7 @@ msgid "What technologies were used?"
 msgstr "What technologies were used?"
 
 #: src/pages/campaign/New.tsx:671
-#: src/pages/campaign/Edit.tsx:780
+#: src/pages/campaign/Edit.tsx:782
 msgid "Where is your campaign based?"
 msgstr "Where is your campaign based?"
 
@@ -1735,12 +1734,12 @@ msgstr "Why Choose BlockFund?"
 msgid "Withdraw"
 msgstr "Withdraw"
 
-#: src/pages/CampaignDetails.tsx:638
+#: src/pages/CampaignDetails.tsx:645
 #: src/components/WithdrawModal.tsx:52
 msgid "Withdraw Funds"
 msgstr "Withdraw Funds"
 
-#: src/pages/CampaignDetails.tsx:711
+#: src/pages/CampaignDetails.tsx:718
 msgid "Withdraw funds to close this campaign."
 msgstr "Withdraw funds to close this campaign."
 
@@ -1753,7 +1752,7 @@ msgid "Worldwide Access"
 msgstr "Worldwide Access"
 
 #: src/pages/campaign/New.tsx:609
-#: src/pages/campaign/Edit.tsx:718
+#: src/pages/campaign/Edit.tsx:720
 msgid "Write a brief summary of your campaign"
 msgstr "Write a brief summary of your campaign"
 
@@ -1761,7 +1760,7 @@ msgstr "Write a brief summary of your campaign"
 msgid "Yes, while the campaigns themselves are fictional, the donation flow is live. When you donate, real cryptocurrency is sent from your connected wallet to the campaign's specified address. Use testnet funds only, as this remains a demo environment."
 msgstr "Yes, while the campaigns themselves are fictional, the donation flow is live. When you donate, real cryptocurrency is sent from your connected wallet to the campaign's specified address. Use testnet funds only, as this remains a demo environment."
 
-#: src/pages/CampaignDetails.tsx:765
+#: src/pages/CampaignDetails.tsx:772
 msgid "You are the creator"
 msgstr "You are the creator"
 

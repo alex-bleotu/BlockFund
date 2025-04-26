@@ -32,7 +32,15 @@ export const LanguageProvider = ({
     children: React.ReactNode;
 }) => {
     const [language, setLanguage] = useState<Locale>(() => {
-        return (localStorage.getItem("language") as Locale) || "ro";
+        const savedLanguage = localStorage.getItem("language") as Locale;
+        if (savedLanguage) return savedLanguage;
+
+        const browserLanguage = navigator.language.toLowerCase();
+
+        if (browserLanguage.startsWith("ro")) return "ro";
+        if (browserLanguage.startsWith("en")) return "en";
+
+        return "ro";
     });
     const [ready, setReady] = useState(false);
 

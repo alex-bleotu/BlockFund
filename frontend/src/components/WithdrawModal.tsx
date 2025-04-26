@@ -74,7 +74,7 @@ export function WithdrawModal({
                                 {(Number(amount) * 0.8).toFixed(3)} ETH
                             </span>
                         </div>
-                        <div className="text-xs text-text-secondary mb-4 text-center">
+                        <div className="text-xs text-text-secondary mb-4">
                             {t`A platform fee of 20% is applied to all withdrawals.`}
                         </div>
 

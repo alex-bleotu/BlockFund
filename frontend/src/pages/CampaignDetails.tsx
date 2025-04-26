@@ -480,8 +480,15 @@ export function CampaignDetails() {
                                 </div>
                                 <div className="flex justify-between items-center mt-2">
                                     <div>
-                                        <div className="text-2xl font-bold text-text">
-                                            {raised.toFixed(3)} ETH
+                                        <div className="flex items-center justify-center mb-1">
+                                            <img
+                                                src="/eth.svg"
+                                                alt="Ethereum"
+                                                className="w-6 h-6 mr-1"
+                                            />
+                                            <div className="text-2xl font-bold text-text">
+                                                {raised.toFixed(3)} ETH
+                                            </div>
                                         </div>
                                         {ethPrice && (
                                             <div className="text-sm text-text-secondary">

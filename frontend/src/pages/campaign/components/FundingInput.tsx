@@ -1,5 +1,5 @@
 import { t } from "@lingui/core/macro";
-import { DollarSign, Feather as Ethereum } from "lucide-react";
+import { DollarSign } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useEthPrice } from "../../../hooks/useEthPrice";
 
@@ -105,7 +105,11 @@ export function FundingInput({
                     />
                 </div>
                 <div className="relative">
-                    <Ethereum className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
+                    <img
+                        src="/eth.svg"
+                        alt="ETH"
+                        className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
+                    />
                     <input
                         type="text"
                         id="eth-amount"

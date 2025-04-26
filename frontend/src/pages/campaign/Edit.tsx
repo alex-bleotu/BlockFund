@@ -666,6 +666,11 @@ export function EditFund() {
                                         <div className="w-full px-4 py-3 border border-border rounded-lg bg-background-alt text-text">
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center">
+                                                    <img
+                                                        src="/eth.svg"
+                                                        alt="Ethereum"
+                                                        className="w-5 h-5 mr-2"
+                                                    />
                                                     <span className="text-lg font-semibold">
                                                         {formData.goal}
                                                     </span>
@@ -689,9 +694,6 @@ export function EditFund() {
                                         </div>
                                         <p className="text-sm text-text-secondary">
                                             {t`The funding goal cannot be modified after campaign creation`}
-                                        </p>
-                                        <p className="text-xs text-text-secondary">
-                                            {t`Maximum funding goal: ${MAX_FUNDING_GOAL} ETH`}
                                         </p>
                                     </div>
                                 </div>
