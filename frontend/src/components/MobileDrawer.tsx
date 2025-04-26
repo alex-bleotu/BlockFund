@@ -22,6 +22,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useMessages } from "../hooks/useMessages";
 import { useWallet } from "../hooks/useWallet";
 import { supabase } from "../lib/supabase";
+import { profileEvents } from "../pages/Settings";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { NotificationsPanel } from "./NotificationsPanel";
 
@@ -52,6 +53,18 @@ export function MobileDrawer() {
         if (user) {
             fetchUsername();
         }
+    }, [user]);
+
+    useEffect(() => {
+        const unsubscribe = profileEvents.subscribe(() => {
+            if (user) {
+                fetchUsername();
+            }
+        });
+
+        return () => {
+            unsubscribe();
+        };
     }, [user]);
 
     const fetchUsername = async () => {

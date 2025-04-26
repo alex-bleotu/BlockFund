@@ -35,12 +35,18 @@ export function Profile() {
     const [error, setError] = useState<string | null>(null);
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
     const { ethPrice } = useEthPrice();
+    const [currentNetwork, setCurrentNetwork] = useState<string | null>(null);
 
     useEffect(() => {
-        if (id) {
+        const savedNetwork = localStorage.getItem("NETWORK");
+        setCurrentNetwork(savedNetwork);
+    }, []);
+
+    useEffect(() => {
+        if (id && currentNetwork) {
             fetchProfile();
         }
-    }, [id]);
+    }, [id, currentNetwork]);
 
     const fetchProfile = async () => {
         try {
@@ -64,6 +70,7 @@ export function Profile() {
                     .select("*")
                     .eq("creator_id", id)
                     .eq("status", "active")
+                    .eq("network", currentNetwork)
                     .order("created_at", { ascending: false });
 
             if (campaignsError) throw campaignsError;
@@ -138,7 +145,7 @@ export function Profile() {
                             </h2>
                             {campaigns.length === 0 ? (
                                 <p className="text-text-secondary">
-                                    {t`No campaigns yet`}
+                                    {t`No campaigns yet on this network`}
                                 </p>
                             ) : (
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -320,7 +327,18 @@ export function Profile() {
                             <div className="bg-surface rounded-xl p-6 shadow-lg">
                                 <div className="flex items-center space-x-4 mb-6">
                                     <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center">
-                                        <User className="w-8 h-8 text-primary" />
+                                        {profile.username ? (
+                                            <span className="text-2xl font-bold text-primary">
+                                                {profile.username
+                                                    .split(" ")
+                                                    .map((word) => word[0])
+                                                    .join("")
+                                                    .toUpperCase()
+                                                    .substring(0, 2)}
+                                            </span>
+                                        ) : (
+                                            <User className="w-8 h-8 text-primary" />
+                                        )}
                                     </div>
                                     <div>
                                         <h1 className="text-2xl font-bold text-text">

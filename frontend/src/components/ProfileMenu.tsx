@@ -7,6 +7,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useMessages } from "../hooks/useMessages";
 import { useWallet } from "../hooks/useWallet";
 import { supabase } from "../lib/supabase";
+import { profileEvents } from "../pages/Settings";
 import { NotificationsPanel } from "./NotificationsPanel";
 
 export function ProfileMenu() {
@@ -44,6 +45,18 @@ export function ProfileMenu() {
             refresh();
         }
     }, [lastRefreshed, user, refresh]);
+
+    useEffect(() => {
+        const unsubscribe = profileEvents.subscribe(() => {
+            if (user) {
+                fetchUsername();
+            }
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, [user]);
 
     const fetchUsername = async () => {
         if (!user) return;

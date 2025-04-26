@@ -12,13 +12,31 @@ export function Register() {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [username, setUsername] = useState("");
+    const [usernameError, setUsernameError] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { signUp } = useAuth();
 
+    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setUsername(value);
+
+        if (value.includes(" ")) {
+            setUsernameError(t`Username cannot contain spaces`);
+        } else {
+            setUsernameError("");
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (username.includes(" ")) {
+            setUsernameError(t`Username cannot contain spaces`);
+            return;
+        }
+
         try {
             setError("");
             setLoading(true);
@@ -94,15 +112,22 @@ export function Register() {
                                     name="username"
                                     type="text"
                                     required
-                                    className="appearance-none block w-full pl-10 px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
+                                    className={`appearance-none block w-full pl-10 px-3 py-2 border ${
+                                        usernameError
+                                            ? "border-error"
+                                            : "border-border"
+                                    } rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text`}
                                     placeholder={t`Choose a username`}
                                     value={username}
-                                    onChange={(e) =>
-                                        setUsername(e.target.value)
-                                    }
+                                    onChange={handleUsernameChange}
                                     disabled={loading}
                                 />
                             </div>
+                            {usernameError && (
+                                <p className="mt-1 text-sm text-error">
+                                    {usernameError}
+                                </p>
+                            )}
                         </div>
 
                         <div>

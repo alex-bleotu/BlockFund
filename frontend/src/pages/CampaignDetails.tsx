@@ -737,7 +737,18 @@ export function CampaignDetails() {
                                     to={`/profile/${campaign.creator_id}`}
                                     className="flex items-center space-x-4 group hover:bg-background-alt p-2 rounded-lg transition-colors">
                                     <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center group-hover:scale-105 transition-transform">
-                                        <User className="w-6 h-6 text-primary" />
+                                        {campaign.profiles?.username ? (
+                                            <span className="text-md font-bold text-primary">
+                                                {campaign.profiles.username
+                                                    .split(" ")
+                                                    .map((word) => word[0])
+                                                    .join("")
+                                                    .toUpperCase()
+                                                    .substring(0, 2)}
+                                            </span>
+                                        ) : (
+                                            <User className="w-6 h-6 text-primary" />
+                                        )}
                                     </div>
                                     <div>
                                         <div className="font-medium text-text group-hover:text-primary transition-colors">

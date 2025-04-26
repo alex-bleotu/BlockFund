@@ -14,6 +14,19 @@ import { useAuth } from "../hooks/useAuth";
 import { useWallet } from "../hooks/useWallet";
 import { supabase } from "../lib/supabase";
 
+export const profileEvents = {
+    listeners: new Set<() => void>(),
+
+    subscribe: (listener: () => void) => {
+        profileEvents.listeners.add(listener);
+        return () => profileEvents.listeners.delete(listener);
+    },
+
+    emit: () => {
+        profileEvents.listeners.forEach((listener) => listener());
+    },
+};
+
 type SettingsTab = "profile" | "security" | "wallet";
 
 export function Settings() {
@@ -45,6 +58,8 @@ export function Settings() {
         username: "",
         bio: "",
     });
+
+    const [usernameError, setUsernameError] = useState("");
 
     const [initialProfileForm, setInitialProfileForm] = useState({
         username: "",
@@ -127,6 +142,13 @@ export function Settings() {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         const { name, value } = e.target;
+
+        if (name === "username" && value.includes(" ")) {
+            setUsernameError(t`Username cannot contain spaces`);
+        } else if (name === "username") {
+            setUsernameError("");
+        }
+
         setProfileForm((prev) => ({
             ...prev,
             [name]: value,
@@ -176,6 +198,11 @@ export function Settings() {
     };
 
     const handleSaveProfile = async () => {
+        if (profileForm.username.includes(" ")) {
+            setError(t`Username cannot contain spaces`);
+            return;
+        }
+
         setLoading(true);
         setError(null);
         setSuccess(null);
@@ -209,6 +236,10 @@ export function Settings() {
 
             setSuccess(t`Profile updated successfully`);
             setInitialProfileForm(profileForm);
+            setUsernameError("");
+
+            // Notify all components that profile data has changed
+            profileEvents.emit();
         } catch (err: any) {
             console.error("Error updating profile:", err);
             if (err.message === "This username is already taken") {
@@ -323,8 +354,18 @@ export function Settings() {
                                                 name="username"
                                                 value={profileForm.username}
                                                 onChange={handleProfileChange}
-                                                className="mt-1 block w-full px-3 py-2 border border-border rounded-lg focus:ring-primary focus:border-primary bg-surface text-text"
+                                                className={`mt-1 block w-full px-3 py-2 border ${
+                                                    usernameError
+                                                        ? "border-error"
+                                                        : "border-border"
+                                                } rounded-lg focus:ring-primary focus:border-primary bg-surface text-text`}
+                                                placeholder={t`Choose a username`}
                                             />
+                                            {usernameError && (
+                                                <p className="mt-1 text-sm text-error">
+                                                    {usernameError}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div>
