@@ -104,6 +104,8 @@ export function useWallet() {
     }, [user]);
 
     const disconnectWallet = useCallback(async () => {
+        if (!localStorage.getItem("walletAddress")) return;
+
         setError(null);
         setLoading(true);
 

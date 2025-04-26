@@ -396,7 +396,7 @@ export function Profile() {
                     onClose={() => setIsContactModalOpen(false)}
                     creatorName={profile.username}
                     creatorId={profile.id}
-                    campaignId="" // Empty since this is a direct user contact
+                    campaignId=""
                 />
             )}
         </div>

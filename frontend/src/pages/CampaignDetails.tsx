@@ -771,13 +771,18 @@ export function CampaignDetails() {
                 </div>
             </div>
 
-            <ContactModal
-                isOpen={isContactModalOpen}
-                onClose={() => setIsContactModalOpen(false)}
-                creatorName={campaign.profiles?.username || "Creator"}
-                campaignId={campaign.id || ""}
-                creatorId={campaign.creator_id || ""}
-            />
+            {campaign &&
+                campaign.profiles?.username &&
+                campaign.creator_id &&
+                campaign.id && (
+                    <ContactModal
+                        isOpen={isContactModalOpen}
+                        onClose={() => setIsContactModalOpen(false)}
+                        creatorName={campaign.profiles?.username}
+                        campaignId={campaign.id}
+                        creatorId={campaign.creator_id}
+                    />
+                )}
 
             <SupportModal
                 isOpen={isSupportModalOpen}

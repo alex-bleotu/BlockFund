@@ -1,5 +1,5 @@
 import { MessageCircle, Send, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Message, useMessages } from "../hooks/useMessages";
 
 interface NotificationModalProps {
@@ -17,6 +17,11 @@ export function NotificationModal({
     const [isReplying, setIsReplying] = useState(false);
     const [isSending, setIsSending] = useState(false);
     const { sendMessage, refresh } = useMessages();
+
+    const REPLY_CHAR_LIMIT = 200;
+
+    const replyLength = useMemo(() => replyContent.length, [replyContent]);
+    const isAtLimit = replyLength === REPLY_CHAR_LIMIT;
 
     useEffect(() => {
         if (message) {
@@ -41,7 +46,8 @@ export function NotificationModal({
     };
 
     const handleReply = async () => {
-        if (!replyContent.trim() || !message) return;
+        const trimmedContent = replyContent.trim();
+        if (!trimmedContent || !message) return;
 
         try {
             setIsSending(true);
@@ -49,7 +55,7 @@ export function NotificationModal({
                 message.campaign_id,
                 message.sender_id,
                 `Re: ${message.subject}`,
-                replyContent
+                trimmedContent
             );
 
             if (result.success) {
@@ -114,44 +120,64 @@ export function NotificationModal({
                                 <h3 className="font-bold text-text mb-2">
                                     {message.subject}
                                 </h3>
-                                <div className="bg-background-alt p-4 rounded-lg text-text-secondary whitespace-pre-wrap">
+                                <div className="bg-background-alt p-4 rounded-lg text-text-secondary whitespace-pre-wrap break-words">
                                     {message.content}
                                 </div>
                             </div>
                         </div>
 
                         {isReplying ? (
-                            <div className="space-y-4">
+                            <div className="space-y-2">
                                 <textarea
                                     value={replyContent}
                                     onChange={(e) =>
                                         setReplyContent(e.target.value)
                                     }
                                     placeholder="Type your reply..."
-                                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text placeholder-text-secondary/60 transition-colors resize-none"
+                                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text placeholder-text-secondary/60 transition-colors resize-none break-words"
                                     rows={4}
+                                    maxLength={REPLY_CHAR_LIMIT}
+                                    style={{
+                                        wordWrap: "break-word",
+                                        overflowWrap: "break-word",
+                                    }}
                                 />
-                                <div className="flex justify-end space-x-3">
-                                    <button
-                                        onClick={() => setIsReplying(false)}
-                                        className="px-4 py-2 border border-border rounded-lg text-text-secondary hover:bg-background-alt transition-colors">
-                                        Cancel
-                                    </button>
-                                    <button
-                                        onClick={handleReply}
-                                        disabled={
-                                            !replyContent.trim() || isSending
-                                        }
-                                        className="px-4 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 flex items-center">
-                                        {isSending ? (
-                                            "Sending..."
-                                        ) : (
-                                            <>
-                                                Send
-                                                <Send className="w-4 h-4 ml-2" />
-                                            </>
-                                        )}
-                                    </button>
+                                <div className="flex justify-between items-center">
+                                    <span
+                                        className={`text-xs ${
+                                            isAtLimit
+                                                ? "text-error"
+                                                : replyLength >
+                                                  REPLY_CHAR_LIMIT * 0.8
+                                                ? "text-warning"
+                                                : "text-text-secondary"
+                                        }`}>
+                                        {replyLength}/{REPLY_CHAR_LIMIT}{" "}
+                                        characters
+                                    </span>
+                                    <div className="flex space-x-3">
+                                        <button
+                                            onClick={() => setIsReplying(false)}
+                                            className="px-4 py-2 border border-border rounded-lg text-text-secondary hover:bg-background-alt transition-colors">
+                                            Cancel
+                                        </button>
+                                        <button
+                                            onClick={handleReply}
+                                            disabled={
+                                                !replyContent.trim() ||
+                                                isSending
+                                            }
+                                            className="px-4 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 flex items-center">
+                                            {isSending ? (
+                                                "Sending..."
+                                            ) : (
+                                                <>
+                                                    Send
+                                                    <Send className="w-4 h-4 ml-2" />
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         ) : (

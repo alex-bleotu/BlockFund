@@ -1,157 +1,189 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
-import { useState } from "react";
+import { t } from "@lingui/core/macro";
+import { Send, User, X } from "lucide-react";
+import { useMemo, useState } from "react";
+import toast from "react-hot-toast";
 import { useMessages } from "../hooks/useMessages";
 
 interface ContactModalProps {
     isOpen: boolean;
     onClose: () => void;
     creatorName: string;
-    campaignId: string;
     creatorId: string;
+    campaignId: string;
 }
 
 export function ContactModal({
     isOpen,
     onClose,
     creatorName,
-    campaignId,
     creatorId,
+    campaignId,
 }: ContactModalProps) {
-    const { sendMessage } = useMessages();
     const [subject, setSubject] = useState("");
-    const [content, setContent] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [success, setSuccess] = useState(false);
+    const [message, setMessage] = useState("");
+    const [isSending, setIsSending] = useState(false);
+    const { sendMessage } = useMessages();
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        setError(null);
+    const SUBJECT_CHAR_LIMIT = 50;
+    const MESSAGE_CHAR_LIMIT = 200;
 
-        const result = await sendMessage(
-            campaignId,
-            creatorId,
-            subject,
-            content
-        );
+    const subjectLength = useMemo(() => subject.length, [subject]);
+    const messageLength = useMemo(() => message.length, [message]);
 
-        if (result.success) {
-            setSuccess(true);
-            setSubject("");
-            setContent("");
-            setTimeout(() => {
-                setSuccess(false);
-                onClose();
-            }, 2000);
-        } else {
-            setError(result.error || "Failed to send message");
-        }
-        setLoading(false);
-    };
+    const isSubjectAtLimit = subjectLength === SUBJECT_CHAR_LIMIT;
+    const isAtLimit = messageLength === MESSAGE_CHAR_LIMIT;
 
     if (!isOpen) return null;
 
-    return (
-        <AnimatePresence>
-            <div className="fixed inset-0 z-50 overflow-y-auto">
-                <div className="flex min-h-screen items-center justify-center p-4">
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={onClose}
-                        className="fixed inset-0 bg-black/50"
-                    />
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
 
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        className="relative w-full max-w-lg rounded-xl bg-surface p-6 shadow-xl">
+        const trimmedSubject = subject.trim();
+        const trimmedMessage = message.trim();
+
+        if (!trimmedSubject || !trimmedMessage || !creatorId) return;
+
+        try {
+            setIsSending(true);
+            const result = await sendMessage(
+                campaignId,
+                creatorId,
+                trimmedSubject,
+                trimmedMessage
+            );
+
+            if (result.success) {
+                onClose();
+                setSubject("");
+                setMessage("");
+                toast.success(t`Message sent successfully!`);
+            }
+        } catch (error) {
+            console.error("Error sending message:", error);
+        } finally {
+            setIsSending(false);
+        }
+    };
+
+    return (
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex items-center justify-center min-h-screen p-4">
+                <div
+                    className="fixed inset-0 bg-black/50"
+                    onClick={onClose}></div>
+                <div className="bg-surface rounded-xl shadow-xl w-full max-w-md z-10 relative">
+                    <div className="flex justify-between items-center border-b border-border p-4">
+                        <h2 className="text-xl font-bold text-text flex items-center">
+                            {t`Contact Creator`}
+                        </h2>
                         <button
                             onClick={onClose}
-                            className="absolute right-4 top-4 p-2 text-text-secondary hover:text-text transition-colors">
-                            <X className="h-5 w-5" />
+                            className="text-text-secondary hover:text-text transition-colors">
+                            <X className="w-5 h-5" />
                         </button>
+                    </div>
 
-                        <h2 className="text-2xl font-bold text-text mb-6">
-                            Contact {creatorName}
-                        </h2>
-
-                        {error && (
-                            <div className="mb-4 p-3 rounded-lg bg-error-light text-error">
-                                {error}
+                    <div className="p-6">
+                        <div className="flex items-center space-x-4 mb-6">
+                            <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center">
+                                <User className="w-6 h-6 text-primary" />
                             </div>
-                        )}
-
-                        {success ? (
-                            <div className="p-4 text-center">
-                                <div className="text-success mb-2">
-                                    Message sent successfully!
+                            <div>
+                                <div className="font-medium text-text">
+                                    {creatorName}
                                 </div>
-                                <p className="text-text-secondary">
-                                    The creator will be notified and can respond
-                                    to your message.
-                                </p>
+                                <div className="text-sm text-text-secondary">
+                                    {t`Campaign Creator`}
+                                </div>
                             </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-text-secondary mb-1">
-                                        Subject
-                                    </label>
-                                    <input
-                                        type="text"
-                                        value={subject}
-                                        onChange={(e) =>
-                                            setSubject(e.target.value)
-                                        }
-                                        required
-                                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text"
-                                        placeholder="Enter subject"
-                                    />
-                                </div>
+                        </div>
 
-                                <div>
-                                    <label className="block text-sm font-medium text-text-secondary mb-1">
-                                        Message
-                                    </label>
-                                    <textarea
-                                        rows={4}
-                                        value={content}
-                                        onChange={(e) =>
-                                            setContent(e.target.value)
-                                        }
-                                        required
-                                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text resize-none"
-                                        placeholder="Type your message here..."
-                                    />
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div className="space-y-2">
+                                <label className="block text-sm font-medium text-text">
+                                    {t`Subject`}
+                                </label>
+                                <input
+                                    type="text"
+                                    value={subject}
+                                    onChange={(e) => setSubject(e.target.value)}
+                                    required
+                                    maxLength={SUBJECT_CHAR_LIMIT}
+                                    className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text"
+                                    placeholder={t`Enter subject`}
+                                />
+                                <div className="flex justify-end">
+                                    <span
+                                        className={`text-xs ${
+                                            isSubjectAtLimit
+                                                ? "text-error"
+                                                : subjectLength >
+                                                  SUBJECT_CHAR_LIMIT * 0.8
+                                                ? "text-warning"
+                                                : "text-text-secondary"
+                                        }`}>
+                                        {subjectLength}/{SUBJECT_CHAR_LIMIT}{" "}
+                                        {t`characters`}
+                                    </span>
                                 </div>
+                            </div>
 
-                                <div className="flex justify-end space-x-3 pt-4">
-                                    <button
-                                        type="button"
-                                        onClick={onClose}
-                                        className="px-4 py-2 text-text-secondary hover:text-text transition-colors"
-                                        disabled={loading}>
-                                        Cancel
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        disabled={loading}
-                                        className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50">
-                                        {loading
-                                            ? "Sending..."
-                                            : "Send Message"}
-                                    </button>
+                            <div className="space-y-2">
+                                <label className="block text-sm font-medium text-text">
+                                    {t`Message`}
+                                </label>
+                                <textarea
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                    required
+                                    rows={5}
+                                    maxLength={MESSAGE_CHAR_LIMIT}
+                                    className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text resize-none break-words"
+                                    style={{
+                                        wordWrap: "break-word",
+                                        overflowWrap: "break-word",
+                                    }}
+                                    placeholder={t`Type your message here...`}
+                                />
+                                <div className="flex justify-end">
+                                    <span
+                                        className={`text-xs ${
+                                            isAtLimit
+                                                ? "text-error"
+                                                : messageLength >
+                                                  MESSAGE_CHAR_LIMIT * 0.8
+                                                ? "text-warning"
+                                                : "text-text-secondary"
+                                        }`}>
+                                        {messageLength}/{MESSAGE_CHAR_LIMIT}{" "}
+                                        {t`characters`}
+                                    </span>
                                 </div>
-                            </form>
-                        )}
-                    </motion.div>
+                            </div>
+
+                            <div className="flex justify-end">
+                                <button
+                                    type="submit"
+                                    disabled={
+                                        isSending ||
+                                        !message.trim() ||
+                                        !subject.trim()
+                                    }
+                                    className="px-4 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 flex items-center">
+                                    {isSending ? (
+                                        <span>{t`Sending...`}</span>
+                                    ) : (
+                                        <>
+                                            <span>{t`Send Message`}</span>
+                                            <Send className="w-4 h-4 ml-2" />
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </AnimatePresence>
+        </div>
     );
 }

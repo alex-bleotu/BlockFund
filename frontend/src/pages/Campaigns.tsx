@@ -1,6 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { AnimatePresence, motion } from "framer-motion";
 import {
+    AlertCircle,
     Calendar,
     Clock,
     Filter,
@@ -252,6 +253,13 @@ export function Campaigns() {
                     </div>
                 ) : error ? (
                     <div className="text-center text-error">{error}</div>
+                ) : filteredCampaigns.length === 0 ? (
+                    <div className="text-center pt-16 pb-4">
+                        <AlertCircle className="w-16 h-16 text-text-secondary mx-auto mb-4" />
+                        <h2 className="text-2xl font-bold text-text">
+                            {t`No Campaigns Found`}
+                        </h2>
+                    </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <AnimatePresence mode="popLayout">

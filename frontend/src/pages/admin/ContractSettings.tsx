@@ -72,16 +72,11 @@ export function ContractSettings() {
 
             if (network === "local") {
                 toast.success(
-                    t`Local network settings saved for this device only`
+                    t`Local network settings saved for this device only.`
                 );
             } else {
-                toast.success(t`Network settings saved for all users`);
+                toast.success(t`Network settings saved for all users.`);
             }
-
-            toast(t`Please refresh the page for changes to take effect`, {
-                icon: "🔄",
-                duration: 5000,
-            });
         } catch (error) {
             console.error("Error saving contract settings:", error);
             toast.error(t`Failed to save settings`);
