@@ -1,5 +1,5 @@
 import { t } from "@lingui/core/macro";
-import { AlertTriangle, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -25,6 +25,7 @@ interface FormData {
     location: string;
     deadline: string;
     images: File[];
+    network: "local" | "sepolia" | "mainnet";
 }
 
 declare global {
@@ -45,9 +46,6 @@ export function NewFund() {
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
     const [hasMetaMask, setHasMetaMask] = useState<boolean>(false);
     const hasConnected = useRef(false);
-    const [currentNetwork, setCurrentNetwork] = useState<
-        "local" | "sepolia" | "mainnet"
-    >("sepolia");
     const [formData, setFormData] = useState<FormData>({
         title: "",
         category: "",
@@ -60,7 +58,34 @@ export function NewFund() {
             .toISOString()
             .split("T")[0],
         images: [],
+        network: "local",
     });
+
+    const titleLength = useMemo(() => formData.title.length, [formData.title]);
+    const summaryLength = useMemo(
+        () => formData.summary.length,
+        [formData.summary]
+    );
+    const descriptionLength = useMemo(
+        () => formData.description.length,
+        [formData.description]
+    );
+    const locationLength = useMemo(
+        () => formData.location.length,
+        [formData.location]
+    );
+
+    const TITLE_CHAR_LIMIT = 50;
+    const SUMMARY_CHAR_LIMIT = 200;
+    const DESCRIPTION_CHAR_LIMIT = 1000;
+    const LOCATION_CHAR_LIMIT = 50;
+    const MAX_FUNDING_GOAL = 10000;
+
+    const twoYearsFromNow = useMemo(() => {
+        const date = new Date();
+        date.setFullYear(date.getFullYear() + 2);
+        return date.toISOString().split("T")[0];
+    }, []);
 
     useEffect(() => {
         if (!user) {
@@ -74,6 +99,12 @@ export function NewFund() {
             setHasMetaMask(!!window.ethereum);
         };
         checkMetaMask();
+
+        const savedNetwork = localStorage.getItem("NETWORK") || "local";
+        setFormData((prev) => ({
+            ...prev,
+            network: savedNetwork as "local" | "sepolia" | "mainnet",
+        }));
     }, []);
 
     useEffect(() => {
@@ -86,11 +117,6 @@ export function NewFund() {
 
         connectWallet();
     }, [connect]);
-
-    useEffect(() => {
-        const savedNetwork = localStorage.getItem("NETWORK") || "sepolia";
-        setCurrentNetwork(savedNetwork as "local" | "sepolia" | "mainnet");
-    }, []);
 
     const completionScore = useMemo(() => {
         const requiredFields = {
@@ -124,15 +150,51 @@ export function NewFund() {
                     t`Campaign deadline must be at least 1 week from today`
                 );
                 return;
+            } else if (value > twoYearsFromNow) {
+                setError(
+                    t`Campaign deadline cannot be more than 2 years in the future`
+                );
+                return;
             } else {
                 setError(null);
             }
+        }
+
+        if (name === "title" && value.length > TITLE_CHAR_LIMIT) {
+            setError(t`Title is limited to ${TITLE_CHAR_LIMIT} characters`);
+            return;
+        } else if (name === "summary" && value.length > SUMMARY_CHAR_LIMIT) {
+            setError(t`Summary is limited to ${SUMMARY_CHAR_LIMIT} characters`);
+            return;
+        } else if (
+            name === "description" &&
+            value.length > DESCRIPTION_CHAR_LIMIT
+        ) {
+            setError(
+                t`Description is limited to ${DESCRIPTION_CHAR_LIMIT} characters`
+            );
+            return;
+        } else if (name === "location" && value.length > LOCATION_CHAR_LIMIT) {
+            setError(
+                t`Location is limited to ${LOCATION_CHAR_LIMIT} characters`
+            );
+            return;
+        } else if (name === "goal" && parseFloat(value) > MAX_FUNDING_GOAL) {
+            setError(t`Funding goal cannot exceed ${MAX_FUNDING_GOAL} ETH`);
+            return;
+        } else {
+            setError(null);
         }
 
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleGoalChange = (value: string) => {
+        if (parseFloat(value) > MAX_FUNDING_GOAL) {
+            setError(t`Funding goal cannot exceed ${MAX_FUNDING_GOAL} ETH`);
+            return;
+        }
+        setError(null);
         setFormData((prev) => ({ ...prev, goal: value }));
     };
 
@@ -201,18 +263,19 @@ export function NewFund() {
                 return publicUrl;
             });
 
-            const campaignData = {
-                ...formData,
-                goal: parseFloat(formData.goal || "0"),
-                images: imageUrls,
-                network_created: currentNetwork,
-            };
-
             const {
                 supabaseData,
                 onChainTx,
                 error: launchError,
-            } = await launchCampaign(campaignData, user.id, createCampaign);
+            } = await launchCampaign(
+                {
+                    ...formData,
+                    goal: parseFloat(formData.goal || "0"),
+                    images: imageUrls,
+                },
+                user.id,
+                createCampaign
+            );
 
             if (onChainTx.status === "reverted")
                 throw new Error("Campaign creation on chain failed");
@@ -267,19 +330,6 @@ export function NewFund() {
 
     const handleBack = () => {
         navigate(-1);
-    };
-
-    const getNetworkDisplayName = (network: string): string => {
-        switch (network) {
-            case "local":
-                return "Local Development Network";
-            case "sepolia":
-                return "Sepolia Test Network";
-            case "mainnet":
-                return "Ethereum Mainnet";
-            default:
-                return network;
-        }
     };
 
     const renderMetaMaskRequired = () => (
@@ -353,7 +403,6 @@ export function NewFund() {
                             campaign={{
                                 ...formData,
                                 images: previewUrls,
-                                network: currentNetwork,
                             }}
                             previewUrls={previewUrls}
                             onBack={prevStep}
@@ -391,25 +440,6 @@ export function NewFund() {
                         </div>
                     </div>
 
-                    <div className="mb-6 p-4 bg-primary-light text-primary rounded-lg flex items-start">
-                        <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
-                        <div>
-                            <p className="font-medium">{t`Network: ${getNetworkDisplayName(
-                                currentNetwork
-                            )}`}</p>
-                            <p className="text-sm text-text-secondary mt-1">
-                                {t`Your campaign will be created on the ${getNetworkDisplayName(
-                                    currentNetwork
-                                )}. It will not be visible on other networks. You can change the network in Contract Settings.`}
-                            </p>
-                            {currentNetwork === "mainnet" && (
-                                <p className="text-sm font-medium mt-2">
-                                    {t`Warning: Creating a campaign on mainnet will use real ETH.`}
-                                </p>
-                            )}
-                        </div>
-                    </div>
-
                     {error && (
                         <div className="mb-6 p-4 bg-error-light text-error rounded-lg">
                             {error}
@@ -435,7 +465,7 @@ export function NewFund() {
                                         id="title"
                                         name="title"
                                         required
-                                        maxLength={30}
+                                        maxLength={TITLE_CHAR_LIMIT}
                                         value={formData.title}
                                         onChange={handleChange}
                                         className="appearance-none block w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
@@ -444,11 +474,12 @@ export function NewFund() {
                                     <div className="flex justify-end mt-1">
                                         <span
                                             className={`text-xs ${
-                                                formData.title.length >= 30
+                                                titleLength >= TITLE_CHAR_LIMIT
                                                     ? "text-error"
                                                     : "text-text-secondary"
                                             }`}>
-                                            {formData.title.length}/30
+                                            {titleLength}/{TITLE_CHAR_LIMIT}{" "}
+                                            {t`characters`}
                                         </span>
                                     </div>
                                 </div>
@@ -484,6 +515,9 @@ export function NewFund() {
                                     onChange={handleGoalChange}
                                     initialUsdAmount={formData.usdAmount}
                                 />
+                                <p className="text-xs text-text-secondary -mt-4">
+                                    {t`Maximum funding goal: ${MAX_FUNDING_GOAL} ETH`}
+                                </p>
 
                                 <div>
                                     <label
@@ -505,10 +539,11 @@ export function NewFund() {
                                                 .toISOString()
                                                 .split("T")[0]
                                         }
+                                        max={twoYearsFromNow}
                                         className="appearance-none block w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                     />
                                     <p className="text-xs text-text-secondary mt-1">
-                                        {t`Campaign must run for at least 1 week from today`}
+                                        {t`Campaign must run for at least 1 week from today and no more than 2 years`}
                                     </p>
                                 </div>
                             </div>
@@ -527,11 +562,24 @@ export function NewFund() {
                                         name="summary"
                                         required
                                         rows={3}
+                                        maxLength={SUMMARY_CHAR_LIMIT}
                                         value={formData.summary}
                                         onChange={handleChange}
                                         className="appearance-none block w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                         placeholder={t`Write a brief summary of your campaign`}
                                     />
+                                    <div className="flex justify-end mt-1">
+                                        <span
+                                            className={`text-xs ${
+                                                summaryLength >=
+                                                SUMMARY_CHAR_LIMIT
+                                                    ? "text-error"
+                                                    : "text-text-secondary"
+                                            }`}>
+                                            {summaryLength}/{SUMMARY_CHAR_LIMIT}{" "}
+                                            {t`characters`}
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div>
@@ -545,11 +593,25 @@ export function NewFund() {
                                         name="description"
                                         required
                                         rows={6}
+                                        maxLength={DESCRIPTION_CHAR_LIMIT}
                                         value={formData.description}
                                         onChange={handleChange}
                                         className="appearance-none block w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                         placeholder={t`Provide detailed information about your campaign`}
                                     />
+                                    <div className="flex justify-end mt-1">
+                                        <span
+                                            className={`text-xs ${
+                                                descriptionLength >=
+                                                DESCRIPTION_CHAR_LIMIT
+                                                    ? "text-error"
+                                                    : "text-text-secondary"
+                                            }`}>
+                                            {descriptionLength}/
+                                            {DESCRIPTION_CHAR_LIMIT}{" "}
+                                            {t`characters`}
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div>
@@ -563,10 +625,24 @@ export function NewFund() {
                                         id="location"
                                         name="location"
                                         value={formData.location}
+                                        maxLength={LOCATION_CHAR_LIMIT}
                                         onChange={handleChange}
                                         className="appearance-none block w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                         placeholder={t`Where is your campaign based?`}
                                     />
+                                    <div className="flex justify-end mt-1">
+                                        <span
+                                            className={`text-xs ${
+                                                locationLength >=
+                                                LOCATION_CHAR_LIMIT
+                                                    ? "text-error"
+                                                    : "text-text-secondary"
+                                            }`}>
+                                            {locationLength}/
+                                            {LOCATION_CHAR_LIMIT}{" "}
+                                            {t`characters`}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         )}

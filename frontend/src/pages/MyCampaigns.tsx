@@ -33,16 +33,22 @@ export function MyCampaigns() {
     );
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [currentNetwork, setCurrentNetwork] = useState<string>("local");
     const { user } = useAuth();
     const { ethPrice } = useEthPrice();
     const { closeCampaign } = useCampaignContract();
     const navigate = useNavigate();
 
     useEffect(() => {
+        const savedNetwork = localStorage.getItem("NETWORK") || "local";
+        setCurrentNetwork(savedNetwork);
+    }, []);
+
+    useEffect(() => {
         if (user) {
             fetchMyCampaigns();
         }
-    }, [user]);
+    }, [user, currentNetwork]);
 
     const fetchMyCampaigns = async () => {
         try {
@@ -54,7 +60,14 @@ export function MyCampaigns() {
                 .order("created_at", { ascending: false });
 
             if (error) throw error;
-            setCampaigns(data || []);
+
+            // Filter campaigns based on current network
+            const filteredData =
+                data?.filter(
+                    (campaign) => campaign.network === currentNetwork
+                ) || [];
+
+            setCampaigns(filteredData);
         } catch (err) {
             console.error("Error fetching campaigns:", err);
             setError(t`Failed to load your campaigns`);

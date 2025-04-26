@@ -1,6 +1,6 @@
 import { t } from "@lingui/core/macro";
-import { AlertTriangle, ArrowLeft, Power } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { AlertTriangle, ArrowLeft, GlobeIcon, Power } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useEthPrice } from "../../hooks/useEthPrice";
@@ -41,6 +41,32 @@ export function EditFund() {
     const [showStatusModal, setShowStatusModal] = useState(false);
     const [statusLoading, setStatusLoading] = useState(false);
     const [campaignStatus, setCampaignStatus] = useState<string>("active");
+
+    const titleLength = useMemo(() => formData.title.length, [formData.title]);
+    const summaryLength = useMemo(
+        () => formData.summary.length,
+        [formData.summary]
+    );
+    const descriptionLength = useMemo(
+        () => formData.description.length,
+        [formData.description]
+    );
+    const locationLength = useMemo(
+        () => formData.location.length,
+        [formData.location]
+    );
+
+    const TITLE_CHAR_LIMIT = 50;
+    const SUMMARY_CHAR_LIMIT = 200;
+    const DESCRIPTION_CHAR_LIMIT = 1000;
+    const LOCATION_CHAR_LIMIT = 50;
+    const MAX_FUNDING_GOAL = 10000;
+
+    const twoYearsFromNow = useMemo(() => {
+        const date = new Date();
+        date.setFullYear(date.getFullYear() + 2);
+        return date.toISOString().split("T")[0];
+    }, []);
 
     useEffect(() => {
         const checkMetaMask = () => {
@@ -130,9 +156,41 @@ export function EditFund() {
                     t`Campaign deadline must be at least 1 week from today`
                 );
                 return;
+            } else if (value > twoYearsFromNow) {
+                setError(
+                    t`Campaign deadline cannot be more than 2 years in the future`
+                );
+                return;
             } else {
                 setError(null);
             }
+        }
+
+        // Character limit validation
+        if (name === "title" && value.length > TITLE_CHAR_LIMIT) {
+            setError(t`Title is limited to ${TITLE_CHAR_LIMIT} characters`);
+            return;
+        } else if (name === "summary" && value.length > SUMMARY_CHAR_LIMIT) {
+            setError(t`Summary is limited to ${SUMMARY_CHAR_LIMIT} characters`);
+            return;
+        } else if (
+            name === "description" &&
+            value.length > DESCRIPTION_CHAR_LIMIT
+        ) {
+            setError(
+                t`Description is limited to ${DESCRIPTION_CHAR_LIMIT} characters`
+            );
+            return;
+        } else if (name === "location" && value.length > LOCATION_CHAR_LIMIT) {
+            setError(
+                t`Location is limited to ${LOCATION_CHAR_LIMIT} characters`
+            );
+            return;
+        } else if (name === "goal" && parseFloat(value) > MAX_FUNDING_GOAL) {
+            setError(t`Funding goal cannot exceed ${MAX_FUNDING_GOAL} ETH`);
+            return;
+        } else {
+            setError(null);
         }
 
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -182,13 +240,10 @@ export function EditFund() {
 
             const { data: campaignData, error: fetchError } = await supabase
                 .from("campaigns")
-                .select("images, network_created")
+                .select("images")
                 .eq("id", id)
                 .single();
             if (fetchError) throw fetchError;
-
-            const originalNetwork =
-                campaignData.network_created || formData.network || "local";
 
             const oldUrls: string[] = campaignData.images || [];
             const removedUrls = oldUrls.filter(
@@ -242,7 +297,6 @@ export function EditFund() {
                     deadline: formData.deadline,
                     images: allImageUrls,
                     updated_at: new Date().toISOString(),
-                    network_created: originalNetwork,
                 })
                 .eq("id", id)
                 .eq("creator_id", user.id);
@@ -306,14 +360,14 @@ export function EditFund() {
         }
     };
 
-    const getNetworkDisplayName = (network: string): string => {
+    const getNetworkDisplay = (network: string) => {
         switch (network) {
             case "local":
-                return "Local Development Network";
+                return t`Local Development Network`;
             case "sepolia":
-                return "Sepolia Test Network";
+                return t`Sepolia Test Network`;
             case "mainnet":
-                return "Ethereum Mainnet";
+                return t`Ethereum Mainnet`;
             default:
                 return network;
         }
@@ -412,10 +466,7 @@ export function EditFund() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div className="bg-surface rounded-xl shadow-lg p-6 md:p-8">
                         <PreviewStep
-                            campaign={{
-                                ...formData,
-                                network: formData.network || "local",
-                            }}
+                            campaign={formData}
                             previewUrls={previewUrls}
                             onBack={prevStep}
                             onSubmit={handleSubmit}
@@ -458,31 +509,6 @@ export function EditFund() {
                         </h1>
                     </div>
 
-                    <div className="mb-6 p-4 bg-primary-light text-primary rounded-lg flex items-start">
-                        <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
-                        <div>
-                            <p className="font-medium">{t`Network: ${getNetworkDisplayName(
-                                formData.network || "local"
-                            )}`}</p>
-                            <p className="text-sm text-text-secondary mt-1">
-                                {t`This campaign was created on the ${getNetworkDisplayName(
-                                    formData.network || "local"
-                                )}. The network cannot be changed after campaign creation.`}
-                            </p>
-                            {formData.network === "mainnet" && (
-                                <p className="text-sm font-medium mt-2">
-                                    {t`This campaign is on mainnet and uses real ETH.`}
-                                </p>
-                            )}
-                        </div>
-                    </div>
-
-                    {error && (
-                        <div className="mb-6 p-4 bg-error-light text-error rounded-lg">
-                            {error}
-                        </div>
-                    )}
-
                     <StepIndicator
                         currentStep={currentStep}
                         onStepClick={setStep}
@@ -502,7 +528,7 @@ export function EditFund() {
                                         id="title"
                                         name="title"
                                         required
-                                        maxLength={30}
+                                        maxLength={TITLE_CHAR_LIMIT}
                                         value={formData.title}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
@@ -511,13 +537,31 @@ export function EditFund() {
                                     <div className="flex justify-end mt-1">
                                         <span
                                             className={`text-xs ${
-                                                formData.title.length >= 30
+                                                titleLength >= TITLE_CHAR_LIMIT
                                                     ? "text-error"
                                                     : "text-text-secondary"
                                             }`}>
-                                            {formData.title.length}/30
+                                            {titleLength}/{TITLE_CHAR_LIMIT}{" "}
+                                            {t`characters`}
                                         </span>
                                     </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-text mb-2">
+                                        {t`Network`}
+                                    </label>
+                                    <div className="w-full px-4 py-3 border border-border rounded-lg bg-background-alt text-text flex items-center">
+                                        <GlobeIcon className="w-5 h-5 mr-2 text-text-secondary" />
+                                        <span>
+                                            {getNetworkDisplay(
+                                                formData.network || "sepolia"
+                                            )}
+                                        </span>
+                                    </div>
+                                    <p className="text-xs text-text-secondary mt-1">
+                                        {t`Network cannot be changed after campaign creation`}
+                                    </p>
                                 </div>
 
                                 <div>
@@ -566,10 +610,11 @@ export function EditFund() {
                                                 .toISOString()
                                                 .split("T")[0]
                                         }
+                                        max={twoYearsFromNow}
                                         className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                     />
                                     <p className="text-xs text-text-secondary mt-1">
-                                        {t`Campaign must run for at least 1 week from today`}
+                                        {t`Campaign must run for at least 1 week from today and no more than 2 years`}
                                     </p>
                                 </div>
 
@@ -605,6 +650,9 @@ export function EditFund() {
                                         <p className="text-sm text-text-secondary">
                                             {t`The funding goal cannot be modified after campaign creation`}
                                         </p>
+                                        <p className="text-xs text-text-secondary">
+                                            {t`Maximum funding goal: ${MAX_FUNDING_GOAL} ETH`}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -623,11 +671,24 @@ export function EditFund() {
                                         name="summary"
                                         required
                                         rows={3}
+                                        maxLength={SUMMARY_CHAR_LIMIT}
                                         value={formData.summary}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                         placeholder={t`Write a brief summary of your campaign`}
                                     />
+                                    <div className="flex justify-end mt-1">
+                                        <span
+                                            className={`text-xs ${
+                                                summaryLength >=
+                                                SUMMARY_CHAR_LIMIT
+                                                    ? "text-error"
+                                                    : "text-text-secondary"
+                                            }`}>
+                                            {summaryLength}/{SUMMARY_CHAR_LIMIT}{" "}
+                                            {t`characters`}
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div>
@@ -641,11 +702,25 @@ export function EditFund() {
                                         name="description"
                                         required
                                         rows={6}
+                                        maxLength={DESCRIPTION_CHAR_LIMIT}
                                         value={formData.description}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                         placeholder={t`Provide detailed information about your campaign`}
                                     />
+                                    <div className="flex justify-end mt-1">
+                                        <span
+                                            className={`text-xs ${
+                                                descriptionLength >=
+                                                DESCRIPTION_CHAR_LIMIT
+                                                    ? "text-error"
+                                                    : "text-text-secondary"
+                                            }`}>
+                                            {descriptionLength}/
+                                            {DESCRIPTION_CHAR_LIMIT}{" "}
+                                            {t`characters`}
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div>
@@ -659,10 +734,24 @@ export function EditFund() {
                                         id="location"
                                         name="location"
                                         value={formData.location}
+                                        maxLength={LOCATION_CHAR_LIMIT}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                         placeholder={t`Where is your campaign based?`}
                                     />
+                                    <div className="flex justify-end mt-1">
+                                        <span
+                                            className={`text-xs ${
+                                                locationLength >=
+                                                LOCATION_CHAR_LIMIT
+                                                    ? "text-error"
+                                                    : "text-text-secondary"
+                                            }`}>
+                                            {locationLength}/
+                                            {LOCATION_CHAR_LIMIT}{" "}
+                                            {t`characters`}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         )}

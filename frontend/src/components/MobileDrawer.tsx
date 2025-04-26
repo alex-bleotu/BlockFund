@@ -3,6 +3,7 @@ import {
     Bell,
     Compass,
     FolderHeart,
+    Globe,
     HelpCircle,
     LogOut,
     Mail,
@@ -31,6 +32,8 @@ export function MobileDrawer() {
     const { unreadCount } = useMessages();
     const { disconnectWallet } = useWallet();
     const location = useLocation();
+
+    const isAdmin = user?.id === import.meta.env.VITE_ADMIN_USER_ID;
 
     useEffect(() => {
         const handleResize = () => {
@@ -202,6 +205,21 @@ export function MobileDrawer() {
                                         <Settings className="w-5 h-5 mr-3" />
                                         {t`Settings`}
                                     </Link>
+
+                                    {isAdmin && (
+                                        <Link
+                                            to="/admin/network-settings"
+                                            onClick={handleLinkClick}
+                                            className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors ${
+                                                location.pathname ===
+                                                "/admin/network-settings"
+                                                    ? "bg-primary-light text-primary"
+                                                    : "text-text-secondary hover:bg-background-alt"
+                                            }`}>
+                                            <Globe className="w-5 h-5 mr-3" />
+                                            {t`Network`}
+                                        </Link>
+                                    )}
                                 </nav>
 
                                 <div className="p-4 border-t border-border">

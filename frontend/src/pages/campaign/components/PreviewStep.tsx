@@ -5,6 +5,7 @@ import {
     Calendar,
     ChevronLeft,
     ChevronRight,
+    Info,
     MapPin,
     Tag,
     Target,
@@ -88,6 +89,31 @@ export function PreviewStep({
         );
     };
 
+    const getNetworkDisplay = (network: string) => {
+        switch (network) {
+            case "local":
+                return t`Local Development Network`;
+            case "sepolia":
+                return t`Sepolia Test Network`;
+            case "mainnet":
+                return t`Ethereum Mainnet`;
+            default:
+                return network;
+        }
+    };
+
+    const getNetworkDisclaimerText = () => {
+        if (mode === "create") {
+            return t`This campaign will be deployed on the ${getNetworkDisplay(
+                campaign.network || "sepolia"
+            )}. It will not be visible or accessible from other networks. Make sure your wallet is connected to the correct network before proceeding.`;
+        } else {
+            return t`This campaign is deployed on the ${getNetworkDisplay(
+                campaign.network || "sepolia"
+            )}. Note that the network cannot be changed after campaign creation. Any edits you make will only affect the campaign metadata, not its blockchain configuration.`;
+        }
+    };
+
     return (
         <div className="space-y-8">
             <div className="flex justify-between items-center">
@@ -117,6 +143,20 @@ export function PreviewStep({
                     <span>{error || externalError}</span>
                 </div>
             )}
+
+            <div className="p-4 bg-primary-light rounded-lg flex items-start">
+                <Info className="w-5 h-5 mr-2 flex-shrink-0 text-primary mt-0.5" />
+                <div>
+                    <p className="font-medium text-primary mb-1">
+                        {t`Network: ${getNetworkDisplay(
+                            campaign.network || "sepolia"
+                        )}`}
+                    </p>
+                    <p className="text-sm text-text-secondary">
+                        {getNetworkDisclaimerText()}
+                    </p>
+                </div>
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
                 <div className="space-y-8">

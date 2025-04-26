@@ -54,7 +54,7 @@ export function AppContent() {
                 <Route path="/faqs" element={<FAQs />} />
                 <Route path="/profile/:id" element={<Profile />} />
                 <Route
-                    path="/admin/contract-settings"
+                    path="/admin/network-settings"
                     element={<ContractSettings />}
                 />
                 <Route path="*" element={<NotFound />} />

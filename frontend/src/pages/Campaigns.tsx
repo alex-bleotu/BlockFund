@@ -30,12 +30,18 @@ export function Campaigns() {
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [currentNetwork, setCurrentNetwork] = useState<string>("local");
     const { ethPrice } = useEthPrice();
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchCampaigns();
+        const savedNetwork = localStorage.getItem("NETWORK") || "local";
+        setCurrentNetwork(savedNetwork);
     }, []);
+
+    useEffect(() => {
+        fetchCampaigns();
+    }, [currentNetwork]);
 
     useEffect(() => {
         filterCampaigns();
@@ -51,7 +57,14 @@ export function Campaigns() {
                 .order("created_at", { ascending: false });
 
             if (error) throw error;
-            setCampaigns(data || []);
+
+            // Filter campaigns based on current network
+            const filteredData =
+                data?.filter(
+                    (campaign) => campaign.network === currentNetwork
+                ) || [];
+
+            setCampaigns(filteredData);
         } catch (err) {
             console.error("Error fetching campaigns:", err);
             setError(t`Failed to load campaigns`);

@@ -1,5 +1,5 @@
 import { t } from "@lingui/core/macro";
-import { Bell, FolderHeart, LogOut, Settings, User } from "lucide-react";
+import { Bell, FolderHeart, Globe, LogOut, Settings, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNotifications } from "../contexts/NotificationContext";
@@ -16,6 +16,8 @@ export function ProfileMenu() {
     const [isOpen, setIsOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+
+    const isAdmin = user?.id === import.meta.env.VITE_ADMIN_USER_ID;
 
     useEffect(() => {
         if (user) {
@@ -121,6 +123,15 @@ export function ProfileMenu() {
                                 <Settings className="w-4 h-4 mr-2" />
                                 {t`Settings`}
                             </Link>
+                            {isAdmin && (
+                                <Link
+                                    to="/admin/network-settings"
+                                    onClick={handleMenuClick}
+                                    className="flex items-center px-4 py-2 text-sm text-text hover:bg-background-alt">
+                                    <Globe className="w-4 h-4 mr-2" />
+                                    {t`Network`}
+                                </Link>
+                            )}
                             <button
                                 onClick={handleSignOut}
                                 className="flex items-center w-full px-4 py-2 text-sm text-text hover:bg-background-alt">
