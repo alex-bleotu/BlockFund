@@ -134,7 +134,6 @@ export function Profile() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
                     <div className="space-y-8">
-                        {/* User's Campaigns */}
                         <div className="bg-surface rounded-xl p-6 shadow-lg">
                             <h2 className="text-2xl font-bold text-text mb-6">
                                 {t`Campaigns`}
@@ -320,7 +319,6 @@ export function Profile() {
 
                     <aside className="lg:relative">
                         <div className="lg:sticky lg:top-24 space-y-6">
-                            {/* Profile Card */}
                             <div className="bg-surface rounded-xl p-6 shadow-lg">
                                 <div className="flex items-center space-x-4 mb-6">
                                     <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center">
@@ -396,7 +394,7 @@ export function Profile() {
                     onClose={() => setIsContactModalOpen(false)}
                     creatorName={profile.username}
                     creatorId={profile.id}
-                    campaignId=""
+                    campaignId={null}
                 />
             )}
         </div>

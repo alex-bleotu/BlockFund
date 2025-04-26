@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { MessageCircle, Send, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Message, useMessages } from "../hooks/useMessages";
@@ -87,7 +88,7 @@ export function NotificationModal({
                     <div className="flex justify-between items-center border-b border-border p-4">
                         <h2 className="text-xl font-bold text-text flex items-center">
                             <MessageCircle className="w-5 h-5 mr-2 text-primary" />
-                            Message
+                            {t`Message`}
                         </h2>
                         <button
                             onClick={handleClose}
@@ -101,8 +102,8 @@ export function NotificationModal({
                             <div className="flex justify-between items-start mb-4">
                                 <div>
                                     <div className="font-medium text-text">
-                                        From:{" "}
-                                        {message.sender?.username || "Unknown"}
+                                        {t`From:`}{" "}
+                                        {message.sender?.username || t`Unknown`}
                                     </div>
                                     <div className="text-sm text-text-secondary">
                                         {formatDate(message.created_at)}
@@ -110,8 +111,8 @@ export function NotificationModal({
                                 </div>
                                 <div className="text-right">
                                     <div className="text-sm font-medium text-text">
-                                        Re:{" "}
-                                        {message.campaign?.title || "Campaign"}
+                                        {t`Re:`}{" "}
+                                        {message.campaign?.title || t`Profile`}
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +134,7 @@ export function NotificationModal({
                                     onChange={(e) =>
                                         setReplyContent(e.target.value)
                                     }
-                                    placeholder="Type your reply..."
+                                    placeholder={t`Type your reply...`}
                                     className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text placeholder-text-secondary/60 transition-colors resize-none break-words"
                                     rows={4}
                                     maxLength={REPLY_CHAR_LIMIT}
@@ -153,13 +154,13 @@ export function NotificationModal({
                                                 : "text-text-secondary"
                                         }`}>
                                         {replyLength}/{REPLY_CHAR_LIMIT}{" "}
-                                        characters
+                                        {t`characters`}
                                     </span>
                                     <div className="flex space-x-3">
                                         <button
                                             onClick={() => setIsReplying(false)}
                                             className="px-4 py-2 border border-border rounded-lg text-text-secondary hover:bg-background-alt transition-colors">
-                                            Cancel
+                                            {t`Cancel`}
                                         </button>
                                         <button
                                             onClick={handleReply}
@@ -169,10 +170,10 @@ export function NotificationModal({
                                             }
                                             className="px-4 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 flex items-center">
                                             {isSending ? (
-                                                "Sending..."
+                                                t`Sending...`
                                             ) : (
                                                 <>
-                                                    Send
+                                                    {t`Send`}
                                                     <Send className="w-4 h-4 ml-2" />
                                                 </>
                                             )}
@@ -185,7 +186,7 @@ export function NotificationModal({
                                 onClick={() => setIsReplying(true)}
                                 className="w-full py-2 border-2 border-primary rounded-lg transition-colors text-primary hover:bg-primary hover:text-light flex items-center justify-center">
                                 <MessageCircle className="w-4 h-4 mr-2" />
-                                Reply
+                                {t`Reply`}
                             </button>
                         )}
                     </div>

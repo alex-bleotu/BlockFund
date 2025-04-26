@@ -9,7 +9,7 @@ interface ContactModalProps {
     onClose: () => void;
     creatorName: string;
     creatorId: string;
-    campaignId: string;
+    campaignId: string | null;
 }
 
 export function ContactModal({

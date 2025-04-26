@@ -43,7 +43,7 @@ msgstr "Acces refuzat"
 msgid "Access funding opportunities from anywhere in the world, breaking down geographical barriers."
 msgstr "Accesează oportunități de finanțare de oriunde din lume, eliminând barierele geografice."
 
-#: src/pages/Profile.tsx:211
+#: src/pages/Profile.tsx:210
 #: src/pages/MyCampaigns.tsx:243
 #: src/pages/MyCampaigns.tsx:270
 #: src/pages/MyCampaigns.tsx:367
@@ -74,12 +74,17 @@ msgstr "Adaugă până la 4 imagini (PNG sau JPG doar). Prima imagine va fi imag
 
 #: src/pages/MyCampaigns.tsx:268
 #: src/pages/Campaigns.tsx:243
+#: src/components/NotificationsPanel.tsx:176
 msgid "All"
 msgstr "Toate"
 
 #: src/pages/Campaigns.tsx:201
 msgid "All Categories"
 msgstr "Toate categoriile"
+
+#: src/components/NotificationsPanel.tsx:214
+msgid "All caught up!"
+msgstr "Toate notificările au fost citite!"
 
 #: src/pages/MyCampaigns.tsx:309
 msgid "All your campaigns have ended. Start a new one!"
@@ -225,8 +230,8 @@ msgstr "Titlu campanie"
 msgid "Campaign:"
 msgstr "Campanie:"
 
-#: src/pages/Profile.tsx:140
-#: src/pages/Profile.tsx:355
+#: src/pages/Profile.tsx:139
+#: src/pages/Profile.tsx:353
 msgid "Campaigns"
 msgstr "Campanii"
 
@@ -241,6 +246,7 @@ msgstr "Pot folosi aceasta pentru crowdfunding real?"
 #: src/pages/campaign/components/StatusModal.tsx:47
 #: src/components/WithdrawModal.tsx:101
 #: src/components/SupportModal.tsx:230
+#: src/components/NotificationModal.tsx:163
 #: src/components/DeleteCampaignModal.tsx:67
 msgid "Cancel"
 msgstr "Anulează"
@@ -274,6 +280,7 @@ msgstr "Schimbă statusul campaniei"
 #: src/pages/campaign/Edit.tsx:729
 #: src/pages/campaign/Edit.tsx:761
 #: src/pages/campaign/Edit.tsx:792
+#: src/components/NotificationModal.tsx:157
 #: src/components/ContactModal.tsx:126
 #: src/components/ContactModal.tsx:159
 msgid "characters"
@@ -286,6 +293,10 @@ msgstr "Vezi această campanie pe BlockFund"
 #: src/pages/Register.tsx:78
 msgid "Choose a username"
 msgstr "Alege un nume de utilizator"
+
+#: src/components/NotificationsPanel.tsx:291
+msgid "Click to view"
+msgstr "Click pentru a vedea"
 
 #: src/components/MobileDrawer.tsx:131
 msgid "Close menu"
@@ -363,7 +374,7 @@ msgstr "Conectat:"
 msgid "Connection already in progress. Please check MetaMask."
 msgstr "Conexiune deja în curs. Verifică MetaMask."
 
-#: src/pages/Profile.tsx:383
+#: src/pages/Profile.tsx:381
 #: src/components/MobileDrawer.tsx:246
 #: src/components/MobileDrawer.tsx:297
 #: src/components/Footer.tsx:28
@@ -538,7 +549,7 @@ msgid "End Date"
 msgstr "Data de încheiere"
 
 #: src/pages/Profile.tsx:90
-#: src/pages/Profile.tsx:210
+#: src/pages/Profile.tsx:209
 #: src/pages/MyCampaigns.tsx:212
 #: src/pages/MyCampaigns.tsx:244
 #: src/pages/MyCampaigns.tsx:273
@@ -586,7 +597,7 @@ msgstr "Eroare la încărcarea campaniei"
 msgid "Error Loading Profile"
 msgstr "Eroare la încărcarea profilului"
 
-#: src/pages/Profile.tsx:309
+#: src/pages/Profile.tsx:308
 #: src/pages/Campaigns.tsx:380
 #: src/pages/home/components/TopCampaigns.tsx:199
 #: src/pages/campaign/New.tsx:208
@@ -599,14 +610,14 @@ msgstr "ETH"
 msgid "ETH Amount"
 msgstr "Sumă ETH"
 
-#: src/pages/Profile.tsx:255
+#: src/pages/Profile.tsx:254
 #: src/pages/MyCampaigns.tsx:398
 #: src/pages/Campaigns.tsx:331
 #: src/pages/home/components/TopCampaigns.tsx:156
 msgid "ETH raised"
 msgstr "ETH strâns"
 
-#: src/pages/Profile.tsx:371
+#: src/pages/Profile.tsx:369
 #: src/pages/Campaigns.tsx:126
 msgid "ETH Raised"
 msgstr "ETH strâns"
@@ -744,6 +755,10 @@ msgstr "Mâncare"
 msgid "Frequently Asked Questions"
 msgstr "Întrebări frecvente"
 
+#: src/components/NotificationModal.tsx:105
+msgid "From:"
+msgstr "De la:"
+
 #: src/pages/campaign/New.tsx:629
 #: src/pages/campaign/Edit.tsx:738
 msgid "Full Description"
@@ -836,7 +851,7 @@ msgstr "Informații importante despre acest proiect"
 msgid "Important Note"
 msgstr "Notă importantă"
 
-#: src/pages/Profile.tsx:206
+#: src/pages/Profile.tsx:205
 #: src/pages/MyCampaigns.tsx:245
 #: src/pages/MyCampaigns.tsx:362
 #: src/pages/campaign/Edit.tsx:541
@@ -970,6 +985,10 @@ msgstr "Mainnet"
 msgid "Make a real difference by supporting projects that matter to you and your community."
 msgstr "Fă o diferență reală susținând proiecte care contează pentru tine și comunitatea ta."
 
+#: src/components/NotificationsPanel.tsx:198
+msgid "Mark all as read"
+msgstr "Marchează toate ca citite"
+
 #: src/pages/campaign/New.tsx:559
 #: src/pages/campaign/Edit.tsx:694
 msgid "Maximum funding goal: {MAX_FUNDING_GOAL} ETH"
@@ -984,6 +1003,7 @@ msgid "Menu"
 msgstr "Meniu"
 
 #: src/pages/Contact.tsx:230
+#: src/components/NotificationModal.tsx:91
 #: src/components/ContactModal.tsx:133
 msgid "Message"
 msgstr "Mesaj"
@@ -1102,7 +1122,7 @@ msgstr "Nu a fost găsit niciun cont"
 msgid "No Campaigns Found"
 msgstr "Nu au fost găsite campanii"
 
-#: src/pages/Profile.tsx:144
+#: src/pages/Profile.tsx:143
 msgid "No campaigns yet"
 msgstr "Nicio campanie deocamdată"
 
@@ -1118,6 +1138,14 @@ msgstr "Nu există fonduri disponibile pentru retragere."
 msgid "No images uploaded"
 msgstr "Nu există imagini încărcate"
 
+#: src/components/NotificationsPanel.tsx:224
+msgid "No notifications yet"
+msgstr "Nu există notificări deocamdată"
+
+#: src/components/NotificationsPanel.tsx:217
+msgid "No unread notifications"
+msgstr "Nu există notificări necitite"
+
 #: src/pages/FAQs.tsx:22
 msgid "No, all campaigns on this platform are fictional and created for demonstration purposes. They do not represent real fundraising initiatives."
 msgstr "Nu, toate campaniile de pe această platformă sunt fictive și create în scop demonstrativ. Ele nu reprezintă inițiative reale de strângere de fonduri."
@@ -1130,6 +1158,7 @@ msgstr "Nu, BlockFund nu este o platformă reală de crowdfunding. Acesta este u
 msgid "No, this platform should not be used for real crowdfunding purposes. It is a prototype designed for educational demonstration only. For real crowdfunding, please use established platforms like Kickstarter, GoFundMe, or other legitimate services."
 msgstr "Nu, această platformă nu ar trebui folosită pentru scopuri reale de crowdfunding. Este un prototip creat doar pentru demonstrație educațională. Pentru crowdfunding real, vă rugăm să folosiți platforme consacrate precum Kickstarter, GoFundMe sau alte servicii legitime."
 
+#: src/components/NotificationsPanel.tsx:156
 #: src/components/MobileDrawer.tsx:189
 msgid "Notifications"
 msgstr "Notificări"
@@ -1209,6 +1238,8 @@ msgid "Processing..."
 msgstr "Se procesează..."
 
 #: src/pages/Settings.tsx:253
+#: src/components/NotificationsPanel.tsx:276
+#: src/components/NotificationModal.tsx:115
 msgid "Profile"
 msgstr "Profil"
 
@@ -1245,6 +1276,15 @@ msgstr "Linkuri rapide"
 #: src/pages/Contact.tsx:134
 msgid "Quick Response Time"
 msgstr "Timp de răspuns rapid"
+
+#: src/components/NotificationsPanel.tsx:272
+#: src/components/NotificationModal.tsx:114
+msgid "Re:"
+msgstr "Re:"
+
+#: src/components/NotificationModal.tsx:189
+msgid "Reply"
+msgstr "Răspuns"
 
 #: src/components/Footer.tsx:43
 msgid "Resources"
@@ -1292,6 +1332,10 @@ msgstr "Setări de securitate"
 msgid "See how others view your profile"
 msgstr "Vezi cum îți vizualizează alții profilul"
 
+#: src/components/NotificationModal.tsx:176
+msgid "Send"
+msgstr "Trimite"
+
 #: src/pages/Contact.tsx:256
 #: src/components/ContactModal.tsx:177
 msgid "Send Message"
@@ -1302,6 +1346,7 @@ msgid "Send us a Message"
 msgstr "Trimite-ne un mesaj"
 
 #: src/pages/Contact.tsx:251
+#: src/components/NotificationModal.tsx:173
 #: src/components/ContactModal.tsx:174
 msgid "Sending..."
 msgstr "Se trimite..."
@@ -1565,6 +1610,22 @@ msgstr "Încredere și securitate"
 msgid "Type your message here..."
 msgstr "Scrieți mesajul aici..."
 
+#: src/components/NotificationModal.tsx:137
+msgid "Type your reply..."
+msgstr "Scrieți răspunsul aici..."
+
+#: src/components/NotificationModal.tsx:106
+msgid "Unknown"
+msgstr "Necunoscut"
+
+#: src/components/NotificationsPanel.tsx:263
+msgid "Unknown User"
+msgstr "Utilizator necunoscut"
+
+#: src/components/NotificationsPanel.tsx:187
+msgid "Unread"
+msgstr "Necitite"
+
 #: src/pages/Settings.tsx:472
 msgid "Update Password"
 msgstr "Actualizează parola"
@@ -1574,7 +1635,7 @@ msgstr "Actualizează parola"
 msgid "Updating..."
 msgstr "Se actualizează..."
 
-#: src/pages/Profile.tsx:275
+#: src/pages/Profile.tsx:274
 #: src/pages/MyCampaigns.tsx:416
 #: src/pages/Campaigns.tsx:350
 #: src/pages/home/components/TopCampaigns.tsx:174
@@ -1640,6 +1701,10 @@ msgstr "Ne străduim să obținem excelență în tot ceea ce facem, de la cod p
 #: src/pages/Contact.tsx:137
 msgid "We typically respond within 2-3 business hours during our working hours."
 msgstr "De obicei, răspundem în decurs de 2-3 ore lucrătoare în timpul programului nostru."
+
+#: src/components/NotificationsPanel.tsx:227
+msgid "We'll notify you when something happens"
+msgstr "Vom vă informa când se întâmplă ceva"
 
 #: src/pages/About.tsx:83
 msgid "We're revolutionizing crowdfunding through blockchain technology, making it more transparent, secure, and accessible for everyone."

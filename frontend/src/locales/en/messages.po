@@ -43,7 +43,7 @@ msgstr "Access denied"
 msgid "Access funding opportunities from anywhere in the world, breaking down geographical barriers."
 msgstr "Access funding opportunities from anywhere in the world, breaking down geographical barriers."
 
-#: src/pages/Profile.tsx:211
+#: src/pages/Profile.tsx:210
 #: src/pages/MyCampaigns.tsx:243
 #: src/pages/MyCampaigns.tsx:270
 #: src/pages/MyCampaigns.tsx:367
@@ -74,12 +74,17 @@ msgstr "Add up to 4 images (PNG or JPG only). First image will be the cover imag
 
 #: src/pages/MyCampaigns.tsx:268
 #: src/pages/Campaigns.tsx:243
+#: src/components/NotificationsPanel.tsx:176
 msgid "All"
 msgstr "All"
 
 #: src/pages/Campaigns.tsx:201
 msgid "All Categories"
 msgstr "All Categories"
+
+#: src/components/NotificationsPanel.tsx:214
+msgid "All caught up!"
+msgstr "All caught up!"
 
 #: src/pages/MyCampaigns.tsx:309
 msgid "All your campaigns have ended. Start a new one!"
@@ -225,8 +230,8 @@ msgstr "Campaign Title"
 msgid "Campaign:"
 msgstr "Campaign:"
 
-#: src/pages/Profile.tsx:140
-#: src/pages/Profile.tsx:355
+#: src/pages/Profile.tsx:139
+#: src/pages/Profile.tsx:353
 msgid "Campaigns"
 msgstr "Campaigns"
 
@@ -241,6 +246,7 @@ msgstr "Can I use this for real crowdfunding?"
 #: src/pages/campaign/components/StatusModal.tsx:47
 #: src/components/WithdrawModal.tsx:101
 #: src/components/SupportModal.tsx:230
+#: src/components/NotificationModal.tsx:163
 #: src/components/DeleteCampaignModal.tsx:67
 msgid "Cancel"
 msgstr "Cancel"
@@ -274,6 +280,7 @@ msgstr "Change Campaign Status"
 #: src/pages/campaign/Edit.tsx:729
 #: src/pages/campaign/Edit.tsx:761
 #: src/pages/campaign/Edit.tsx:792
+#: src/components/NotificationModal.tsx:157
 #: src/components/ContactModal.tsx:126
 #: src/components/ContactModal.tsx:159
 msgid "characters"
@@ -286,6 +293,10 @@ msgstr "Check out this campaign on BlockFund"
 #: src/pages/Register.tsx:78
 msgid "Choose a username"
 msgstr "Choose a username"
+
+#: src/components/NotificationsPanel.tsx:291
+msgid "Click to view"
+msgstr "Click to view"
 
 #: src/components/MobileDrawer.tsx:131
 msgid "Close menu"
@@ -363,7 +374,7 @@ msgstr "Connected:"
 msgid "Connection already in progress. Please check MetaMask."
 msgstr "Connection already in progress. Please check MetaMask."
 
-#: src/pages/Profile.tsx:383
+#: src/pages/Profile.tsx:381
 #: src/components/MobileDrawer.tsx:246
 #: src/components/MobileDrawer.tsx:297
 #: src/components/Footer.tsx:28
@@ -533,7 +544,7 @@ msgid "End Date"
 msgstr "End Date"
 
 #: src/pages/Profile.tsx:90
-#: src/pages/Profile.tsx:210
+#: src/pages/Profile.tsx:209
 #: src/pages/MyCampaigns.tsx:212
 #: src/pages/MyCampaigns.tsx:244
 #: src/pages/MyCampaigns.tsx:273
@@ -581,7 +592,7 @@ msgstr "Error Loading Campaign"
 msgid "Error Loading Profile"
 msgstr "Error Loading Profile"
 
-#: src/pages/Profile.tsx:309
+#: src/pages/Profile.tsx:308
 #: src/pages/Campaigns.tsx:380
 #: src/pages/home/components/TopCampaigns.tsx:199
 #: src/pages/campaign/New.tsx:208
@@ -594,14 +605,14 @@ msgstr "ETH"
 msgid "ETH Amount"
 msgstr "ETH Amount"
 
-#: src/pages/Profile.tsx:255
+#: src/pages/Profile.tsx:254
 #: src/pages/MyCampaigns.tsx:398
 #: src/pages/Campaigns.tsx:331
 #: src/pages/home/components/TopCampaigns.tsx:156
 msgid "ETH raised"
 msgstr "ETH raised"
 
-#: src/pages/Profile.tsx:371
+#: src/pages/Profile.tsx:369
 #: src/pages/Campaigns.tsx:126
 msgid "ETH Raised"
 msgstr "ETH Raised"
@@ -739,6 +750,10 @@ msgstr "Food"
 msgid "Frequently Asked Questions"
 msgstr "Frequently Asked Questions"
 
+#: src/components/NotificationModal.tsx:105
+msgid "From:"
+msgstr "From:"
+
 #: src/pages/campaign/New.tsx:629
 #: src/pages/campaign/Edit.tsx:738
 msgid "Full Description"
@@ -825,7 +840,7 @@ msgstr "Important information about this project"
 msgid "Important Note"
 msgstr "Important Note"
 
-#: src/pages/Profile.tsx:206
+#: src/pages/Profile.tsx:205
 #: src/pages/MyCampaigns.tsx:245
 #: src/pages/MyCampaigns.tsx:362
 #: src/pages/campaign/Edit.tsx:541
@@ -954,6 +969,10 @@ msgstr "Mainnet"
 msgid "Make a real difference by supporting projects that matter to you and your community."
 msgstr "Make a real difference by supporting projects that matter to you and your community."
 
+#: src/components/NotificationsPanel.tsx:198
+msgid "Mark all as read"
+msgstr "Mark all as read"
+
 #: src/pages/campaign/New.tsx:559
 #: src/pages/campaign/Edit.tsx:694
 msgid "Maximum funding goal: {MAX_FUNDING_GOAL} ETH"
@@ -968,6 +987,7 @@ msgid "Menu"
 msgstr "Menu"
 
 #: src/pages/Contact.tsx:230
+#: src/components/NotificationModal.tsx:91
 #: src/components/ContactModal.tsx:133
 msgid "Message"
 msgstr "Message"
@@ -1086,7 +1106,7 @@ msgstr "No account found"
 msgid "No Campaigns Found"
 msgstr "No Campaigns Found"
 
-#: src/pages/Profile.tsx:144
+#: src/pages/Profile.tsx:143
 msgid "No campaigns yet"
 msgstr "No campaigns yet"
 
@@ -1102,6 +1122,14 @@ msgstr "No funds available to withdraw."
 msgid "No images uploaded"
 msgstr "No images uploaded"
 
+#: src/components/NotificationsPanel.tsx:224
+msgid "No notifications yet"
+msgstr "No notifications yet"
+
+#: src/components/NotificationsPanel.tsx:217
+msgid "No unread notifications"
+msgstr "No unread notifications"
+
 #: src/pages/FAQs.tsx:22
 msgid "No, all campaigns on this platform are fictional and created for demonstration purposes. They do not represent real fundraising initiatives."
 msgstr "No, all campaigns on this platform are fictional and created for demonstration purposes. They do not represent real fundraising initiatives."
@@ -1114,6 +1142,7 @@ msgstr "No, BlockFund is not a real crowdfunding platform. This is a school proj
 msgid "No, this platform should not be used for real crowdfunding purposes. It is a prototype designed for educational demonstration only. For real crowdfunding, please use established platforms like Kickstarter, GoFundMe, or other legitimate services."
 msgstr "No, this platform should not be used for real crowdfunding purposes. It is a prototype designed for educational demonstration only. For real crowdfunding, please use established platforms like Kickstarter, GoFundMe, or other legitimate services."
 
+#: src/components/NotificationsPanel.tsx:156
 #: src/components/MobileDrawer.tsx:189
 msgid "Notifications"
 msgstr "Notifications"
@@ -1193,6 +1222,8 @@ msgid "Processing..."
 msgstr "Processing..."
 
 #: src/pages/Settings.tsx:253
+#: src/components/NotificationsPanel.tsx:276
+#: src/components/NotificationModal.tsx:115
 msgid "Profile"
 msgstr "Profile"
 
@@ -1229,6 +1260,15 @@ msgstr "Quick Links"
 #: src/pages/Contact.tsx:134
 msgid "Quick Response Time"
 msgstr "Quick Response Time"
+
+#: src/components/NotificationsPanel.tsx:272
+#: src/components/NotificationModal.tsx:114
+msgid "Re:"
+msgstr "Re:"
+
+#: src/components/NotificationModal.tsx:189
+msgid "Reply"
+msgstr "Reply"
 
 #: src/components/Footer.tsx:43
 msgid "Resources"
@@ -1276,6 +1316,10 @@ msgstr "Security Settings"
 msgid "See how others view your profile"
 msgstr "See how others view your profile"
 
+#: src/components/NotificationModal.tsx:176
+msgid "Send"
+msgstr "Send"
+
 #: src/pages/Contact.tsx:256
 #: src/components/ContactModal.tsx:177
 msgid "Send Message"
@@ -1286,6 +1330,7 @@ msgid "Send us a Message"
 msgstr "Send us a Message"
 
 #: src/pages/Contact.tsx:251
+#: src/components/NotificationModal.tsx:173
 #: src/components/ContactModal.tsx:174
 msgid "Sending..."
 msgstr "Sending..."
@@ -1539,6 +1584,22 @@ msgstr "Trust & Security"
 msgid "Type your message here..."
 msgstr "Type your message here..."
 
+#: src/components/NotificationModal.tsx:137
+msgid "Type your reply..."
+msgstr "Type your reply..."
+
+#: src/components/NotificationModal.tsx:106
+msgid "Unknown"
+msgstr "Unknown"
+
+#: src/components/NotificationsPanel.tsx:263
+msgid "Unknown User"
+msgstr "Unknown User"
+
+#: src/components/NotificationsPanel.tsx:187
+msgid "Unread"
+msgstr "Unread"
+
 #: src/pages/Settings.tsx:472
 msgid "Update Password"
 msgstr "Update Password"
@@ -1548,7 +1609,7 @@ msgstr "Update Password"
 msgid "Updating..."
 msgstr "Updating..."
 
-#: src/pages/Profile.tsx:275
+#: src/pages/Profile.tsx:274
 #: src/pages/MyCampaigns.tsx:416
 #: src/pages/Campaigns.tsx:350
 #: src/pages/home/components/TopCampaigns.tsx:174
@@ -1614,6 +1675,10 @@ msgstr "We strive for excellence in everything we do, from code to customer serv
 #: src/pages/Contact.tsx:137
 msgid "We typically respond within 2-3 business hours during our working hours."
 msgstr "We typically respond within 2-3 business hours during our working hours."
+
+#: src/components/NotificationsPanel.tsx:227
+msgid "We'll notify you when something happens"
+msgstr "We'll notify you when something happens"
 
 #: src/pages/About.tsx:83
 msgid "We're revolutionizing crowdfunding through blockchain technology, making it more transparent, secure, and accessible for everyone."

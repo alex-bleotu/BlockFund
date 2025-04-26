@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { format } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bell, Check, Mail, MessageCircle, X } from "lucide-react";
@@ -152,7 +153,7 @@ export function NotificationsPanel({
                                                     )}
                                                 </div>
                                                 <h2 className="text-xl font-bold text-text">
-                                                    Notifications
+                                                    {t`Notifications`}
                                                 </h2>
                                             </div>
                                             <button
@@ -172,7 +173,7 @@ export function NotificationsPanel({
                                                         ? "bg-surface text-text shadow-sm"
                                                         : "text-text-secondary hover:text-text"
                                                 }`}>
-                                                All
+                                                {t`All`}
                                             </button>
                                             <button
                                                 onClick={() =>
@@ -183,7 +184,7 @@ export function NotificationsPanel({
                                                         ? "bg-surface text-text shadow-sm"
                                                         : "text-text-secondary hover:text-text"
                                                 }`}>
-                                                Unread{" "}
+                                                {t`Unread`}{" "}
                                                 {unreadCount > 0 &&
                                                     `(${unreadCount})`}
                                             </button>
@@ -194,7 +195,7 @@ export function NotificationsPanel({
                                                 onClick={handleMarkAllAsRead}
                                                 className="flex items-center justify-center w-full mt-3 py-2 text-sm font-medium text-primary hover:bg-primary-light/30 transition-colors rounded-lg">
                                                 <Check className="w-4 h-4 mr-1" />
-                                                Mark all as read
+                                                {t`Mark all as read`}
                                             </button>
                                         )}
                                     </div>
@@ -210,23 +211,20 @@ export function NotificationsPanel({
                                                     <>
                                                         <Check className="w-12 h-12 mb-4" />
                                                         <p className="text-lg font-medium">
-                                                            All caught up!
+                                                            {t`All caught up!`}
                                                         </p>
                                                         <p className="text-sm">
-                                                            No unread
-                                                            notifications
+                                                            {t`No unread notifications`}
                                                         </p>
                                                     </>
                                                 ) : (
                                                     <>
                                                         <Mail className="w-12 h-12 mb-4" />
                                                         <p className="text-lg font-medium">
-                                                            No notifications yet
+                                                            {t`No notifications yet`}
                                                         </p>
                                                         <p className="text-sm text-center px-2">
-                                                            We'll notify you
-                                                            when something
-                                                            happens
+                                                            {t`We'll notify you when something happens`}
                                                         </p>
                                                     </>
                                                 )}
@@ -262,7 +260,7 @@ export function NotificationsPanel({
                                                                             {message
                                                                                 .sender
                                                                                 ?.username ||
-                                                                                "Unknown User"}
+                                                                                t`Unknown User`}
                                                                         </span>
                                                                         <span className="text-xs text-text-secondary flex-shrink-0 ml-2">
                                                                             {formatDate(
@@ -271,11 +269,11 @@ export function NotificationsPanel({
                                                                         </span>
                                                                     </div>
                                                                     <p className="text-sm text-text-secondary mb-1 truncate">
-                                                                        Re:{" "}
+                                                                        {t`Re:`}{" "}
                                                                         {message
                                                                             .campaign
                                                                             ?.title ||
-                                                                            "Campaign"}
+                                                                            t`Profile`}
                                                                     </p>
                                                                     <p className="text-sm font-medium text-text mb-1 truncate">
                                                                         {
@@ -290,9 +288,7 @@ export function NotificationsPanel({
                                                                     {!message.read && (
                                                                         <div className="mt-2 flex items-center text-primary text-sm">
                                                                             <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
-                                                                            Click
-                                                                            to
-                                                                            view
+                                                                            {t`Click to view`}
                                                                         </div>
                                                                     )}
                                                                 </div>

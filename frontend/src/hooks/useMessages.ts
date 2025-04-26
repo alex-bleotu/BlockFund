@@ -125,7 +125,7 @@ export function useMessages() {
     };
 
     const sendMessage = async (
-        campaignId: string,
+        campaignId: string | null,
         receiverId: string,
         subject: string,
         content: string
