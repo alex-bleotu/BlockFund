@@ -2,6 +2,7 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AppContent } from "./components/AppContent";
 import { MetaMaskStatus } from "./components/MetaMaskStatus";
+import { NetworkInitializer } from "./components/NetworkInitializer";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { AuthProvider } from "./contexts/AuthContext";
 import LanguageProvider from "./contexts/LanguageContext";
@@ -22,6 +23,7 @@ export default function App() {
                 <LanguageProvider>
                     <NotificationProvider>
                         <AuthProvider>
+                            <NetworkInitializer />
                             <div className="flex flex-col min-h-screen">
                                 <AppContent />
                                 <ScrollToTop />

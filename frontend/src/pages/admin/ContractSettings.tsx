@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { useAuth } from "../../hooks/useAuth";
+import { supabase } from "../../lib/supabase";
 
 export function ContractSettings() {
     const navigate = useNavigate();
@@ -56,7 +57,26 @@ export function ContractSettings() {
             localStorage.setItem("CONTRACT_ADDRESS_LOCAL", contractAddress);
             localStorage.setItem("NETWORK", network);
 
-            toast.success(t`Contract settings saved successfully`);
+            if (network !== "local") {
+                const { error } = await supabase
+                    .from("config")
+                    .update({ value: network })
+                    .eq("key", "network");
+
+                if (error) {
+                    console.error("Error updating network in database:", error);
+                    toast.error(t`Failed to update network in database`);
+                    return;
+                }
+            }
+
+            if (network === "local") {
+                toast.success(
+                    t`Local network settings saved for this device only`
+                );
+            } else {
+                toast.success(t`Network settings saved for all users`);
+            }
 
             toast(t`Please refresh the page for changes to take effect`, {
                 icon: "🔄",
@@ -154,11 +174,24 @@ export function ContractSettings() {
                                     {t`Mainnet`}
                                 </button>
                             </div>
+                            <p className="text-xs text-text-secondary mt-2">
+                                {network === "local"
+                                    ? t`Local network settings are stored only on this device.`
+                                    : t`Sepolia and Mainnet settings are applied globally for all users.`}
+                            </p>
                         </div>
 
                         <div className="p-4 bg-primary-light rounded-lg text-sm text-text-secondary border border-primary/20">
                             <p className="font-medium text-primary mb-1">{t`Important Note`}</p>
-                            <p>{t`These settings are used for development and testing purposes. Changes will be applied after page refresh.`}</p>
+                            <p>
+                                {network === "local"
+                                    ? t`Local network settings are for development and testing purposes on this device only. Changes will be applied after page refresh.`
+                                    : t`${
+                                          network === "sepolia"
+                                              ? "Sepolia Test Network"
+                                              : "Ethereum Mainnet"
+                                      } settings will be applied globally for all users. This affects where campaigns are deployed and how users interact with the blockchain.`}
+                            </p>
                         </div>
 
                         <div className="flex justify-end mt-6">
