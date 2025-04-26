@@ -47,7 +47,6 @@ export function Profile() {
             setLoading(true);
             setError(null);
 
-            // Fetch user profile
             const { data: profileData, error: profileError } = await supabase
                 .from("profiles")
                 .select("*")
@@ -59,7 +58,6 @@ export function Profile() {
 
             setProfile(profileData);
 
-            // Fetch user's campaigns with images
             const { data: campaignsData, error: campaignsError } =
                 await supabase
                     .from("campaigns")

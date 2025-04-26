@@ -4,7 +4,7 @@ import { LanguageContext, type Locale } from "../contexts/LanguageContext";
 export function useLanguage() {
     const context = useContext(LanguageContext);
 
-    if (context === undefined) {
+    if (context === null || context === undefined) {
         throw new Error("useLanguage must be used within a LanguageProvider");
     }
 

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Logo } from "../components/Logo";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { useAuth } from "../hooks/useAuth";
+import { supabase } from "../lib/supabase";
 
 export function Register() {
     const [email, setEmail] = useState("");
@@ -21,7 +22,26 @@ export function Register() {
         try {
             setError("");
             setLoading(true);
+
             await signUp(email, password);
+
+            const {
+                data: { user },
+            } = await supabase.auth.getUser();
+
+            if (user) {
+                const { error: profileError } = await supabase
+                    .from("profiles")
+                    .upsert({
+                        id: user.id,
+                        username: username,
+                        created_at: new Date().toISOString(),
+                        updated_at: new Date().toISOString(),
+                    });
+
+                if (profileError) throw profileError;
+            }
+
             navigate("/");
         } catch (err) {
             setError(t`Failed to create an account. Please try again.`);
