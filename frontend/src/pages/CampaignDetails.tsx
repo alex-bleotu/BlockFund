@@ -72,6 +72,10 @@ export function CampaignDetails() {
     const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
 
     useEffect(() => {
+        connect();
+    }, []);
+
+    useEffect(() => {
         if (id) {
             fetchCampaign();
         }

@@ -3,7 +3,8 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import CampaignArtifact from "../artifacts/contracts/Campaign.sol/Campaign.json";
 
-const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS as string;
+const SEPOLIA_CONTRACT_ADDRESS = import.meta.env
+    .VITE_SEPOLIA_CONTRACT_ADDRESS as string;
 const MAINNET_CONTRACT_ADDRESS = import.meta.env
     .VITE_MAINNET_CONTRACT_ADDRESS as string;
 
@@ -14,123 +15,87 @@ const getContractAddressLocal = () => {
 
 const getNetwork = () => {
     const savedNetwork = localStorage.getItem("NETWORK");
-    return savedNetwork ?? "local";
+    return (savedNetwork as "local" | "sepolia" | "mainnet") ?? "local";
 };
 
 export function useCampaignContract() {
-    const [provider, setProvider] = useState<ethers.Provider | null>(null);
+    const [provider, setProvider] = useState<ethers.BrowserProvider | null>(
+        null
+    );
     const [signer, setSigner] = useState<ethers.Signer | null>(null);
     const [contract, setContract] = useState<ethers.Contract | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const finish = () => setLoading(false);
-
         if (!(window as any).ethereum) {
             console.error("MetaMask not detected");
             finish();
             return;
         }
-
         const browserProvider = new ethers.BrowserProvider(
             (window as any).ethereum
         );
         setProvider(browserProvider);
-
         (async () => {
             try {
-                const CONTRACT_ADDRESS_LOCAL = getContractAddressLocal();
+                await browserProvider.send("eth_requestAccounts", []);
                 const network = getNetwork();
-
-                if (network === "local") {
-                    try {
-                        await browserProvider.send(
-                            "wallet_switchEthereumChain",
-                            [{ chainId: "0x7A69" }]
-                        );
-                    } catch (switchError: any) {
-                        console.error(
-                            "Error switching to Hardhat network:",
-                            switchError
-                        );
+                const configs: Record<
+                    "local" | "sepolia" | "mainnet",
+                    { chainId: string; addChainParams?: any; address: string }
+                > = {
+                    local: {
+                        chainId: "0x7A69",
+                        address: getContractAddressLocal(),
+                    },
+                    sepolia: {
+                        chainId: "0xaa36a7",
+                        addChainParams: {
+                            chainId: "0xaa36a7",
+                            chainName: "Sepolia Test Network",
+                            rpcUrls: ["https://rpc.sepolia.org"],
+                            nativeCurrency: {
+                                name: "Sepolia ETH",
+                                symbol: "SEP",
+                                decimals: 18,
+                            },
+                        },
+                        address: SEPOLIA_CONTRACT_ADDRESS,
+                    },
+                    mainnet: {
+                        chainId: "0x1",
+                        address: MAINNET_CONTRACT_ADDRESS,
+                    },
+                };
+                const cfg = configs[network];
+                if (!cfg) throw new Error(`Unsupported network: ${network}`);
+                if (!cfg.address)
+                    throw new Error(`No address configured for ${network}`);
+                try {
+                    await browserProvider.send("wallet_switchEthereumChain", [
+                        { chainId: cfg.chainId },
+                    ]);
+                } catch (err: any) {
+                    if (err.code === 4902 && cfg.addChainParams) {
+                        await browserProvider.send("wallet_addEthereumChain", [
+                            cfg.addChainParams,
+                        ]);
+                    } else {
+                        throw err;
                     }
-
-                    await browserProvider.send("eth_requestAccounts", []);
-                    const webSigner = await browserProvider.getSigner();
-                    setSigner(webSigner);
-                    setContract(
-                        new ethers.Contract(
-                            CONTRACT_ADDRESS_LOCAL,
-                            CampaignArtifact.abi,
-                            webSigner
-                        )
-                    );
-                    finish();
-                    return;
-                } else if (network === "sepolia") {
-                    try {
-                        await browserProvider.send(
-                            "wallet_switchEthereumChain",
-                            [{ chainId: "0xaa36a7" }]
-                        );
-                    } catch (switchError: any) {
-                        if (switchError.code === 4902) {
-                            await browserProvider.send(
-                                "wallet_addEthereumChain",
-                                [
-                                    {
-                                        chainId: "0xaa36a7",
-                                        chainName: "Sepolia Test Network",
-                                        rpcUrls: ["https://rpc.sepolia.org"],
-                                        nativeCurrency: {
-                                            name: "Sepolia ETH",
-                                            symbol: "SepoliaETH",
-                                            decimals: 18,
-                                        },
-                                    },
-                                ]
-                            );
-                        } else {
-                            throw switchError;
-                        }
-                    }
-
-                    await browserProvider.send("eth_requestAccounts", []);
-                    const webSigner = await browserProvider.getSigner();
-                    setSigner(webSigner);
-                    setContract(
-                        new ethers.Contract(
-                            CONTRACT_ADDRESS,
-                            CampaignArtifact.abi,
-                            webSigner
-                        )
-                    );
-                } else if (network === "mainnet") {
-                    try {
-                        await browserProvider.send(
-                            "wallet_switchEthereumChain",
-                            [{ chainId: "0x1" }]
-                        );
-                    } catch (switchError: any) {
-                        throw switchError;
-                    }
-
-                    await browserProvider.send("eth_requestAccounts", []);
-                    const webSigner = await browserProvider.getSigner();
-                    setSigner(webSigner);
-                    setContract(
-                        new ethers.Contract(
-                            MAINNET_CONTRACT_ADDRESS,
-                            CampaignArtifact.abi,
-                            webSigner
-                        )
-                    );
                 }
-            } catch (err) {
-                console.error(
-                    "Error setting up provider or switching network:",
-                    err
+                const webSigner = await browserProvider.getSigner();
+                setSigner(webSigner);
+                setContract(
+                    new ethers.Contract(
+                        cfg.address,
+                        CampaignArtifact.abi,
+                        webSigner
+                    )
                 );
+            } catch (err) {
+                console.error("Failed to init contract:", err);
             } finally {
                 finish();
             }
@@ -141,13 +106,9 @@ export function useCampaignContract() {
         goal: string,
         durationSec: number,
         metadataCID: string
-    ): Promise<{
-        receipt: any;
-        id: number;
-    }> => {
+    ): Promise<{ receipt: any; id: number }> => {
         if (!contract) throw new Error(t`Contract not initialized`);
         setLoading(true);
-
         try {
             const goalWei = ethers.parseEther(goal);
             const deadline = Math.floor(Date.now() / 1000) + durationSec;
@@ -157,19 +118,16 @@ export function useCampaignContract() {
                 metadataCID
             );
             const receipt = await tx.wait();
-
             let newId: number;
             const createdEvent = receipt.events?.find(
                 (e: any) => e.event === "CampaignCreated"
             );
-
             if (createdEvent && createdEvent.args?.campaignId != null) {
                 newId = Number(createdEvent.args.campaignId);
             } else {
                 const count = await contract.getCampaignCount();
                 newId = Number(count);
             }
-
             return { receipt, id: newId };
         } finally {
             setLoading(false);
@@ -199,14 +157,9 @@ export function useCampaignContract() {
         if (!contract) throw new Error(t`Contract not initialized`);
         setLoading(true);
         try {
-            if (!amount || amount.trim() === "") {
-                throw new Error(t`Invalid amount`);
-            }
-
+            if (!amount?.trim()) throw new Error(t`Invalid amount`);
             const value = ethers.parseEther(amount);
-
             const tx = await contract.contribute(id, { value });
-
             return await tx.wait();
         } catch (error) {
             console.error("Contribution error:", error);
@@ -221,13 +174,9 @@ export function useCampaignContract() {
         setLoading(true);
         try {
             const campaign = await getCampaign(id);
-
             if (campaign.status !== "CLOSED") {
-                console.log("Closing campaign before withdrawal");
-                const closeTx = await contract.closeCampaign(id);
-                await closeTx.wait();
+                await contract.closeCampaign(id).then((tx) => tx.wait());
             }
-
             const tx = await contract.withdraw(id);
             return await tx.wait();
         } catch (error) {

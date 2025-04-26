@@ -72,8 +72,19 @@ export function SupportModal({
             setIsSubmitting(true);
             await onSupport(ethAmount);
         } catch (err) {
-            console.error("Support error:", err);
-            setError(t`Failed to process transaction`);
+            console.error("Contribution error:", err);
+            if (
+                err instanceof Error &&
+                err.message.includes("User denied transaction signature")
+            )
+                setError(t`User denied transaction signature`);
+            else if (
+                err instanceof Error &&
+                err.message.includes("Creator cannot fund their own campaign")
+            )
+                setError(t`Cannot fund a campaign with the same wallet`);
+            else setError(t`Failed to process transaction`);
+
             setIsSubmitting(false);
         }
     };

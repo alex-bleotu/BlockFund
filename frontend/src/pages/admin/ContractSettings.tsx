@@ -78,7 +78,7 @@ export function ContractSettings() {
         <div className="min-h-screen bg-background pt-24 pb-16">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <button
-                    onClick={() => navigate(-1)}
+                    onClick={() => navigate("/")}
                     className="flex items-center text-text-secondary hover:text-text mb-8 transition-colors">
                     <ArrowLeft className="w-5 h-5 mr-2" />
                     {t`Back`}
@@ -103,11 +103,18 @@ export function ContractSettings() {
                                 onChange={(e) =>
                                     setContractAddress(e.target.value)
                                 }
+                                disabled={network !== "local" || isLoading}
                                 placeholder="0x000..."
-                                className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text"
+                                className={`w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-text ${
+                                    network !== "local"
+                                        ? "opacity-50 cursor-not-allowed"
+                                        : ""
+                                }`}
                             />
                             <p className="text-xs text-text-secondary mt-1">
-                                {t`The Ethereum address of your locally deployed contract.`}
+                                {network === "local"
+                                    ? t`The Ethereum address of your locally deployed contract.`
+                                    : t`Contract address input is only available when using Local network.`}
                             </p>
                         </div>
 
