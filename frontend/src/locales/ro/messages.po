@@ -74,7 +74,7 @@ msgstr "Adaugă până la 4 imagini (PNG sau JPG doar). Prima imagine va fi imag
 
 #: src/pages/MyCampaigns.tsx:268
 #: src/pages/Campaigns.tsx:243
-#: src/components/NotificationsPanel.tsx:176
+#: src/components/NotificationsPanel.tsx:187
 msgid "All"
 msgstr "Toate"
 
@@ -82,7 +82,7 @@ msgstr "Toate"
 msgid "All Categories"
 msgstr "Toate categoriile"
 
-#: src/components/NotificationsPanel.tsx:214
+#: src/components/NotificationsPanel.tsx:225
 msgid "All caught up!"
 msgstr "Toate notificările au fost citite!"
 
@@ -294,7 +294,7 @@ msgstr "Vezi această campanie pe BlockFund"
 msgid "Choose a username"
 msgstr "Alege un nume de utilizator"
 
-#: src/components/NotificationsPanel.tsx:291
+#: src/components/NotificationsPanel.tsx:301
 msgid "Click to view"
 msgstr "Click pentru a vedea"
 
@@ -495,11 +495,6 @@ msgstr "Ștergere..."
 #: src/pages/campaign/Edit.tsx:198
 msgid "Description is limited to"
 msgstr "Descrierea este limitată la"
-
-#: src/pages/campaign/New.tsx:174
-#: src/pages/campaign/Edit.tsx:187
-#~ msgid "Description is limited to {DESCRIPTION_CHAR_LIMIT} characters"
-#~ msgstr "Descrierea este limitată la {DESCRIPTION_CHAR_LIMIT} caractere"
 
 #: src/pages/Settings.tsx:531
 msgid "Disconnect"
@@ -755,7 +750,7 @@ msgstr "Mâncare"
 msgid "Frequently Asked Questions"
 msgstr "Întrebări frecvente"
 
-#: src/components/NotificationModal.tsx:105
+#: src/components/NotificationModal.tsx:106
 msgid "From:"
 msgstr "De la:"
 
@@ -774,12 +769,6 @@ msgstr "Obiectiv de finanțare"
 #: src/pages/campaign/Edit.tsx:216
 msgid "Funding goal cannot exceed"
 msgstr "Obiectivul de finanțare nu poate depăși"
-
-#: src/pages/campaign/New.tsx:183
-#: src/pages/campaign/New.tsx:194
-#: src/pages/campaign/Edit.tsx:196
-#~ msgid "Funding goal cannot exceed {MAX_FUNDING_GOAL} ETH"
-#~ msgstr "Obiectivul de finanțare nu poate depăși {MAX_FUNDING_GOAL} ETH"
 
 #: src/lib/utils.ts:14
 msgid "Games"
@@ -967,11 +956,6 @@ msgstr "Locație"
 msgid "Location is limited to"
 msgstr "Locația este limitată la"
 
-#: src/pages/campaign/New.tsx:179
-#: src/pages/campaign/Edit.tsx:192
-#~ msgid "Location is limited to {LOCATION_CHAR_LIMIT} characters"
-#~ msgstr "Locația este limitată la {LOCATION_CHAR_LIMIT} caractere"
-
 #: src/components/Navbar.tsx:52
 #: src/components/MobileDrawer.tsx:274
 msgid "Login"
@@ -985,7 +969,7 @@ msgstr "Mainnet"
 msgid "Make a real difference by supporting projects that matter to you and your community."
 msgstr "Fă o diferență reală susținând proiecte care contează pentru tine și comunitatea ta."
 
-#: src/components/NotificationsPanel.tsx:198
+#: src/components/NotificationsPanel.tsx:209
 msgid "Mark all as read"
 msgstr "Marchează toate ca citite"
 
@@ -1003,7 +987,7 @@ msgid "Menu"
 msgstr "Meniu"
 
 #: src/pages/Contact.tsx:230
-#: src/components/NotificationModal.tsx:91
+#: src/components/NotificationModal.tsx:92
 #: src/components/ContactModal.tsx:133
 msgid "Message"
 msgstr "Mesaj"
@@ -1138,11 +1122,11 @@ msgstr "Nu există fonduri disponibile pentru retragere."
 msgid "No images uploaded"
 msgstr "Nu există imagini încărcate"
 
-#: src/components/NotificationsPanel.tsx:224
+#: src/components/NotificationsPanel.tsx:235
 msgid "No notifications yet"
 msgstr "Nu există notificări deocamdată"
 
-#: src/components/NotificationsPanel.tsx:217
+#: src/components/NotificationsPanel.tsx:228
 msgid "No unread notifications"
 msgstr "Nu există notificări necitite"
 
@@ -1158,7 +1142,7 @@ msgstr "Nu, BlockFund nu este o platformă reală de crowdfunding. Acesta este u
 msgid "No, this platform should not be used for real crowdfunding purposes. It is a prototype designed for educational demonstration only. For real crowdfunding, please use established platforms like Kickstarter, GoFundMe, or other legitimate services."
 msgstr "Nu, această platformă nu ar trebui folosită pentru scopuri reale de crowdfunding. Este un prototip creat doar pentru demonstrație educațională. Pentru crowdfunding real, vă rugăm să folosiți platforme consacrate precum Kickstarter, GoFundMe sau alte servicii legitime."
 
-#: src/components/NotificationsPanel.tsx:156
+#: src/components/NotificationsPanel.tsx:167
 #: src/components/MobileDrawer.tsx:189
 msgid "Notifications"
 msgstr "Notificări"
@@ -1238,7 +1222,7 @@ msgid "Processing..."
 msgstr "Se procesează..."
 
 #: src/pages/Settings.tsx:253
-#: src/components/NotificationsPanel.tsx:276
+#: src/components/NotificationsPanel.tsx:286
 #: src/components/NotificationModal.tsx:115
 msgid "Profile"
 msgstr "Profil"
@@ -1279,8 +1263,8 @@ msgstr "Timp de răspuns rapid"
 
 #: src/components/NotificationsPanel.tsx:272
 #: src/components/NotificationModal.tsx:114
-msgid "Re:"
-msgstr "Re:"
+#~ msgid "Re:"
+#~ msgstr "Re:"
 
 #: src/components/NotificationModal.tsx:189
 msgid "Reply"
@@ -1459,11 +1443,6 @@ msgstr "Rezumat"
 msgid "Summary is limited to"
 msgstr "Rezumatul este limitat la"
 
-#: src/pages/campaign/New.tsx:167
-#: src/pages/campaign/Edit.tsx:180
-#~ msgid "Summary is limited to {SUMMARY_CHAR_LIMIT} characters"
-#~ msgstr "Rezumatul este limitat la {SUMMARY_CHAR_LIMIT} caractere"
-
 #: src/pages/campaign/components/PreviewStep.tsx:323
 msgid "Support button will be enabled after campaign launch"
 msgstr "Butonul de susținere va fi activat după lansarea campaniei"
@@ -1560,11 +1539,6 @@ msgstr "Acesta va împiedica contribuții suplimentare la campania dvs."
 msgid "Title is limited to"
 msgstr "Titlul este limitat la"
 
-#: src/pages/campaign/New.tsx:164
-#: src/pages/campaign/Edit.tsx:177
-#~ msgid "Title is limited to {TITLE_CHAR_LIMIT} characters"
-#~ msgstr "Titlul este limitat la {TITLE_CHAR_LIMIT} caractere"
-
 #: src/pages/campaign/New.tsx:384
 msgid "To create a campaign, you need to have MetaMask installed in your browser. MetaMask allows you to securely manage your cryptocurrency and interact with blockchain applications."
 msgstr "Pentru a crea o campanie, trebuie să aveți MetaMask instalat în browserul dvs. MetaMask vă permite să gestionați în siguranță criptomonedele și să interacționați cu aplicații blockchain."
@@ -1614,15 +1588,15 @@ msgstr "Scrieți mesajul aici..."
 msgid "Type your reply..."
 msgstr "Scrieți răspunsul aici..."
 
-#: src/components/NotificationModal.tsx:106
+#: src/components/NotificationModal.tsx:107
 msgid "Unknown"
 msgstr "Necunoscut"
 
-#: src/components/NotificationsPanel.tsx:263
+#: src/components/NotificationsPanel.tsx:274
 msgid "Unknown User"
 msgstr "Utilizator necunoscut"
 
-#: src/components/NotificationsPanel.tsx:187
+#: src/components/NotificationsPanel.tsx:198
 msgid "Unread"
 msgstr "Necitite"
 
@@ -1702,7 +1676,7 @@ msgstr "Ne străduim să obținem excelență în tot ceea ce facem, de la cod p
 msgid "We typically respond within 2-3 business hours during our working hours."
 msgstr "De obicei, răspundem în decurs de 2-3 ore lucrătoare în timpul programului nostru."
 
-#: src/components/NotificationsPanel.tsx:227
+#: src/components/NotificationsPanel.tsx:238
 msgid "We'll notify you when something happens"
 msgstr "Vom vă informa când se întâmplă ceva"
 

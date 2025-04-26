@@ -89,11 +89,22 @@ export function NotificationsPanel({
     );
 
     const handleMarkAllAsRead = useCallback(async () => {
+        if (unreadCount === 0) return;
+
         const result = await markAllAsRead();
         if (result.success) {
+            setFilteredMessages((prevMessages) =>
+                prevMessages.map((msg) => ({ ...msg, read: true }))
+            );
             forceRefreshBadge();
+
+            if (activeTab === "unread") {
+                setFilteredMessages([]);
+            }
+
+            refresh();
         }
-    }, [markAllAsRead, forceRefreshBadge]);
+    }, [markAllAsRead, forceRefreshBadge, unreadCount, activeTab, refresh]);
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
@@ -269,7 +280,6 @@ export function NotificationsPanel({
                                                                         </span>
                                                                     </div>
                                                                     <p className="text-sm text-text-secondary mb-1 truncate">
-                                                                        {t`Re:`}{" "}
                                                                         {message
                                                                             .campaign
                                                                             ?.title ||

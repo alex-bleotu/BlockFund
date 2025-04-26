@@ -55,7 +55,8 @@ export function NotificationModal({
             const result = await sendMessage(
                 message.campaign_id,
                 message.sender_id,
-                `Re: ${message.subject}`,
+                // t`Re:` + " " + message.subject,
+                message.subject,
                 trimmedContent
             );
 
@@ -111,7 +112,6 @@ export function NotificationModal({
                                 </div>
                                 <div className="text-right">
                                     <div className="text-sm font-medium text-text">
-                                        {t`Re:`}{" "}
                                         {message.campaign?.title || t`Profile`}
                                     </div>
                                 </div>
