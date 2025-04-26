@@ -375,22 +375,14 @@ export function Settings() {
 
                                         <div className="border-t border-border mt-6 pt-6">
                                             <div className="flex items-center justify-between">
-                                                <div>
-                                                    <h3 className="text-lg font-medium text-text">
-                                                        {t`Log Out`}
-                                                    </h3>
-                                                    <p className="text-sm text-text-secondary">
-                                                        {t`Sign out of your account`}
-                                                    </p>
-                                                </div>
                                                 <button
                                                     onClick={async () => {
                                                         await disconnectWallet();
                                                         await signOut();
                                                     }}
-                                                    className="px-4 py-2 text-sm font-medium text-error border-2 border-error hover:bg-error hover:text-light rounded-lg transition-colors flex items-center">
+                                                    className="px-4 py-2 text-sm font-medium text-error border-2 border-error hover:bg-error hover:text-light rounded-lg transition-colors flex items-center ml-auto">
                                                     <LogOut className="w-4 h-4 mr-2" />
-                                                    {t`Log Out`}
+                                                    {t`Sign out`}
                                                 </button>
                                             </div>
                                         </div>

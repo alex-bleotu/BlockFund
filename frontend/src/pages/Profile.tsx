@@ -87,7 +87,7 @@ export function Profile() {
         const today = new Date();
         const diffTime = date.getTime() - today.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays > 0 ? t`${diffDays} days left` : t`Ended`;
+        return diffDays > 0 ? diffDays + " " + t`days left` : t`Ended`;
     };
 
     const isCampaignEnded = (deadline: string) => {

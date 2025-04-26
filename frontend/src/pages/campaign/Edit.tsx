@@ -172,28 +172,53 @@ export function EditFund() {
             }
         }
 
-        // Character limit validation
         if (name === "title" && value.length > TITLE_CHAR_LIMIT) {
-            setError(t`Title is limited to ${TITLE_CHAR_LIMIT} characters`);
+            setError(
+                t`Title is limited to` +
+                    " " +
+                    TITLE_CHAR_LIMIT +
+                    " " +
+                    t`characters`
+            );
             return;
         } else if (name === "summary" && value.length > SUMMARY_CHAR_LIMIT) {
-            setError(t`Summary is limited to ${SUMMARY_CHAR_LIMIT} characters`);
+            setError(
+                t`Summary is limited to` +
+                    " " +
+                    SUMMARY_CHAR_LIMIT +
+                    " " +
+                    t`characters`
+            );
             return;
         } else if (
             name === "description" &&
             value.length > DESCRIPTION_CHAR_LIMIT
         ) {
             setError(
-                t`Description is limited to ${DESCRIPTION_CHAR_LIMIT} characters`
+                t`Description is limited to` +
+                    " " +
+                    DESCRIPTION_CHAR_LIMIT +
+                    " " +
+                    t`characters`
             );
             return;
         } else if (name === "location" && value.length > LOCATION_CHAR_LIMIT) {
             setError(
-                t`Location is limited to ${LOCATION_CHAR_LIMIT} characters`
+                t`Location is limited to` +
+                    " " +
+                    LOCATION_CHAR_LIMIT +
+                    " " +
+                    t`characters`
             );
             return;
         } else if (name === "goal" && parseFloat(value) > MAX_FUNDING_GOAL) {
-            setError(t`Funding goal cannot exceed ${MAX_FUNDING_GOAL} ETH`);
+            setError(
+                t`Funding goal cannot exceed` +
+                    " " +
+                    MAX_FUNDING_GOAL +
+                    " " +
+                    t`ETH`
+            );
             return;
         } else {
             setError(null);

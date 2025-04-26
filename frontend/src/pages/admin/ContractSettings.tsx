@@ -181,11 +181,10 @@ export function ContractSettings() {
                             <p>
                                 {network === "local"
                                     ? t`Local network settings are for development and testing purposes on this device only. Changes will be applied after page refresh.`
-                                    : t`${
-                                          network === "sepolia"
-                                              ? "Sepolia Test Network"
-                                              : "Ethereum Mainnet"
-                                      } settings will be applied globally for all users. This affects where campaigns are deployed and how users interact with the blockchain.`}
+                                    : network === "sepolia"
+                                    ? t`Sepolia Test Network`
+                                    : t`Ethereum Mainnet`}{" "}
+                                {t`settings will be applied globally for all users. This affects where campaigns are deployed and how users interact with the blockchain.`}
                             </p>
                         </div>
 
