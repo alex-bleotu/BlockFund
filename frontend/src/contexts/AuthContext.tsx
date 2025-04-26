@@ -52,6 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         try {
             localStorage.removeItem("walletAddress");
             const { error } = await supabase.auth.signOut();
+            setUser(null);
             if (error) throw error;
             navigate("/");
         } catch (error) {

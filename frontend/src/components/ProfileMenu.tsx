@@ -6,6 +6,7 @@ import { useNotifications } from "../contexts/NotificationContext";
 import { useAuth } from "../hooks/useAuth";
 import { useMessages } from "../hooks/useMessages";
 import { useWallet } from "../hooks/useWallet";
+import { supabase } from "../lib/supabase";
 import { NotificationsPanel } from "./NotificationsPanel";
 
 export function ProfileMenu() {
@@ -16,12 +17,14 @@ export function ProfileMenu() {
     const [isOpen, setIsOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const [username, setUsername] = useState<string>("");
 
     const isAdmin = user?.id === import.meta.env.VITE_ADMIN_USER_ID;
 
     useEffect(() => {
         if (user) {
             refresh();
+            fetchUsername();
         }
 
         const handleFocus = () => {
@@ -41,6 +44,28 @@ export function ProfileMenu() {
             refresh();
         }
     }, [lastRefreshed, user, refresh]);
+
+    const fetchUsername = async () => {
+        if (!user) return;
+
+        try {
+            const { data, error } = await supabase
+                .from("profiles")
+                .select("username")
+                .eq("id", user.id)
+                .single();
+
+            if (error) throw error;
+            if (data && data.username) {
+                setUsername(data.username);
+            } else {
+                setUsername(user.email?.split("@")[0] || "");
+            }
+        } catch (err) {
+            console.error("Error fetching username:", err);
+            setUsername(user.email?.split("@")[0] || "");
+        }
+    };
 
     const handleNotificationsPanelClose = () => {
         setIsNotificationsOpen(false);
@@ -101,7 +126,7 @@ export function ProfileMenu() {
                             <User className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                         </div>
                         <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                            {user?.email?.split("@")[0]}
+                            {username}
                         </span>
                     </button>
                 </div>

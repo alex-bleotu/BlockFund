@@ -21,6 +21,7 @@ import { useTheme } from "../contexts/ThemeContext";
 import { useAuth } from "../hooks/useAuth";
 import { useMessages } from "../hooks/useMessages";
 import { useWallet } from "../hooks/useWallet";
+import { supabase } from "../lib/supabase";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { NotificationsPanel } from "./NotificationsPanel";
 
@@ -32,6 +33,7 @@ export function MobileDrawer() {
     const { unreadCount } = useMessages();
     const { disconnectWallet } = useWallet();
     const location = useLocation();
+    const [username, setUsername] = useState<string>("");
 
     const isAdmin = user?.id === import.meta.env.VITE_ADMIN_USER_ID;
 
@@ -45,6 +47,34 @@ export function MobileDrawer() {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    useEffect(() => {
+        if (user) {
+            fetchUsername();
+        }
+    }, [user]);
+
+    const fetchUsername = async () => {
+        if (!user) return;
+
+        try {
+            const { data, error } = await supabase
+                .from("profiles")
+                .select("username")
+                .eq("id", user.id)
+                .single();
+
+            if (error) throw error;
+            if (data && data.username) {
+                setUsername(data.username);
+            } else {
+                setUsername(user.email?.split("@")[0] || "");
+            }
+        } catch (err) {
+            console.error("Error fetching username:", err);
+            setUsername(user.email?.split("@")[0] || "");
+        }
+    };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -144,7 +174,7 @@ export function MobileDrawer() {
                                         </div>
                                         <div>
                                             <div className="font-medium text-text">
-                                                {user.email?.split("@")[0]}
+                                                {username}
                                             </div>
                                             <div className="text-sm text-text-secondary">
                                                 {user.email}
