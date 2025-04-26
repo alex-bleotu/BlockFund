@@ -1,9 +1,11 @@
 import { t } from "@lingui/core/macro";
 import { AlertTriangle, ArrowLeft, Power } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useEthPrice } from "../../hooks/useEthPrice";
+import { useMetaMask } from "../../hooks/useMetaMask";
+import { useWallet } from "../../hooks/useWallet";
 import { supabase } from "../../lib/supabase";
 import { CampaignCategories, CampaignFormData } from "../../lib/types";
 import { getCampaignCategory } from "../../lib/utils";
@@ -17,10 +19,14 @@ export function EditFund() {
     const navigate = useNavigate();
     const { user } = useAuth();
     const { ethPrice } = useEthPrice();
+    const { connect } = useMetaMask();
+    const { address } = useWallet();
+    const hasConnected = useRef(false);
     const [currentStep, setCurrentStep] = useState(1);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+    const [hasMetaMask, setHasMetaMask] = useState<boolean>(false);
     const [formData, setFormData] = useState<CampaignFormData>({
         title: "",
         category: "",
@@ -36,6 +42,24 @@ export function EditFund() {
     const [campaignStatus, setCampaignStatus] = useState<string>("active");
 
     useEffect(() => {
+        const checkMetaMask = () => {
+            setHasMetaMask(!!window.ethereum);
+        };
+        checkMetaMask();
+    }, []);
+
+    useEffect(() => {
+        const connectWallet = async () => {
+            if (hasConnected.current) return;
+            hasConnected.current = true;
+
+            await connect();
+        };
+
+        connectWallet();
+    }, [connect]);
+
+    useEffect(() => {
         if (!user) {
             navigate("/login", { state: { from: `/campaign/edit/${id}` } });
             return;
@@ -43,7 +67,7 @@ export function EditFund() {
         if (id) {
             fetchCampaign();
         }
-    }, [id, user]);
+    }, [id, user, navigate]);
 
     const fetchCampaign = async () => {
         try {
@@ -277,6 +301,68 @@ export function EditFund() {
         }
     };
 
+    const renderMetaMaskRequired = () => (
+        <div className="min-h-screen bg-background flex items-center justify-center">
+            <div className="max-w-md w-full mx-auto px-4 py-8">
+                <div className="bg-surface rounded-xl shadow-lg p-8 text-center">
+                    <div className="text-6xl mb-4">🦊</div>
+                    <h1 className="text-2xl font-bold text-text mb-4">
+                        {t`MetaMask Required`}
+                    </h1>
+                    <p className="text-text-secondary mb-6">
+                        {t`To edit a campaign, you need to have MetaMask installed in your browser. MetaMask allows you to securely manage your cryptocurrency and interact with blockchain applications.`}
+                    </p>
+                    <a
+                        href="https://metamask.io/download/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full px-6 py-3 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors mb-4">
+                        {t`Install MetaMask`}
+                    </a>
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="w-full px-6 py-3 bg-background text-text-secondary rounded-lg hover:bg-background-alt transition-colors">
+                        {t`Go Back`}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+
+    const renderConnectWallet = () => (
+        <div className="min-h-screen bg-background flex items-center justify-center">
+            <div className="max-w-md w-full mx-auto px-4 py-8">
+                <div className="bg-surface rounded-xl shadow-lg p-8 text-center">
+                    <div className="text-6xl mb-4">🔑</div>
+                    <h1 className="text-2xl font-bold text-text mb-4">
+                        {t`Connect Your Wallet`}
+                    </h1>
+                    <p className="text-text-secondary mb-6">
+                        {t`You need to connect your wallet to edit your campaign. This allows you to receive funds and manage your campaign securely.`}
+                    </p>
+                    <button
+                        onClick={() => navigate("/settings?tab=wallet")}
+                        className="w-full px-6 py-3 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors mb-4">
+                        {t`Connect Wallet`}
+                    </button>
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="w-full px-6 py-3 bg-background text-text-secondary rounded-lg hover:bg-background-alt transition-colors">
+                        {t`Go Back`}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+
+    if (!hasMetaMask) {
+        return renderMetaMaskRequired();
+    }
+
+    if (!address) {
+        return renderConnectWallet();
+    }
+
     if (loading) {
         return (
             <div className="min-h-screen bg-background pt-24 flex items-center justify-center">
@@ -370,11 +456,22 @@ export function EditFund() {
                                         id="title"
                                         name="title"
                                         required
+                                        maxLength={30}
                                         value={formData.title}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                         placeholder={t`Give your campaign a catchy title`}
                                     />
+                                    <div className="flex justify-end mt-1">
+                                        <span
+                                            className={`text-xs ${
+                                                formData.title.length >= 30
+                                                    ? "text-error"
+                                                    : "text-text-secondary"
+                                            }`}>
+                                            {formData.title.length}/30
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div>

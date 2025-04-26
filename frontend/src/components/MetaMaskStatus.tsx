@@ -1,10 +1,12 @@
 import { t } from "@lingui/core/macro";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 type WalletStatus = "not-installed" | "locked" | "ready" | "error";
 
 export function MetaMaskStatus() {
+    const { user } = useAuth();
     const [status, setStatus] = useState<WalletStatus>("not-installed");
     const [isVisible, setIsVisible] = useState(true);
 
@@ -16,10 +18,8 @@ export function MetaMaskStatus() {
     }, []);
 
     useEffect(() => {
-        // Reset visibility whenever status changes
         setIsVisible(true);
 
-        // If status is ready, hide after 5 seconds
         if (status === "ready") {
             const timer = setTimeout(() => {
                 setIsVisible(false);
@@ -39,7 +39,7 @@ export function MetaMaskStatus() {
                 };
             case "locked":
                 return {
-                    message: t`MetaMask is locked. Please unlock your wallet.`,
+                    message: t`MetaMask is locked or not connected. Please unlock your wallet.`,
                     icon: "🔒",
                     className: "bg-red-600",
                 };
@@ -85,7 +85,7 @@ export function MetaMaskStatus() {
 
     const config = getStatusConfig(status);
 
-    if (!isVisible) return null;
+    if (!isVisible || !user) return null;
 
     return (
         <div
@@ -93,7 +93,7 @@ export function MetaMaskStatus() {
             <div className="w-10 h-10 rounded-full flex items-center justify-center">
                 <span className="text-xl">{config.icon}</span>
             </div>
-            <div className="overflow-hidden max-w-0 group-hover:max-w-sm transition-all duration-500 ease-in-out">
+            <div className="overflow-hidden max-w-0 group-hover:max-w-md transition-all duration-500 ease-in-out">
                 <span className="whitespace-nowrap text-white text-sm ml-1 mr-4 font-semibold">
                     {config.message}
                 </span>

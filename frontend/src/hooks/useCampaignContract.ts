@@ -2,6 +2,7 @@ import { t } from "@lingui/core/macro";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import CampaignArtifact from "../artifacts/contracts/Campaign.sol/Campaign.json";
+import { useAuth } from "./useAuth";
 
 const SEPOLIA_CONTRACT_ADDRESS = import.meta.env
     .VITE_SEPOLIA_CONTRACT_ADDRESS as string;
@@ -19,6 +20,7 @@ const getNetwork = () => {
 };
 
 export function useCampaignContract() {
+    const { user } = useAuth();
     const [provider, setProvider] = useState<ethers.BrowserProvider | null>(
         null
     );
@@ -28,18 +30,25 @@ export function useCampaignContract() {
 
     useEffect(() => {
         const finish = () => setLoading(false);
+
+        if (!user) {
+            finish();
+            return;
+        }
+
         if (!(window as any).ethereum) {
             console.error("MetaMask not detected");
             finish();
             return;
         }
+
         const browserProvider = new ethers.BrowserProvider(
             (window as any).ethereum
         );
         setProvider(browserProvider);
+
         (async () => {
             try {
-                await browserProvider.send("eth_requestAccounts", []);
                 const network = getNetwork();
                 const configs: Record<
                     "local" | "sepolia" | "mainnet",
@@ -72,6 +81,7 @@ export function useCampaignContract() {
                 if (!cfg) throw new Error(`Unsupported network: ${network}`);
                 if (!cfg.address)
                     throw new Error(`No address configured for ${network}`);
+
                 try {
                     await browserProvider.send("wallet_switchEthereumChain", [
                         { chainId: cfg.chainId },
@@ -85,6 +95,7 @@ export function useCampaignContract() {
                         throw err;
                     }
                 }
+
                 const webSigner = await browserProvider.getSigner();
                 setSigner(webSigner);
                 setContract(
@@ -100,7 +111,7 @@ export function useCampaignContract() {
                 finish();
             }
         })();
-    }, []);
+    }, [user]);
 
     const createCampaign = async (
         goal: string,

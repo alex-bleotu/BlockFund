@@ -1,5 +1,6 @@
 import { t } from "@lingui/core/macro";
 import { useEffect, useState } from "react";
+import { useWallet } from "./useWallet";
 
 declare global {
     interface Window {
@@ -16,6 +17,7 @@ export type MetaMaskStatus = {
 };
 
 export function useMetaMask(): MetaMaskStatus {
+    const { connectWallet } = useWallet();
     const [isInstalled, setIsInstalled] = useState<boolean>(false);
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [isLocked, setIsLocked] = useState<boolean>(true);
@@ -79,10 +81,20 @@ export function useMetaMask(): MetaMaskStatus {
         }
 
         try {
-            await window.ethereum.request({ method: "eth_requestAccounts" });
-            setIsConnected(true);
-            setIsLocked(false);
-            setError(null);
+            if (!localStorage.getItem("walletAddress")) {
+                await connectWallet();
+
+                if (localStorage.getItem("walletAddress")) {
+                    setIsConnected(true);
+                    setIsLocked(false);
+                    setError(null);
+                    window.location.reload();
+                }
+            } else {
+                setIsConnected(true);
+                setIsLocked(false);
+                setError(null);
+            }
         } catch (err: any) {
             setError(err.message || t`Failed to connect to MetaMask`);
         }

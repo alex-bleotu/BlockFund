@@ -1,5 +1,13 @@
 import { t } from "@lingui/core/macro";
-import { AlertTriangle, Key, Lock, Shield, User, Wallet } from "lucide-react";
+import {
+    AlertTriangle,
+    Key,
+    Lock,
+    LogOut,
+    Shield,
+    User,
+    Wallet,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -9,7 +17,7 @@ import { supabase } from "../lib/supabase";
 type SettingsTab = "profile" | "security" | "wallet";
 
 export function Settings() {
-    const { user } = useAuth();
+    const { user, signOut } = useAuth();
     const navigate = useNavigate();
     const {
         address,
@@ -362,6 +370,28 @@ export function Settings() {
                                                     className="px-4 py-2 text-sm font-medium text-primary border-2 border-primary hover:bg-primary hover:text-light rounded-lg transition-colors">
                                                     {t`View Profile`}
                                                 </Link>
+                                            </div>
+                                        </div>
+
+                                        <div className="border-t border-border mt-6 pt-6">
+                                            <div className="flex items-center justify-between">
+                                                <div>
+                                                    <h3 className="text-lg font-medium text-text">
+                                                        {t`Log Out`}
+                                                    </h3>
+                                                    <p className="text-sm text-text-secondary">
+                                                        {t`Sign out of your account`}
+                                                    </p>
+                                                </div>
+                                                <button
+                                                    onClick={async () => {
+                                                        await disconnectWallet();
+                                                        await signOut();
+                                                    }}
+                                                    className="px-4 py-2 text-sm font-medium text-error border-2 border-error hover:bg-error hover:text-light rounded-lg transition-colors flex items-center">
+                                                    <LogOut className="w-4 h-4 mr-2" />
+                                                    {t`Log Out`}
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

@@ -1,9 +1,10 @@
 import { t } from "@lingui/core/macro";
 import { ArrowLeft } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useCampaignContract } from "../../hooks/useCampaignContract";
+import { useMetaMask } from "../../hooks/useMetaMask";
 import { useWallet } from "../../hooks/useWallet";
 import { supabase } from "../../lib/supabase";
 import { CampaignCategories } from "../../lib/types";
@@ -36,12 +37,14 @@ export function NewFund() {
     const { createCampaign } = useCampaignContract();
     const { user } = useAuth();
     const { address } = useWallet();
+    const { connect } = useMetaMask();
     const navigate = useNavigate();
     const [currentStep, setCurrentStep] = useState(1);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
     const [hasMetaMask, setHasMetaMask] = useState<boolean>(false);
+    const hasConnected = useRef(false);
     const [formData, setFormData] = useState<FormData>({
         title: "",
         category: "",
@@ -69,6 +72,17 @@ export function NewFund() {
         };
         checkMetaMask();
     }, []);
+
+    useEffect(() => {
+        const connectWallet = async () => {
+            if (hasConnected.current) return;
+            hasConnected.current = true;
+
+            await connect();
+        };
+
+        connectWallet();
+    }, [connect]);
 
     const completionScore = useMemo(() => {
         const requiredFields = {
@@ -381,11 +395,22 @@ export function NewFund() {
                                         id="title"
                                         name="title"
                                         required
+                                        maxLength={30}
                                         value={formData.title}
                                         onChange={handleChange}
                                         className="appearance-none block w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                         placeholder={t`Give your campaign a catchy title`}
                                     />
+                                    <div className="flex justify-end mt-1">
+                                        <span
+                                            className={`text-xs ${
+                                                formData.title.length >= 30
+                                                    ? "text-error"
+                                                    : "text-text-secondary"
+                                            }`}>
+                                            {formData.title.length}/30
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div>

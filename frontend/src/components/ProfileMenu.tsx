@@ -62,8 +62,8 @@ export function ProfileMenu() {
 
     const handleSignOut = async () => {
         try {
+            await disconnectWallet();
             await signOut();
-            disconnectWallet();
             setIsOpen(false);
         } catch (error) {
             console.error("Error signing out:", error);

@@ -17,7 +17,7 @@ import {
     User,
     Wallet,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ContactModal } from "../components/ContactModal";
@@ -70,9 +70,17 @@ export function CampaignDetails() {
     } = useCampaignContract();
     const [transactionInProgress, setTransactionInProgress] = useState(false);
     const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
+    const hasConnected = useRef(false);
 
     useEffect(() => {
-        connect();
+        const connectWallet = async () => {
+            if (hasConnected.current) return;
+            hasConnected.current = true;
+
+            await connect();
+        };
+
+        connectWallet();
     }, []);
 
     useEffect(() => {
@@ -572,20 +580,27 @@ export function CampaignDetails() {
                                     </div>
 
                                     <div className="flex flex-col gap-1.5">
-                                        {user?.id === campaign.creator_id ? (
+                                        {!isConnected || isLocked ? (
                                             <button
-                                                onClick={() => {
-                                                    if (
-                                                        !isConnected ||
-                                                        isLocked
-                                                    ) {
-                                                        connect();
-                                                        return;
-                                                    }
-                                                    setIsWithdrawModalOpen(
-                                                        true
-                                                    );
-                                                }}
+                                                onClick={() =>
+                                                    navigate(
+                                                        "/settings?tab=wallet"
+                                                    )
+                                                }
+                                                className="w-full py-3 rounded-lg transition-colors bg-primary text-light hover:bg-primary-dark flex items-center justify-center space-x-2"
+                                                disabled={!isInstalled}>
+                                                <Wallet className="w-4 h-4" />
+                                                <span>
+                                                    {!isInstalled
+                                                        ? t`MetaMask Not Installed`
+                                                        : t`Connect Wallet`}
+                                                </span>
+                                            </button>
+                                        ) : user?.id === campaign.creator_id ? (
+                                            <button
+                                                onClick={() =>
+                                                    setIsWithdrawModalOpen(true)
+                                                }
                                                 disabled={
                                                     transactionInProgress ||
                                                     contractLoading ||
@@ -632,15 +647,6 @@ export function CampaignDetails() {
                                                         });
                                                         return;
                                                     }
-
-                                                    if (
-                                                        !isConnected ||
-                                                        isLocked
-                                                    ) {
-                                                        connect();
-                                                        return;
-                                                    }
-
                                                     setIsSupportModalOpen(true);
                                                 }}
                                                 disabled={
@@ -672,46 +678,44 @@ export function CampaignDetails() {
                                                     : campaign.status ===
                                                       "completed"
                                                     ? t`Campaign Completed`
-                                                    : !onChainData
-                                                    ? t`Campaign Inactive`
                                                     : t`Contribute to this Campaign`}
                                             </button>
                                         )}
-                                        <p className="text-sm text-text-secondary text-center">
-                                            {campaignEndDate.hasEnded
-                                                ? t`This campaign has ended.`
-                                                : campaign.status ===
-                                                  "completed"
-                                                ? t`This campaign has been completed. No further actions are possible.`
-                                                : user?.id ===
-                                                  campaign.creator_id
-                                                ? !isInstalled
-                                                    ? t`MetaMask is not installed.`
-                                                    : isLocked
-                                                    ? t`Connect your wallet to withdraw funds.`
-                                                    : !onChainData
-                                                    ? t`This campaign is not active on the blockchain.`
-                                                    : onChainData.status ===
-                                                      "CLOSED"
-                                                    ? t`This campaign is already closed.`
-                                                    : Number(
-                                                          onChainData.totalFunded ||
-                                                              0
-                                                      ) === 0
-                                                    ? t`No funds available to withdraw.`
-                                                    : t`Withdraw funds to close this campaign.`
-                                                : !user
-                                                ? t`Please sign in to contribute to this campaign.`
-                                                : !isInstalled
-                                                ? t`MetaMask is not installed.`
-                                                : isLocked
-                                                ? t`Your wallet is locked. Please unlock it to continue.`
-                                                : !isConnected
-                                                ? t`Connect your wallet to contribute to this campaign.`
-                                                : !onChainData
-                                                ? t`This campaign is not active on the blockchain.`
-                                                : t`Contribute to this campaign with ETH.`}
-                                        </p>
+                                        {!isLocked &&
+                                            (isConnected ||
+                                                !user ||
+                                                user?.id ===
+                                                    campaign.creator_id) && (
+                                                <p className="text-sm text-text-secondary text-center">
+                                                    {campaignEndDate.hasEnded
+                                                        ? t`This campaign has ended.`
+                                                        : campaign.status ===
+                                                          "completed"
+                                                        ? t`This campaign has been completed. No further actions are possible.`
+                                                        : user?.id ===
+                                                          campaign.creator_id
+                                                        ? !isInstalled
+                                                            ? t`MetaMask is not installed.`
+                                                            : !onChainData
+                                                            ? t`This campaign is not active on the blockchain.`
+                                                            : onChainData.status ===
+                                                              "CLOSED"
+                                                            ? t`This campaign is already closed.`
+                                                            : Number(
+                                                                  onChainData.totalFunded ||
+                                                                      0
+                                                              ) === 0
+                                                            ? t`No funds available to withdraw.`
+                                                            : t`Withdraw funds to close this campaign.`
+                                                        : !user
+                                                        ? t`Please sign in to contribute to this campaign.`
+                                                        : !isInstalled
+                                                        ? t`MetaMask is not installed.`
+                                                        : !onChainData
+                                                        ? t`This campaign is not active on the blockchain.`
+                                                        : t`Contribute to this campaign with ETH.`}
+                                                </p>
+                                            )}
                                     </div>
                                 </div>
                             </div>
