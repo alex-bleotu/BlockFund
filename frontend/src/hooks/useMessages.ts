@@ -208,6 +208,32 @@ export function useMessages() {
         }
     };
 
+    const deleteMessage = async (messageId: string) => {
+        if (!user) return { success: false };
+
+        try {
+            const { error } = await supabase
+                .from("messages")
+                .delete()
+                .eq("id", messageId)
+                .eq("receiver_id", user.id);
+
+            if (error) throw error;
+
+            const deletedMessage = messages.find((msg) => msg.id === messageId);
+            setMessages((prev) => prev.filter((msg) => msg.id !== messageId));
+
+            if (deletedMessage && !deletedMessage.read) {
+                setUnreadCount((prev) => Math.max(0, prev - 1));
+            }
+
+            return { success: true };
+        } catch (err) {
+            console.error("Error deleting message:", err);
+            return { success: false, error: t`Failed to delete message` };
+        }
+    };
+
     return {
         messages,
         unreadCount,
@@ -216,6 +242,7 @@ export function useMessages() {
         sendMessage,
         markAsRead,
         markAllAsRead,
+        deleteMessage,
         refresh,
     };
 }

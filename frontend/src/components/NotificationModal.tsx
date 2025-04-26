@@ -1,6 +1,7 @@
 import { t } from "@lingui/core/macro";
-import { MessageCircle, Send, X } from "lucide-react";
+import { MessageCircle, Send, Trash2, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "react-hot-toast";
 import { Message, useMessages } from "../hooks/useMessages";
 
 interface NotificationModalProps {
@@ -17,7 +18,8 @@ export function NotificationModal({
     const [replyContent, setReplyContent] = useState("");
     const [isReplying, setIsReplying] = useState(false);
     const [isSending, setIsSending] = useState(false);
-    const { sendMessage, refresh } = useMessages();
+    const [isDeleting, setIsDeleting] = useState(false);
+    const { sendMessage, refresh, deleteMessage } = useMessages();
 
     const REPLY_CHAR_LIMIT = 200;
 
@@ -73,6 +75,28 @@ export function NotificationModal({
         }
     };
 
+    const handleDelete = async () => {
+        if (!message) return;
+
+        try {
+            setIsDeleting(true);
+            const result = await deleteMessage(message.id);
+
+            if (result.success) {
+                toast.success(t`Message deleted`);
+                refresh();
+                onClose();
+            } else {
+                toast.error(result.error || t`Failed to delete message`);
+            }
+        } catch (error) {
+            console.error("Error deleting message:", error);
+            toast.error(t`An error occurred while deleting the message`);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     const handleClose = () => {
         refresh();
         setTimeout(() => refresh(), 300);
@@ -91,11 +115,19 @@ export function NotificationModal({
                             <MessageCircle className="w-5 h-5 mr-2 text-primary" />
                             {t`Message`}
                         </h2>
-                        <button
-                            onClick={handleClose}
-                            className="text-text-secondary hover:text-text transition-colors">
-                            <X className="w-5 h-5" />
-                        </button>
+                        <div className="flex items-center space-x-2">
+                            <button
+                                onClick={handleDelete}
+                                disabled={isDeleting}
+                                className="text-text-secondary hover:text-error transition-colors">
+                                <Trash2 className="w-5 h-5" />
+                            </button>
+                            <button
+                                onClick={handleClose}
+                                className="text-text-secondary hover:text-text transition-colors">
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
                     </div>
 
                     <div className="p-6">

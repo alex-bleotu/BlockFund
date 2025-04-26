@@ -1,8 +1,9 @@
 import { t } from "@lingui/core/macro";
 import { format } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
-import { Bell, Check, Mail, MessageCircle, X } from "lucide-react";
+import { Bell, Check, Mail, MessageCircle, Trash2, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useNotifications } from "../contexts/NotificationContext";
 import { useMessages, type Message } from "../hooks/useMessages";
 import { NotificationModal } from "./NotificationModal";
@@ -23,6 +24,7 @@ export function NotificationsPanel({
         markAsRead,
         markAllAsRead,
         refresh,
+        deleteMessage,
     } = useMessages();
     const [activeTab, setActiveTab] = useState<"all" | "unread">("all");
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(
@@ -96,7 +98,6 @@ export function NotificationsPanel({
             setFilteredMessages((prevMessages) =>
                 prevMessages.map((msg) => ({ ...msg, read: true }))
             );
-            forceRefreshBadge();
 
             if (activeTab === "unread") {
                 setFilteredMessages([]);
@@ -123,6 +124,32 @@ export function NotificationsPanel({
             refresh();
         }
     };
+
+    const handleDeleteMessage = useCallback(
+        async (e: React.MouseEvent, messageId: string) => {
+            e.stopPropagation();
+
+            try {
+                const result = await deleteMessage(messageId);
+
+                if (result.success) {
+                    setFilteredMessages((prevMessages) =>
+                        prevMessages.filter((msg) => msg.id !== messageId)
+                    );
+
+                    toast.success(t`Message deleted`);
+
+                    forceRefreshBadge();
+                } else {
+                    toast.error(t`Failed to delete message`);
+                }
+            } catch (error) {
+                console.error("Error deleting message:", error);
+                toast.error(t`An error occurred`);
+            }
+        },
+        [deleteMessage, forceRefreshBadge]
+    );
 
     if (!isOpen) return null;
 
@@ -213,7 +240,7 @@ export function NotificationsPanel({
 
                                     <div className="flex-1 overflow-y-auto">
                                         {loading ? (
-                                            <div className="flex justify-center items-center h-32">
+                                            <div className="flex justify-center items-center h-[calc(100%-200px)]">
                                                 <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
                                             </div>
                                         ) : filteredMessages.length === 0 ? (
@@ -251,7 +278,7 @@ export function NotificationsPanel({
                                                                     message
                                                                 )
                                                             }
-                                                            className={`p-4 hover:bg-background-alt transition-colors cursor-pointer ${
+                                                            className={`p-4 hover:bg-background-alt transition-colors cursor-pointer relative ${
                                                                 !message.read
                                                                     ? "bg-primary-light/10"
                                                                     : ""
@@ -273,11 +300,13 @@ export function NotificationsPanel({
                                                                                 ?.username ||
                                                                                 t`Unknown User`}
                                                                         </span>
-                                                                        <span className="text-xs text-text-secondary flex-shrink-0 ml-2">
-                                                                            {formatDate(
-                                                                                message.created_at
-                                                                            )}
-                                                                        </span>
+                                                                        <div className="flex items-center">
+                                                                            <span className="text-xs text-text-secondary flex-shrink-0 ml-2">
+                                                                                {formatDate(
+                                                                                    message.created_at
+                                                                                )}
+                                                                            </span>
+                                                                        </div>
                                                                     </div>
                                                                     <p className="text-sm text-text-secondary mb-1 truncate">
                                                                         {message
@@ -295,12 +324,26 @@ export function NotificationsPanel({
                                                                             message.content
                                                                         }
                                                                     </p>
-                                                                    {!message.read && (
-                                                                        <div className="mt-2 flex items-center text-primary text-sm">
-                                                                            <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
-                                                                            {t`Click to view`}
-                                                                        </div>
-                                                                    )}
+                                                                    <div className="flex justify-between items-center mt-2">
+                                                                        {!message.read && (
+                                                                            <div className="flex items-center text-primary text-sm">
+                                                                                <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                                                                                {t`Click to view`}
+                                                                            </div>
+                                                                        )}
+                                                                        <button
+                                                                            onClick={(
+                                                                                e
+                                                                            ) =>
+                                                                                handleDeleteMessage(
+                                                                                    e,
+                                                                                    message.id
+                                                                                )
+                                                                            }
+                                                                            className="p-1 text-text-secondary hover:text-error transition-colors ml-auto">
+                                                                            <Trash2 className="w-4 h-4" />
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
