@@ -131,7 +131,6 @@ export function Campaigns() {
         {
             icon: TrendingUp,
             value: campaigns
-                .filter((c) => c.status === "active")
                 .reduce((acc, curr) => acc + (curr.raised || 0), 0)
                 .toFixed(3),
             label: t`ETH Raised`,
@@ -356,7 +355,7 @@ export function Campaigns() {
                                                 <span className="text-text-secondary">
                                                     {(
                                                         campaign.raised || 0
-                                                    ).toFixed(2)}{" "}
+                                                    ).toFixed(3)}{" "}
                                                     {t`ETH raised`}
                                                 </span>
                                                 <span className="text-text font-medium">

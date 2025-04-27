@@ -154,7 +154,7 @@ export function TopCampaigns() {
                                     </div>
                                     <div className="flex justify-between items-center mt-2 text-sm">
                                         <span className="text-text-secondary">
-                                            {(campaign.raised || 0).toFixed(2)}{" "}
+                                            {(campaign.raised || 0).toFixed(3)}{" "}
                                             {t`ETH raised`}
                                         </span>
                                         <span className="text-text font-medium">

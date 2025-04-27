@@ -511,7 +511,7 @@ export function MyCampaigns() {
                                         <button className="flex items-center text-primary transition-colors">
                                             <Target className="w-4 h-4 mr-1" />
                                             <span className="text-left">
-                                                {campaign.goal.toFixed(2)} ETH{" "}
+                                                {campaign.goal.toFixed(3)} ETH{" "}
                                                 {t`Goal`}
                                             </span>
                                         </button>
