@@ -21,8 +21,8 @@ msgstr "O taxă de platformă de"
 msgid "A practical example of how blockchain can be used in crowdfunding, perfect for students and developers learning Web3 technologies."
 msgstr "Un exemplu practic de cum blockchain poate fi folosit în strângerea de fonduri, perfect pentru studenți și dezvoltatori care învață tehnologii Web3."
 
-#: src/components/MobileDrawer.tsx:275
-#: src/components/MobileDrawer.tsx:326
+#: src/components/MobileDrawer.tsx:290
+#: src/components/MobileDrawer.tsx:341
 #: src/components/Footer.tsx:21
 msgid "About"
 msgstr "Despre"
@@ -35,8 +35,10 @@ msgstr "Despre BlockFund"
 msgid "About the Creator"
 msgstr "Despre creator"
 
+#: src/pages/admin/ContractSettings.tsx:22
 #: src/pages/admin/ContractSettings.tsx:30
-#: src/pages/admin/ContractSettings.tsx:38
+#: src/pages/admin/CollectFees.tsx:47
+#: src/pages/admin/CollectFees.tsx:55
 msgid "Access denied"
 msgstr "Acces refuzat"
 
@@ -46,7 +48,6 @@ msgstr "Accesează oportunități de finanțare de oriunde din lume, eliminând 
 
 #: src/pages/Profile.tsx:215
 #: src/pages/MyCampaigns.tsx:418
-#: src/pages/Explore.tsx:235
 #: src/pages/campaign/Edit.tsx:597
 msgid "Active"
 msgstr "Activ"
@@ -57,6 +58,7 @@ msgstr "ACTIV"
 
 #: src/pages/MyCampaigns.tsx:281
 #: src/pages/MyCampaigns.tsx:322
+#: src/pages/Explore.tsx:235
 msgid "Active "
 msgstr "Active "
 
@@ -147,12 +149,13 @@ msgid "Automated fund distribution and milestone tracking through smart contract
 msgstr "Distribuție automată a fondurilor și urmărire a etapelor prin contracte inteligente, eliminând intermediarii."
 
 #: src/pages/Profile.tsx:137
-#: src/pages/campaign/New.tsx:448
-#: src/pages/campaign/New.tsx:682
+#: src/pages/campaign/New.tsx:447
+#: src/pages/campaign/New.tsx:681
 #: src/pages/campaign/Edit.tsx:587
 #: src/pages/campaign/Edit.tsx:938
 #: src/pages/campaign/components/PreviewStep.tsx:126
-#: src/pages/admin/ContractSettings.tsx:147
+#: src/pages/admin/ContractSettings.tsx:99
+#: src/pages/admin/CollectFees.tsx:209
 msgid "Back"
 msgstr "Înapoi"
 
@@ -213,12 +216,12 @@ msgstr "Campanie finalizată"
 msgid "Campaign Creator"
 msgstr "Creatorul campaniei"
 
-#: src/pages/campaign/New.tsx:155
+#: src/pages/campaign/New.tsx:154
 #: src/pages/campaign/Edit.tsx:198
 msgid "Campaign deadline cannot be more than 2 years in the future"
 msgstr "Termenul final al campaniei nu poate fi mai mult de 2 ani în viitor"
 
-#: src/pages/campaign/New.tsx:150
+#: src/pages/campaign/New.tsx:149
 #: src/pages/campaign/Edit.tsx:193
 msgid "Campaign deadline must be at least 1 week from today"
 msgstr "Termenul final al campaniei trebuie să fie cel puțin 1 săptămână de azi"
@@ -252,7 +255,7 @@ msgstr "Campanie încheiată"
 msgid "Campaign Goal"
 msgstr "Obiectiv campanie"
 
-#: src/pages/admin/ContractSettings.tsx:188
+#: src/pages/admin/CollectFees.tsx:222
 msgid "Campaign ID"
 msgstr "ID campanie"
 
@@ -261,11 +264,24 @@ msgstr "ID campanie"
 msgid "Campaign Images"
 msgstr "Imagini campanie"
 
-#: src/pages/campaign/New.tsx:564
+#: src/pages/admin/CollectFees.tsx:243
+msgid "Campaign Information"
+msgstr "Informații campanie"
+
+#: src/pages/admin/CollectFees.tsx:189
+msgid "Campaign is not closed"
+msgstr "Campania nu este închisă"
+
+#: src/pages/admin/CollectFees.tsx:128
+msgid "Campaign is not deployed on blockchain"
+msgstr "Campania nu este implementată pe blockchain"
+
+#: src/pages/campaign/New.tsx:563
 msgid "Campaign must run for at least 1 week from today and no more than 2 years"
 msgstr "Campania trebuie să ruleze cel puțin 1 săptămână de azi și nu mai mult de 2 ani"
 
 #: src/pages/CampaignDetails.tsx:349
+#: src/pages/admin/CollectFees.tsx:124
 msgid "Campaign not found"
 msgstr "Campania nu există"
 
@@ -277,7 +293,7 @@ msgstr "Sumar campanie"
 msgid "Campaign summary is required"
 msgstr "Sumarul campaniei este necesar"
 
-#: src/pages/campaign/New.tsx:482
+#: src/pages/campaign/New.tsx:481
 #: src/pages/campaign/Edit.tsx:620
 #: src/pages/campaign/Edit.tsx:911
 msgid "Campaign Title"
@@ -320,7 +336,7 @@ msgstr "Nu poți șterge campania deoarece fondurile colectate nu au fost încă
 msgid "Categories"
 msgstr "Categorii"
 
-#: src/pages/campaign/New.tsx:510
+#: src/pages/campaign/New.tsx:509
 #: src/pages/campaign/Edit.tsx:674
 msgid "Category"
 msgstr "Categorie"
@@ -329,14 +345,14 @@ msgstr "Categorie"
 msgid "Change Campaign Status"
 msgstr "Schimbă statusul campaniei"
 
-#: src/pages/campaign/New.tsx:169
-#: src/pages/campaign/New.tsx:178
-#: src/pages/campaign/New.tsx:190
-#: src/pages/campaign/New.tsx:199
-#: src/pages/campaign/New.tsx:503
-#: src/pages/campaign/New.tsx:598
-#: src/pages/campaign/New.tsx:630
-#: src/pages/campaign/New.tsx:661
+#: src/pages/campaign/New.tsx:168
+#: src/pages/campaign/New.tsx:177
+#: src/pages/campaign/New.tsx:189
+#: src/pages/campaign/New.tsx:198
+#: src/pages/campaign/New.tsx:502
+#: src/pages/campaign/New.tsx:597
+#: src/pages/campaign/New.tsx:629
+#: src/pages/campaign/New.tsx:660
 #: src/pages/campaign/Edit.tsx:212
 #: src/pages/campaign/Edit.tsx:221
 #: src/pages/campaign/Edit.tsx:233
@@ -364,7 +380,7 @@ msgstr "Alege un nume de utilizator"
 msgid "Click to view"
 msgstr "Click pentru a vedea"
 
-#: src/components/MobileDrawer.tsx:174
+#: src/components/MobileDrawer.tsx:175
 msgid "Close menu"
 msgstr "Închide meniul"
 
@@ -373,7 +389,13 @@ msgstr "Închide meniul"
 msgid "CoinGecko returned {0}"
 msgstr "CoinGecko a returnat {0}"
 
-#: src/pages/admin/ContractSettings.tsx:266
+#: src/pages/admin/CollectFees.tsx:214
+msgid "Collect Campaign Fees"
+msgstr "Strânge comisioane de campanie"
+
+#: src/pages/admin/CollectFees.tsx:299
+#: src/components/ProfileMenu.tsx:186
+#: src/components/MobileDrawer.tsx:277
 msgid "Collect Fees"
 msgstr "Comisioane"
 
@@ -382,17 +404,17 @@ msgid "Community"
 msgstr "Comunitate"
 
 #: src/pages/MyCampaigns.tsx:412
-#: src/pages/Explore.tsx:253
 #: src/pages/CampaignDetails.tsx:384
 msgid "Completed"
 msgstr "Finalizat"
 
 #: src/pages/MyCampaigns.tsx:282
 #: src/pages/MyCampaigns.tsx:324
+#: src/pages/Explore.tsx:253
 msgid "Completed "
 msgstr "Finalizate "
 
-#: src/pages/campaign/New.tsx:457
+#: src/pages/campaign/New.tsx:456
 msgid "Completion:"
 msgstr "Finalizare:"
 
@@ -406,7 +428,7 @@ msgstr "Confirmă noua parolă"
 
 #: src/pages/Settings.tsx:562
 #: src/pages/CampaignDetails.tsx:672
-#: src/pages/campaign/New.tsx:398
+#: src/pages/campaign/New.tsx:397
 #: src/pages/campaign/Edit.tsx:514
 #: src/components/modals/SupportModal.tsx:145
 msgid "Connect Wallet"
@@ -428,7 +450,7 @@ msgstr "Conectează-ți portofelul MetaMask pentru a începe crearea campaniilor
 msgid "Connect your Wallet"
 msgstr "Conectează portofelul tău"
 
-#: src/pages/campaign/New.tsx:390
+#: src/pages/campaign/New.tsx:389
 #: src/pages/campaign/Edit.tsx:506
 msgid "Connect Your Wallet"
 msgstr "Conectează-ți portofelul"
@@ -446,8 +468,8 @@ msgid "Connection already in progress. Please check MetaMask."
 msgstr "Conexiune deja în curs. Verifică MetaMask."
 
 #: src/pages/Profile.tsx:397
-#: src/components/MobileDrawer.tsx:289
-#: src/components/MobileDrawer.tsx:340
+#: src/components/MobileDrawer.tsx:304
+#: src/components/MobileDrawer.tsx:355
 #: src/components/Footer.tsx:28
 msgid "Contact"
 msgstr "Contact"
@@ -457,20 +479,15 @@ msgstr "Contact"
 msgid "Contact Creator"
 msgstr "Contactează creatorul"
 
-#: src/pages/admin/ContractSettings.tsx:180
+#: src/pages/admin/CollectFees.tsx:275
+msgid "Contract Address"
+msgstr "Adresa contractului"
+
+#: src/pages/admin/ContractSettings.tsx:132
 msgid "Contract address input is only available when using Local network."
 msgstr "Adresa contractului este disponibilă doar când se folosește rețeaua locală."
 
-#: src/hooks/useCampaignContract.ts:121
-#: src/hooks/useCampaignContract.ts:149
-#: src/hooks/useCampaignContract.ts:168
-#: src/hooks/useCampaignContract.ts:184
-#: src/hooks/useCampaignContract.ts:202
-#: src/hooks/useCampaignContract.ts:225
-msgid "Contract not initialized"
-msgstr "Contract neinițializat"
-
-#: src/pages/admin/ContractSettings.tsx:152
+#: src/pages/admin/ContractSettings.tsx:104
 msgid "Contract Settings"
 msgstr "Setări contract"
 
@@ -515,7 +532,7 @@ msgstr "Creează o campanie"
 msgid "Create your account"
 msgstr "Creează-ți contul"
 
-#: src/pages/campaign/New.tsx:454
+#: src/pages/campaign/New.tsx:453
 msgid "Create Your Campaign"
 msgstr "Creează-ți campania"
 
@@ -530,6 +547,10 @@ msgstr "strânsul de fonduri"
 #: src/pages/campaign/components/FundingInput.tsx:255
 msgid "Current ETH Price:"
 msgstr "Prețul curent al ETH:"
+
+#: src/pages/admin/CollectFees.tsx:265
+msgid "Current Network"
+msgstr "Rețea curentă"
 
 #: src/pages/Settings.tsx:434
 msgid "Current Password"
@@ -559,7 +580,7 @@ msgstr "Șterge campanie"
 msgid "Deleting..."
 msgstr "Ștergere..."
 
-#: src/pages/campaign/New.tsx:186
+#: src/pages/campaign/New.tsx:185
 #: src/pages/campaign/Edit.tsx:229
 msgid "Description is limited to"
 msgstr "Descrierea este limitată la"
@@ -610,7 +631,7 @@ msgstr "Adresă de email"
 msgid "Email Us"
 msgstr "Trimite-ne un email"
 
-#: src/pages/campaign/New.tsx:544
+#: src/pages/campaign/New.tsx:543
 #: src/pages/campaign/Edit.tsx:707
 #: src/pages/campaign/components/PreviewStep.tsx:322
 msgid "End Date"
@@ -621,13 +642,13 @@ msgstr "Data de încheiere"
 #: src/pages/MyCampaigns.tsx:250
 #: src/pages/MyCampaigns.tsx:417
 #: src/pages/Explore.tsx:127
-#: src/pages/Explore.tsx:244
 #: src/pages/home/components/TopCampaigns.tsx:66
 msgid "Ended"
 msgstr "Încheiat"
 
 #: src/pages/MyCampaigns.tsx:282
 #: src/pages/MyCampaigns.tsx:327
+#: src/pages/Explore.tsx:244
 msgid "Ended "
 msgstr "Încheiate "
 
@@ -697,7 +718,8 @@ msgstr "ETH strâns"
 
 #: src/pages/campaign/Edit.tsx:466
 #: src/pages/campaign/components/PreviewStep.tsx:99
-#: src/pages/admin/ContractSettings.tsx:251
+#: src/pages/admin/ContractSettings.tsx:186
+#: src/pages/admin/CollectFees.tsx:271
 msgid "Ethereum Mainnet"
 msgstr "Ethereum Mainnet"
 
@@ -709,12 +731,12 @@ msgstr "Fiecare tranzacție este înregistrată pe blockchain, asigurând transp
 msgid "Experience the next generation of crowdfunding"
 msgstr "Experimentează următoarea generație de crowdfunding"
 
-#: src/components/MobileDrawer.tsx:209
+#: src/components/MobileDrawer.tsx:210
 #: src/components/modals/Navbar.tsx:30
 msgid "Explore"
 msgstr "Explorează"
 
-#: src/pages/admin/ContractSettings.tsx:130
+#: src/pages/admin/CollectFees.tsx:192
 msgid "Failed to collect fees"
 msgstr "Încasarea comisioanelor a eșuat"
 
@@ -730,7 +752,7 @@ msgstr "Conectare portofel eșuată"
 msgid "Failed to create an account. Please try again."
 msgstr "Creare cont eșuată. Încearcă din nou."
 
-#: src/pages/campaign/New.tsx:323
+#: src/pages/campaign/New.tsx:322
 msgid "Failed to create campaign"
 msgstr "Creare campanie eșuată"
 
@@ -747,6 +769,10 @@ msgstr "Ștergerea mesajului a eșuat"
 #: src/hooks/useWallet.ts:141
 msgid "Failed to disconnect wallet"
 msgstr "Deconectarea portofelului a eșuat"
+
+#: src/pages/admin/CollectFees.tsx:139
+msgid "Failed to fetch campaign information"
+msgstr "Încărcarea informațiilor campaniei a eșuat"
 
 #: src/pages/campaign/Edit.tsx:147
 msgid "Failed to load campaign"
@@ -780,7 +806,7 @@ msgstr "Încărcarea campaniilor tale a eșuat"
 msgid "Failed to process contribution. Please try again."
 msgstr "Procesarea contribuției a eșuat. Vă rugăm să încercați din nou."
 
-#: src/pages/admin/ContractSettings.tsx:90
+#: src/pages/admin/ContractSettings.tsx:82
 msgid "Failed to save settings"
 msgstr "Salvare setărilor a eșuat"
 
@@ -796,7 +822,7 @@ msgstr "Trimiterea mesajului a eșuat. Vă rugăm să încercați din nou mai t�
 msgid "Failed to send transaction. Please try again later."
 msgstr "Trimiterea tranzacției a eșuat. Vă rugăm să încercați din nou mai târziu."
 
-#: src/pages/admin/ContractSettings.tsx:76
+#: src/pages/admin/ContractSettings.tsx:68
 msgid "Failed to update network in database"
 msgstr "Actualizarea rețelei în baza de date a eșuat"
 
@@ -812,8 +838,8 @@ msgstr "Actualizarea profilului a eșuat"
 msgid "Failed to withdraw funds. Please try again."
 msgstr "Extragerea fondurilor a eșuat. Vă rugăm să încercați din nou."
 
-#: src/components/MobileDrawer.tsx:282
-#: src/components/MobileDrawer.tsx:333
+#: src/components/MobileDrawer.tsx:297
+#: src/components/MobileDrawer.tsx:348
 #: src/components/Footer.tsx:58
 msgid "FAQs"
 msgstr "Întrebări frecvente"
@@ -822,9 +848,17 @@ msgstr "Întrebări frecvente"
 msgid "Fashion"
 msgstr "Modă"
 
-#: src/pages/admin/ContractSettings.tsx:127
+#: src/pages/admin/CollectFees.tsx:280
+msgid "Fee Receiver"
+msgstr "Beneficiar comisioane"
+
+#: src/pages/admin/CollectFees.tsx:181
 msgid "Fees collected successfully!"
 msgstr "Comisioane încasate cu succes!"
+
+#: src/pages/admin/CollectFees.tsx:258
+msgid "Fees to Collect"
+msgstr "Comisioane de încasat"
 
 #: src/pages/Contact.tsx:149
 msgid "Fill out the form below and we'll get back to you as soon as possible."
@@ -850,7 +884,7 @@ msgstr "Întrebări frecvente"
 msgid "From:"
 msgstr "De la:"
 
-#: src/pages/campaign/New.tsx:607
+#: src/pages/campaign/New.tsx:606
 #: src/pages/campaign/Edit.tsx:812
 msgid "Full Description"
 msgstr "Descriere completă"
@@ -880,7 +914,7 @@ msgstr "Jocuri"
 msgid "Get in Touch"
 msgstr "Contactează-ne"
 
-#: src/pages/campaign/New.tsx:493
+#: src/pages/campaign/New.tsx:492
 #: src/pages/campaign/Edit.tsx:635
 msgid "Give your campaign a catchy title"
 msgstr "Dați titlului campaniei un titlu captivant"
@@ -892,8 +926,8 @@ msgstr "Comunitate globală"
 #: src/pages/Profile.tsx:123
 #: src/pages/NotFound.tsx:33
 #: src/pages/CampaignDetails.tsx:354
-#: src/pages/campaign/New.tsx:377
-#: src/pages/campaign/New.tsx:403
+#: src/pages/campaign/New.tsx:376
+#: src/pages/campaign/New.tsx:402
 #: src/pages/campaign/Edit.tsx:493
 #: src/pages/campaign/Edit.tsx:519
 #: src/pages/campaign/Edit.tsx:552
@@ -939,7 +973,7 @@ msgstr "Important"
 msgid "Important information about this project"
 msgstr "Informații importante despre acest proiect"
 
-#: src/pages/admin/ContractSettings.tsx:245
+#: src/pages/admin/ContractSettings.tsx:180
 msgid "Important Note"
 msgstr "Notă importantă"
 
@@ -962,7 +996,7 @@ msgstr "Inactive "
 msgid "Innovation First"
 msgstr "Inovație întâi"
 
-#: src/pages/campaign/New.tsx:372
+#: src/pages/campaign/New.tsx:371
 #: src/pages/campaign/Edit.tsx:488
 msgid "Install MetaMask"
 msgstr "Instalează MetaMask"
@@ -971,19 +1005,11 @@ msgstr "Instalează MetaMask"
 msgid "Insufficient balance. Please try again."
 msgstr "Fonduri insuficiente. Vă rugăm să încercați din nou."
 
-#: src/hooks/useCampaignContract.ts:171
-msgid "Invalid amount"
-msgstr "Sumă nevalidă"
-
-#: src/pages/admin/ContractSettings.tsx:106
-msgid "Invalid campaign ID"
-msgstr "ID campanie nevalid"
-
 #: src/pages/Login.tsx:30
 msgid "Invalid email or password. Please try again."
 msgstr "Email sau parolă nevalidă. Vă rugăm să încercați din nou."
 
-#: src/pages/admin/ContractSettings.tsx:61
+#: src/pages/admin/ContractSettings.tsx:53
 msgid "Invalid Ethereum contract address"
 msgstr "Adresă contract Ethereum nevalidă"
 
@@ -1046,52 +1072,60 @@ msgid "Loading..."
 msgstr "Se încarcă..."
 
 #: src/pages/home/components/Stats.tsx:177
-#: src/pages/admin/ContractSettings.tsx:214
+#: src/pages/admin/ContractSettings.tsx:149
 msgid "Local"
 msgstr "Local"
 
-#: src/pages/admin/ContractSettings.tsx:160
+#: src/pages/admin/ContractSettings.tsx:112
 msgid "Local Contract Address"
 msgstr "Adresă contract locală"
+
+#: src/pages/admin/CollectFees.tsx:166
+msgid "Local contract address not configured"
+msgstr "Adresa contract locală nu este configurată"
 
 #: src/pages/campaign/Edit.tsx:462
 #: src/pages/campaign/components/PreviewStep.tsx:95
 msgid "Local Development Network"
 msgstr "Rețea de dezvoltare locală"
 
-#: src/pages/admin/ContractSettings.tsx:248
+#: src/pages/admin/CollectFees.tsx:268
+msgid "Local Network"
+msgstr "Rețea locală"
+
+#: src/pages/admin/ContractSettings.tsx:183
 msgid "Local network settings are for development and testing purposes on this device only. Changes will be applied after page refresh."
 msgstr "Setările rețelei locale sunt pentru scopuri de dezvoltare și testare doar pe acest dispozitiv. Modificările vor fi aplicate după reîncărcarea paginii."
 
-#: src/pages/admin/ContractSettings.tsx:239
+#: src/pages/admin/ContractSettings.tsx:174
 msgid "Local network settings are stored only on this device."
 msgstr "Setările rețelei locale sunt stocate doar pe acest dispozitiv."
 
-#: src/pages/admin/ContractSettings.tsx:83
+#: src/pages/admin/ContractSettings.tsx:75
 msgid "Local network settings saved for this device only."
 msgstr "Setările rețelei locale au fost salvate doar pentru acest dispozitiv."
 
-#: src/pages/campaign/New.tsx:639
+#: src/pages/campaign/New.tsx:638
 #: src/pages/campaign/Edit.tsx:853
 msgid "Location"
 msgstr "Locație"
 
-#: src/pages/campaign/New.tsx:195
+#: src/pages/campaign/New.tsx:194
 #: src/pages/campaign/Edit.tsx:238
 msgid "Location is limited to"
 msgstr "Locația este limitată la"
 
-#: src/components/MobileDrawer.tsx:317
+#: src/components/MobileDrawer.tsx:332
 #: src/components/modals/Navbar.tsx:52
 msgid "Login"
 msgstr "Autentificare"
 
 #: src/pages/home/components/Stats.tsx:181
-#: src/pages/admin/ContractSettings.tsx:234
+#: src/pages/admin/ContractSettings.tsx:169
 msgid "Mainnet"
 msgstr "Mainnet"
 
-#: src/pages/admin/ContractSettings.tsx:122
+#: src/pages/admin/CollectFees.tsx:176
 msgid "Mainnet contract address not configured"
 msgstr "Adresa contractului Mainnet nu este configurată"
 
@@ -1111,7 +1145,7 @@ msgstr "Suma maximă de contribuție este"
 msgid "Media"
 msgstr "Media"
 
-#: src/components/MobileDrawer.tsx:143
+#: src/components/MobileDrawer.tsx:144
 msgid "Menu"
 msgstr "Meniu"
 
@@ -1164,7 +1198,7 @@ msgstr "MetaMask este gata de utilizare"
 msgid "MetaMask Not Installed"
 msgstr "MetaMask nu este instalat"
 
-#: src/pages/campaign/New.tsx:362
+#: src/pages/campaign/New.tsx:361
 #: src/pages/campaign/Edit.tsx:478
 msgid "MetaMask Required"
 msgstr "MetaMask necesar"
@@ -1182,8 +1216,8 @@ msgid "Music"
 msgstr "Muzică"
 
 #: src/pages/MyCampaigns.tsx:278
-#: src/components/ProfileMenu.tsx:155
-#: src/components/MobileDrawer.tsx:222
+#: src/components/ProfileMenu.tsx:163
+#: src/components/MobileDrawer.tsx:223
 msgid "My Campaigns"
 msgstr "Campaniile mele"
 
@@ -1193,9 +1227,9 @@ msgstr "Nume"
 
 #: src/pages/campaign/Edit.tsx:657
 #: src/pages/campaign/components/PreviewStep.tsx:165
-#: src/pages/admin/ContractSettings.tsx:203
-#: src/components/ProfileMenu.tsx:170
-#: src/components/MobileDrawer.tsx:263
+#: src/pages/admin/ContractSettings.tsx:138
+#: src/components/ProfileMenu.tsx:179
+#: src/components/MobileDrawer.tsx:265
 msgid "Network"
 msgstr "Network"
 
@@ -1203,7 +1237,7 @@ msgstr "Network"
 msgid "Network cannot be changed after campaign creation"
 msgstr "Rețeaua nu poate fi schimbată după crearea campaniei"
 
-#: src/pages/admin/ContractSettings.tsx:86
+#: src/pages/admin/ContractSettings.tsx:78
 msgid "Network settings saved for all users."
 msgstr "Setările rețelei au fost salvate pentru toți utilizatorii"
 
@@ -1224,8 +1258,8 @@ msgstr "Parolă nouă"
 msgid "New passwords do not match"
 msgstr "Noile parole nu coincid"
 
-#: src/pages/campaign/New.tsx:696
-#: src/pages/campaign/Edit.tsx:969
+#: src/pages/campaign/New.tsx:695
+#: src/pages/campaign/Edit.tsx:966
 msgid "Next Step"
 msgstr "Pasul următor"
 
@@ -1248,6 +1282,10 @@ msgstr "Nicio campanie deocamdată"
 #: src/pages/Profile.tsx:148
 msgid "No campaigns yet on this network"
 msgstr "Nu există campanii pe această rețea"
+
+#: src/pages/admin/CollectFees.tsx:191
+msgid "No fees to collect"
+msgstr "Nu există comisioane de încasat"
 
 #: src/pages/CampaignDetails.tsx:775
 msgid "No funds available to withdraw."
@@ -1278,13 +1316,17 @@ msgid "No, this platform should not be used for real crowdfunding purposes. It i
 msgstr "Nu, această platformă nu ar trebui folosită pentru scopuri reale de crowdfunding. Este un prototip creat doar pentru demonstrație educațională. Pentru crowdfunding real, vă rugăm să folosiți platforme consacrate precum Kickstarter, GoFundMe sau alte servicii legitime."
 
 #: src/components/NotificationsPanel.tsx:194
-#: src/components/MobileDrawer.tsx:232
+#: src/components/MobileDrawer.tsx:233
 msgid "Notifications"
 msgstr "Notificări"
 
 #: src/pages/campaign/components/PreviewStep.tsx:291
 msgid "of"
 msgstr "din"
+
+#: src/pages/admin/CollectFees.tsx:248
+msgid "On-chain ID"
+msgstr "ID pe blockchain"
 
 #: src/pages/About.tsx:43
 msgid "Open Source"
@@ -1332,19 +1374,19 @@ msgstr "Te rugăm să conectezi portofelul care a creat această campanie pentru
 msgid "Please connect your wallet!"
 msgstr "Te rugăm să conectezi portofelul!"
 
-#: src/pages/admin/ContractSettings.tsx:98
+#: src/pages/admin/CollectFees.tsx:153
 msgid "Please enter a campaign ID"
 msgstr "Trebuie să introduci un ID de campanie"
-
-#: src/pages/admin/ContractSettings.tsx:112
-msgid "Please enter a local contract address"
-msgstr "Te rugăm să introduci o adresă de contract locală"
 
 #: src/components/modals/SupportModal.tsx:70
 msgid "Please enter a valid amount"
 msgstr "Te rugăm să introduci o sumă validă"
 
-#: src/pages/campaign/Edit.tsx:964
+#: src/pages/admin/CollectFees.tsx:158
+msgid "Please enter a valid campaign ID"
+msgstr "Te rugăm să introduci un ID de campanie valid"
+
+#: src/pages/campaign/Edit.tsx:963
 msgid "Please fill in all required fields before previewing"
 msgstr "Te rugăm să completați toate câmpurile necesare înainte de a vizualiza"
 
@@ -1360,8 +1402,8 @@ msgstr "Te rugăm să te autentifici pentru a contribui la această campanie."
 msgid "Please sign in to create a campaign"
 msgstr "Te rugăm să te autentifici pentru a crea o campanie"
 
-#: src/pages/campaign/New.tsx:696
-#: src/pages/campaign/Edit.tsx:968
+#: src/pages/campaign/New.tsx:695
+#: src/pages/campaign/Edit.tsx:966
 #: src/pages/campaign/components/PreviewStep.tsx:121
 msgid "Preview"
 msgstr "Previzualizare"
@@ -1399,7 +1441,7 @@ msgstr "Profil actualizat cu succes"
 msgid "Project Purpose"
 msgstr "Scopul proiectului"
 
-#: src/pages/campaign/New.tsx:618
+#: src/pages/campaign/New.tsx:617
 #: src/pages/campaign/Edit.tsx:827
 msgid "Provide detailed information about your campaign"
 msgstr "Cereți informații detaliate despre campania dvs."
@@ -1443,7 +1485,7 @@ msgstr "Revoluționează"
 msgid "Save Changes"
 msgstr "Salvează modificările"
 
-#: src/pages/admin/ContractSettings.tsx:277
+#: src/pages/admin/ContractSettings.tsx:201
 msgid "Save Settings"
 msgstr "Salvează setările"
 
@@ -1497,30 +1539,31 @@ msgid "Sending..."
 msgstr "Se trimite..."
 
 #: src/pages/home/components/Stats.tsx:179
-#: src/pages/admin/ContractSettings.tsx:224
+#: src/pages/admin/ContractSettings.tsx:159
 msgid "Sepolia"
 msgstr "Sepolia"
 
-#: src/pages/admin/ContractSettings.tsx:240
+#: src/pages/admin/ContractSettings.tsx:175
 msgid "Sepolia and Mainnet settings are applied globally for all users."
 msgstr "Setările Sepolia și Mainnet sunt aplicate global pentru toți utilizatorii."
 
-#: src/pages/admin/ContractSettings.tsx:117
+#: src/pages/admin/CollectFees.tsx:171
 msgid "Sepolia contract address not configured"
 msgstr "Adresa contractului Sepolia nu este configurată"
 
 #: src/pages/campaign/Edit.tsx:464
 #: src/pages/campaign/components/PreviewStep.tsx:97
-#: src/pages/admin/ContractSettings.tsx:250
+#: src/pages/admin/ContractSettings.tsx:185
+#: src/pages/admin/CollectFees.tsx:270
 msgid "Sepolia Test Network"
 msgstr "Rețea de test Sepolia"
 
-#: src/components/ProfileMenu.tsx:162
-#: src/components/MobileDrawer.tsx:249
+#: src/components/ProfileMenu.tsx:170
+#: src/components/MobileDrawer.tsx:250
 msgid "Settings"
 msgstr "Setări"
 
-#: src/pages/admin/ContractSettings.tsx:252
+#: src/pages/admin/ContractSettings.tsx:187
 msgid "settings will be applied globally for all users. This affects where campaigns are deployed and how users interact with the blockchain."
 msgstr "setările vor fi aplicate global pentru toți utilizatorii. Acest lucru afectează unde sunt implementate campaniile și cum utilizatorii interacționează cu blockchain-ul."
 
@@ -1539,8 +1582,8 @@ msgid "Sign in to Contact"
 msgstr "Te rugăm să te autentifici pentru a contacta creatorul"
 
 #: src/pages/Settings.tsx:415
-#: src/components/ProfileMenu.tsx:177
-#: src/components/MobileDrawer.tsx:307
+#: src/components/ProfileMenu.tsx:194
+#: src/components/MobileDrawer.tsx:322
 msgid "Sign out"
 msgstr "Deconectare"
 
@@ -1556,11 +1599,11 @@ msgstr "Contracte inteligente"
 msgid "Social Impact"
 msgstr "Impact social"
 
-#: src/pages/campaign/New.tsx:321
+#: src/pages/campaign/New.tsx:320
 msgid "Something went wrong. Please try again."
 msgstr "Ceva a mers prost. Te rugăm să încerci din nou."
 
-#: src/components/MobileDrawer.tsx:300
+#: src/components/MobileDrawer.tsx:315
 #: src/components/Footer.tsx:35
 #: src/components/modals/Navbar.tsx:43
 msgid "Start a Campaign"
@@ -1599,12 +1642,12 @@ msgstr "Subiect"
 msgid "Success Rate"
 msgstr "Rată de succes"
 
-#: src/pages/campaign/New.tsx:576
+#: src/pages/campaign/New.tsx:575
 #: src/pages/campaign/Edit.tsx:772
 msgid "Summary"
 msgstr "Rezumat"
 
-#: src/pages/campaign/New.tsx:174
+#: src/pages/campaign/New.tsx:173
 #: src/pages/campaign/Edit.tsx:217
 msgid "Summary is limited to"
 msgstr "Rezumatul este limitat la"
@@ -1637,7 +1680,7 @@ msgstr "Povestește-ne despre tine…"
 msgid "Tell us more about your inquiry..."
 msgstr "Spune-ne mai multe despre solicitarea ta…"
 
-#: src/pages/admin/ContractSettings.tsx:179
+#: src/pages/admin/ContractSettings.tsx:131
 msgid "The Ethereum address of your locally deployed contract."
 msgstr "Adresa Ethereum a contractului dvs. local implementat."
 
@@ -1716,12 +1759,16 @@ msgstr "Acesta va permite contribuții la campania dvs."
 msgid "This will prevent further contributions to your campaign."
 msgstr "Acesta va împiedica contribuții suplimentare la campania dvs."
 
-#: src/pages/campaign/New.tsx:165
+#: src/pages/admin/CollectFees.tsx:245
+msgid "Title"
+msgstr "Titlu"
+
+#: src/pages/campaign/New.tsx:164
 #: src/pages/campaign/Edit.tsx:208
 msgid "Title is limited to"
 msgstr "Titlul este limitat la"
 
-#: src/pages/campaign/New.tsx:365
+#: src/pages/campaign/New.tsx:364
 msgid "To create a campaign, you need to have MetaMask installed in your browser. MetaMask allows you to securely manage your cryptocurrency and interact with blockchain applications."
 msgstr "Pentru a crea o campanie, trebuie să aveți MetaMask instalat în browserul dvs. MetaMask vă permite să gestionați în siguranță criptomonedele și să interacționați cu aplicații blockchain."
 
@@ -1738,6 +1785,7 @@ msgid "Top Active Campaigns"
 msgstr "Top campanii active"
 
 #: src/pages/home/components/Stats.tsx:200
+#: src/pages/admin/CollectFees.tsx:251
 msgid "Total Raised"
 msgstr "Total strâns"
 
@@ -1750,7 +1798,7 @@ msgstr "Tranzacția a fost respinsă: Ați anulat tranzacția MetaMask"
 msgid "Transaction in progress..."
 msgstr "Tranzacția se procesează..."
 
-#: src/pages/campaign/New.tsx:315
+#: src/pages/campaign/New.tsx:314
 msgid "Transaction rejected: You declined the MetaMask transaction"
 msgstr "Tranzacția a fost respinsă: Ați anulat tranzacția MetaMask"
 
@@ -1865,7 +1913,7 @@ msgstr "Ce tehnologii au fost folosite?"
 msgid "When withdrawing funds from a campaign, a platform fee of"
 msgstr "Când retragi fonduri dintr-o campanie, este aplicat un comision de platformă de"
 
-#: src/pages/campaign/New.tsx:649
+#: src/pages/campaign/New.tsx:648
 #: src/pages/campaign/Edit.tsx:863
 msgid "Where is your campaign based?"
 msgstr "Unde este bazată campania ta?"
@@ -1887,6 +1935,10 @@ msgstr "Retragere fonduri"
 msgid "Withdraw funds to close this campaign."
 msgstr "Retragere fonduri pentru a închide această campanie."
 
+#: src/pages/admin/CollectFees.tsx:254
+msgid "Withdrawal Fee"
+msgstr "Comision de retragere"
+
 #: src/pages/CampaignDetails.tsx:273
 msgid "Withdrawal successful but failed to update campaign data"
 msgstr "Retragerea a avut succes, dar nu a putut actualiza datele campaniei"
@@ -1903,7 +1955,7 @@ msgstr "Retragerea fondurilor va închide această campanie permanent. Această 
 msgid "Worldwide Access"
 msgstr "Acces la nivel mondial"
 
-#: src/pages/campaign/New.tsx:587
+#: src/pages/campaign/New.tsx:586
 #: src/pages/campaign/Edit.tsx:787
 msgid "Write a brief summary of your campaign"
 msgstr "Scrieți un rezumat scurt al campaniei dvs."
@@ -1920,7 +1972,7 @@ msgstr "Tu ești creatorul"
 msgid "You don't have any ended campaigns yet."
 msgstr "Nu ai încă campanii încheiate."
 
-#: src/pages/campaign/New.tsx:393
+#: src/pages/campaign/New.tsx:392
 msgid "You need to connect your wallet to create a new campaign. This allows you to receive funds and manage your campaign securely."
 msgstr "Trebuie să conectezi portofelul dvs. pentru a crea o nouă campanie. Acesta vă permite să primiți fonduri și să gestionați campania în siguranță."
 
