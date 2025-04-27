@@ -7,18 +7,44 @@ interface FundingInputProps {
     value: string;
     onChange: (value: string) => void;
     initialUsdAmount?: string;
-    maxEthAmount?: number;
+    onValidationChange?: (isValid: boolean) => void;
 }
+
+const MAX_FUNDING_GOAL = 10000;
+const MIN_FUNDING_GOAL = 0.01;
 
 export function FundingInput({
     value,
     onChange,
     initialUsdAmount,
-    maxEthAmount,
+    onValidationChange,
 }: FundingInputProps) {
     const { ethPrice } = useEthPrice();
     const [usdAmount, setUsdAmount] = useState(initialUsdAmount || "");
     const [ethAmount, setEthAmount] = useState(value || "");
+    const [error, setError] = useState<string | null>(null);
+
+    const validateAmount = (amount: string) => {
+        const numAmount = parseFloat(amount);
+        if (isNaN(numAmount)) {
+            setError(t`Please enter a valid amount`);
+            onValidationChange?.(false);
+            return false;
+        }
+        if (numAmount < MIN_FUNDING_GOAL) {
+            setError(t`Minimum funding goal is ${MIN_FUNDING_GOAL} ETH`);
+            onValidationChange?.(false);
+            return false;
+        }
+        if (numAmount > MAX_FUNDING_GOAL) {
+            setError(t`Maximum funding goal is ${MAX_FUNDING_GOAL} ETH`);
+            onValidationChange?.(false);
+            return false;
+        }
+        setError(null);
+        onValidationChange?.(true);
+        return true;
+    };
 
     const handleUsdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputVal = e.target.value;
@@ -27,54 +53,63 @@ export function FundingInput({
             if (parts.length > 1 && parts[1].length > 2) {
                 const truncated = parts[0] + "." + parts[1].substring(0, 2);
                 setUsdAmount(truncated);
-
-                const parsed = parseFloat(truncated);
-                if (!isNaN(parsed) && parsed >= 0 && ethPrice) {
-                    const convertedEth = (parsed / ethPrice).toFixed(2);
+                const parsedUsd = parseFloat(truncated);
+                if (!isNaN(parsedUsd) && parsedUsd >= 0 && ethPrice) {
+                    const rawEth = (parsedUsd / ethPrice).toFixed(3);
+                    const convertedEth = parseFloat(rawEth).toString();
                     setEthAmount(convertedEth);
                     onChange(convertedEth);
+                    validateAmount(convertedEth);
                 }
                 return;
             }
-
             setUsdAmount(inputVal);
-            const parsed = parseFloat(inputVal);
-
-            if (!isNaN(parsed) && parsed >= 0 && ethPrice) {
-                const convertedEth = (parsed / ethPrice).toFixed(2);
+            const parsedUsd = parseFloat(inputVal);
+            if (!isNaN(parsedUsd) && parsedUsd >= 0 && ethPrice) {
+                const rawEth = (parsedUsd / ethPrice).toFixed(3);
+                const convertedEth = parseFloat(rawEth).toString();
                 setEthAmount(convertedEth);
                 onChange(convertedEth);
+                validateAmount(convertedEth);
             } else {
                 setEthAmount("");
                 onChange("");
+                onValidationChange?.(false);
+            }
+        }
+    };
+
+    const handleUsdBlur = () => {
+        const parsedEth = parseFloat(ethAmount);
+        if (isNaN(parsedEth) || parsedEth < MIN_FUNDING_GOAL) {
+            const minEthStr = MIN_FUNDING_GOAL.toString();
+            setEthAmount(minEthStr);
+            onChange(minEthStr);
+            validateAmount(minEthStr);
+            if (ethPrice) {
+                const updatedUsd = (MIN_FUNDING_GOAL * ethPrice).toFixed(2);
+                setUsdAmount(updatedUsd);
             }
         }
     };
 
     const handleEthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputVal = e.target.value;
-
         if (/^\d*\.?\d*$/.test(inputVal)) {
             const parts = inputVal.split(".");
-            if (parts.length > 1 && parts[1].length > 2) {
-                const truncated = parts[0] + "." + parts[1].substring(0, 2);
-                setEthAmount(truncated);
-                onChange(truncated);
-
-                const parsed = parseFloat(truncated);
-                if (!isNaN(parsed) && parsed >= 0 && ethPrice) {
-                    const convertedUsd = (parsed * ethPrice).toFixed(3);
-                    setUsdAmount(convertedUsd);
-                }
-                return;
+            let newEth = inputVal;
+            if (parts.length > 1 && parts[1].length > 3) {
+                newEth = parts[0] + "." + parts[1].substring(0, 3);
             }
-
-            setEthAmount(inputVal);
-            onChange(inputVal);
-
-            const parsed = parseFloat(inputVal);
-            if (!isNaN(parsed) && parsed >= 0 && ethPrice) {
-                const convertedUsd = (parsed * ethPrice).toFixed(3);
+            const parsedEth = parseFloat(newEth);
+            if (!isNaN(parsedEth)) {
+                newEth = parsedEth.toString();
+            }
+            setEthAmount(newEth);
+            onChange(newEth);
+            validateAmount(newEth);
+            if (!isNaN(parsedEth) && parsedEth >= 0 && ethPrice) {
+                const convertedUsd = (parsedEth * ethPrice).toFixed(2);
                 setUsdAmount(convertedUsd);
             } else {
                 setUsdAmount("");
@@ -84,9 +119,24 @@ export function FundingInput({
 
     useEffect(() => {
         if (value !== ethAmount) {
-            setEthAmount(value);
+            const parsed = parseFloat(value);
+            const normalized = isNaN(parsed) ? "" : parsed.toString();
+            setEthAmount(normalized);
+            validateAmount(normalized);
+            if (!isNaN(parsed) && ethPrice) {
+                setUsdAmount((parsed * ethPrice).toFixed(2));
+            }
         }
-    }, [value]);
+    }, [value, ethPrice]);
+
+    useEffect(() => {
+        if (ethAmount && ethPrice) {
+            const parsedEth = parseFloat(ethAmount);
+            if (!isNaN(parsedEth)) {
+                setUsdAmount((parsedEth * ethPrice).toFixed(2));
+            }
+        }
+    }, [ethPrice]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (
@@ -129,10 +179,12 @@ export function FundingInput({
                         step="0.01"
                         value={usdAmount}
                         onChange={handleUsdChange}
+                        onBlur={handleUsdBlur}
                         onKeyDown={handleKeyDown}
-                        className="appearance-none block w-full pl-10 px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
+                        className={`appearance-none block w-full pl-10 px-3 py-2 border ${
+                            error ? "border-error" : "border-border"
+                        } rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text`}
                         placeholder={t`USD Amount`}
-                        min="10"
                     />
                 </div>
                 <div className="relative">
@@ -144,13 +196,15 @@ export function FundingInput({
                     <input
                         type="text"
                         id="eth-amount"
-                        pattern="[0-9]*[.]?[0-9]{0,2}"
+                        pattern="[0-9]*[.]?[0-9]{0,3}"
                         inputMode="decimal"
-                        step="0.01"
+                        step="0.001"
                         value={ethAmount}
                         onChange={handleEthChange}
                         onKeyDown={handleKeyDown}
-                        className="appearance-none block w-full pl-10 px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text font-medium"
+                        className={`appearance-none block w-full pl-10 px-3 py-2	border ${
+                            error ? "border-error" : "border-border"
+                        } rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text font-medium`}
                         placeholder={t`ETH Amount`}
                     />
                 </div>
@@ -164,14 +218,14 @@ export function FundingInput({
                         </span>
                     </p>
                 )}
-                {maxEthAmount && (
+                <div>
                     <p className="mt-2 text-sm text-text-secondary">
-                        {t`Maximum ETH Amount:`}{" "}
+                        {t`ETH Amount Range:`}{" "}
                         <span className="font-semibold">
-                            {maxEthAmount} ETH
+                            {MIN_FUNDING_GOAL} - {MAX_FUNDING_GOAL} ETH
                         </span>
                     </p>
-                )}
+                </div>
             </div>
         </div>
     );

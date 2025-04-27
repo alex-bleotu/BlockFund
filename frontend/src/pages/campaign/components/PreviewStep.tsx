@@ -262,7 +262,7 @@ export function PreviewStep({
                                     </div>
                                     <div className="text-sm text-text-secondary">
                                         {t`of`}{" "}
-                                        {parseFloat(campaign.goal).toFixed(2)}{" "}
+                                        {parseFloat(campaign.goal).toFixed(3)}{" "}
                                         ETH {t`goal`}
                                     </div>
                                 </div>
@@ -301,7 +301,7 @@ export function PreviewStep({
                                     <Target className="w-5 h-5 mr-2 text-primary" />
                                     <span className="font-medium">
                                         {t`Goal:`}{" "}
-                                        {parseFloat(campaign.goal).toFixed(2)}{" "}
+                                        {parseFloat(campaign.goal).toFixed(3)}{" "}
                                         ETH
                                     </span>
                                 </div>

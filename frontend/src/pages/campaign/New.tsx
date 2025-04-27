@@ -554,7 +554,6 @@ export function NewFund() {
                                     value={formData.goal}
                                     onChange={handleGoalChange}
                                     initialUsdAmount={formData.usdAmount}
-                                    maxEthAmount={MAX_FUNDING_GOAL}
                                 />
 
                                 <div>
