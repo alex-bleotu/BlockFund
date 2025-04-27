@@ -114,8 +114,7 @@ export function Stats() {
             try {
                 const { count: usersCount, error: usersError } = await supabase
                     .from("profiles")
-                    .select("*", { count: "exact", head: true })
-                    .not("wallet_address", "is", null);
+                    .select("*", { count: "exact", head: true });
 
                 if (usersError) throw usersError;
 
