@@ -41,6 +41,13 @@ export function EditFund() {
     const [showStatusModal, setShowStatusModal] = useState(false);
     const [statusLoading, setStatusLoading] = useState(false);
     const [campaignStatus, setCampaignStatus] = useState<string>("active");
+    const [fieldErrors, setFieldErrors] = useState({
+        title: "",
+        category: "",
+        summary: "",
+        description: "",
+        images: "",
+    });
 
     const titleLength = useMemo(() => formData.title.length, [formData.title]);
     const summaryLength = useMemo(
@@ -152,6 +159,25 @@ export function EditFund() {
         }
     };
 
+    const validateField = (name: string, value: any) => {
+        switch (name) {
+            case "title":
+                return !value.trim() ? t`Campaign title is required` : "";
+            case "category":
+                return !value ? t`Campaign category is required` : "";
+            case "summary":
+                return !value.trim() ? t`Campaign summary is required` : "";
+            case "description":
+                return !value.trim() ? t`Campaign description is required` : "";
+            case "images":
+                return previewUrls.length === 0
+                    ? t`At least one campaign image is required`
+                    : "";
+            default:
+                return "";
+        }
+    };
+
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -230,6 +256,10 @@ export function EditFund() {
         }
 
         setFormData((prev) => ({ ...prev, [name]: value }));
+        setFieldErrors((prev) => ({
+            ...prev,
+            [name]: validateField(name, value),
+        }));
     };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -267,7 +297,6 @@ export function EditFund() {
             setLoading(true);
             setError(null);
 
-            // Trim all string values
             const trimmedFormData = {
                 ...formData,
                 title: formData.title.trim(),
@@ -365,6 +394,24 @@ export function EditFund() {
 
     const nextStep = () => {
         if (currentStep < 4) {
+            if (currentStep === 3) {
+                const errors = {
+                    title: validateField("title", formData.title),
+                    category: validateField("category", formData.category),
+                    summary: validateField("summary", formData.summary),
+                    description: validateField(
+                        "description",
+                        formData.description
+                    ),
+                    images: validateField("images", previewUrls),
+                };
+
+                setFieldErrors(errors);
+
+                if (Object.values(errors).some((error) => error !== "")) {
+                    return;
+                }
+            }
             setCurrentStep((prev) => prev + 1);
         }
     };
@@ -377,6 +424,10 @@ export function EditFund() {
 
     const handleCategorySelect = (category: string) => {
         setFormData((prev) => ({ ...prev, category }));
+        setFieldErrors((prev) => ({
+            ...prev,
+            category: validateField("category", category),
+        }));
     };
 
     const handleStatusChange = async () => {
@@ -576,9 +627,18 @@ export function EditFund() {
                                         maxLength={TITLE_CHAR_LIMIT}
                                         value={formData.title}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
+                                        className={`w-full px-4 py-2 border ${
+                                            fieldErrors.title
+                                                ? "border-error"
+                                                : "border-border"
+                                        } rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text`}
                                         placeholder={t`Give your campaign a catchy title`}
                                     />
+                                    {fieldErrors.title && (
+                                        <p className="mt-1 text-sm text-error">
+                                            {fieldErrors.title}
+                                        </p>
+                                    )}
                                     <div className="flex justify-end mt-1">
                                         <span
                                             className={`text-xs ${
@@ -633,6 +693,11 @@ export function EditFund() {
                                             </button>
                                         ))}
                                     </div>
+                                    {fieldErrors.category && (
+                                        <p className="mt-1 text-sm text-error">
+                                            {fieldErrors.category}
+                                        </p>
+                                    )}
                                 </div>
 
                                 <div>
@@ -646,20 +711,11 @@ export function EditFund() {
                                         id="deadline"
                                         name="deadline"
                                         value={formData.deadline?.split("T")[0]}
-                                        onChange={handleChange}
-                                        min={
-                                            new Date(
-                                                Date.now() +
-                                                    7 * 24 * 60 * 60 * 1000
-                                            )
-                                                .toISOString()
-                                                .split("T")[0]
-                                        }
-                                        max={twoYearsFromNow}
-                                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
+                                        disabled
+                                        className="w-full px-4 py-2 border border-border rounded-lg bg-background-alt text-text-secondary cursor-not-allowed"
                                     />
                                     <p className="text-xs text-text-secondary mt-1">
-                                        {t`Campaign must run for at least 1 week from today and no more than 2 years`}
+                                        {t`Campaign end date cannot be modified after creation`}
                                     </p>
                                 </div>
 
@@ -721,9 +777,18 @@ export function EditFund() {
                                         maxLength={SUMMARY_CHAR_LIMIT}
                                         value={formData.summary}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
+                                        className={`w-full px-4 py-2 border ${
+                                            fieldErrors.summary
+                                                ? "border-error"
+                                                : "border-border"
+                                        } rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text`}
                                         placeholder={t`Write a brief summary of your campaign`}
                                     />
+                                    {fieldErrors.summary && (
+                                        <p className="mt-1 text-sm text-error">
+                                            {fieldErrors.summary}
+                                        </p>
+                                    )}
                                     <div className="flex justify-end mt-1">
                                         <span
                                             className={`text-xs ${
@@ -752,9 +817,18 @@ export function EditFund() {
                                         maxLength={DESCRIPTION_CHAR_LIMIT}
                                         value={formData.description}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
+                                        className={`w-full px-4 py-2 border ${
+                                            fieldErrors.description
+                                                ? "border-error"
+                                                : "border-border"
+                                        } rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text`}
                                         placeholder={t`Provide detailed information about your campaign`}
                                     />
+                                    {fieldErrors.description && (
+                                        <p className="mt-1 text-sm text-error">
+                                            {fieldErrors.description}
+                                        </p>
+                                    )}
                                     <div className="flex justify-end mt-1">
                                         <span
                                             className={`text-xs ${
@@ -804,14 +878,56 @@ export function EditFund() {
                         )}
 
                         {currentStep === 3 && (
-                            <ImageUpload
-                                previewUrls={previewUrls}
-                                onImageChange={handleImageChange}
-                                onRemoveImage={removeImage}
-                            />
+                            <div>
+                                <ImageUpload
+                                    previewUrls={previewUrls}
+                                    onImageChange={handleImageChange}
+                                    onRemoveImage={removeImage}
+                                />
+                                {fieldErrors.images && (
+                                    <p className="mt-2 text-sm text-error">
+                                        {fieldErrors.images}
+                                    </p>
+                                )}
+                            </div>
                         )}
 
-                        <div className="flex justify-between pt-6">
+                        <div className="pt-3">
+                            {currentStep === 3 &&
+                                Object.values(fieldErrors).some(
+                                    (error) => error !== ""
+                                ) && (
+                                    <div className="mt-2 text-sm text-error">
+                                        {t`Please complete the following fields:`}
+                                        <ul className="list-disc list-inside mt-1">
+                                            {Object.entries(fieldErrors).map(
+                                                ([field, error]) =>
+                                                    error && (
+                                                        <li key={field}>
+                                                            {field ===
+                                                                "title" &&
+                                                                t`Campaign Title`}
+                                                            {field ===
+                                                                "category" &&
+                                                                t`Campaign Category`}
+                                                            {field ===
+                                                                "summary" &&
+                                                                t`Campaign Summary`}
+                                                            {field ===
+                                                                "description" &&
+                                                                t`Campaign Description`}
+                                                            {field ===
+                                                                "images" &&
+                                                                t`Campaign Images`}
+                                                        </li>
+                                                    )
+                                            )}
+                                        </ul>
+                                    </div>
+                                )}
+                        </div>
+
+                        <div className="flex justify-between pt-3">
                             {currentStep > 1 && (
                                 <button
                                     type="button"
@@ -820,12 +936,37 @@ export function EditFund() {
                                     {t`Back`}
                                 </button>
                             )}
-                            <button
-                                type="button"
-                                onClick={nextStep}
-                                className="ml-auto px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors">
-                                {currentStep === 3 ? t`Preview` : t`Next Step`}
-                            </button>
+                            <div className="flex flex-col items-end">
+                                <button
+                                    type="button"
+                                    onClick={nextStep}
+                                    disabled={
+                                        currentStep === 3 &&
+                                        Object.values(fieldErrors).some(
+                                            (error) => error !== ""
+                                        )
+                                    }
+                                    className={`px-6 py-2 ${
+                                        currentStep === 3 &&
+                                        Object.values(fieldErrors).some(
+                                            (error) => error !== ""
+                                        )
+                                            ? "bg-gray-400 cursor-not-allowed text-light/75"
+                                            : "bg-primary text-light hover:bg-primary-dark"
+                                    } rounded-lg transition-colors`}
+                                    title={
+                                        currentStep === 3 &&
+                                        Object.values(fieldErrors).some(
+                                            (error) => error !== ""
+                                        )
+                                            ? t`Please fill in all required fields before previewing`
+                                            : ""
+                                    }>
+                                    {currentStep === 3
+                                        ? t`Preview`
+                                        : t`Next Step`}
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>

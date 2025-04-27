@@ -7,12 +7,14 @@ interface FundingInputProps {
     value: string;
     onChange: (value: string) => void;
     initialUsdAmount?: string;
+    maxEthAmount?: number;
 }
 
 export function FundingInput({
     value,
     onChange,
     initialUsdAmount,
+    maxEthAmount,
 }: FundingInputProps) {
     const { ethPrice } = useEthPrice();
     const [usdAmount, setUsdAmount] = useState(initialUsdAmount || "");
@@ -153,11 +155,24 @@ export function FundingInput({
                     />
                 </div>
             </div>
-            {ethPrice && (
-                <p className="mt-2 text-sm text-text-secondary">
-                    {t`Current ETH Price:`} ${ethPrice.toLocaleString()}
-                </p>
-            )}
+            <div className="sm:flex gap-2 justify-between">
+                {ethPrice && (
+                    <p className="mt-2 text-sm text-text-secondary">
+                        {t`Current ETH Price:`}{" "}
+                        <span className="font-semibold">
+                            ${ethPrice.toLocaleString()}
+                        </span>
+                    </p>
+                )}
+                {maxEthAmount && (
+                    <p className="mt-2 text-sm text-text-secondary">
+                        {t`Maximum ETH Amount:`}{" "}
+                        <span className="font-semibold">
+                            {maxEthAmount} ETH
+                        </span>
+                    </p>
+                )}
+            </div>
         </div>
     );
 }

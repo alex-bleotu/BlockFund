@@ -468,11 +468,11 @@ export function NewFund() {
                 </button>
 
                 <div className="bg-surface rounded-xl shadow-lg p-6 md:p-8">
-                    <div className="flex justify-between items-center mb-6">
+                    <div className="sm:flex justify-between items-center mb-6">
                         <h1 className="text-3xl font-bold text-text">
                             {t`Create Your Campaign`}
                         </h1>
-                        <div className="text-sm text-text-secondary">
+                        <div className="text-sm text-text-secondary mt-2 sm:mt-0">
                             {t`Completion:`}{" "}
                             <span className="font-bold text-primary">
                                 {completionScore}%
@@ -554,10 +554,8 @@ export function NewFund() {
                                     value={formData.goal}
                                     onChange={handleGoalChange}
                                     initialUsdAmount={formData.usdAmount}
+                                    maxEthAmount={MAX_FUNDING_GOAL}
                                 />
-                                <p className="text-xs text-text-secondary -mt-4">
-                                    {t`Maximum funding goal: ${MAX_FUNDING_GOAL} ETH`}
-                                </p>
 
                                 <div>
                                     <label
