@@ -20,9 +20,9 @@ export function Navbar() {
 
                     <div className="hidden md:flex items-center">
                         <Link
-                            to="/campaigns"
+                            to="/explore"
                             className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-                                location.pathname === "/campaigns"
+                                location.pathname === "/explore"
                                     ? "text-primary bg-primary-light"
                                     : "text-text-secondary hover:text-primary hover:bg-primary-light/50"
                             }`}>

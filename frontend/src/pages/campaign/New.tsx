@@ -79,7 +79,6 @@ export function NewFund() {
     const SUMMARY_CHAR_LIMIT = 200;
     const DESCRIPTION_CHAR_LIMIT = 1000;
     const LOCATION_CHAR_LIMIT = 50;
-    const MAX_FUNDING_GOAL = 10000;
 
     const twoYearsFromNow = useMemo(() => {
         const date = new Date();

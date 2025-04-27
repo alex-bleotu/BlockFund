@@ -36,6 +36,7 @@ export interface CampaignInterface extends Interface {
       | "feeReceiver"
       | "getCampaign"
       | "getCampaignCount"
+      | "getFeeReceiver"
       | "updateCampaign"
       | "withdraw"
   ): FunctionFragment;
@@ -91,6 +92,10 @@ export interface CampaignInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "getFeeReceiver",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "updateCampaign",
     values: [BigNumberish, BigNumberish, BigNumberish, string]
   ): string;
@@ -131,6 +136,10 @@ export interface CampaignInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getCampaignCount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getFeeReceiver",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -376,6 +385,8 @@ export interface Campaign extends BaseContract {
 
   getCampaignCount: TypedContractMethod<[], [bigint], "view">;
 
+  getFeeReceiver: TypedContractMethod<[], [string], "view">;
+
   updateCampaign: TypedContractMethod<
     [
       _campaignId: BigNumberish,
@@ -465,6 +476,9 @@ export interface Campaign extends BaseContract {
   getFunction(
     nameOrSignature: "getCampaignCount"
   ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "getFeeReceiver"
+  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "updateCampaign"
   ): TypedContractMethod<

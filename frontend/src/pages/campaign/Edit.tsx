@@ -929,7 +929,7 @@ export function EditFund() {
                                 )}
                         </div>
 
-                        <div className="flex justify-between pt-3">
+                        <div className="flex justify-between">
                             {currentStep > 1 && (
                                 <button
                                     type="button"
@@ -938,37 +938,33 @@ export function EditFund() {
                                     {t`Back`}
                                 </button>
                             )}
-                            <div className="flex flex-col items-end">
-                                <button
-                                    type="button"
-                                    onClick={nextStep}
-                                    disabled={
-                                        currentStep === 3 &&
-                                        Object.values(fieldErrors).some(
-                                            (error) => error !== ""
-                                        )
-                                    }
-                                    className={`px-6 py-2 ${
-                                        currentStep === 3 &&
-                                        Object.values(fieldErrors).some(
-                                            (error) => error !== ""
-                                        )
-                                            ? "bg-gray-400 cursor-not-allowed text-light/75"
-                                            : "bg-primary text-light hover:bg-primary-dark"
-                                    } rounded-lg transition-colors`}
-                                    title={
-                                        currentStep === 3 &&
-                                        Object.values(fieldErrors).some(
-                                            (error) => error !== ""
-                                        )
-                                            ? t`Please fill in all required fields before previewing`
-                                            : ""
-                                    }>
-                                    {currentStep === 3
-                                        ? t`Preview`
-                                        : t`Next Step`}
-                                </button>
-                            </div>
+                            <button
+                                type="button"
+                                onClick={nextStep}
+                                disabled={
+                                    currentStep === 3 &&
+                                    Object.values(fieldErrors).some(
+                                        (error) => error !== ""
+                                    )
+                                }
+                                className={`ml-auto px-6 py-2 ${
+                                    currentStep === 3 &&
+                                    Object.values(fieldErrors).some(
+                                        (error) => error !== ""
+                                    )
+                                        ? "bg-gray-400 cursor-not-allowed text-light/75"
+                                        : "bg-primary text-light hover:bg-primary-dark"
+                                } rounded-lg transition-colors`}
+                                title={
+                                    currentStep === 3 &&
+                                    Object.values(fieldErrors).some(
+                                        (error) => error !== ""
+                                    )
+                                        ? t`Please fill in all required fields before previewing`
+                                        : ""
+                                }>
+                                {currentStep === 3 ? t`Preview` : t`Next Step`}
+                            </button>
                         </div>
                     </form>
                 </div>

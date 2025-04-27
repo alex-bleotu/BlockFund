@@ -35,8 +35,8 @@ msgstr "About BlockFund"
 msgid "About the Creator"
 msgstr "About the Creator"
 
-#: src/pages/admin/ContractSettings.tsx:22
 #: src/pages/admin/ContractSettings.tsx:30
+#: src/pages/admin/ContractSettings.tsx:38
 msgid "Access denied"
 msgstr "Access denied"
 
@@ -45,10 +45,8 @@ msgid "Access funding opportunities from anywhere in the world, breaking down ge
 msgstr "Access funding opportunities from anywhere in the world, breaking down geographical barriers."
 
 #: src/pages/Profile.tsx:215
-#: src/pages/MyCampaigns.tsx:281
-#: src/pages/MyCampaigns.tsx:322
 #: src/pages/MyCampaigns.tsx:418
-#: src/pages/Campaigns.tsx:235
+#: src/pages/Explore.tsx:235
 #: src/pages/campaign/Edit.tsx:597
 msgid "Active"
 msgstr "Active"
@@ -57,7 +55,12 @@ msgstr "Active"
 msgid "ACTIVE"
 msgstr "ACTIVE"
 
-#: src/pages/Campaigns.tsx:145
+#: src/pages/MyCampaigns.tsx:281
+#: src/pages/MyCampaigns.tsx:322
+msgid "Active "
+msgstr "Active "
+
+#: src/pages/Explore.tsx:145
 msgid "Active Campaigns"
 msgstr "Active Campaigns"
 
@@ -74,12 +77,12 @@ msgid "Add up to 4 images (PNG or JPG only). First image will be the cover image
 msgstr "Add up to 4 images (PNG or JPG only). First image will be the cover image."
 
 #: src/pages/MyCampaigns.tsx:320
-#: src/pages/Campaigns.tsx:272
+#: src/pages/Explore.tsx:272
 #: src/components/NotificationsPanel.tsx:214
 msgid "All"
 msgstr "All"
 
-#: src/pages/Campaigns.tsx:218
+#: src/pages/Explore.tsx:218
 msgid "All Categories"
 msgstr "All Categories"
 
@@ -149,7 +152,7 @@ msgstr "Automated fund distribution and milestone tracking through smart contrac
 #: src/pages/campaign/Edit.tsx:587
 #: src/pages/campaign/Edit.tsx:938
 #: src/pages/campaign/components/PreviewStep.tsx:126
-#: src/pages/admin/ContractSettings.tsx:99
+#: src/pages/admin/ContractSettings.tsx:147
 msgid "Back"
 msgstr "Back"
 
@@ -182,7 +185,7 @@ msgstr "BlockFund"
 msgid "BlockFund is a learning-focused initiative designed to illustrate how blockchain can enhance traditional crowdfunding platforms. Rather than serving as a live funding service, it's a practical example of how blockchain can be used in crowdfunding."
 msgstr "BlockFund is a learning-focused initiative designed to illustrate how blockchain can enhance traditional crowdfunding platforms. Rather than serving as a live funding service, it's a practical example of how blockchain can be used in crowdfunding."
 
-#: src/components/Footer.tsx:90
+#: src/components/Footer.tsx:91
 msgid "BlockFund. All rights reserved."
 msgstr "BlockFund. All rights reserved."
 
@@ -249,6 +252,10 @@ msgstr "Campaign Ended"
 msgid "Campaign Goal"
 msgstr "Campaign Goal"
 
+#: src/pages/admin/ContractSettings.tsx:188
+msgid "Campaign ID"
+msgstr "Campaign ID"
+
 #: src/pages/campaign/Edit.tsx:923
 #: src/pages/campaign/components/ImageUpload.tsx:41
 msgid "Campaign Images"
@@ -309,7 +316,7 @@ msgstr "Cancel"
 msgid "Cannot delete campaign because the raised funds are not yet withdrawn."
 msgstr "Cannot delete campaign because the raised funds are not yet withdrawn."
 
-#: src/pages/Campaigns.tsx:259
+#: src/pages/Explore.tsx:259
 msgid "Categories"
 msgstr "Categories"
 
@@ -366,17 +373,24 @@ msgstr "Close menu"
 msgid "CoinGecko returned {0}"
 msgstr "CoinGecko returned {0}"
 
+#: src/pages/admin/ContractSettings.tsx:266
+msgid "Collect Fees"
+msgstr "Collect Fees"
+
 #: src/lib/utils.ts:22
 msgid "Community"
 msgstr "Community"
 
-#: src/pages/MyCampaigns.tsx:282
-#: src/pages/MyCampaigns.tsx:324
 #: src/pages/MyCampaigns.tsx:412
-#: src/pages/Campaigns.tsx:253
+#: src/pages/Explore.tsx:253
 #: src/pages/CampaignDetails.tsx:384
 msgid "Completed"
 msgstr "Completed"
+
+#: src/pages/MyCampaigns.tsx:282
+#: src/pages/MyCampaigns.tsx:324
+msgid "Completed "
+msgstr "Completed "
 
 #: src/pages/campaign/New.tsx:457
 msgid "Completion:"
@@ -402,7 +416,7 @@ msgstr "Connect Wallet"
 msgid "Connect with backers and creators from around the world in our vibrant ecosystem."
 msgstr "Connect with backers and creators from around the world in our vibrant ecosystem."
 
-#: src/components/Footer.tsx:65
+#: src/components/Footer.tsx:66
 msgid "Connect With Us"
 msgstr "Connect With Us"
 
@@ -443,7 +457,7 @@ msgstr "Contact"
 msgid "Contact Creator"
 msgstr "Contact Creator"
 
-#: src/pages/admin/ContractSettings.tsx:132
+#: src/pages/admin/ContractSettings.tsx:180
 msgid "Contract address input is only available when using Local network."
 msgstr "Contract address input is only available when using Local network."
 
@@ -452,10 +466,11 @@ msgstr "Contract address input is only available when using Local network."
 #: src/hooks/useCampaignContract.ts:168
 #: src/hooks/useCampaignContract.ts:184
 #: src/hooks/useCampaignContract.ts:202
+#: src/hooks/useCampaignContract.ts:225
 msgid "Contract not initialized"
 msgstr "Contract not initialized"
 
-#: src/pages/admin/ContractSettings.tsx:104
+#: src/pages/admin/ContractSettings.tsx:152
 msgid "Contract Settings"
 msgstr "Contract Settings"
 
@@ -526,7 +541,7 @@ msgstr "Current password is incorrect"
 
 #: src/pages/Profile.tsx:95
 #: src/pages/MyCampaigns.tsx:250
-#: src/pages/Campaigns.tsx:127
+#: src/pages/Explore.tsx:127
 #: src/pages/CampaignDetails.tsx:575
 #: src/pages/home/components/TopCampaigns.tsx:66
 msgid "days left"
@@ -557,7 +572,7 @@ msgstr "Disconnect"
 msgid "Display Name"
 msgstr "Display Name"
 
-#: src/components/Footer.tsx:50
+#: src/components/Footer.tsx:51
 msgid "Documentation"
 msgstr "Documentation"
 
@@ -604,16 +619,19 @@ msgstr "End Date"
 #: src/pages/Profile.tsx:95
 #: src/pages/Profile.tsx:214
 #: src/pages/MyCampaigns.tsx:250
-#: src/pages/MyCampaigns.tsx:282
-#: src/pages/MyCampaigns.tsx:327
 #: src/pages/MyCampaigns.tsx:417
-#: src/pages/Campaigns.tsx:127
-#: src/pages/Campaigns.tsx:244
+#: src/pages/Explore.tsx:127
+#: src/pages/Explore.tsx:244
 #: src/pages/home/components/TopCampaigns.tsx:66
 msgid "Ended"
 msgstr "Ended"
 
-#: src/pages/Campaigns.tsx:154
+#: src/pages/MyCampaigns.tsx:282
+#: src/pages/MyCampaigns.tsx:327
+msgid "Ended "
+msgstr "Ended "
+
+#: src/pages/Explore.tsx:154
 msgid "Ended Campaigns"
 msgstr "Ended Campaigns"
 
@@ -651,7 +669,7 @@ msgid "Error Loading Profile"
 msgstr "Error Loading Profile"
 
 #: src/pages/Profile.tsx:313
-#: src/pages/Campaigns.tsx:411
+#: src/pages/Explore.tsx:411
 #: src/pages/home/components/TopCampaigns.tsx:201
 #: src/pages/campaign/Edit.tsx:251
 msgid "ETH"
@@ -667,19 +685,19 @@ msgstr "ETH Amount Range:"
 
 #: src/pages/Profile.tsx:259
 #: src/pages/MyCampaigns.tsx:454
-#: src/pages/Campaigns.tsx:362
+#: src/pages/Explore.tsx:362
 #: src/pages/home/components/TopCampaigns.tsx:158
 msgid "ETH raised"
 msgstr "ETH raised"
 
 #: src/pages/Profile.tsx:385
-#: src/pages/Campaigns.tsx:136
+#: src/pages/Explore.tsx:136
 msgid "ETH Raised"
 msgstr "ETH Raised"
 
 #: src/pages/campaign/Edit.tsx:466
 #: src/pages/campaign/components/PreviewStep.tsx:99
-#: src/pages/admin/ContractSettings.tsx:186
+#: src/pages/admin/ContractSettings.tsx:251
 msgid "Ethereum Mainnet"
 msgstr "Ethereum Mainnet"
 
@@ -695,6 +713,10 @@ msgstr "Experience the next generation of crowdfunding"
 #: src/components/modals/Navbar.tsx:30
 msgid "Explore"
 msgstr "Explore"
+
+#: src/pages/admin/ContractSettings.tsx:130
+msgid "Failed to collect fees"
+msgstr "Failed to collect fees"
 
 #: src/hooks/useMetaMask.ts:99
 msgid "Failed to connect to MetaMask"
@@ -730,7 +752,7 @@ msgstr "Failed to disconnect wallet"
 msgid "Failed to load campaign"
 msgstr "Failed to load campaign"
 
-#: src/pages/Campaigns.tsx:69
+#: src/pages/Explore.tsx:69
 msgid "Failed to load campaigns"
 msgstr "Failed to load campaigns"
 
@@ -758,7 +780,7 @@ msgstr "Failed to load your campaigns"
 msgid "Failed to process contribution. Please try again."
 msgstr "Failed to process contribution. Please try again."
 
-#: src/pages/admin/ContractSettings.tsx:82
+#: src/pages/admin/ContractSettings.tsx:90
 msgid "Failed to save settings"
 msgstr "Failed to save settings"
 
@@ -774,7 +796,7 @@ msgstr "Failed to send message. Please try again later."
 msgid "Failed to send transaction. Please try again later."
 msgstr "Failed to send transaction. Please try again later."
 
-#: src/pages/admin/ContractSettings.tsx:68
+#: src/pages/admin/ContractSettings.tsx:76
 msgid "Failed to update network in database"
 msgstr "Failed to update network in database"
 
@@ -792,13 +814,17 @@ msgstr "Failed to withdraw funds. Please try again."
 
 #: src/components/MobileDrawer.tsx:282
 #: src/components/MobileDrawer.tsx:333
-#: src/components/Footer.tsx:57
+#: src/components/Footer.tsx:58
 msgid "FAQs"
 msgstr "FAQs"
 
 #: src/lib/utils.ts:18
 msgid "Fashion"
 msgstr "Fashion"
+
+#: src/pages/admin/ContractSettings.tsx:127
+msgid "Fees collected successfully!"
+msgstr "Fees collected successfully!"
 
 #: src/pages/Contact.tsx:149
 msgid "Fill out the form below and we'll get back to you as soon as possible."
@@ -913,13 +939,11 @@ msgstr "Important"
 msgid "Important information about this project"
 msgstr "Important information about this project"
 
-#: src/pages/admin/ContractSettings.tsx:180
+#: src/pages/admin/ContractSettings.tsx:245
 msgid "Important Note"
 msgstr "Important Note"
 
 #: src/pages/Profile.tsx:210
-#: src/pages/MyCampaigns.tsx:283
-#: src/pages/MyCampaigns.tsx:326
 #: src/pages/MyCampaigns.tsx:413
 #: src/pages/campaign/Edit.tsx:597
 msgid "Inactive"
@@ -928,6 +952,11 @@ msgstr "Inactive"
 #: src/pages/CampaignDetails.tsx:644
 msgid "INACTIVE"
 msgstr "INACTIVE"
+
+#: src/pages/MyCampaigns.tsx:283
+#: src/pages/MyCampaigns.tsx:326
+msgid "Inactive "
+msgstr "Inactive "
 
 #: src/pages/home/components/Features.tsx:65
 msgid "Innovation First"
@@ -946,11 +975,15 @@ msgstr "Insufficient balance. Please try again."
 msgid "Invalid amount"
 msgstr "Invalid amount"
 
+#: src/pages/admin/ContractSettings.tsx:106
+msgid "Invalid campaign ID"
+msgstr "Invalid campaign ID"
+
 #: src/pages/Login.tsx:30
 msgid "Invalid email or password. Please try again."
 msgstr "Invalid email or password. Please try again."
 
-#: src/pages/admin/ContractSettings.tsx:53
+#: src/pages/admin/ContractSettings.tsx:61
 msgid "Invalid Ethereum contract address"
 msgstr "Invalid Ethereum contract address"
 
@@ -1013,11 +1046,11 @@ msgid "Loading..."
 msgstr "Loading..."
 
 #: src/pages/home/components/Stats.tsx:177
-#: src/pages/admin/ContractSettings.tsx:149
+#: src/pages/admin/ContractSettings.tsx:214
 msgid "Local"
 msgstr "Local"
 
-#: src/pages/admin/ContractSettings.tsx:112
+#: src/pages/admin/ContractSettings.tsx:160
 msgid "Local Contract Address"
 msgstr "Local Contract Address"
 
@@ -1026,15 +1059,15 @@ msgstr "Local Contract Address"
 msgid "Local Development Network"
 msgstr "Local Development Network"
 
-#: src/pages/admin/ContractSettings.tsx:183
+#: src/pages/admin/ContractSettings.tsx:248
 msgid "Local network settings are for development and testing purposes on this device only. Changes will be applied after page refresh."
 msgstr "Local network settings are for development and testing purposes on this device only. Changes will be applied after page refresh."
 
-#: src/pages/admin/ContractSettings.tsx:174
+#: src/pages/admin/ContractSettings.tsx:239
 msgid "Local network settings are stored only on this device."
 msgstr "Local network settings are stored only on this device."
 
-#: src/pages/admin/ContractSettings.tsx:75
+#: src/pages/admin/ContractSettings.tsx:83
 msgid "Local network settings saved for this device only."
 msgstr "Local network settings saved for this device only."
 
@@ -1054,9 +1087,13 @@ msgid "Login"
 msgstr "Login"
 
 #: src/pages/home/components/Stats.tsx:181
-#: src/pages/admin/ContractSettings.tsx:169
+#: src/pages/admin/ContractSettings.tsx:234
 msgid "Mainnet"
 msgstr "Mainnet"
+
+#: src/pages/admin/ContractSettings.tsx:122
+msgid "Mainnet contract address not configured"
+msgstr "Mainnet contract address not configured"
 
 #: src/pages/home/components/Features.tsx:60
 msgid "Make a real difference by supporting projects that matter to you and your community."
@@ -1156,7 +1193,7 @@ msgstr "Name"
 
 #: src/pages/campaign/Edit.tsx:657
 #: src/pages/campaign/components/PreviewStep.tsx:165
-#: src/pages/admin/ContractSettings.tsx:138
+#: src/pages/admin/ContractSettings.tsx:203
 #: src/components/ProfileMenu.tsx:170
 #: src/components/MobileDrawer.tsx:263
 msgid "Network"
@@ -1166,7 +1203,7 @@ msgstr "Network"
 msgid "Network cannot be changed after campaign creation"
 msgstr "Network cannot be changed after campaign creation"
 
-#: src/pages/admin/ContractSettings.tsx:78
+#: src/pages/admin/ContractSettings.tsx:86
 msgid "Network settings saved for all users."
 msgstr "Network settings saved for all users."
 
@@ -1200,7 +1237,7 @@ msgstr "No {selectedStatus} campaigns"
 msgid "No account found"
 msgstr "No account found"
 
-#: src/pages/Campaigns.tsx:289
+#: src/pages/Explore.tsx:289
 msgid "No Campaigns Found"
 msgstr "No Campaigns Found"
 
@@ -1294,6 +1331,14 @@ msgstr "Please connect the wallet that created this campaign to withdraw funds."
 #: src/pages/CampaignDetails.tsx:632
 msgid "Please connect your wallet!"
 msgstr "Please connect your wallet!"
+
+#: src/pages/admin/ContractSettings.tsx:98
+msgid "Please enter a campaign ID"
+msgstr "Please enter a campaign ID"
+
+#: src/pages/admin/ContractSettings.tsx:112
+msgid "Please enter a local contract address"
+msgstr "Please enter a local contract address"
 
 #: src/components/modals/SupportModal.tsx:70
 msgid "Please enter a valid amount"
@@ -1398,7 +1443,7 @@ msgstr "Revolutionize Your"
 msgid "Save Changes"
 msgstr "Save Changes"
 
-#: src/pages/admin/ContractSettings.tsx:201
+#: src/pages/admin/ContractSettings.tsx:277
 msgid "Save Settings"
 msgstr "Save Settings"
 
@@ -1408,7 +1453,7 @@ msgstr "Save Settings"
 msgid "Saving..."
 msgstr "Saving..."
 
-#: src/pages/Campaigns.tsx:199
+#: src/pages/Explore.tsx:199
 msgid "Search campaigns..."
 msgstr "Search campaigns..."
 
@@ -1452,17 +1497,21 @@ msgid "Sending..."
 msgstr "Sending..."
 
 #: src/pages/home/components/Stats.tsx:179
-#: src/pages/admin/ContractSettings.tsx:159
+#: src/pages/admin/ContractSettings.tsx:224
 msgid "Sepolia"
 msgstr "Sepolia"
 
-#: src/pages/admin/ContractSettings.tsx:175
+#: src/pages/admin/ContractSettings.tsx:240
 msgid "Sepolia and Mainnet settings are applied globally for all users."
 msgstr "Sepolia and Mainnet settings are applied globally for all users."
 
+#: src/pages/admin/ContractSettings.tsx:117
+msgid "Sepolia contract address not configured"
+msgstr "Sepolia contract address not configured"
+
 #: src/pages/campaign/Edit.tsx:464
 #: src/pages/campaign/components/PreviewStep.tsx:97
-#: src/pages/admin/ContractSettings.tsx:185
+#: src/pages/admin/ContractSettings.tsx:250
 msgid "Sepolia Test Network"
 msgstr "Sepolia Test Network"
 
@@ -1471,7 +1520,7 @@ msgstr "Sepolia Test Network"
 msgid "Settings"
 msgstr "Settings"
 
-#: src/pages/admin/ContractSettings.tsx:187
+#: src/pages/admin/ContractSettings.tsx:252
 msgid "settings will be applied globally for all users. This affects where campaigns are deployed and how users interact with the blockchain."
 msgstr "settings will be applied globally for all users. This affects where campaigns are deployed and how users interact with the blockchain."
 
@@ -1517,7 +1566,7 @@ msgstr "Something went wrong. Please try again."
 msgid "Start a Campaign"
 msgstr "Start a Campaign"
 
-#: src/pages/Campaigns.tsx:430
+#: src/pages/Explore.tsx:430
 msgid "Start Your Campaign"
 msgstr "Start Your Campaign"
 
@@ -1588,7 +1637,7 @@ msgstr "Tell us about yourself..."
 msgid "Tell us more about your inquiry..."
 msgstr "Tell us more about your inquiry..."
 
-#: src/pages/admin/ContractSettings.tsx:131
+#: src/pages/admin/ContractSettings.tsx:179
 msgid "The Ethereum address of your locally deployed contract."
 msgstr "The Ethereum address of your locally deployed contract."
 
@@ -1736,7 +1785,7 @@ msgstr "Updating..."
 
 #: src/pages/Profile.tsx:279
 #: src/pages/MyCampaigns.tsx:472
-#: src/pages/Campaigns.tsx:381
+#: src/pages/Explore.tsx:381
 #: src/pages/home/components/TopCampaigns.tsx:176
 msgid "USD"
 msgstr "USD"

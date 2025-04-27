@@ -325,4 +325,19 @@ describe("Campaign Contract", function () {
 
         expect(await campaign.campaignFees(1)).to.equal(0n);
     });
+
+    it("Should not allow fee collection if campaign is not closed", async function () {
+        const goal = ethers.parseEther("5");
+        const deadline = Math.floor(Date.now() / 1000) + 3600;
+        const metadataCID = "QmExampleCID";
+
+        await campaign.createCampaign(goal, deadline, metadataCID);
+        await campaign
+            .connect(addr1)
+            .contribute(1, { value: ethers.parseEther("5") });
+
+        await expect(campaign.connect(owner).collectFees(1)).to.be.revertedWith(
+            "Campaign must be closed to collect fees"
+        );
+    });
 });

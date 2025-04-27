@@ -13,6 +13,7 @@ import {
     Settings,
     Sun,
     User,
+    Wallet,
     X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -198,10 +199,10 @@ export function MobileDrawer() {
 
                                 <nav className="p-4 space-y-2">
                                     <Link
-                                        to="/campaigns"
+                                        to="/explore"
                                         onClick={handleLinkClick}
                                         className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors ${
-                                            location.pathname === "/campaigns"
+                                            location.pathname === "/explore"
                                                 ? "bg-primary-light text-primary"
                                                 : "text-text-secondary hover:bg-background-alt"
                                         }`}>
@@ -250,18 +251,32 @@ export function MobileDrawer() {
                                     </Link>
 
                                     {isAdmin && (
-                                        <Link
-                                            to="/admin/network-settings"
-                                            onClick={handleLinkClick}
-                                            className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors ${
-                                                location.pathname ===
-                                                "/admin/network-settings"
-                                                    ? "bg-primary-light text-primary"
-                                                    : "text-text-secondary hover:bg-background-alt"
-                                            }`}>
-                                            <Globe className="w-5 h-5 mr-3" />
-                                            {t`Network`}
-                                        </Link>
+                                        <>
+                                            <Link
+                                                to="/admin/network-settings"
+                                                onClick={handleLinkClick}
+                                                className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors ${
+                                                    location.pathname ===
+                                                    "/admin/network-settings"
+                                                        ? "bg-primary-light text-primary"
+                                                        : "text-text-secondary hover:bg-background-alt"
+                                                }`}>
+                                                <Globe className="w-5 h-5 mr-3" />
+                                                {t`Network`}
+                                            </Link>
+                                            <Link
+                                                to="/admin/collect-fees"
+                                                onClick={handleLinkClick}
+                                                className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors ${
+                                                    location.pathname ===
+                                                    "/admin/collect-fees"
+                                                        ? "bg-primary-light text-primary"
+                                                        : "text-text-secondary hover:bg-background-alt"
+                                                }`}>
+                                                <Wallet className="w-5 h-5 mr-3" />
+                                                {t`Collect Fees`}
+                                            </Link>
+                                        </>
                                     )}
                                 </nav>
 

@@ -45,7 +45,8 @@ export function Footer() {
                         <ul className="space-y-2">
                             <li>
                                 <a
-                                    href="#"
+                                    href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/alex-bleotu/BlockFund/ce73682a2bbbfd7847d1a404382d04495c5c3c8e/documentation/BlockFund.pdf"
+                                    target="_blank"
                                     className="text-text-secondary hover:text-primary transition-colors">
                                     {t`Documentation`}
                                 </a>

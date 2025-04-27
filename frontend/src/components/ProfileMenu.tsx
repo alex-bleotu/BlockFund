@@ -1,5 +1,13 @@
 import { t } from "@lingui/core/macro";
-import { Bell, FolderHeart, Globe, LogOut, Settings, User } from "lucide-react";
+import {
+    Bell,
+    FolderHeart,
+    Globe,
+    LogOut,
+    Settings,
+    User,
+    Wallet,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNotifications } from "../contexts/NotificationContext";
@@ -162,13 +170,22 @@ export function ProfileMenu() {
                                 {t`Settings`}
                             </Link>
                             {isAdmin && (
-                                <Link
-                                    to="/admin/network-settings"
-                                    onClick={handleMenuClick}
-                                    className="flex items-center px-4 py-2 text-sm text-text hover:bg-background-alt">
-                                    <Globe className="w-4 h-4 mr-2" />
-                                    {t`Network`}
-                                </Link>
+                                <>
+                                    <Link
+                                        to="/admin/network-settings"
+                                        onClick={handleMenuClick}
+                                        className="flex items-center px-4 py-2 text-sm text-text hover:bg-background-alt">
+                                        <Globe className="w-4 h-4 mr-2" />
+                                        {t`Network`}
+                                    </Link>
+                                    <Link
+                                        to="/admin/collect-fees"
+                                        onClick={handleMenuClick}
+                                        className="flex items-center px-4 py-2 text-sm text-text hover:bg-background-alt">
+                                        <Wallet className="w-4 h-4 mr-2" />
+                                        {t`Collect Fees`}
+                                    </Link>
+                                </>
                             )}
                             <button
                                 onClick={handleSignOut}

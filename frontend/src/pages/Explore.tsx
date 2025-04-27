@@ -23,7 +23,7 @@ import { getCampaignCategory } from "../lib/utils";
 
 type CampaignStatus = "active" | "ended" | "completed";
 
-export function Campaigns() {
+export function Explore() {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [filteredCampaigns, setFilteredCampaigns] = useState<Campaign[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -232,7 +232,7 @@ export function Campaigns() {
                                         ? "bg-primary text-light"
                                         : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
                                 }`}>
-                                {t`Active`}
+                                {t`Active `}
                             </button>
                             <button
                                 onClick={() => setSelectedStatus("ended")}
@@ -241,7 +241,7 @@ export function Campaigns() {
                                         ? "bg-primary text-light"
                                         : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
                                 }`}>
-                                {t`Ended`}
+                                {t`Ended `}
                             </button>
                             <button
                                 onClick={() => setSelectedStatus("completed")}
@@ -250,7 +250,7 @@ export function Campaigns() {
                                         ? "bg-primary text-light"
                                         : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
                                 }`}>
-                                {t`Completed`}
+                                {t`Completed `}
                             </button>
                         </div>
                     </div>

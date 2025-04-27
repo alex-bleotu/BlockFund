@@ -127,8 +127,11 @@ contract Campaign {
     }
 
     function collectFees(uint256 _campaignId) external {
+        CampaignData storage campaignData = campaigns[_campaignId];
+        require(campaignData.status == CampaignStatus.CLOSED, "Campaign must be closed to collect fees");
         uint256 fee = campaignFees[_campaignId];
         require(fee > 0, "No fees to collect");
+
         campaignFees[_campaignId] = 0;
         (bool success, ) = feeReceiver.call{value: fee}("");
         require(success, "Fee transfer failed");
@@ -183,5 +186,9 @@ contract Campaign {
 
     function getCampaignCount() public view returns (uint256) {
         return campaignCount;
+    }
+
+    function getFeeReceiver() public view returns (address) {
+        return feeReceiver;
     }
 }

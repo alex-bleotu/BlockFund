@@ -278,9 +278,9 @@ export function MyCampaigns() {
                             {t`My Campaigns`}
                         </h1>
                         <div className="text-text-secondary">
-                            {stats.active} {t`Active`} • {stats.ended}{" "}
-                            {t`Ended`} • {stats.completed} {t`Completed`} •{" "}
-                            {stats.inactive} {t`Inactive`}
+                            {stats.active} {t`Active `} • {stats.ended}{" "}
+                            {t`Ended `} • {stats.completed} {t`Completed `} •{" "}
+                            {stats.inactive} {t`Inactive `}
                         </div>
                     </div>
                     <button
@@ -319,12 +319,12 @@ export function MyCampaigns() {
                             {status === "all"
                                 ? t`All`
                                 : status === "active"
-                                ? t`Active`
+                                ? t`Active `
                                 : status === "completed"
-                                ? t`Completed`
+                                ? t`Completed `
                                 : status === "inactive"
-                                ? t`Inactive`
-                                : t`Ended`}
+                                ? t`Inactive `
+                                : t`Ended `}
                         </button>
                     ))}
                 </div>
@@ -449,7 +449,7 @@ export function MyCampaigns() {
                                         <div className="flex justify-between items-center mt-2 text-sm">
                                             <span className="text-text-secondary">
                                                 {(campaign.raised || 0).toFixed(
-                                                    2
+                                                    3
                                                 )}{" "}
                                                 {t`ETH raised`}
                                             </span>
