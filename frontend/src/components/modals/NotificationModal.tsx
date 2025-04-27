@@ -2,7 +2,7 @@ import { t } from "@lingui/core/macro";
 import { MessageCircle, Send, Trash2, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Message, useMessages } from "../hooks/useMessages";
+import { Message, useMessages } from "../../hooks/useMessages";
 
 interface NotificationModalProps {
     isOpen: boolean;

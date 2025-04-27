@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ContactModal } from "../components/ContactModal";
+import { ContactModal } from "../components/modals/ContactModal";
 import { useAuth } from "../hooks/useAuth";
 import { useEthPrice } from "../hooks/useEthPrice";
 import { supabase } from "../lib/supabase";

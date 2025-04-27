@@ -17,7 +17,7 @@ import { Profile } from "../pages/Profile";
 import { Register } from "../pages/Register";
 import { Settings } from "../pages/Settings";
 import { Footer } from "./Footer";
-import { Navbar } from "./Navbar";
+import { Navbar } from "./modals/Navbar";
 
 export function AppContent() {
     const { theme } = useTheme();

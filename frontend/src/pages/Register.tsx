@@ -218,7 +218,7 @@ export function Register() {
                         src="https://images.unsplash.com/photo-1605792657660-596af9009e82?auto=format&fit=crop&q=80"
                         alt={t`Blockchain visualization`}
                     />
-                    <div className="absolute inset-0 bg-primary mix-blend-multiply opacity-20"></div>
+                    <div className="absolute inset-0 bg-primary opacity-15"></div>
                 </div>
             </div>
         </div>

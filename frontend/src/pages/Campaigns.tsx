@@ -189,8 +189,8 @@ export function Campaigns() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-surface rounded-xl shadow-lg p-6 mb-8">
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    className="bg-surface rounded-xl shadow-lg p-4 sm:p-6 mb-8">
+                    <div className="flex flex-col md:flex-row gap-4">
                         <div className="relative flex-1">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-secondary" />
                             <input
@@ -228,7 +228,7 @@ export function Campaigns() {
                         <div className="flex items-center gap-2">
                             <button
                                 onClick={() => setSelectedStatus("active")}
-                                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                                className={`px-3 sm:px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                                     selectedStatus === "active"
                                         ? "bg-primary text-light"
                                         : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
@@ -237,7 +237,7 @@ export function Campaigns() {
                             </button>
                             <button
                                 onClick={() => setSelectedStatus("ended")}
-                                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                                className={`px-3 sm:px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                                     selectedStatus === "ended"
                                         ? "bg-primary text-light"
                                         : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
@@ -246,7 +246,7 @@ export function Campaigns() {
                             </button>
                             <button
                                 onClick={() => setSelectedStatus("completed")}
-                                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                                className={`px-3 sm:px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                                     selectedStatus === "completed"
                                         ? "bg-primary text-light"
                                         : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
@@ -302,14 +302,11 @@ export function Campaigns() {
                                     onClick={() =>
                                         navigate(`/campaign/${campaign.id}`)
                                     }>
-                                    <div className="relative h-48 overflow-hidden">
+                                    <div className="relative aspect-video overflow-hidden">
                                         <img
-                                            src={
-                                                campaign.images[0] ||
-                                                "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80"
-                                            }
+                                            src={campaign.images[0]}
                                             alt={campaign.title}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                            className="absolute inset-0 w-full h-full object-cover"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                                         <div className="absolute bottom-4 left-4 right-4">

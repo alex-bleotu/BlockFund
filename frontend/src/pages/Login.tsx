@@ -155,10 +155,10 @@ export function Login() {
                 <div className="absolute inset-0">
                     <img
                         className="h-full w-full object-cover"
-                        src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80"
+                        src="https://images.unsplash.com/photo-1635236066503-22f4217c2ad6?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt={t`Technology background`}
                     />
-                    <div className="absolute inset-0 bg-primary mix-blend-multiply opacity-20"></div>
+                    <div className="absolute inset-0 bg-primary opacity-20"></div>
                 </div>
             </div>
         </div>

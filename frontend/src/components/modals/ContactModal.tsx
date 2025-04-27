@@ -2,7 +2,7 @@ import { t } from "@lingui/core/macro";
 import { Send, User, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import toast from "react-hot-toast";
-import { useMessages } from "../hooks/useMessages";
+import { useMessages } from "../../hooks/useMessages";
 
 interface ContactModalProps {
     isOpen: boolean;

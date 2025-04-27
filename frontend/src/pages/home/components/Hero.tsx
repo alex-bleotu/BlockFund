@@ -7,11 +7,12 @@ export function Hero() {
     const { user } = useAuth();
 
     return (
-        <div className="pt-20 pb-16 text-center lg:pt-32 relative overflow-hidden px-4 sm:px-6 lg:px-8">
+        <div className="pt-20 pb-16 lg:pb-32 text-center lg:pt-36 relative overflow-hidden px-4 sm:px-6 lg:px-8">
             <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary/10 animate-pulse"></div>
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-5"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary/10 animate-pulse" />
+                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1642104704074-907c0698cbd9?q=80&w=1932&auto=format&fit=crop')] bg-cover opacity-25 dark:opacity-15 bg-[position:50%_55%] lg:bg-[position:0%_55%]" />
             </div>
+
             <div className="relative z-10 max-w-3xl mx-auto">
                 <h1 className="mt-8 lg:mt-0 text-4xl sm:text-5xl lg:text-6xl font-bold text-text mb-6 max-w-2xl mx-auto">
                     {t`Revolutionize Your`}{" "}

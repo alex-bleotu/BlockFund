@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 contract Campaign {
-    enum CampaignStatus { ACTIVE, SUCCESSFUL, CLOSED }
+    enum CampaignStatus { ACTIVE, CLOSED }
 
     struct CampaignData {
         uint256 id;
@@ -90,18 +90,13 @@ contract Campaign {
         campaignData.totalFunded += msg.value;
         contributions[_campaignId][msg.sender] += msg.value;
         emit ContributionMade(_campaignId, msg.sender, msg.value);
-
-        if (campaignData.totalFunded >= campaignData.goal) {
-            campaignData.status = CampaignStatus.SUCCESSFUL;
-        }
     }
 
     function closeCampaign(uint256 _campaignId) external {
         CampaignData storage campaignData = campaigns[_campaignId];
         require(msg.sender == campaignData.creator, "Only creator can close");
         require(
-            campaignData.status == CampaignStatus.ACTIVE ||
-            campaignData.status == CampaignStatus.SUCCESSFUL,
+            campaignData.status == CampaignStatus.ACTIVE,
             "Campaign cannot be closed"
         );
 
@@ -113,9 +108,8 @@ contract Campaign {
         CampaignData storage campaignData = campaigns[_campaignId];
         require(msg.sender == campaignData.creator, "Only creator can withdraw");
         require(
-            campaignData.status == CampaignStatus.CLOSED ||
-            campaignData.status == CampaignStatus.SUCCESSFUL,
-            "Campaign must be closed or successful"
+            campaignData.status == CampaignStatus.CLOSED,
+            "Campaign must be closed"
         );
         require(campaignData.totalFunded > 0, "No funds available to withdraw");
 

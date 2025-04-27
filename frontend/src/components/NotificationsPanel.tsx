@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNotifications } from "../contexts/NotificationContext";
 import { useMessages, type Message } from "../hooks/useMessages";
-import { NotificationModal } from "./NotificationModal";
+import { NotificationModal } from "./modals/NotificationModal";
 
 interface NotificationsPanelProps {
     isOpen: boolean;

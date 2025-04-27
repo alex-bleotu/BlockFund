@@ -20,9 +20,9 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ContactModal } from "../components/ContactModal";
-import { SupportModal } from "../components/SupportModal";
-import { WithdrawModal } from "../components/WithdrawModal";
+import { ContactModal } from "../components/modals/ContactModal";
+import { SupportModal } from "../components/modals/SupportModal";
+import { WithdrawModal } from "../components/modals/WithdrawModal";
 import { useAuth } from "../hooks/useAuth";
 import { useCampaignActions } from "../hooks/useCampaignActions";
 import { useCampaignContract } from "../hooks/useCampaignContract";
@@ -60,6 +60,7 @@ export function CampaignDetails() {
     const [showCopiedTooltip, setShowCopiedTooltip] = useState(false);
     const [onchainId, setOnchainId] = useState<number | null>(null);
     const [withdrawalFee, setWithdrawalFee] = useState(0);
+    const [creatorAddress, setCreatorAddress] = useState<string>("");
 
     const { isLiked, toggleLike, shareCampaign } = useCampaignActions(id || "");
     const { isConnected, connect, isInstalled, isLocked } = useMetaMask();
@@ -144,6 +145,9 @@ export function CampaignDetails() {
             setOnchainLoading(true);
             const onChainCampaign = await getCampaign(onchainId);
             setOnChainData(onChainCampaign);
+            if (onChainCampaign) {
+                setCreatorAddress(onChainCampaign.creator);
+            }
         } catch (err) {
             console.error("Error fetching on-chain data:", err);
         } finally {
@@ -387,12 +391,9 @@ export function CampaignDetails() {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 0.3 }}
-                                    src={
-                                        campaign.images[currentImageIndex] ||
-                                        "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80"
-                                    }
+                                    src={campaign.images[currentImageIndex]}
                                     alt={campaign.title}
-                                    className="absolute top-0 left-0 w-full h-full object-fit"
+                                    className="absolute inset-0 w-full h-full object-cover"
                                 />
                             </div>
 
@@ -601,6 +602,16 @@ export function CampaignDetails() {
                                         <div className="flex items-center text-text-secondary">
                                             <MapPin className="w-5 h-5 mr-2" />
                                             <span>{campaign.location}</span>
+                                        </div>
+                                    )}
+
+                                    {creatorAddress && (
+                                        <div className="flex items-center text-text-secondary">
+                                            <Wallet className="w-5 h-5 mr-2" />
+                                            <span className="font-mono text-sm">
+                                                {creatorAddress.slice(0, 6)}...
+                                                {creatorAddress.slice(-4)}
+                                            </span>
                                         </div>
                                     )}
 

@@ -9,7 +9,7 @@ import {
     Mail,
     Menu,
     Moon,
-    PlusCircle,
+    Rocket,
     Settings,
     Sun,
     User,
@@ -296,7 +296,7 @@ export function MobileDrawer() {
                                         to="/campaign/new"
                                         onClick={handleLinkClick}
                                         className="flex items-center w-full px-4 py-2 text-light bg-primary hover:bg-primary-dark rounded-lg transition-colors justify-center">
-                                        <PlusCircle className="w-5 h-5 mr-2" />
+                                        <Rocket className="w-5 h-5 mr-2" />
                                         {t`Start a Campaign`}
                                     </Link>
 

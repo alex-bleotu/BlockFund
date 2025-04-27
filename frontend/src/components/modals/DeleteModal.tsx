@@ -2,7 +2,7 @@ import { t } from "@lingui/core/macro";
 import { motion } from "framer-motion";
 import { AlertCircle, X } from "lucide-react";
 
-interface DeleteCampaignModalProps {
+interface DeleteModalProps {
     isOpen: boolean;
     onClose: () => void;
     onConfirm: () => Promise<void>;
@@ -11,13 +11,13 @@ interface DeleteCampaignModalProps {
     isWalletConnected?: boolean;
 }
 
-export function DeleteCampaignModal({
+export function DeleteModal({
     isOpen,
     onClose,
     onConfirm,
     campaignTitle,
     isDeleting = false,
-}: DeleteCampaignModalProps) {
+}: DeleteModalProps) {
     if (!isOpen) return null;
 
     return (
@@ -59,6 +59,20 @@ export function DeleteCampaignModal({
                             "? " +
                             t`This action will close the campaign on the blockchain and cannot be undone.`}
                     </p>
+
+                    <div className="p-4 bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/50 rounded-lg mb-6">
+                        <div className="flex">
+                            <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mr-2 mt-0.5" />
+                            <div className="text-amber-700 dark:text-amber-300">
+                                <p className="font-medium mb-1">
+                                    {t`Important`}
+                                </p>
+                                <p className="text-sm">
+                                    {t`Please make sure to withdraw any remaining funds before deleting this campaign.`}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
                     <div className="flex justify-end space-x-3">
                         <button

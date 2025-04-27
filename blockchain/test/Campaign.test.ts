@@ -123,46 +123,6 @@ describe("Campaign Contract", function () {
         expect(totalContributionsBefore).to.equal(totalContributionsAfter);
     });
 
-    it("Should mark the campaign as SUCCESSFUL when the goal is reached", async function () {
-        const goal = ethers.parseEther("5");
-        const deadline = Math.floor(Date.now() / 1000) + 3600;
-        const metadataCID = "QmExampleCID";
-
-        await campaign.createCampaign(goal, deadline, metadataCID);
-
-        await campaign
-            .connect(addr1)
-            .contribute(1, { value: ethers.parseEther("5") });
-
-        const campaignData = await campaign.getCampaign(1);
-        expect(campaignData.status).to.equal(1);
-    });
-
-    it("Should allow the creator to withdraw funds after the campaign is successful", async function () {
-        const goal = ethers.parseEther("5");
-        const deadline = Math.floor(Date.now() / 1000) + 3600;
-        const metadataCID = "QmExampleCID";
-
-        await campaign.createCampaign(goal, deadline, metadataCID);
-        await campaign
-            .connect(addr1)
-            .contribute(1, { value: ethers.parseEther("5") });
-
-        const initialBalance = await ethers.provider.getBalance(owner.address);
-
-        const tx = await campaign.connect(owner).withdraw(1);
-        const receipt = await tx.wait();
-
-        const effectiveGasPrice = receipt.effectiveGasPrice || receipt.gasPrice;
-        const gasUsed =
-            BigInt(receipt.gasUsed || 0) * BigInt(effectiveGasPrice || 0);
-        const finalBalance = await ethers.provider.getBalance(owner.address);
-
-        expect(finalBalance - initialBalance + gasUsed).to.equal(
-            ethers.parseEther("4.875")
-        );
-    });
-
     it("Should allow the creator to close the campaign explicitly", async function () {
         const goal = ethers.parseEther("5");
         const deadline = Math.floor(Date.now() / 1000) + 3600;
@@ -175,7 +135,7 @@ describe("Campaign Contract", function () {
             .withArgs(1, owner.address);
 
         const campaignData = await campaign.getCampaign(1);
-        expect(campaignData.status).to.equal(2);
+        expect(campaignData.status).to.equal(1);
     });
 
     it("Should allow the creator to withdraw funds after closing the campaign explicitly", async function () {
@@ -324,7 +284,7 @@ describe("Campaign Contract", function () {
 
         let campaignData = await campaign.getCampaign(1);
         expect(campaignData.totalFunded).to.equal(ethers.parseEther("5"));
-        expect(campaignData.status).to.equal(1);
+        expect(campaignData.status).to.equal(0);
 
         await campaign
             .connect(addr2)
@@ -334,7 +294,7 @@ describe("Campaign Contract", function () {
         expect(campaignData.totalFunded).to.equal(ethers.parseEther("8"));
         expect(campaignData.totalFunded).to.be.gt(campaignData.goal);
 
-        expect(campaignData.status).to.equal(1);
+        expect(campaignData.status).to.equal(0);
     });
 
     it("Should hold 2.5% fee on withdraw and allow feeReceiver to collect it", async function () {

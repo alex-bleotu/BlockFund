@@ -157,18 +157,20 @@ export function PreviewStep({
                 </div>
             )}
 
-            <div className="p-4 bg-primary-light rounded-lg flex items-start">
-                <Info className="w-5 h-5 mr-2 flex-shrink-0 text-primary mt-0.5" />
-                <div>
-                    <p className="font-medium text-primary mb-1">
-                        {t`Network`}:{" "}
-                        {getNetworkDisplay(campaign.network || "sepolia")}
-                    </p>
-                    <p className="text-sm text-text-secondary">
-                        {getNetworkDisclaimerText()}
-                    </p>
+            {campaign.network !== "mainnet" && (
+                <div className="p-4 bg-primary-light rounded-lg flex items-start">
+                    <Info className="w-5 h-5 mr-2 flex-shrink-0 text-primary mt-0.5" />
+                    <div>
+                        <p className="font-medium text-primary mb-1">
+                            {t`Network`}:{" "}
+                            {getNetworkDisplay(campaign.network || "sepolia")}
+                        </p>
+                        <p className="text-sm text-text-secondary">
+                            {getNetworkDisclaimerText()}
+                        </p>
+                    </div>
                 </div>
-            </div>
+            )}
 
             <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
                 <div className="space-y-8">
@@ -183,7 +185,7 @@ export function PreviewStep({
                                         transition={{ duration: 0.3 }}
                                         src={previewUrls[currentImageIndex]}
                                         alt={campaign.title}
-                                        className="w-full h-[400px] object-fit"
+                                        className="w-full inset-0 w-full h-full object-cover"
                                     />
                                 </div>
                                 {previewUrls.length > 1 && (

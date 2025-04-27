@@ -1,12 +1,12 @@
 import { t } from "@lingui/core/macro";
 import { Compass } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { LanguageSwitcher } from "./LanguageSwitcher";
-import { Logo } from "./Logo";
-import { MobileDrawer } from "./MobileDrawer";
-import { ProfileMenu } from "./ProfileMenu";
-import { ThemeToggle } from "./ThemeToggle";
+import { useAuth } from "../../hooks/useAuth";
+import { LanguageSwitcher } from "../LanguageSwitcher";
+import { Logo } from "../Logo";
+import { MobileDrawer } from "../MobileDrawer";
+import { ProfileMenu } from "../ProfileMenu";
+import { ThemeToggle } from "../ThemeToggle";
 
 export function Navbar() {
     const { user } = useAuth();

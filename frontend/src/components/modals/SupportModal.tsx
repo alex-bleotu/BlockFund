@@ -3,8 +3,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, DollarSign, Wallet, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useEthPrice } from "../hooks/useEthPrice";
-import { useWallet } from "../hooks/useWallet";
+import { useEthPrice } from "../../hooks/useEthPrice";
+import { useWallet } from "../../hooks/useWallet";
 
 interface SupportModalProps {
     isOpen: boolean;

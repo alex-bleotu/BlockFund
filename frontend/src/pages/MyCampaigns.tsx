@@ -9,11 +9,12 @@ import {
     Tag,
     Target,
     Trash2,
+    Wallet,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { DeleteCampaignModal } from "../components/DeleteCampaignModal";
+import { DeleteModal } from "../components/modals/DeleteModal";
 import { useAuth } from "../hooks/useAuth";
 import { useCampaignContract } from "../hooks/useCampaignContract";
 import { useEthPrice } from "../hooks/useEthPrice";
@@ -34,9 +35,12 @@ export function MyCampaigns() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [currentNetwork, setCurrentNetwork] = useState<string | null>(null);
+    const [creatorAddresses, setCreatorAddresses] = useState<{
+        [key: number]: string;
+    }>({});
     const { user } = useAuth();
     const { ethPrice } = useEthPrice();
-    const { closeCampaign } = useCampaignContract();
+    const { closeCampaign, getCampaign } = useCampaignContract();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -49,6 +53,12 @@ export function MyCampaigns() {
             fetchMyCampaigns();
         }
     }, [user, currentNetwork]);
+
+    useEffect(() => {
+        if (campaigns.length > 0) {
+            fetchCreatorAddresses();
+        }
+    }, [campaigns]);
 
     const fetchMyCampaigns = async () => {
         if (!user) return;
@@ -72,6 +82,31 @@ export function MyCampaigns() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const fetchCreatorAddresses = async () => {
+        const addresses: { [key: number]: string } = {};
+
+        for (const campaign of campaigns) {
+            if (campaign.onchain_id) {
+                try {
+                    const onChainCampaign = await getCampaign(
+                        campaign.onchain_id
+                    );
+                    if (onChainCampaign) {
+                        addresses[campaign.onchain_id] =
+                            onChainCampaign.creator;
+                    }
+                } catch (err) {
+                    console.error(
+                        `Error fetching creator address for campaign ${campaign.id}:`,
+                        err
+                    );
+                }
+            }
+        }
+
+        setCreatorAddresses(addresses);
     };
 
     const filteredCampaigns = campaigns.filter((campaign) => {
@@ -108,7 +143,21 @@ export function MyCampaigns() {
         try {
             setIsDeleting(true);
 
-            if (selectedCampaign.status !== "completed") {
+            const totalFunded = parseFloat(selectedCampaign.raised as any) || 0;
+            const isCompleted = selectedCampaign.status === "completed";
+            const hasFunds = totalFunded > 0;
+
+            const canClose = !hasFunds || (hasFunds && isCompleted);
+
+            if (!canClose) {
+                toast.error(
+                    t`Cannot delete campaign because the raised funds are not yet withdrawn.`
+                );
+                setIsDeleting(false);
+                return;
+            }
+
+            if (!isCompleted) {
                 try {
                     await closeCampaign(selectedCampaign.onchain_id);
                     console.log("Campaign successfully closed on blockchain");
@@ -117,15 +166,15 @@ export function MyCampaigns() {
                         "Error closing campaign on blockchain:",
                         chainError
                     );
-
-                    if (chainError.message.includes("Only creator can close"))
+                    if (chainError.message.includes("Only creator can close")) {
                         toast.error(
                             t`Please connect the wallet that created this campaign to delete it.`
                         );
-                    else
+                    } else {
                         toast.error(
                             t`Could not close campaign on blockchain. Delete aborted.`
                         );
+                    }
                     return;
                 }
             }
@@ -223,7 +272,7 @@ export function MyCampaigns() {
     return (
         <div className="min-h-screen bg-background pt-24 pb-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center mb-8">
+                <div className="flex justify-between items-center sm:mb-8">
                     <div>
                         <h1 className="text-3xl font-bold text-text mb-2">
                             {t`My Campaigns`}
@@ -236,11 +285,18 @@ export function MyCampaigns() {
                     </div>
                     <button
                         onClick={() => navigate("/campaign/new")}
-                        className="flex items-center px-4 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors group">
+                        className="hidden sm:flex items-center px-4 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors group">
                         <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
                         {t`New Campaign`}
                     </button>
                 </div>
+
+                <button
+                    onClick={() => navigate("/campaign/new")}
+                    className="flex sm:hidden items-center px-4 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors group mb-8 mt-4">
+                    <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+                    {t`New Campaign`}
+                </button>
 
                 <div className="flex items-center gap-2 mb-6 flex-wrap">
                     {(
@@ -319,15 +375,13 @@ export function MyCampaigns() {
                                 onClick={() =>
                                     navigate(`/campaign/${campaign.id}`)
                                 }>
-                                <div className="relative h-48">
+                                <div className="relative aspect-video overflow-hidden">
                                     <img
-                                        src={
-                                            campaign.images[0] ||
-                                            "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80"
-                                        }
+                                        src={campaign.images[0]}
                                         alt={campaign.title}
-                                        className="w-full h-full object-cover"
+                                        className="absolute inset-0 w-full h-full object-cover"
                                     />
+
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                                     <div className="absolute bottom-4 left-4 right-4">
                                         <div className="flex items-center justify-between text-light">
@@ -435,10 +489,28 @@ export function MyCampaigns() {
                                         </div>
                                     </div>
 
+                                    {campaign.onchain_id &&
+                                        creatorAddresses[
+                                            campaign.onchain_id
+                                        ] && (
+                                            <div className="flex items-center text-sm text-text-secondary mb-4">
+                                                <Wallet className="w-4 h-4 mr-1" />
+                                                <span className="font-mono">
+                                                    {creatorAddresses[
+                                                        campaign.onchain_id
+                                                    ].slice(0, 6)}
+                                                    ...
+                                                    {creatorAddresses[
+                                                        campaign.onchain_id
+                                                    ].slice(-4)}
+                                                </span>
+                                            </div>
+                                        )}
+
                                     <div className="flex items-center justify-between">
                                         <button className="flex items-center text-primary transition-colors">
                                             <Target className="w-4 h-4 mr-1" />
-                                            <span>
+                                            <span className="text-left">
                                                 {campaign.goal.toFixed(2)} ETH{" "}
                                                 {t`Goal`}
                                             </span>
@@ -479,7 +551,7 @@ export function MyCampaigns() {
                 )}
             </div>
 
-            <DeleteCampaignModal
+            <DeleteModal
                 isOpen={showDeleteModal}
                 onClose={() => {
                     setShowDeleteModal(false);

@@ -1,8 +1,19 @@
 import { t } from "@lingui/core/macro";
 import { motion } from "framer-motion";
 import { AlertTriangle, HelpCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export function FAQs() {
+    const [withdrawalFee, setWithdrawalFee] = useState<number>(0);
+
+    useEffect(() => {
+        const loadWithdrawalFee = async () => {
+            const fee = localStorage.getItem("WITHDRAWAL_FEE");
+            setWithdrawalFee(parseFloat(fee || "0"));
+        };
+        loadWithdrawalFee();
+    }, []);
+
     const faqs = [
         {
             question: t`Is this a real crowdfunding platform?`,
@@ -28,6 +39,15 @@ export function FAQs() {
         {
             question: t`What technologies were used?`,
             answer: t`This project was built using React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts. It demonstrates the integration of blockchain technology with modern web development practices.`,
+        },
+        {
+            question: t`What is the withdrawal fee?`,
+            answer:
+                t`When withdrawing funds from a campaign, a platform fee of` +
+                " " +
+                withdrawalFee.toFixed(1) +
+                "% " +
+                t`is applied. This fee helps cover the costs of maintaining the platform and processing transactions.`,
         },
     ];
 
