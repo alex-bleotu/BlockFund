@@ -18,7 +18,7 @@ export function Footer() {
                                 <Link
                                     to="/about"
                                     className="text-text-secondary hover:text-primary transition-colors">
-                                    {t`About Us`}
+                                    {t`About`}
                                 </Link>
                             </li>
                             <li>

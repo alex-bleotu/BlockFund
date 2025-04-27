@@ -17,26 +17,23 @@ msgstr ""
 msgid "A platform fee of"
 msgstr "O taxă de platformă de"
 
-#: src/pages/About.tsx:56
+#: src/pages/About.tsx:34
 msgid "A practical example of how blockchain can be used in crowdfunding, perfect for students and developers learning Web3 technologies."
 msgstr "Un exemplu practic de cum blockchain poate fi folosit în strângerea de fonduri, perfect pentru studenți și dezvoltatori care învață tehnologii Web3."
 
 #: src/components/MobileDrawer.tsx:275
 #: src/components/MobileDrawer.tsx:326
+#: src/components/Footer.tsx:21
 msgid "About"
 msgstr "Despre"
 
-#: src/pages/About.tsx:80
+#: src/pages/About.tsx:58
 msgid "About BlockFund"
 msgstr "Despre BlockFund"
 
 #: src/pages/CampaignDetails.tsx:792
 msgid "About the Creator"
 msgstr "Despre creator"
-
-#: src/components/Footer.tsx:21
-msgid "About Us"
-msgstr "Despre noi"
 
 #: src/pages/admin/ContractSettings.tsx:22
 #: src/pages/admin/ContractSettings.tsx:30
@@ -181,7 +178,7 @@ msgstr "Vizualizare blockchain"
 msgid "BlockFund"
 msgstr "BlockFund"
 
-#: src/pages/About.tsx:83
+#: src/pages/About.tsx:61
 msgid "BlockFund is a learning-focused initiative designed to illustrate how blockchain can enhance traditional crowdfunding platforms. Rather than serving as a live funding service, it's a practical example of how blockchain can be used in crowdfunding."
 msgstr "BlockFund este o inițiativă de învățare centrată pe blockchain, care ilustrează cum blockchain poate îmbunătăți platformele de crowdfunding tradiționale. În loc să servească ca un serviciu de strângere de fonduri live, este un exemplu practic de cum blockchain poate fi folosit în crowdfunding."
 
@@ -189,7 +186,7 @@ msgstr "BlockFund este o inițiativă de învățare centrată pe blockchain, ca
 msgid "BlockFund. All rights reserved."
 msgstr "BlockFund. Toate drepturile rezervate."
 
-#: src/pages/About.tsx:61
+#: src/pages/About.tsx:39
 msgid "Built with React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts to showcase modern development practices."
 msgstr "Construit cu React, TypeScript, Tailwind CSS, Supabase și contracte inteligente Ethereum pentru a arăta practicile de dezvoltare moderne."
 
@@ -572,7 +569,7 @@ msgstr "Editează campania"
 msgid "Education"
 msgstr "Educație"
 
-#: src/pages/About.tsx:50
+#: src/pages/About.tsx:28
 msgid "Educational Focus"
 msgstr "Focus educațional"
 
@@ -998,7 +995,7 @@ msgstr "Lansează campania ta"
 msgid "Learn More"
 msgstr "Află mai multe"
 
-#: src/pages/About.tsx:55
+#: src/pages/About.tsx:33
 msgid "Learning Experience"
 msgstr "Experiență de învățare"
 
@@ -1248,7 +1245,7 @@ msgstr "Notificări"
 msgid "of"
 msgstr "din"
 
-#: src/pages/About.tsx:65
+#: src/pages/About.tsx:43
 msgid "Open Source"
 msgstr "Sursă deschisă"
 
@@ -1349,7 +1346,7 @@ msgstr "Setări profil"
 msgid "Profile updated successfully"
 msgstr "Profil actualizat cu succes"
 
-#: src/pages/About.tsx:92
+#: src/pages/About.tsx:70
 msgid "Project Purpose"
 msgstr "Scopul proiectului"
 
@@ -1575,7 +1572,7 @@ msgstr "Tehnologie"
 msgid "Technology background"
 msgstr "Experiență tehnologică"
 
-#: src/pages/About.tsx:60
+#: src/pages/About.tsx:38
 msgid "Technology Stack"
 msgstr "Stivă tehnologică"
 
@@ -1595,7 +1592,7 @@ msgstr "Adresa Ethereum a contractului dvs. local implementat."
 msgid "The funding goal cannot be modified after campaign creation"
 msgstr "Obiectivul de finanțare nu poate fi modificat după crearea campaniei"
 
-#: src/pages/About.tsx:95
+#: src/pages/About.tsx:73
 msgid "The goal of BlockFund is to deliver a full-stack dApp where anyone can launch or back a fundraising campaign using MetaMask-enabled wallets. It showcases:"
 msgstr "Scopul proiectului este de a livra o aplicație full-stack unde oricine poate lansa sau susține o campanie de strângere de fonduri folosind portofele MetaMask-enable."
 
@@ -1603,7 +1600,7 @@ msgstr "Scopul proiectului este de a livra o aplicație full-stack unde oricine 
 msgid "The page you are looking for doesn't exist or has been moved."
 msgstr "Pagina pe care o cauți nu există sau a fost mutată."
 
-#: src/pages/About.tsx:66
+#: src/pages/About.tsx:44
 msgid "The project is open source, allowing others to learn from and contribute to the codebase."
 msgstr "Proiectul este open source, permițând altor oameni să învețe și să contribuie la codul sursă."
 
@@ -1642,7 +1639,7 @@ msgstr "Această campanie va fi implementată pe {0}. Nu va fi vizibilă sau acc
 msgid "This project was built using React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts. It demonstrates the integration of blockchain technology with modern web development practices."
 msgstr "Acest proiect a fost construit folosind React, TypeScript, Tailwind CSS, Supabase și contracte inteligente Ethereum. Demonstrează integrarea tehnologiei blockchain cu practici moderne de dezvoltare web."
 
-#: src/pages/About.tsx:51
+#: src/pages/About.tsx:29
 msgid "This project was created as a learning exercise to demonstrate the integration of blockchain technology with modern web development."
 msgstr "Acest proiect a fost creat ca un exercițiu de învățare pentru a demonstra integrarea tehnologiei blockchain cu dezvoltarea web modernă."
 

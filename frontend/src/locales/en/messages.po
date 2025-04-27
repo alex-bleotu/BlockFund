@@ -17,26 +17,23 @@ msgstr ""
 msgid "A platform fee of"
 msgstr "A platform fee of"
 
-#: src/pages/About.tsx:56
+#: src/pages/About.tsx:34
 msgid "A practical example of how blockchain can be used in crowdfunding, perfect for students and developers learning Web3 technologies."
 msgstr "A practical example of how blockchain can be used in crowdfunding, perfect for students and developers learning Web3 technologies."
 
 #: src/components/MobileDrawer.tsx:275
 #: src/components/MobileDrawer.tsx:326
+#: src/components/Footer.tsx:21
 msgid "About"
 msgstr "About"
 
-#: src/pages/About.tsx:80
+#: src/pages/About.tsx:58
 msgid "About BlockFund"
 msgstr "About BlockFund"
 
 #: src/pages/CampaignDetails.tsx:792
 msgid "About the Creator"
 msgstr "About the Creator"
-
-#: src/components/Footer.tsx:21
-msgid "About Us"
-msgstr "About Us"
 
 #: src/pages/admin/ContractSettings.tsx:22
 #: src/pages/admin/ContractSettings.tsx:30
@@ -181,7 +178,7 @@ msgstr "Blockchain visualization"
 msgid "BlockFund"
 msgstr "BlockFund"
 
-#: src/pages/About.tsx:83
+#: src/pages/About.tsx:61
 msgid "BlockFund is a learning-focused initiative designed to illustrate how blockchain can enhance traditional crowdfunding platforms. Rather than serving as a live funding service, it's a practical example of how blockchain can be used in crowdfunding."
 msgstr "BlockFund is a learning-focused initiative designed to illustrate how blockchain can enhance traditional crowdfunding platforms. Rather than serving as a live funding service, it's a practical example of how blockchain can be used in crowdfunding."
 
@@ -189,7 +186,7 @@ msgstr "BlockFund is a learning-focused initiative designed to illustrate how bl
 msgid "BlockFund. All rights reserved."
 msgstr "BlockFund. All rights reserved."
 
-#: src/pages/About.tsx:61
+#: src/pages/About.tsx:39
 msgid "Built with React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts to showcase modern development practices."
 msgstr "Built with React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts to showcase modern development practices."
 
@@ -572,7 +569,7 @@ msgstr "Edit Campaign"
 msgid "Education"
 msgstr "Education"
 
-#: src/pages/About.tsx:50
+#: src/pages/About.tsx:28
 msgid "Educational Focus"
 msgstr "Educational Focus"
 
@@ -998,7 +995,7 @@ msgstr "Launch Your Campaign"
 msgid "Learn More"
 msgstr "Learn More"
 
-#: src/pages/About.tsx:55
+#: src/pages/About.tsx:33
 msgid "Learning Experience"
 msgstr "Learning Experience"
 
@@ -1248,7 +1245,7 @@ msgstr "Notifications"
 msgid "of"
 msgstr "of"
 
-#: src/pages/About.tsx:65
+#: src/pages/About.tsx:43
 msgid "Open Source"
 msgstr "Open Source"
 
@@ -1349,7 +1346,7 @@ msgstr "Profile Settings"
 msgid "Profile updated successfully"
 msgstr "Profile updated successfully"
 
-#: src/pages/About.tsx:92
+#: src/pages/About.tsx:70
 msgid "Project Purpose"
 msgstr "Project Purpose"
 
@@ -1575,7 +1572,7 @@ msgstr "Technology"
 msgid "Technology background"
 msgstr "Technology background"
 
-#: src/pages/About.tsx:60
+#: src/pages/About.tsx:38
 msgid "Technology Stack"
 msgstr "Technology Stack"
 
@@ -1595,7 +1592,7 @@ msgstr "The Ethereum address of your locally deployed contract."
 msgid "The funding goal cannot be modified after campaign creation"
 msgstr "The funding goal cannot be modified after campaign creation"
 
-#: src/pages/About.tsx:95
+#: src/pages/About.tsx:73
 msgid "The goal of BlockFund is to deliver a full-stack dApp where anyone can launch or back a fundraising campaign using MetaMask-enabled wallets. It showcases:"
 msgstr "The goal of BlockFund is to deliver a full-stack dApp where anyone can launch or back a fundraising campaign using MetaMask-enabled wallets. It showcases:"
 
@@ -1603,7 +1600,7 @@ msgstr "The goal of BlockFund is to deliver a full-stack dApp where anyone can l
 msgid "The page you are looking for doesn't exist or has been moved."
 msgstr "The page you are looking for doesn't exist or has been moved."
 
-#: src/pages/About.tsx:66
+#: src/pages/About.tsx:44
 msgid "The project is open source, allowing others to learn from and contribute to the codebase."
 msgstr "The project is open source, allowing others to learn from and contribute to the codebase."
 
@@ -1642,7 +1639,7 @@ msgstr "This campaign will be deployed on the {0}. It will not be visible or acc
 msgid "This project was built using React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts. It demonstrates the integration of blockchain technology with modern web development practices."
 msgstr "This project was built using React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts. It demonstrates the integration of blockchain technology with modern web development practices."
 
-#: src/pages/About.tsx:51
+#: src/pages/About.tsx:29
 msgid "This project was created as a learning exercise to demonstrate the integration of blockchain technology with modern web development."
 msgstr "This project was created as a learning exercise to demonstrate the integration of blockchain technology with modern web development."
 
