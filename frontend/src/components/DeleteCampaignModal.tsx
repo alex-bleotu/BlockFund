@@ -8,6 +8,7 @@ interface DeleteCampaignModalProps {
     onConfirm: () => Promise<void>;
     campaignTitle: string;
     isDeleting?: boolean;
+    isWalletConnected?: boolean;
 }
 
 export function DeleteCampaignModal({
@@ -16,6 +17,7 @@ export function DeleteCampaignModal({
     onConfirm,
     campaignTitle,
     isDeleting = false,
+    isWalletConnected = false,
 }: DeleteCampaignModalProps) {
     if (!isOpen) return null;
 
@@ -59,6 +61,12 @@ export function DeleteCampaignModal({
                             t`This action will close the campaign on the blockchain and cannot be undone.`}
                     </p>
 
+                    {!isWalletConnected && (
+                        <p className="text-sm text-error mb-4">
+                            {t`Please connect your wallet to delete this campaign`}
+                        </p>
+                    )}
+
                     <div className="flex justify-end space-x-3">
                         <button
                             onClick={onClose}
@@ -68,7 +76,7 @@ export function DeleteCampaignModal({
                         </button>
                         <button
                             onClick={onConfirm}
-                            disabled={isDeleting}
+                            disabled={isDeleting || !isWalletConnected}
                             className="px-6 py-2 bg-error text-light rounded-lg hover:bg-error-dark transition-colors disabled:opacity-50">
                             {isDeleting ? t`Deleting...` : t`Delete`}
                         </button>
