@@ -48,7 +48,7 @@ msgstr "Access funding opportunities from anywhere in the world, breaking down g
 #: src/pages/MyCampaigns.tsx:281
 #: src/pages/MyCampaigns.tsx:322
 #: src/pages/MyCampaigns.tsx:418
-#: src/pages/Campaigns.tsx:236
+#: src/pages/Campaigns.tsx:235
 #: src/pages/campaign/Edit.tsx:597
 msgid "Active"
 msgstr "Active"
@@ -57,7 +57,7 @@ msgstr "Active"
 msgid "ACTIVE"
 msgstr "ACTIVE"
 
-#: src/pages/Campaigns.tsx:146
+#: src/pages/Campaigns.tsx:145
 msgid "Active Campaigns"
 msgstr "Active Campaigns"
 
@@ -74,12 +74,12 @@ msgid "Add up to 4 images (PNG or JPG only). First image will be the cover image
 msgstr "Add up to 4 images (PNG or JPG only). First image will be the cover image."
 
 #: src/pages/MyCampaigns.tsx:320
-#: src/pages/Campaigns.tsx:270
+#: src/pages/Campaigns.tsx:272
 #: src/components/NotificationsPanel.tsx:214
 msgid "All"
 msgstr "All"
 
-#: src/pages/Campaigns.tsx:219
+#: src/pages/Campaigns.tsx:218
 msgid "All Categories"
 msgstr "All Categories"
 
@@ -309,6 +309,10 @@ msgstr "Cancel"
 msgid "Cannot delete campaign because the raised funds are not yet withdrawn."
 msgstr "Cannot delete campaign because the raised funds are not yet withdrawn."
 
+#: src/pages/Campaigns.tsx:259
+msgid "Categories"
+msgstr "Categories"
+
 #: src/pages/campaign/New.tsx:510
 #: src/pages/campaign/Edit.tsx:674
 msgid "Category"
@@ -369,7 +373,7 @@ msgstr "Community"
 #: src/pages/MyCampaigns.tsx:282
 #: src/pages/MyCampaigns.tsx:324
 #: src/pages/MyCampaigns.tsx:412
-#: src/pages/Campaigns.tsx:254
+#: src/pages/Campaigns.tsx:253
 #: src/pages/CampaignDetails.tsx:384
 msgid "Completed"
 msgstr "Completed"
@@ -604,12 +608,12 @@ msgstr "End Date"
 #: src/pages/MyCampaigns.tsx:327
 #: src/pages/MyCampaigns.tsx:417
 #: src/pages/Campaigns.tsx:127
-#: src/pages/Campaigns.tsx:245
+#: src/pages/Campaigns.tsx:244
 #: src/pages/home/components/TopCampaigns.tsx:66
 msgid "Ended"
 msgstr "Ended"
 
-#: src/pages/Campaigns.tsx:155
+#: src/pages/Campaigns.tsx:154
 msgid "Ended Campaigns"
 msgstr "Ended Campaigns"
 
@@ -647,7 +651,7 @@ msgid "Error Loading Profile"
 msgstr "Error Loading Profile"
 
 #: src/pages/Profile.tsx:313
-#: src/pages/Campaigns.tsx:409
+#: src/pages/Campaigns.tsx:411
 #: src/pages/home/components/TopCampaigns.tsx:201
 #: src/pages/campaign/Edit.tsx:251
 msgid "ETH"
@@ -663,13 +667,13 @@ msgstr "ETH Amount Range:"
 
 #: src/pages/Profile.tsx:259
 #: src/pages/MyCampaigns.tsx:454
-#: src/pages/Campaigns.tsx:360
+#: src/pages/Campaigns.tsx:362
 #: src/pages/home/components/TopCampaigns.tsx:158
 msgid "ETH raised"
 msgstr "ETH raised"
 
 #: src/pages/Profile.tsx:385
-#: src/pages/Campaigns.tsx:137
+#: src/pages/Campaigns.tsx:136
 msgid "ETH Raised"
 msgstr "ETH Raised"
 
@@ -1196,7 +1200,7 @@ msgstr "No {selectedStatus} campaigns"
 msgid "No account found"
 msgstr "No account found"
 
-#: src/pages/Campaigns.tsx:287
+#: src/pages/Campaigns.tsx:289
 msgid "No Campaigns Found"
 msgstr "No Campaigns Found"
 
@@ -1404,7 +1408,7 @@ msgstr "Save Settings"
 msgid "Saving..."
 msgstr "Saving..."
 
-#: src/pages/Campaigns.tsx:200
+#: src/pages/Campaigns.tsx:199
 msgid "Search campaigns..."
 msgstr "Search campaigns..."
 
@@ -1513,7 +1517,7 @@ msgstr "Something went wrong. Please try again."
 msgid "Start a Campaign"
 msgstr "Start a Campaign"
 
-#: src/pages/Campaigns.tsx:428
+#: src/pages/Campaigns.tsx:430
 msgid "Start Your Campaign"
 msgstr "Start Your Campaign"
 
@@ -1732,7 +1736,7 @@ msgstr "Updating..."
 
 #: src/pages/Profile.tsx:279
 #: src/pages/MyCampaigns.tsx:472
-#: src/pages/Campaigns.tsx:379
+#: src/pages/Campaigns.tsx:381
 #: src/pages/home/components/TopCampaigns.tsx:176
 msgid "USD"
 msgstr "USD"

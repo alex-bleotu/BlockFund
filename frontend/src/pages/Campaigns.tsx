@@ -255,6 +255,9 @@ export function Campaigns() {
                         </div>
                     </div>
 
+                    <div className="mt-4 text-text-secondary font-semibold hidden md:block">
+                        {t`Categories`}
+                    </div>
                     <div className="hidden md:flex mt-4 flex-wrap gap-4">
                         {["all", ...CampaignCategories].map((category) => (
                             <button
