@@ -133,7 +133,7 @@ export function Campaigns() {
             value: campaigns
                 .filter((c) => c.status === "active")
                 .reduce((acc, curr) => acc + (curr.raised || 0), 0)
-                .toFixed(2),
+                .toFixed(3),
             label: t`ETH Raised`,
             color: "text-primary",
         },

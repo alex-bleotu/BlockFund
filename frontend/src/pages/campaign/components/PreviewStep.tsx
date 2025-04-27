@@ -116,25 +116,38 @@ export function PreviewStep({
 
     return (
         <div className="space-y-8">
-            <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-text">{t`Preview`}</h2>
-                <div className="space-x-4">
-                    <button
-                        onClick={onBack}
-                        className="px-4 py-2 text-text-secondary hover:text-text transition-colors">
-                        {t`Back`}
-                    </button>
-                    <button
-                        onClick={handleSubmit}
-                        disabled={loading}
-                        className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50">
-                        {loading
-                            ? t`Saving...`
-                            : mode === "create"
-                            ? t`Launch Campaign`
-                            : t`Save Changes`}
-                    </button>
+            <div>
+                <div className="flex justify-between items-center">
+                    <h2 className="text-2xl font-bold text-text">{t`Preview`}</h2>
+                    <div className="space-x-4 flex">
+                        <button
+                            onClick={onBack}
+                            className="px-4 py-2 text-text-secondary hover:text-text transition-colors">
+                            {t`Back`}
+                        </button>
+                        <button
+                            onClick={handleSubmit}
+                            disabled={loading}
+                            className="hidden sm:block px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50">
+                            {loading
+                                ? t`Saving...`
+                                : mode === "create"
+                                ? t`Launch Campaign`
+                                : t`Save Changes`}
+                        </button>
+                    </div>
                 </div>
+
+                <button
+                    onClick={handleSubmit}
+                    disabled={loading}
+                    className="flex sm:hidden mt-2 w-full px-6 py-2 bg-primary items-center justify-center text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50">
+                    {loading
+                        ? t`Saving...`
+                        : mode === "create"
+                        ? t`Launch Campaign`
+                        : t`Save Changes`}
+                </button>
             </div>
 
             {(error || externalError) && (
@@ -162,15 +175,17 @@ export function PreviewStep({
                     <div className="relative rounded-xl overflow-hidden shadow-lg bg-surface">
                         {previewUrls.length > 0 ? (
                             <>
-                                <motion.img
-                                    key={currentImageIndex}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.3 }}
-                                    src={previewUrls[currentImageIndex]}
-                                    alt={campaign.title}
-                                    className="w-full h-[400px] object-cover"
-                                />
+                                <div className="w-full aspect-video relative overflow-hidden">
+                                    <motion.img
+                                        key={currentImageIndex}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.3 }}
+                                        src={previewUrls[currentImageIndex]}
+                                        alt={campaign.title}
+                                        className="w-full h-[400px] object-fit"
+                                    />
+                                </div>
                                 {previewUrls.length > 1 && (
                                     <>
                                         <button
@@ -247,8 +262,18 @@ export function PreviewStep({
                             </div>
                             <div className="flex justify-between items-center mt-2">
                                 <div>
-                                    <div className="text-2xl font-bold text-text">
-                                        0.00 ETH
+                                    <div className="flex items-center">
+                                        <img
+                                            src="/eth.svg"
+                                            alt="Ethereum"
+                                            className="w-6 h-6 mr-1"
+                                        />
+                                        <div className="flex flex-row items-center gap-2 text-2xl font-bold text-text">
+                                            0.00
+                                            <span className="hidden sm:block">
+                                                ETH
+                                            </span>
+                                        </div>
                                     </div>
                                     {ethPrice && (
                                         <div className="text-sm text-text-secondary">
@@ -288,22 +313,63 @@ export function PreviewStep({
                                 <div className="flex items-center justify-between text-text-secondary">
                                     <div className="flex items-center">
                                         <Calendar className="w-5 h-5 mr-2" />
-                                        <span>{t`Campaign End Date`}</span>
+                                        <span className="hidden sm:block">
+                                            {t`Campaign End Date`}
+                                        </span>
+                                        <span className="block sm:hidden">
+                                            {t`End Date`}
+                                        </span>
                                     </div>
                                     <span>
-                                        {new Date(
-                                            campaign.deadline
-                                        ).toLocaleDateString()}
+                                        {new Date(campaign.deadline)
+                                            .toLocaleDateString("en-GB", {
+                                                day: "2-digit",
+                                                month: "2-digit",
+                                                year: "numeric",
+                                            })
+                                            .replace(/\//g, ".")}
                                     </span>
                                 </div>
 
-                                <div className="flex items-center text-text">
-                                    <Target className="w-5 h-5 mr-2 text-primary" />
-                                    <span className="font-medium">
-                                        {t`Goal:`}{" "}
-                                        {parseFloat(campaign.goal).toFixed(3)}{" "}
-                                        ETH
-                                    </span>
+                                <div>
+                                    <div className="flex items-center text-text">
+                                        <Target className="w-5 h-5 mr-2 text-primary" />
+                                        <span className="font-medium flex items-center gap-2">
+                                            {t`Goal:`}{" "}
+                                            {parseFloat(campaign.goal).toFixed(
+                                                3
+                                            )}{" "}
+                                            ETH
+                                            {ethPrice && (
+                                                <span className="font-normal hidden sm:block">
+                                                    ≈ $
+                                                    {(
+                                                        parseFloat(
+                                                            campaign.goal
+                                                        ) * ethPrice
+                                                    )
+                                                        .toFixed(0)
+                                                        .toLocaleString()}{" "}
+                                                    USD
+                                                </span>
+                                            )}
+                                        </span>
+                                    </div>
+
+                                    {ethPrice && (
+                                        <div className="flex items-center text-text-secondary block sm:hidden mt-1">
+                                            <span className="ml-2 font-normal">
+                                                ≈ $
+                                                {(
+                                                    parseFloat(campaign.goal) *
+                                                    ethPrice
+                                                )
+                                                    .toFixed(0)
+                                                    .toLocaleString()}{" "}
+                                                USD
+                                            </span>
+                                        </div>
+                                    )}
                                 </div>
 
                                 {campaign.location && (

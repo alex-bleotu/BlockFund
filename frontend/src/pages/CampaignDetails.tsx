@@ -284,11 +284,13 @@ export function CampaignDetails() {
         const diffTime = date.getTime() - today.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         return {
-            formatted: date.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-            }),
+            formatted: date
+                .toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                })
+                .replace(/\//g, "."),
             daysLeft: diffDays,
             hasEnded: diffDays < 0,
         };
@@ -363,18 +365,22 @@ export function CampaignDetails() {
                                     {t`Completed`}
                                 </div>
                             )}
-                            <motion.img
-                                key={currentImageIndex}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.3 }}
-                                src={
-                                    campaign.images[currentImageIndex] ||
-                                    "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80"
-                                }
-                                alt={campaign.title}
-                                className="w-full h-[400px] object-cover"
-                            />
+
+                            <div className="w-full aspect-video relative overflow-hidden">
+                                <motion.img
+                                    key={currentImageIndex}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.3 }}
+                                    src={
+                                        campaign.images[currentImageIndex] ||
+                                        "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80"
+                                    }
+                                    alt={campaign.title}
+                                    className="absolute top-0 left-0 w-full h-full object-fit"
+                                />
+                            </div>
+
                             {campaign.images.length > 1 && (
                                 <>
                                     <button
@@ -497,16 +503,19 @@ export function CampaignDetails() {
                                                 alt="Ethereum"
                                                 className="w-6 h-6 mr-1"
                                             />
-                                            <div className="text-2xl font-bold text-text">
-                                                {raised.toFixed(3)} ETH
+                                            <div className="flex flex-row items-center gap-2 text-2xl font-bold text-text">
+                                                {raised.toFixed(3)}
+                                                <span className="hidden sm:block">
+                                                    ETH
+                                                </span>
                                             </div>
                                         </div>
                                         {ethPrice && (
                                             <div className="text-sm text-text-secondary">
                                                 ≈ $
-                                                {(
-                                                    raised * ethPrice
-                                                ).toLocaleString()}{" "}
+                                                {(raised * ethPrice)
+                                                    .toFixed(0)
+                                                    .toLocaleString()}{" "}
                                                 USD
                                             </div>
                                         )}
@@ -553,11 +562,34 @@ export function CampaignDetails() {
                                         <span>{campaignEndDate.formatted}</span>
                                     </div>
 
-                                    <div className="flex items-center text-text">
-                                        <Target className="w-5 h-5 mr-2 text-primary" />
-                                        <span className="font-medium">
-                                            {t`Goal:`} {goal.toFixed(3)} ETH
-                                        </span>
+                                    <div>
+                                        <div className="flex items-center text-text">
+                                            <Target className="w-5 h-5 mr-2 text-primary" />
+                                            <span className="font-medium md:flex items-center gap-2">
+                                                {t`Goal:`} {goal.toFixed(3)} ETH
+                                                {ethPrice && (
+                                                    <span className="font-normal hidden sm:block">
+                                                        ≈ $
+                                                        {(goal * ethPrice)
+                                                            .toFixed(0)
+                                                            .toLocaleString()}{" "}
+                                                        USD
+                                                    </span>
+                                                )}
+                                            </span>
+                                        </div>
+
+                                        {ethPrice && (
+                                            <div className="flex items-center text-text-secondary block md:hidden mt-1">
+                                                <span className="ml-2 font-normal">
+                                                    ≈ $
+                                                    {(goal * ethPrice)
+                                                        .toFixed(0)
+                                                        .toLocaleString()}{" "}
+                                                    USD
+                                                </span>
+                                            </div>
+                                        )}
                                     </div>
 
                                     {campaign.location && (
