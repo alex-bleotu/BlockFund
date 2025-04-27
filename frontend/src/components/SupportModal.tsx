@@ -29,6 +29,7 @@ export function SupportModal({
     const [amount, setAmount] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const MAX_CONTRIBUTION = 10000;
 
     useEffect(() => {
         if (isOpen) {
@@ -40,52 +41,47 @@ export function SupportModal({
 
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
+        setAmount(value);
 
-        if (value === "" || /^\d*\.?\d*$/.test(value)) {
-            setAmount(value);
-            setError(null);
+        setError(null);
+
+        const numAmount = parseFloat(value);
+        if (isNaN(numAmount)) {
+            setError(t`Please enter a valid amount`);
+            return;
+        }
+
+        if (numAmount <= 0) {
+            setError(t`Amount must be greater than 0`);
+            return;
+        }
+
+        if (numAmount > MAX_CONTRIBUTION) {
+            setError(t`Maximum contribution is 10,000 ETH`);
+            return;
         }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError(null);
+        if (error) return;
+
+        const numAmount = parseFloat(amount);
+        if (
+            isNaN(numAmount) ||
+            numAmount <= 0 ||
+            numAmount > MAX_CONTRIBUTION
+        ) {
+            setError(t`Please enter a valid amount`);
+            return;
+        }
 
         try {
-            if (!amount || amount === "") {
-                setError(t`Please enter an amount`);
-                return;
-            }
-
-            const ethAmount = parseFloat(amount);
-
-            if (isNaN(ethAmount)) {
-                setError(t`Please enter a valid amount`);
-                return;
-            }
-
-            if (ethAmount < minAmount) {
-                setError(t`Minimum contribution is ${minAmount} ETH`);
-                return;
-            }
-
-            setIsSubmitting(true);
-            await onSupport(ethAmount);
+            await onSupport(numAmount);
+            onClose();
         } catch (err) {
-            console.error("Contribution error:", err);
-            if (
-                err instanceof Error &&
-                err.message.includes("User denied transaction signature")
-            )
-                setError(t`User denied transaction signature`);
-            else if (
-                err instanceof Error &&
-                err.message.includes("Creator cannot fund their own campaign")
-            )
-                setError(t`Cannot fund a campaign with the same wallet`);
-            else setError(t`Failed to process transaction`);
-
-            setIsSubmitting(false);
+            console.error("Error supporting campaign:", err);
+            setError(t`Failed to process contribution. Please try again.`);
         }
     };
 
@@ -162,6 +158,7 @@ export function SupportModal({
                                             onChange={handleAmountChange}
                                             step="0.001"
                                             min={minAmount}
+                                            max={MAX_CONTRIBUTION}
                                             required
                                             className="w-full pl-10 pr-16 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text"
                                             placeholder={`${minAmount} or more`}
@@ -221,25 +218,22 @@ export function SupportModal({
                                     </div>
                                 </div>
 
-                                <div className="flex justify-end space-x-3 pt-4">
+                                <div className="flex justify-end space-x-3">
                                     <button
                                         type="button"
                                         onClick={onClose}
-                                        className="px-4 py-2 text-text-secondary hover:text-text transition-colors"
-                                        disabled={isSubmitting}>
+                                        className="px-4 py-2 text-text-secondary hover:text-text transition-colors">
                                         {t`Cancel`}
                                     </button>
                                     <button
                                         type="submit"
                                         disabled={
-                                            isSubmitting ||
-                                            !amount ||
-                                            parseFloat(amount) <= 0
+                                            !!error || !amount || isSubmitting
                                         }
                                         className="px-6 py-2 bg-primary text-light rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                                         {isSubmitting
                                             ? t`Processing...`
-                                            : t`Contribute to Campaign`}
+                                            : t`Contribute`}
                                     </button>
                                 </div>
                             </form>

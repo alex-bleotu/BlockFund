@@ -24,13 +24,13 @@ export function FundingInput({
         const inputVal = e.target.value;
         if (/^\d*\.?\d*$/.test(inputVal)) {
             const parts = inputVal.split(".");
-            if (parts.length > 1 && parts[1].length > 3) {
-                const truncated = parts[0] + "." + parts[1].substring(0, 3);
+            if (parts.length > 1 && parts[1].length > 2) {
+                const truncated = parts[0] + "." + parts[1].substring(0, 2);
                 setUsdAmount(truncated);
 
                 const parsed = parseFloat(truncated);
                 if (!isNaN(parsed) && parsed >= 0 && ethPrice) {
-                    const convertedEth = (parsed / ethPrice).toFixed(3);
+                    const convertedEth = (parsed / ethPrice).toFixed(2);
                     setEthAmount(convertedEth);
                     onChange(convertedEth);
                 }
@@ -41,7 +41,7 @@ export function FundingInput({
             const parsed = parseFloat(inputVal);
 
             if (!isNaN(parsed) && parsed >= 0 && ethPrice) {
-                const convertedEth = (parsed / ethPrice).toFixed(3);
+                const convertedEth = (parsed / ethPrice).toFixed(2);
                 setEthAmount(convertedEth);
                 onChange(convertedEth);
             } else {
@@ -56,8 +56,8 @@ export function FundingInput({
 
         if (/^\d*\.?\d*$/.test(inputVal)) {
             const parts = inputVal.split(".");
-            if (parts.length > 1 && parts[1].length > 3) {
-                const truncated = parts[0] + "." + parts[1].substring(0, 3);
+            if (parts.length > 1 && parts[1].length > 2) {
+                const truncated = parts[0] + "." + parts[1].substring(0, 2);
                 setEthAmount(truncated);
                 onChange(truncated);
 
@@ -91,10 +91,10 @@ export function FundingInput({
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (
             [46, 8, 9, 27, 13, 110, 190].includes(e.keyCode) ||
-            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-            (e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) ||
-            (e.keyCode === 86 && (e.ctrlKey === true || e.metaKey === true)) ||
-            (e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (e.keyCode === 65 && (e.ctrlKey || e.metaKey)) ||
+            (e.keyCode === 67 && (e.ctrlKey || e.metaKey)) ||
+            (e.keyCode === 86 && (e.ctrlKey || e.metaKey)) ||
+            (e.keyCode === 88 && (e.ctrlKey || e.metaKey)) ||
             (e.keyCode >= 35 && e.keyCode <= 39)
         ) {
             return;
@@ -124,9 +124,9 @@ export function FundingInput({
                     <input
                         type="text"
                         id="usd-amount"
-                        pattern="[0-9]*[.]?[0-9]*"
+                        pattern="[0-9]*[.]?[0-9]{0,2}"
                         inputMode="decimal"
-                        step="any"
+                        step="0.01"
                         value={usdAmount}
                         onChange={handleUsdChange}
                         onKeyDown={handleKeyDown}
@@ -144,9 +144,9 @@ export function FundingInput({
                     <input
                         type="text"
                         id="eth-amount"
-                        pattern="[0-9]*[.]?[0-9]*"
+                        pattern="[0-9]*[.]?[0-9]{0,2}"
                         inputMode="decimal"
-                        step="any"
+                        step="0.01"
                         value={ethAmount}
                         onChange={handleEthChange}
                         onKeyDown={handleKeyDown}
