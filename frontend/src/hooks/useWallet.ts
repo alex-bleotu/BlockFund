@@ -75,7 +75,6 @@ export function useWallet() {
                 .update({ wallet_address: newAddress })
                 .eq("id", user.id)
                 .select();
-            localStorage.setItem("walletAddress", newAddress);
 
             if (updateErr) throw updateErr;
             if (!data || data.length === 0) {

@@ -36,7 +36,7 @@ export function MyCampaigns() {
     const [currentNetwork, setCurrentNetwork] = useState<string | null>(null);
     const { user } = useAuth();
     const { ethPrice } = useEthPrice();
-    const { closeCampaign } = useCampaignContract();
+    const { closeCampaign, getCampaign } = useCampaignContract();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -101,8 +101,9 @@ export function MyCampaigns() {
             !selectedCampaign ||
             !selectedCampaign.id ||
             !selectedCampaign.onchain_id
-        )
+        ) {
             return;
+        }
 
         try {
             setIsDeleting(true);
@@ -110,60 +111,44 @@ export function MyCampaigns() {
             if (selectedCampaign.status !== "completed") {
                 try {
                     await closeCampaign(selectedCampaign.onchain_id);
+                    console.log("Campaign successfully closed on blockchain");
                 } catch (chainError: any) {
                     console.error(
                         "Error closing campaign on blockchain:",
                         chainError
                     );
 
-                    if (
-                        !(
-                            chainError.code === 4001 ||
-                            (chainError.error &&
-                                chainError.error.code === 4001) ||
-                            (chainError.message &&
-                                chainError.message.includes(
-                                    "User denied transaction signature"
-                                ))
-                        )
-                    ) {
+                    if (chainError.message.includes("Only creator can close"))
                         toast.error(
-                            t`Could not close campaign on blockchain, but proceeding with removal from database`
+                            t`Please connect the wallet that created this campaign to delete it.`
                         );
-                    } else {
-                        setIsDeleting(false);
-                        throw new Error(
-                            t`Delete cancelled: Transaction was rejected`
+                    else
+                        toast.error(
+                            t`Could not close campaign on blockchain. Delete aborted.`
                         );
-                    }
+                    return;
                 }
             }
 
-            if (selectedCampaign.images && selectedCampaign.images.length > 0) {
+            if (selectedCampaign.images?.length) {
                 try {
                     const imagePaths = selectedCampaign.images
                         .map((imageUrl) => {
                             const urlObj = new URL(imageUrl);
-                            const pathParts = urlObj.pathname.split("/");
-                            const storagePathIndex = pathParts.findIndex(
-                                (part) => part === "campaign-images"
+                            const parts = urlObj.pathname.split("/");
+                            const idx = parts.findIndex(
+                                (p) => p === "campaign-images"
                             );
-                            if (
-                                storagePathIndex >= 0 &&
-                                storagePathIndex < pathParts.length - 1
-                            ) {
-                                return pathParts
-                                    .slice(storagePathIndex + 1)
-                                    .join("/");
-                            }
-                            return null;
+                            return idx >= 0 && idx < parts.length - 1
+                                ? parts.slice(idx + 1).join("/")
+                                : null;
                         })
-                        .filter(Boolean);
+                        .filter((p): p is string => Boolean(p));
 
-                    if (imagePaths.length > 0) {
+                    if (imagePaths.length) {
                         const { error: storageError } = await supabase.storage
                             .from("campaign-images")
-                            .remove(imagePaths as string[]);
+                            .remove(imagePaths);
 
                         if (storageError) {
                             console.error(
@@ -193,7 +178,6 @@ export function MyCampaigns() {
             setCampaigns((prev) =>
                 prev.filter((c) => c.id !== selectedCampaign.id)
             );
-
             toast.success(t`Campaign deleted successfully`);
             setShowDeleteModal(false);
             setSelectedCampaign(null);

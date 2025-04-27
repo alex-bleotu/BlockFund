@@ -26,7 +26,7 @@ msgstr "Despre"
 msgid "About BlockFund"
 msgstr "Despre BlockFund"
 
-#: src/pages/CampaignDetails.tsx:776
+#: src/pages/CampaignDetails.tsx:778
 msgid "About the Creator"
 msgstr "Despre creator"
 
@@ -44,15 +44,15 @@ msgid "Access funding opportunities from anywhere in the world, breaking down ge
 msgstr "Accesează oportunități de finanțare de oriunde din lume, eliminând barierele geografice."
 
 #: src/pages/Profile.tsx:215
-#: src/pages/MyCampaigns.tsx:248
-#: src/pages/MyCampaigns.tsx:282
-#: src/pages/MyCampaigns.tsx:380
+#: src/pages/MyCampaigns.tsx:232
+#: src/pages/MyCampaigns.tsx:266
+#: src/pages/MyCampaigns.tsx:364
 #: src/pages/Campaigns.tsx:236
 #: src/pages/campaign/Edit.tsx:597
 msgid "Active"
 msgstr "Activ"
 
-#: src/pages/CampaignDetails.tsx:627
+#: src/pages/CampaignDetails.tsx:629
 msgid "ACTIVE"
 msgstr "ACTIV"
 
@@ -72,7 +72,7 @@ msgstr "Adaugă imagine"
 msgid "Add up to 4 images (PNG or JPG only). First image will be the cover image."
 msgstr "Adaugă până la 4 imagini (PNG sau JPG doar). Prima imagine va fi imaginea de acoperiș."
 
-#: src/pages/MyCampaigns.tsx:280
+#: src/pages/MyCampaigns.tsx:264
 #: src/pages/Campaigns.tsx:270
 #: src/components/NotificationsPanel.tsx:214
 msgid "All"
@@ -86,7 +86,7 @@ msgstr "Toate categoriile"
 msgid "All caught up!"
 msgstr "Toate notificările au fost citite!"
 
-#: src/pages/MyCampaigns.tsx:322
+#: src/pages/MyCampaigns.tsx:306
 msgid "All your campaigns have ended. Start a new one!"
 msgstr "Toate campaniile tale s-au încheiat. Începe una nouă!"
 
@@ -122,7 +122,7 @@ msgstr "și ajut-o să se facă realitate"
 msgid "Are the campaigns real?"
 msgstr "Sunt campaniile reale?"
 
-#: src/components/DeleteCampaignModal.tsx:55
+#: src/components/DeleteCampaignModal.tsx:56
 msgid "Are you sure you want to delete"
 msgstr "Sunteți sigur că doriți să ștergeți"
 
@@ -152,7 +152,7 @@ msgstr "Distribuție automată a fondurilor și urmărire a etapelor prin contra
 msgid "Back"
 msgstr "Înapoi"
 
-#: src/pages/CampaignDetails.tsx:357
+#: src/pages/CampaignDetails.tsx:359
 msgid "Back to Campaigns"
 msgstr "Înapoi la campanii"
 
@@ -164,8 +164,8 @@ msgstr "Baze"
 msgid "Bio"
 msgstr "Biografie"
 
-#: src/pages/CampaignDetails.tsx:607
-#: src/pages/CampaignDetails.tsx:621
+#: src/pages/CampaignDetails.tsx:609
+#: src/pages/CampaignDetails.tsx:623
 msgid "Blockchain Status"
 msgstr "Status blockchain"
 
@@ -193,7 +193,7 @@ msgstr "Categorie campanie"
 msgid "Campaign category is required"
 msgstr "Categorie campanie este necesară"
 
-#: src/pages/CampaignDetails.tsx:641
+#: src/pages/CampaignDetails.tsx:643
 msgid "Campaign Completed"
 msgstr "Campanie finalizată"
 
@@ -211,7 +211,7 @@ msgstr "Termenul final al campaniei nu poate fi mai mult de 2 ani în viitor"
 msgid "Campaign deadline must be at least 1 week from today"
 msgstr "Termenul final al campaniei trebuie să fie cel puțin 1 săptămână de azi"
 
-#: src/pages/MyCampaigns.tsx:197
+#: src/pages/MyCampaigns.tsx:181
 msgid "Campaign deleted successfully"
 msgstr "Campanie ștearsă cu succes"
 
@@ -231,8 +231,8 @@ msgstr "Data finală a campaniei"
 msgid "Campaign end date cannot be modified after creation"
 msgstr "Data finală a campaniei nu poate fi modificată după creare"
 
-#: src/pages/CampaignDetails.tsx:556
-#: src/pages/CampaignDetails.tsx:728
+#: src/pages/CampaignDetails.tsx:558
+#: src/pages/CampaignDetails.tsx:730
 msgid "Campaign Ended"
 msgstr "Campanie încheiată"
 
@@ -249,7 +249,7 @@ msgstr "Imagini campanie"
 msgid "Campaign must run for at least 1 week from today and no more than 2 years"
 msgstr "Campania trebuie să ruleze cel puțin 1 săptămână de azi și nu mai mult de 2 ani"
 
-#: src/pages/CampaignDetails.tsx:330
+#: src/pages/CampaignDetails.tsx:332
 msgid "Campaign not found"
 msgstr "Campania nu există"
 
@@ -292,7 +292,7 @@ msgstr "Pot folosi aceasta pentru crowdfunding real?"
 #: src/components/WithdrawModal.tsx:104
 #: src/components/SupportModal.tsx:209
 #: src/components/NotificationModal.tsx:195
-#: src/components/DeleteCampaignModal.tsx:67
+#: src/components/DeleteCampaignModal.tsx:68
 msgid "Cancel"
 msgstr "Anulează"
 
@@ -357,11 +357,11 @@ msgstr "Comunitate"
 msgid "Community First"
 msgstr "Comunitatea pe primul loc"
 
-#: src/pages/MyCampaigns.tsx:249
-#: src/pages/MyCampaigns.tsx:284
-#: src/pages/MyCampaigns.tsx:374
+#: src/pages/MyCampaigns.tsx:233
+#: src/pages/MyCampaigns.tsx:268
+#: src/pages/MyCampaigns.tsx:358
 #: src/pages/Campaigns.tsx:254
-#: src/pages/CampaignDetails.tsx:365
+#: src/pages/CampaignDetails.tsx:367
 msgid "Completed"
 msgstr "Finalizat"
 
@@ -378,7 +378,7 @@ msgid "Confirm New Password"
 msgstr "Confirmă noua parolă"
 
 #: src/pages/Settings.tsx:562
-#: src/pages/CampaignDetails.tsx:656
+#: src/pages/CampaignDetails.tsx:658
 #: src/pages/campaign/New.tsx:417
 #: src/pages/campaign/Edit.tsx:514
 #: src/components/SupportModal.tsx:133
@@ -414,7 +414,7 @@ msgstr "Conectează-ți portofelul pentru a contribui la această campanie"
 msgid "Connected:"
 msgstr "Conectat:"
 
-#: src/hooks/useWallet.ts:95
+#: src/hooks/useWallet.ts:94
 msgid "Connection already in progress. Please check MetaMask."
 msgstr "Conexiune deja în curs. Verifică MetaMask."
 
@@ -425,7 +425,7 @@ msgstr "Conexiune deja în curs. Verifică MetaMask."
 msgid "Contact"
 msgstr "Contact"
 
-#: src/pages/CampaignDetails.tsx:828
+#: src/pages/CampaignDetails.tsx:830
 #: src/components/ContactModal.tsx:77
 msgid "Contact Creator"
 msgstr "Contactează creatorul"
@@ -454,18 +454,18 @@ msgstr "Contribuie"
 msgid "Contribute to"
 msgstr "Contribuie la"
 
-#: src/pages/CampaignDetails.tsx:729
+#: src/pages/CampaignDetails.tsx:731
 #: src/components/SupportModal.tsx:109
 msgid "Contribute to this Campaign"
 msgstr "Contribuie la această campanie"
 
-#: src/pages/CampaignDetails.tsx:767
+#: src/pages/CampaignDetails.tsx:769
 msgid "Contribute to this campaign with ETH."
 msgstr "Contribuie la această campanie cu ETH."
 
-#: src/pages/MyCampaigns.tsx:131
-msgid "Could not close campaign on blockchain, but proceeding with removal from database"
-msgstr "Nu s-a putut închide campania pe blockchain, dar se continuă cu eliminarea din baza de date"
+#: src/pages/MyCampaigns.tsx:127
+msgid "Could not close campaign on blockchain. Delete aborted."
+msgstr "Nu a putut închide campania pe blockchain. Ștergerea a fost anulată."
 
 #: src/pages/campaign/components/ImageUpload.tsx:53
 msgid "Cover Image"
@@ -479,7 +479,7 @@ msgstr "Creează o parolă"
 msgid "Create Account"
 msgstr "Creează cont"
 
-#: src/pages/MyCampaigns.tsx:311
+#: src/pages/MyCampaigns.tsx:295
 msgid "Create Campaign"
 msgstr "Creează o campanie"
 
@@ -512,26 +512,22 @@ msgid "Current password is incorrect"
 msgstr "Parola curentă este incorectă"
 
 #: src/pages/Profile.tsx:95
-#: src/pages/MyCampaigns.tsx:217
+#: src/pages/MyCampaigns.tsx:201
 #: src/pages/Campaigns.tsx:127
-#: src/pages/CampaignDetails.tsx:559
+#: src/pages/CampaignDetails.tsx:561
 #: src/pages/home/components/TopCampaigns.tsx:61
 msgid "days left"
 msgstr "zile rămase"
 
-#: src/components/DeleteCampaignModal.tsx:73
+#: src/components/DeleteCampaignModal.tsx:74
 msgid "Delete"
 msgstr "Șterge"
 
-#: src/components/DeleteCampaignModal.tsx:50
+#: src/components/DeleteCampaignModal.tsx:51
 msgid "Delete Campaign"
 msgstr "Șterge campanie"
 
-#: src/pages/MyCampaigns.tsx:136
-msgid "Delete cancelled: Transaction was rejected"
-msgstr "Ștergere anulată: Tranzacția a fost respinsă"
-
-#: src/components/DeleteCampaignModal.tsx:73
+#: src/components/DeleteCampaignModal.tsx:74
 msgid "Deleting..."
 msgstr "Ștergere..."
 
@@ -590,10 +586,10 @@ msgstr "Data de încheiere"
 
 #: src/pages/Profile.tsx:95
 #: src/pages/Profile.tsx:214
-#: src/pages/MyCampaigns.tsx:217
-#: src/pages/MyCampaigns.tsx:249
-#: src/pages/MyCampaigns.tsx:287
-#: src/pages/MyCampaigns.tsx:379
+#: src/pages/MyCampaigns.tsx:201
+#: src/pages/MyCampaigns.tsx:233
+#: src/pages/MyCampaigns.tsx:271
+#: src/pages/MyCampaigns.tsx:363
 #: src/pages/Campaigns.tsx:127
 #: src/pages/Campaigns.tsx:245
 #: src/pages/home/components/TopCampaigns.tsx:61
@@ -629,7 +625,7 @@ msgstr "Eroare"
 msgid "Error connecting to MetaMask. Please check your wallet."
 msgstr "Eroare la conectarea MetaMask. Verifică portofelul."
 
-#: src/pages/CampaignDetails.tsx:327
+#: src/pages/CampaignDetails.tsx:329
 msgid "Error Loading Campaign"
 msgstr "Eroare la încărcarea campaniei"
 
@@ -655,7 +651,7 @@ msgid "ETH Amount Range:"
 msgstr "Intervalul de sumă ETH:"
 
 #: src/pages/Profile.tsx:259
-#: src/pages/MyCampaigns.tsx:416
+#: src/pages/MyCampaigns.tsx:400
 #: src/pages/Campaigns.tsx:363
 #: src/pages/home/components/TopCampaigns.tsx:156
 msgid "ETH raised"
@@ -693,7 +689,7 @@ msgstr "Explorează"
 msgid "Failed to connect to MetaMask"
 msgstr "Conectare la MetaMask eșuată"
 
-#: src/hooks/useWallet.ts:98
+#: src/hooks/useWallet.ts:97
 msgid "Failed to connect wallet"
 msgstr "Conectare portofel eșuată"
 
@@ -705,7 +701,7 @@ msgstr "Creare cont eșuată. Încearcă din nou."
 msgid "Failed to create campaign"
 msgstr "Creare campanie eșuată"
 
-#: src/pages/MyCampaigns.tsx:202
+#: src/pages/MyCampaigns.tsx:186
 msgid "Failed to delete campaign"
 msgstr "Ștergere campanie eșuată"
 
@@ -715,7 +711,7 @@ msgstr "Ștergere campanie eșuată"
 msgid "Failed to delete message"
 msgstr "Ștergerea mesajului a eșuat"
 
-#: src/hooks/useWallet.ts:142
+#: src/hooks/useWallet.ts:141
 msgid "Failed to disconnect wallet"
 msgstr "Deconectarea portofelului a eșuat"
 
@@ -775,6 +771,10 @@ msgstr "Actualizarea parolei a eșuat"
 msgid "Failed to update profile"
 msgstr "Actualizarea profilului a eșuat"
 
+#: src/pages/CampaignDetails.tsx:272
+msgid "Failed to withdraw funds. Please try again."
+msgstr "Extragerea fondurilor a eșuat. Vă rugăm să încercați din nou."
+
 #: src/components/MobileDrawer.tsx:282
 #: src/components/MobileDrawer.tsx:333
 #: src/components/Footer.tsx:57
@@ -825,6 +825,14 @@ msgstr "Obiectiv de finanțare"
 msgid "Funding goal cannot exceed"
 msgstr "Obiectivul de finanțare nu poate depăși"
 
+#: src/pages/CampaignDetails.tsx:259
+msgid "Funds withdrawn successfully!"
+msgstr "Fonduri retrase cu succes!"
+
+#: src/pages/CampaignDetails.tsx:250
+msgid "Funds withdrawn successfully. Campaign is now closed."
+msgstr "Fonduri retrase cu succes. Campania este închisă."
+
 #: src/lib/utils.ts:14
 msgid "Games"
 msgstr "Jocuri"
@@ -844,7 +852,7 @@ msgstr "Comunitate globală"
 
 #: src/pages/Profile.tsx:123
 #: src/pages/NotFound.tsx:33
-#: src/pages/CampaignDetails.tsx:335
+#: src/pages/CampaignDetails.tsx:337
 #: src/pages/campaign/New.tsx:396
 #: src/pages/campaign/New.tsx:422
 #: src/pages/campaign/Edit.tsx:493
@@ -861,11 +869,11 @@ msgstr "Acasă"
 msgid "goal"
 msgstr "obiectiv"
 
-#: src/pages/MyCampaigns.tsx:459
+#: src/pages/MyCampaigns.tsx:443
 msgid "Goal"
 msgstr "obiectiv"
 
-#: src/pages/CampaignDetails.tsx:569
+#: src/pages/CampaignDetails.tsx:571
 #: src/pages/campaign/components/PreviewStep.tsx:338
 msgid "Goal:"
 msgstr "Obiectiv:"
@@ -896,14 +904,14 @@ msgid "Important Note"
 msgstr "Notă importantă"
 
 #: src/pages/Profile.tsx:210
-#: src/pages/MyCampaigns.tsx:250
-#: src/pages/MyCampaigns.tsx:286
-#: src/pages/MyCampaigns.tsx:375
+#: src/pages/MyCampaigns.tsx:234
+#: src/pages/MyCampaigns.tsx:270
+#: src/pages/MyCampaigns.tsx:359
 #: src/pages/campaign/Edit.tsx:597
 msgid "Inactive"
 msgstr "Inactiv"
 
-#: src/pages/CampaignDetails.tsx:628
+#: src/pages/CampaignDetails.tsx:630
 msgid "INACTIVE"
 msgstr "INACTIV"
 
@@ -969,12 +977,12 @@ msgstr "Lansează campania ta"
 msgid "Learn More"
 msgstr "Află mai multe"
 
-#: src/pages/CampaignDetails.tsx:611
+#: src/pages/CampaignDetails.tsx:613
 msgid "Loading blockchain data..."
 msgstr "Se încarcă datele blockchain..."
 
-#: src/pages/CampaignDetails.tsx:691
-#: src/pages/CampaignDetails.tsx:726
+#: src/pages/CampaignDetails.tsx:693
+#: src/pages/CampaignDetails.tsx:728
 msgid "Loading..."
 msgstr "Se încarcă..."
 
@@ -1063,7 +1071,7 @@ msgstr "Mesaj trimis cu succes!"
 msgid "Message sent successfully! We'll be in touch soon."
 msgstr "Mesaj trimis cu succes! Te vom contacta în curând."
 
-#: src/hooks/useWallet.ts:97
+#: src/hooks/useWallet.ts:96
 msgid "MetaMask connection was rejected"
 msgstr "Conectarea MetaMask a fost respinsă"
 
@@ -1076,8 +1084,8 @@ msgstr "Portofelul MetaMask este blocat sau nu este conectat. Te rugăm să-l de
 msgid "MetaMask is not installed"
 msgstr "MetaMask nu este instalat"
 
-#: src/pages/CampaignDetails.tsx:749
-#: src/pages/CampaignDetails.tsx:764
+#: src/pages/CampaignDetails.tsx:751
+#: src/pages/CampaignDetails.tsx:766
 msgid "MetaMask is not installed."
 msgstr "MetaMask nu este instalat."
 
@@ -1089,7 +1097,7 @@ msgstr "MetaMask nu este instalat. Te rugăm să îl instalezi pentru a folosi a
 msgid "MetaMask is ready to use"
 msgstr "MetaMask este gata de utilizare"
 
-#: src/pages/CampaignDetails.tsx:655
+#: src/pages/CampaignDetails.tsx:657
 msgid "MetaMask Not Installed"
 msgstr "MetaMask nu este instalat"
 
@@ -1110,7 +1118,7 @@ msgstr "Contribuție minimă:"
 msgid "Music"
 msgstr "Muzică"
 
-#: src/pages/MyCampaigns.tsx:245
+#: src/pages/MyCampaigns.tsx:229
 #: src/components/ProfileMenu.tsx:155
 #: src/components/MobileDrawer.tsx:222
 msgid "My Campaigns"
@@ -1140,7 +1148,7 @@ msgstr "Setările rețelei au fost salvate pentru toți utilizatorii"
 msgid "Network:"
 msgstr "Rețea:"
 
-#: src/pages/MyCampaigns.tsx:257
+#: src/pages/MyCampaigns.tsx:241
 msgid "New Campaign"
 msgstr "Campanie nouă"
 
@@ -1157,7 +1165,7 @@ msgstr "Noile parole nu coincid"
 msgid "Next Step"
 msgstr "Pasul următor"
 
-#: src/pages/MyCampaigns.tsx:318
+#: src/pages/MyCampaigns.tsx:302
 msgid "No {selectedStatus} campaigns"
 msgstr "Nu există campanii {selectedStatus}"
 
@@ -1169,7 +1177,7 @@ msgstr "Nu a fost găsit niciun cont"
 msgid "No Campaigns Found"
 msgstr "Nu au fost găsite campanii"
 
-#: src/pages/MyCampaigns.tsx:302
+#: src/pages/MyCampaigns.tsx:286
 msgid "No Campaigns Yet"
 msgstr "Nicio campanie deocamdată"
 
@@ -1177,7 +1185,7 @@ msgstr "Nicio campanie deocamdată"
 msgid "No campaigns yet on this network"
 msgstr "Nu există campanii pe această rețea"
 
-#: src/pages/CampaignDetails.tsx:759
+#: src/pages/CampaignDetails.tsx:761
 msgid "No funds available to withdraw."
 msgstr "Nu există fonduri disponibile pentru retragere."
 
@@ -1252,7 +1260,15 @@ msgstr "Parolă actualizată cu succes"
 msgid "Please complete the following fields:"
 msgstr "Te rugăm să completați următoarele câmpuri:"
 
-#: src/pages/CampaignDetails.tsx:616
+#: src/pages/MyCampaigns.tsx:123
+msgid "Please connect the wallet that created this campaign to delete it."
+msgstr "Te rugăm să conectezi portofelul care a creat această campanie pentru a o șterge."
+
+#: src/pages/CampaignDetails.tsx:270
+msgid "Please connect the wallet that created this campaign to withdraw funds."
+msgstr "Te rugăm să conectezi portofelul care a creat această campanie pentru a retrage fonduri."
+
+#: src/pages/CampaignDetails.tsx:618
 msgid "Please connect your wallet!"
 msgstr "Te rugăm să conectezi portofelul!"
 
@@ -1264,7 +1280,7 @@ msgstr "Te rugăm să introduci o sumă validă"
 msgid "Please fill in all required fields before previewing"
 msgstr "Te rugăm să completați toate câmpurile necesare înainte de a vizualiza"
 
-#: src/pages/CampaignDetails.tsx:762
+#: src/pages/CampaignDetails.tsx:764
 msgid "Please sign in to contribute to this campaign."
 msgstr "Te rugăm să te autentifici pentru a contribui la această campanie."
 
@@ -1438,7 +1454,7 @@ msgstr "Arată parola"
 msgid "Sign in"
 msgstr "Autentificare"
 
-#: src/pages/CampaignDetails.tsx:827
+#: src/pages/CampaignDetails.tsx:829
 msgid "Sign in to Contact"
 msgstr "Te rugăm să te autentifici pentru a contacta creatorul"
 
@@ -1474,7 +1490,7 @@ msgstr "Începe o campanie"
 msgid "Start Your Campaign"
 msgstr "Începe-ți campania"
 
-#: src/pages/MyCampaigns.tsx:305
+#: src/pages/MyCampaigns.tsx:289
 msgid "Start your first campaign and begin your fundraising journey."
 msgstr "Începe-ți prima campanie și pornește în călătoria ta de strângere de fonduri."
 
@@ -1482,7 +1498,7 @@ msgstr "Începe-ți prima campanie și pornește în călătoria ta de strânger
 msgid "start your journey today"
 msgstr "începe-ți călătoria astăzi"
 
-#: src/pages/CampaignDetails.tsx:624
+#: src/pages/CampaignDetails.tsx:626
 msgid "Status:"
 msgstr "Status:"
 
@@ -1549,19 +1565,19 @@ msgstr "Obiectivul de finanțare nu poate fi modificat după crearea campaniei"
 msgid "The page you are looking for doesn't exist or has been moved."
 msgstr "Pagina pe care o cauți nu există sau a fost mutată."
 
-#: src/components/DeleteCampaignModal.tsx:59
+#: src/components/DeleteCampaignModal.tsx:60
 msgid "This action will close the campaign on the blockchain and cannot be undone."
 msgstr "Această acțiune va închide campania pe blockchain și nu poate fi anulată."
 
-#: src/pages/CampaignDetails.tsx:743
+#: src/pages/CampaignDetails.tsx:745
 msgid "This campaign has been completed. No further actions are possible."
 msgstr "Această campanie a fost încheiată. Nu sunt posibile alte acțiuni."
 
-#: src/pages/CampaignDetails.tsx:745
+#: src/pages/CampaignDetails.tsx:747
 msgid "This campaign has ended."
 msgstr "Această campanie a încheiat."
 
-#: src/pages/CampaignDetails.tsx:754
+#: src/pages/CampaignDetails.tsx:756
 msgid "This campaign is already closed."
 msgstr "Această campanie este deja închisă."
 
@@ -1570,8 +1586,8 @@ msgstr "Această campanie este deja închisă."
 msgid "This campaign is deployed on the {0}. Note that the network cannot be changed after campaign creation. Any edits you make will only affect the campaign metadata, not its blockchain configuration."
 msgstr "Această campanie este implementată pe {0}. Rețineți că rețeaua nu poate fi schimbată după crearea campaniei. Orice modificări pe care le faceți vor afecta doar metadata-ul campaniei, nu și configurarea blockchain-ului."
 
-#: src/pages/CampaignDetails.tsx:751
-#: src/pages/CampaignDetails.tsx:766
+#: src/pages/CampaignDetails.tsx:753
+#: src/pages/CampaignDetails.tsx:768
 msgid "This campaign is not active on the blockchain."
 msgstr "Această campanie nu este activă pe blockchain."
 
@@ -1637,8 +1653,8 @@ msgstr "Total strâns"
 msgid "Transaction declined: You cancelled the MetaMask transaction"
 msgstr "Tranzacția a fost respinsă: Ați anulat tranzacția MetaMask"
 
-#: src/pages/CampaignDetails.tsx:689
-#: src/pages/CampaignDetails.tsx:724
+#: src/pages/CampaignDetails.tsx:691
+#: src/pages/CampaignDetails.tsx:726
 msgid "Transaction in progress..."
 msgstr "Tranzacția se procesează..."
 
@@ -1680,7 +1696,7 @@ msgid "Updating..."
 msgstr "Se actualizează..."
 
 #: src/pages/Profile.tsx:279
-#: src/pages/MyCampaigns.tsx:434
+#: src/pages/MyCampaigns.tsx:418
 #: src/pages/Campaigns.tsx:382
 #: src/pages/home/components/TopCampaigns.tsx:174
 msgid "USD"
@@ -1721,7 +1737,7 @@ msgstr "Vizitează-ne"
 msgid "Wallet"
 msgstr "Portofel"
 
-#: src/hooks/useWallet.ts:90
+#: src/hooks/useWallet.ts:89
 msgid "Wallet connected successfully!"
 msgstr "Portofel conectat cu succes!"
 
@@ -1729,7 +1745,7 @@ msgstr "Portofel conectat cu succes!"
 msgid "Wallet Connection"
 msgstr "Conectare portofel"
 
-#: src/hooks/useWallet.ts:139
+#: src/hooks/useWallet.ts:138
 msgid "Wallet disconnected successfully"
 msgstr "Portofel deconectat cu succes"
 
@@ -1782,14 +1798,22 @@ msgstr "De ce să alegi BlockFund?"
 msgid "Withdraw"
 msgstr "Retragere"
 
-#: src/pages/CampaignDetails.tsx:692
+#: src/pages/CampaignDetails.tsx:694
 #: src/components/WithdrawModal.tsx:52
 msgid "Withdraw Funds"
 msgstr "Retragere fonduri"
 
-#: src/pages/CampaignDetails.tsx:760
+#: src/pages/CampaignDetails.tsx:762
 msgid "Withdraw funds to close this campaign."
 msgstr "Retragere fonduri pentru a închide această campanie."
+
+#: src/pages/CampaignDetails.tsx:256
+msgid "Withdrawal successful but failed to update campaign data"
+msgstr "Retragerea a avut succes, dar nu a putut actualiza datele campaniei"
+
+#: src/pages/CampaignDetails.tsx:239
+msgid "Withdrawal successful but failed to update database records"
+msgstr "Retragerea a avut succes, dar nu a putut actualiza datele în baza de date"
 
 #: src/components/WithdrawModal.tsx:92
 msgid "Withdrawing funds will close this campaign permanently. This action cannot be undone. You will receive 97.5% of the total funds raised."
@@ -1808,11 +1832,11 @@ msgstr "Scrieți un rezumat scurt al campaniei dvs."
 msgid "Yes, while the campaigns themselves are fictional, the donation flow is live. When you donate, real cryptocurrency is sent from your connected wallet to the campaign's specified address. Use testnet funds only, as this remains a demo environment."
 msgstr "Da, deși campaniile în sine sunt fictive, fluxul de donație este activ. Când donezi, criptomonede reale sunt trimise din portofelul tău conectat către adresa specificată a campaniei. Folosește doar fonduri din testnet, deoarece acesta rămâne un mediu demonstrativ."
 
-#: src/pages/CampaignDetails.tsx:825
+#: src/pages/CampaignDetails.tsx:827
 msgid "You are the creator"
 msgstr "Tu ești creatorul"
 
-#: src/pages/MyCampaigns.tsx:323
+#: src/pages/MyCampaigns.tsx:307
 msgid "You don't have any ended campaigns yet."
 msgstr "Nu ai încă campanii încheiate."
 

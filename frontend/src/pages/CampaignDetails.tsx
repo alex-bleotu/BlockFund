@@ -236,7 +236,7 @@ export function CampaignDetails() {
                             updateError
                         );
                         toast.error(
-                            "Withdrawal successful but failed to update database records"
+                            t`Withdrawal successful but failed to update database records`
                         );
                     } else {
                         setCampaign((prev) => {
@@ -247,18 +247,16 @@ export function CampaignDetails() {
                             };
                         });
                         toast.success(
-                            "Funds withdrawn successfully. Campaign is now closed."
+                            t`Funds withdrawn successfully. Campaign is now closed.`
                         );
                     }
                 } catch (dbError) {
                     console.error("Database update error:", dbError);
                     toast.error(
-                        "Withdrawal successful but failed to update campaign data"
+                        t`Withdrawal successful but failed to update campaign data`
                     );
                 }
-            } else {
-                toast.success("Funds withdrawn successfully!");
-            }
+            } else toast.success(t`Funds withdrawn successfully!`);
 
             if (onchainId) {
                 fetchOnChainData(onchainId);
@@ -267,7 +265,11 @@ export function CampaignDetails() {
             setIsWithdrawModalOpen(false);
         } catch (err: any) {
             console.error("Withdrawal error:", err);
-            toast.error("Failed to withdraw funds. Please try again.");
+            if (err.message.includes("Only creator can close"))
+                toast.error(
+                    t`Please connect the wallet that created this campaign to withdraw funds.`
+                );
+            else toast.error(t`Failed to withdraw funds. Please try again.`);
         } finally {
             setTransactionInProgress(false);
         }
