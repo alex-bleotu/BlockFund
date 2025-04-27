@@ -7,8 +7,9 @@ interface WithdrawModalProps {
     onClose: () => void;
     onConfirm: () => Promise<void>;
     campaignTitle: string;
-    amount?: string;
+    amount: number;
     isProcessing?: boolean;
+    withdrawalFee: number;
 }
 
 export function WithdrawModal({
@@ -16,7 +17,8 @@ export function WithdrawModal({
     onClose,
     onConfirm,
     campaignTitle,
-    amount = "0",
+    amount,
+    withdrawalFee,
     isProcessing = false,
 }: WithdrawModalProps) {
     if (!isOpen) return null;
@@ -65,20 +67,22 @@ export function WithdrawModal({
                         <div className="flex justify-between mb-4">
                             <span className="text-text-secondary">{t`Amount:`}</span>
                             <span className="text-primary font-bold">
-                                {Number(amount).toFixed(3)} ETH
+                                {amount.toFixed(3)} ETH
                             </span>
                         </div>
                         <div className="flex justify-between mb-4">
                             <span className="text-text-secondary">{t`You will receive:`}</span>
                             <span className="text-primary font-bold">
-                                {(Number(amount) * 0.975)
+                                {(amount * (1 - withdrawalFee))
                                     .toFixed(9)
                                     .replace(/\.?0+$/, "")}{" "}
                                 ETH
                             </span>
                         </div>
                         <div className="text-xs text-text-secondary mb-4">
-                            {t`A platform fee of 2.5% is applied to all withdrawals.`}
+                            {t`A platform fee of`}{" "}
+                            {(withdrawalFee * 100).toFixed(1)}%{" "}
+                            {t`is applied to all withdrawals.`}
                         </div>
 
                         <div className="p-4 rounded-lg bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/50">
@@ -89,7 +93,7 @@ export function WithdrawModal({
                                         {t`Important`}
                                     </p>
                                     <p className="text-sm">
-                                        {t`Withdrawing funds will close this campaign permanently. This action cannot be undone. You will receive 97.5% of the total funds raised.`}
+                                        {t`Withdrawing funds will close this campaign permanently. This action cannot be undone.`}
                                     </p>
                                 </div>
                             </div>

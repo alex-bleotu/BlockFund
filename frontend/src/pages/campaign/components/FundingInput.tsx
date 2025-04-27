@@ -80,39 +80,78 @@ export function FundingInput({
     };
 
     const handleUsdBlur = () => {
-        const parsedEth = parseFloat(ethAmount);
+        let parsedEth = parseFloat(ethAmount);
+
         if (isNaN(parsedEth) || parsedEth < MIN_FUNDING_GOAL) {
             const minEthStr = MIN_FUNDING_GOAL.toString();
             setEthAmount(minEthStr);
             onChange(minEthStr);
             validateAmount(minEthStr);
             if (ethPrice) {
-                const updatedUsd = (MIN_FUNDING_GOAL * ethPrice).toFixed(2);
-                setUsdAmount(updatedUsd);
+                setUsdAmount((MIN_FUNDING_GOAL * ethPrice).toFixed(2));
+            }
+            return;
+        }
+
+        if (parsedEth > MAX_FUNDING_GOAL) {
+            const maxEthStr = MAX_FUNDING_GOAL.toString();
+            setEthAmount(maxEthStr);
+            onChange(maxEthStr);
+            validateAmount(maxEthStr);
+            if (ethPrice) {
+                setUsdAmount((MAX_FUNDING_GOAL * ethPrice).toFixed(2));
             }
         }
     };
 
     const handleEthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputVal = e.target.value;
+
         if (/^\d*\.?\d*$/.test(inputVal)) {
             const parts = inputVal.split(".");
+
+            if (parts[0].length > 5) return;
+
             let newEth = inputVal;
-            if (parts.length > 1 && parts[1].length > 3) {
+            if (parts.length > 1 && parts[1].length > 3)
                 newEth = parts[0] + "." + parts[1].substring(0, 3);
-            }
+
             const parsedEth = parseFloat(newEth);
-            if (!isNaN(parsedEth)) {
-                newEth = parsedEth.toString();
-            }
+            if (!isNaN(parsedEth)) newEth = parsedEth.toString();
+
             setEthAmount(newEth);
             onChange(newEth);
             validateAmount(newEth);
+
             if (!isNaN(parsedEth) && parsedEth >= 0 && ethPrice) {
-                const convertedUsd = (parsedEth * ethPrice).toFixed(2);
-                setUsdAmount(convertedUsd);
+                setUsdAmount((parsedEth * ethPrice).toFixed(2));
             } else {
                 setUsdAmount("");
+            }
+        }
+    };
+
+    const handleEthBlur = () => {
+        let parsedEth = parseFloat(ethAmount);
+
+        if (isNaN(parsedEth) || parsedEth < MIN_FUNDING_GOAL) {
+            const minEthStr = MIN_FUNDING_GOAL.toString();
+            setEthAmount(minEthStr);
+            onChange(minEthStr);
+            validateAmount(minEthStr);
+            if (ethPrice) {
+                setUsdAmount((MIN_FUNDING_GOAL * ethPrice).toFixed(2));
+            }
+            return;
+        }
+
+        if (parsedEth > MAX_FUNDING_GOAL) {
+            const maxEthStr = MAX_FUNDING_GOAL.toString();
+            setEthAmount(maxEthStr);
+            onChange(maxEthStr);
+            validateAmount(maxEthStr);
+            if (ethPrice) {
+                setUsdAmount((MAX_FUNDING_GOAL * ethPrice).toFixed(2));
             }
         }
     };
@@ -202,6 +241,7 @@ export function FundingInput({
                         value={ethAmount}
                         onChange={handleEthChange}
                         onKeyDown={handleKeyDown}
+                        onBlur={handleEthBlur}
                         className={`appearance-none block w-full pl-10 px-3 py-2	border ${
                             error ? "border-error" : "border-border"
                         } rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-surface text-text font-medium`}

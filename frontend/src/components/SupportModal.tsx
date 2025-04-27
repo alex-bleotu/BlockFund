@@ -2,6 +2,7 @@ import { t } from "@lingui/core/macro";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, DollarSign, Wallet, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useEthPrice } from "../hooks/useEthPrice";
 import { useWallet } from "../hooks/useWallet";
 
@@ -73,9 +74,20 @@ export function SupportModal({
         try {
             await onSupport(num);
             onClose();
-        } catch (err) {
+        } catch (err: any) {
             console.error(err);
-            setError(t`Failed to process contribution. Please try again.`);
+            if (err.message.includes("user rejected action"))
+                toast.error(t`You rejected the transaction. Please try again.`);
+            else if (err.message.includes("insufficient funds"))
+                toast.error(t`Insufficient balance. Please try again.`);
+            else if (err.message.includes("could not coalesce"))
+                toast.error(
+                    t`Failed to send transaction. Please try again later.`
+                );
+            else
+                toast.error(
+                    t`Failed to process contribution. Please try again.`
+                );
         } finally {
             setIsSubmitting(false);
         }

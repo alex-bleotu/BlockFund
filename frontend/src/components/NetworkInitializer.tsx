@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { supabase } from "../lib/supabase";
 
-export function NetworkInitializer() {
+export function ConfigInitializer() {
     useEffect(() => {
-        const fetchNetworkConfig = async () => {
+        const fetchConfig = async () => {
             try {
                 const localNetwork = localStorage.getItem("NETWORK");
 
@@ -30,12 +30,28 @@ export function NetworkInitializer() {
                         console.log("Network initialized to default (sepolia)");
                     }
                 }
+
+                const { data, error } = await supabase
+                    .from("config")
+                    .select("value")
+                    .eq("key", "withdrawal_fee")
+                    .single();
+
+                if (error) {
+                    console.error("Error fetching withdrawal fee:", error);
+                    return;
+                }
+
+                if (data && data.value) {
+                    const withdrawalFeeValue = data.value;
+                    localStorage.setItem("WITHDRAWAL_FEE", withdrawalFeeValue);
+                }
             } catch (err) {
                 console.error("Failed to initialize network setting:", err);
             }
         };
 
-        fetchNetworkConfig();
+        fetchConfig();
     }, []);
 
     return null;

@@ -331,44 +331,26 @@ export function PreviewStep({
                                     </span>
                                 </div>
 
-                                <div>
-                                    <div className="flex items-center text-text">
-                                        <Target className="w-5 h-5 mr-2 text-primary" />
-                                        <span className="font-medium flex items-center gap-2">
-                                            {t`Goal:`}{" "}
-                                            {parseFloat(campaign.goal).toFixed(
-                                                3
-                                            )}{" "}
-                                            ETH
-                                            {ethPrice && (
-                                                <span className="font-normal hidden sm:block">
-                                                    ≈ $
-                                                    {(
-                                                        parseFloat(
-                                                            campaign.goal
-                                                        ) * ethPrice
-                                                    )
-                                                        .toFixed(0)
-                                                        .toLocaleString()}{" "}
-                                                    USD
-                                                </span>
-                                            )}
-                                        </span>
-                                    </div>
+                                <div className="flex flex-wrap items-center text-text">
+                                    <Target className="w-5 h-5 mr-2 text-primary flex-shrink-0" />
+
+                                    <span className="inline-flex items-center font-medium gap-2">
+                                        {t`Goal:`}{" "}
+                                        {parseFloat(campaign.goal).toFixed(3)}{" "}
+                                        ETH
+                                    </span>
 
                                     {ethPrice && (
-                                        <div className="flex items-center text-text-secondary block sm:hidden mt-1">
-                                            <span className="ml-2 font-normal">
-                                                ≈ $
-                                                {(
-                                                    parseFloat(campaign.goal) *
-                                                    ethPrice
-                                                )
-                                                    .toFixed(0)
-                                                    .toLocaleString()}{" "}
-                                                USD
-                                            </span>
-                                        </div>
+                                        <span className="w-full sm:w-auto text-sm font-normal ml-2 mt-1 sm:mt-0">
+                                            ≈ $
+                                            {(
+                                                parseFloat(campaign.goal) *
+                                                ethPrice
+                                            )
+                                                .toFixed(0)
+                                                .toLocaleString()}{" "}
+                                            USD
+                                        </span>
                                     )}
                                 </div>
 

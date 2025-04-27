@@ -199,15 +199,6 @@ export function NewFund() {
                     t`characters`
             );
             return;
-        } else if (name === "goal" && parseFloat(value) > MAX_FUNDING_GOAL) {
-            setError(
-                t`Funding goal cannot exceed` +
-                    " " +
-                    MAX_FUNDING_GOAL +
-                    " " +
-                    t`ETH`
-            );
-            return;
         } else {
             setError(null);
         }
@@ -216,16 +207,6 @@ export function NewFund() {
     };
 
     const handleGoalChange = (value: string) => {
-        if (parseFloat(value) > MAX_FUNDING_GOAL) {
-            setError(
-                t`Funding goal cannot exceed` +
-                    " " +
-                    MAX_FUNDING_GOAL +
-                    " " +
-                    t`ETH`
-            );
-            return;
-        }
         setError(null);
         setFormData((prev) => ({ ...prev, goal: value }));
     };

@@ -36,7 +36,7 @@ export function MyCampaigns() {
     const [currentNetwork, setCurrentNetwork] = useState<string | null>(null);
     const { user } = useAuth();
     const { ethPrice } = useEthPrice();
-    const { closeCampaign, getCampaign } = useCampaignContract();
+    const { closeCampaign } = useCampaignContract();
     const navigate = useNavigate();
 
     useEffect(() => {

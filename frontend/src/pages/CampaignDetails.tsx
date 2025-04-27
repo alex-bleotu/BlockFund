@@ -59,6 +59,8 @@ export function CampaignDetails() {
     const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
     const [showCopiedTooltip, setShowCopiedTooltip] = useState(false);
     const [onchainId, setOnchainId] = useState<number | null>(null);
+    const [withdrawalFee, setWithdrawalFee] = useState(0);
+
     const { isLiked, toggleLike, shareCampaign } = useCampaignActions(id || "");
     const { isConnected, connect, isInstalled, isLocked } = useMetaMask();
     const {
@@ -81,6 +83,17 @@ export function CampaignDetails() {
         };
 
         connectWallet();
+    }, []);
+
+    useEffect(() => {
+        const fetchWithdrawalFee = async () => {
+            const feePercentage = Number(
+                await localStorage.getItem("WITHDRAWAL_FEE")
+            );
+            setWithdrawalFee(feePercentage / 100);
+        };
+
+        fetchWithdrawalFee();
     }, []);
 
     useEffect(() => {
@@ -565,33 +578,23 @@ export function CampaignDetails() {
                                     </div>
 
                                     <div>
-                                        <div className="flex items-center text-text">
-                                            <Target className="w-5 h-5 mr-2 text-primary" />
-                                            <span className="font-medium md:flex items-center gap-2">
-                                                {t`Goal:`} {goal.toFixed(3)} ETH
-                                                {ethPrice && (
-                                                    <span className="font-normal hidden sm:block">
-                                                        ≈ $
-                                                        {(goal * ethPrice)
-                                                            .toFixed(0)
-                                                            .toLocaleString()}{" "}
-                                                        USD
-                                                    </span>
-                                                )}
-                                            </span>
-                                        </div>
+                                        <div className="flex flex-wrap items-center text-text">
+                                            <Target className="w-5 h-5 mr-2 text-primary flex-shrink-0" />
 
-                                        {ethPrice && (
-                                            <div className="flex items-center text-text-secondary block md:hidden mt-1">
-                                                <span className="ml-2 font-normal">
+                                            <span className="inline-flex items-center font-medium gap-2">
+                                                {t`Goal:`} {goal.toFixed(3)} ETH
+                                            </span>
+
+                                            {ethPrice && (
+                                                <span className="w-full md:w-auto text-sm font-normal ml-0 md:ml-2 mt-1 md:mt-0">
                                                     ≈ $
                                                     {(goal * ethPrice)
                                                         .toFixed(0)
                                                         .toLocaleString()}{" "}
                                                     USD
                                                 </span>
-                                            </div>
-                                        )}
+                                            )}
+                                        </div>
                                     </div>
 
                                     {campaign.location && (
@@ -861,9 +864,10 @@ export function CampaignDetails() {
                 isOpen={isWithdrawModalOpen}
                 onClose={() => setIsWithdrawModalOpen(false)}
                 campaignTitle={campaign.title}
-                amount={onChainData?.totalFunded}
+                amount={Number(onChainData?.totalFunded || 0)}
                 onConfirm={handleWithdraw}
                 isProcessing={transactionInProgress}
+                withdrawalFee={withdrawalFee}
             />
         </div>
     );
