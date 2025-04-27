@@ -1,28 +1,6 @@
 import { t } from "@lingui/core/macro";
 import { Award, Rocket, Shield, Users } from "lucide-react";
 
-function TeamMember({
-    name,
-    role,
-    image,
-}: {
-    name: string;
-    role: string;
-    image: string;
-}) {
-    return (
-        <div className="text-center">
-            <img
-                src={image}
-                alt={name}
-                className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
-            />
-            <h3 className="text-lg font-semibold text-text">{name}</h3>
-            <p className="text-text-secondary">{role}</p>
-        </div>
-    );
-}
-
 function ValueCard({
     icon: Icon,
     title,
