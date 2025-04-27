@@ -567,47 +567,55 @@ export function CampaignDetails() {
                                         </div>
                                     )}
 
-                                    <div className="p-3 bg-primary-light rounded-lg text-sm">
-                                        {onchainLoading ? (
-                                            <>
-                                                <div className="font-medium text-primary mb-1">
-                                                    {t`Blockchain Status`}
+                                    {campaign.status !== "completed" && (
+                                        <div className="p-3 bg-primary-light rounded-lg text-sm">
+                                            {onchainLoading ? (
+                                                <>
+                                                    <div className="font-medium text-primary mb-1">
+                                                        {t`Blockchain Status`}
+                                                    </div>
+                                                    <div className="flex items-center text-text-secondary">
+                                                        <div className="w-4 h-4 mr-2 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                                                        {t`Loading blockchain data...`}
+                                                    </div>
+                                                </>
+                                            ) : onchainId && !onChainData ? (
+                                                <div className="text-primary font-medium">
+                                                    {t`Please connect your wallet!`}
                                                 </div>
-                                                <div className="flex items-center text-text-secondary">
-                                                    <div className="w-4 h-4 mr-2 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-                                                    {t`Loading blockchain data...`}
-                                                </div>
-                                            </>
-                                        ) : onchainId && !onChainData ? (
-                                            <div className="text-primary font-medium">
-                                                {t`Please connect your wallet!`}
-                                            </div>
-                                        ) : (
-                                            <>
-                                                <div className="font-medium text-primary mb-1">
-                                                    {t`Blockchain Status`}
-                                                </div>
-                                                <div className="text-text-secondary">
-                                                    {t`Status:`}{" "}
-                                                    <span className="font-semibold">
-                                                        {onChainData
-                                                            ? t`ACTIVE`
-                                                            : t`INACTIVE`}
-                                                    </span>
-                                                </div>
-                                            </>
-                                        )}
-                                    </div>
+                                            ) : (
+                                                <>
+                                                    <div className="font-medium text-primary mb-1">
+                                                        {t`Blockchain Status`}
+                                                    </div>
+                                                    <div className="text-text-secondary">
+                                                        {t`Status:`}{" "}
+                                                        <span className="font-semibold">
+                                                            {onChainData
+                                                                ? t`ACTIVE`
+                                                                : t`INACTIVE`}
+                                                        </span>
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
+                                    )}
 
                                     <div className="flex flex-col gap-1.5">
-                                        {!isConnected || isLocked ? (
+                                        {campaign.status === "completed" ? (
+                                            <button
+                                                disabled
+                                                className="w-full py-3 rounded-lg bg-gray-400 cursor-not-allowed text-light/75">
+                                                {t`Campaign Completed`}
+                                            </button>
+                                        ) : !isConnected || isLocked ? (
                                             <button
                                                 onClick={() =>
                                                     navigate(
                                                         "/settings?tab=wallet"
                                                     )
                                                 }
-                                                className="w-full py-3 rounded-lg transition-colors bg-primary text-light hover:bg-primary-dark flex items-center justify-center space-x-2"
+                                                className="w-full py-3 rounded-lg transition-colors bg-primary text-light hover:bg-primary-dark flex items-center justify-center space-x-2 disabled:opacity-50"
                                                 disabled={!isInstalled}>
                                                 <Wallet className="w-4 h-4" />
                                                 <span>
@@ -629,9 +637,7 @@ export function CampaignDetails() {
                                                         onChainData?.totalFunded ||
                                                             0
                                                     ) === 0 ||
-                                                    !isInstalled ||
-                                                    campaign.status ===
-                                                        "completed"
+                                                    !isInstalled
                                                 }
                                                 className={`w-full py-3 rounded-lg transition-colors flex items-center justify-center space-x-2 ${
                                                     transactionInProgress ||
@@ -641,11 +647,9 @@ export function CampaignDetails() {
                                                         onChainData?.totalFunded ||
                                                             0
                                                     ) === 0 ||
-                                                    !isInstalled ||
-                                                    campaign.status ===
-                                                        "completed"
+                                                    !isInstalled
                                                         ? "bg-gray-400 cursor-not-allowed text-light/75"
-                                                        : "bg-primary text-light hover:bg-primary-dark disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-light/75"
+                                                        : "bg-primary text-light hover:bg-primary-dark"
                                                 }`}>
                                                 <Wallet className="w-4 h-4" />
                                                 <span>
@@ -674,44 +678,39 @@ export function CampaignDetails() {
                                                     !isInstalled ||
                                                     transactionInProgress ||
                                                     contractLoading ||
-                                                    !onChainData ||
-                                                    campaign.status ===
-                                                        "completed"
+                                                    !onChainData
                                                 }
                                                 className={`w-full py-3 rounded-lg transition-colors ${
                                                     campaignEndDate.hasEnded ||
                                                     transactionInProgress ||
                                                     contractLoading ||
-                                                    !onChainData ||
-                                                    !isInstalled ||
-                                                    campaign.status ===
-                                                        "completed"
+                                                    !onChainData
                                                         ? "bg-gray-400 cursor-not-allowed text-light/75"
-                                                        : "bg-primary text-light hover:bg-primary-dark disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-light/75"
+                                                        : "bg-primary text-light hover:bg-primary-dark"
                                                 }`}>
                                                 {transactionInProgress
                                                     ? t`Transaction in progress...`
                                                     : contractLoading
                                                     ? t`Loading...`
-                                                    : campaign.status ===
-                                                      "completed"
-                                                    ? t`Campaign Completed`
                                                     : campaignEndDate.hasEnded
                                                     ? t`Campaign Ended`
                                                     : t`Contribute to this Campaign`}
                                             </button>
                                         )}
+
                                         {!isLocked &&
                                             (isConnected ||
                                                 !user ||
                                                 user?.id ===
                                                     campaign.creator_id) && (
                                                 <p className="text-sm text-text-secondary text-center">
-                                                    {campaignEndDate.hasEnded
-                                                        ? t`This campaign has ended.`
-                                                        : campaign.status ===
-                                                          "completed"
+                                                    {campaign.status ===
+                                                        "completed" &&
+                                                    user?.id ===
+                                                        campaign.creator_id
                                                         ? t`This campaign has been completed. No further actions are possible.`
+                                                        : campaignEndDate.hasEnded
+                                                        ? t`This campaign has ended.`
                                                         : user?.id ===
                                                           campaign.creator_id
                                                         ? !isInstalled

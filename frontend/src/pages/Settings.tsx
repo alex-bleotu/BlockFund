@@ -9,8 +9,7 @@ import {
     Wallet,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link, Navigate, useSearchParams } from "react-router-dom";
-import { LoadingSpinner } from "../components/LoadingSpinner";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useWallet } from "../hooks/useWallet";
 import { supabase } from "../lib/supabase";
@@ -31,7 +30,7 @@ export const profileEvents = {
 type SettingsTab = "profile" | "security" | "wallet";
 
 export function Settings() {
-    const { user, loading: authLoading, signOut } = useAuth();
+    const { user, signOut } = useAuth();
     const {
         address,
         loading: walletLoading,
@@ -39,6 +38,7 @@ export function Settings() {
         connectWallet,
         disconnectWallet,
     } = useWallet();
+    const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const [activeTab, setActiveTab] = useState<SettingsTab>(() => {
         const tab = searchParams.get("tab");
@@ -90,9 +90,8 @@ export function Settings() {
     }, [activeTab]);
 
     useEffect(() => {
-        if (user) {
-            loadProfileData();
-        }
+        if (user) loadProfileData();
+        else navigate("/login");
     }, [user]);
 
     const loadProfileData = async () => {
@@ -275,10 +274,6 @@ export function Settings() {
         { id: "wallet", label: t`Wallet`, icon: Wallet },
         { id: "security", label: t`Security`, icon: Shield },
     ];
-
-    if (authLoading) return <LoadingSpinner />;
-
-    if (!user) return <Navigate to="/" replace />;
 
     return (
         <div className="min-h-screen pt-16 bg-background">

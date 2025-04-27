@@ -29,7 +29,7 @@ export interface Campaign {
     updated_at?: string;
     raised?: number;
     supporters?: number;
-    status?: "active" | "completed";
+    status?: "active" | "completed" | "inactive";
     profiles?: {
         username: string;
         wallet_address: string | null;

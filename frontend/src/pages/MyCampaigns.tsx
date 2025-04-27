@@ -21,7 +21,7 @@ import { supabase } from "../lib/supabase";
 import { Campaign } from "../lib/types";
 import { getCampaignCategory } from "../lib/utils";
 
-type CampaignStatus = "all" | "active" | "ended" | "completed";
+type CampaignStatus = "all" | "active" | "ended" | "completed" | "inactive";
 
 export function MyCampaigns() {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -84,6 +84,8 @@ export function MyCampaigns() {
                 return isEnded && campaign.status === "active";
             case "completed":
                 return campaign.status === "completed";
+            case "inactive":
+                return campaign.status === "inactive";
             default:
                 return true;
         }
@@ -105,32 +107,35 @@ export function MyCampaigns() {
         try {
             setIsDeleting(true);
 
-            try {
-                await closeCampaign(selectedCampaign.onchain_id);
-            } catch (chainError: any) {
-                console.error(
-                    "Error closing campaign on blockchain:",
-                    chainError
-                );
+            if (selectedCampaign.status !== "completed") {
+                try {
+                    await closeCampaign(selectedCampaign.onchain_id);
+                } catch (chainError: any) {
+                    console.error(
+                        "Error closing campaign on blockchain:",
+                        chainError
+                    );
 
-                if (
-                    !(
-                        chainError.code === 4001 ||
-                        (chainError.error && chainError.error.code === 4001) ||
-                        (chainError.message &&
-                            chainError.message.includes(
-                                "User denied transaction signature"
-                            ))
-                    )
-                ) {
-                    toast.error(
-                        t`Could not close campaign on blockchain, but proceeding with removal from database`
-                    );
-                } else {
-                    setIsDeleting(false);
-                    throw new Error(
-                        t`Delete cancelled: Transaction was rejected`
-                    );
+                    if (
+                        !(
+                            chainError.code === 4001 ||
+                            (chainError.error &&
+                                chainError.error.code === 4001) ||
+                            (chainError.message &&
+                                chainError.message.includes(
+                                    "User denied transaction signature"
+                                ))
+                        )
+                    ) {
+                        toast.error(
+                            t`Could not close campaign on blockchain, but proceeding with removal from database`
+                        );
+                    } else {
+                        setIsDeleting(false);
+                        throw new Error(
+                            t`Delete cancelled: Transaction was rejected`
+                        );
+                    }
                 }
             }
 
@@ -254,26 +259,34 @@ export function MyCampaigns() {
                 </div>
 
                 <div className="flex items-center gap-2 mb-6 flex-wrap">
-                    {(["all", "active", "ended", "completed"] as const).map(
-                        (status) => (
-                            <button
-                                key={status}
-                                onClick={() => setSelectedStatus(status)}
-                                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                                    selectedStatus === status
-                                        ? "bg-primary text-light"
-                                        : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
-                                }`}>
-                                {status === "all"
-                                    ? t`All`
-                                    : status === "active"
-                                    ? t`Active`
-                                    : status === "completed"
-                                    ? t`Completed`
-                                    : t`Ended`}
-                            </button>
-                        )
-                    )}
+                    {(
+                        [
+                            "all",
+                            "active",
+                            "ended",
+                            "completed",
+                            "inactive",
+                        ] as const
+                    ).map((status) => (
+                        <button
+                            key={status}
+                            onClick={() => setSelectedStatus(status)}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                                selectedStatus === status
+                                    ? "bg-primary text-light"
+                                    : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
+                            }`}>
+                            {status === "all"
+                                ? t`All`
+                                : status === "active"
+                                ? t`Active`
+                                : status === "completed"
+                                ? t`Completed`
+                                : status === "inactive"
+                                ? t`Inactive`
+                                : t`Ended`}
+                        </button>
+                    ))}
                 </div>
 
                 {loading ? (
@@ -347,13 +360,13 @@ export function MyCampaigns() {
                                                     campaign.status !== "active"
                                                         ? campaign.status ===
                                                           "completed"
-                                                            ? "bg-primary/80"
+                                                            ? "bg-success/80"
                                                             : "bg-gray-800/80"
                                                         : new Date(
                                                               campaign.deadline
                                                           ) < new Date()
                                                         ? "bg-error/80"
-                                                        : "bg-success/80"
+                                                        : "bg-primary/80"
                                                 }`}>
                                                 {campaign.status !== "active"
                                                     ? campaign.status ===
@@ -381,7 +394,12 @@ export function MyCampaigns() {
                                     <div className="mb-4">
                                         <div className="h-2 bg-background-alt rounded-full overflow-hidden">
                                             <div
-                                                className="h-full bg-primary transition-all duration-300"
+                                                className={`h-full ${
+                                                    campaign.status ===
+                                                    "completed"
+                                                        ? "bg-success"
+                                                        : "bg-primary"
+                                                } transition-all duration-300`}
                                                 style={{
                                                     width: `${calculateProgress(
                                                         campaign.raised || 0,

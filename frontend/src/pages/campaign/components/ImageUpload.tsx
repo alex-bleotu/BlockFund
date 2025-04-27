@@ -12,6 +12,29 @@ export function ImageUpload({
     onImageChange,
     onRemoveImage,
 }: ImageUploadProps) {
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(e.target.files || []);
+        if (files.length > 0) {
+            const renamedFiles = files.map((file) => {
+                const timestamp = Date.now();
+                const randomString = Math.random().toString(36).substring(2, 8);
+                const extension = file.name.split(".").pop();
+                const newName = `campaign_${timestamp}_${randomString}.${extension}`;
+                return new File([file], newName, { type: file.type });
+            });
+
+            const newEvent = {
+                ...e,
+                target: {
+                    ...e.target,
+                    files: renamedFiles as unknown as FileList,
+                },
+            } as React.ChangeEvent<HTMLInputElement>;
+
+            onImageChange(newEvent);
+        }
+    };
+
     return (
         <div>
             <label className="block text-sm font-medium text-text mb-2">
@@ -49,7 +72,7 @@ export function ImageUpload({
                         <input
                             type="file"
                             accept="image/png, image/jpeg"
-                            onChange={onImageChange}
+                            onChange={handleImageChange}
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         />
                     </label>

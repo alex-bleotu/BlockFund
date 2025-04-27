@@ -339,7 +339,12 @@ export function Campaigns() {
                                                         duration: 1,
                                                         delay: index * 0.1,
                                                     }}
-                                                    className="h-full bg-primary"
+                                                    className={`h-full ${
+                                                        campaign.status ===
+                                                        "completed"
+                                                            ? "bg-success"
+                                                            : "bg-primary"
+                                                    }`}
                                                 />
                                             </div>
                                             <div className="flex justify-between items-center mt-2 text-sm">
