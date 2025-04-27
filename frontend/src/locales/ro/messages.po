@@ -17,6 +17,10 @@ msgstr ""
 msgid "A platform fee of"
 msgstr "O taxă de platformă de"
 
+#: src/pages/About.tsx:56
+msgid "A practical example of how blockchain can be used in crowdfunding, perfect for students and developers learning Web3 technologies."
+msgstr "Un exemplu practic de cum blockchain poate fi folosit în strângerea de fonduri, perfect pentru studenți și dezvoltatori care învață tehnologii Web3."
+
 #: src/components/MobileDrawer.tsx:275
 #: src/components/MobileDrawer.tsx:326
 msgid "About"
@@ -177,9 +181,17 @@ msgstr "Vizualizare blockchain"
 msgid "BlockFund"
 msgstr "BlockFund"
 
+#: src/pages/About.tsx:83
+msgid "BlockFund is a learning-focused initiative designed to illustrate how blockchain can enhance traditional crowdfunding platforms. Rather than serving as a live funding service, it's a practical example of how blockchain can be used in crowdfunding."
+msgstr "BlockFund este o inițiativă de învățare centrată pe blockchain, care ilustrează cum blockchain poate îmbunătăți platformele de crowdfunding tradiționale. În loc să servească ca un serviciu de strângere de fonduri live, este un exemplu practic de cum blockchain poate fi folosit în crowdfunding."
+
 #: src/components/Footer.tsx:90
 msgid "BlockFund. All rights reserved."
 msgstr "BlockFund. Toate drepturile rezervate."
+
+#: src/pages/About.tsx:61
+msgid "Built with React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts to showcase modern development practices."
+msgstr "Construit cu React, TypeScript, Tailwind CSS, Supabase și contracte inteligente Ethereum pentru a arăta practicile de dezvoltare moderne."
 
 #: src/pages/Contact.tsx:109
 msgid "Call Us"
@@ -357,10 +369,6 @@ msgstr "CoinGecko a returnat {0}"
 msgid "Community"
 msgstr "Comunitate"
 
-#: src/pages/About.tsx:55
-msgid "Community First"
-msgstr "Comunitatea pe primul loc"
-
 #: src/pages/MyCampaigns.tsx:282
 #: src/pages/MyCampaigns.tsx:324
 #: src/pages/MyCampaigns.tsx:412
@@ -499,7 +507,7 @@ msgstr "Creează-ți campania"
 msgid "Creating account..."
 msgstr "Se creează contul..."
 
-#: src/pages/home/components/Hero.tsx:19
+#: src/pages/home/components/Hero.tsx:20
 msgid "Crowdfunding"
 msgstr "strânsul de fonduri"
 
@@ -519,7 +527,7 @@ msgstr "Parola curentă este incorectă"
 #: src/pages/MyCampaigns.tsx:250
 #: src/pages/Campaigns.tsx:127
 #: src/pages/CampaignDetails.tsx:575
-#: src/pages/home/components/TopCampaigns.tsx:61
+#: src/pages/home/components/TopCampaigns.tsx:66
 msgid "days left"
 msgstr "zile rămase"
 
@@ -564,6 +572,10 @@ msgstr "Editează campania"
 msgid "Education"
 msgstr "Educație"
 
+#: src/pages/About.tsx:50
+msgid "Educational Focus"
+msgstr "Focus educațional"
+
 #: src/pages/FAQs.tsx:75
 msgid "Educational Project Disclaimer"
 msgstr "Proiect educațional!"
@@ -596,7 +608,7 @@ msgstr "Data de încheiere"
 #: src/pages/MyCampaigns.tsx:417
 #: src/pages/Campaigns.tsx:127
 #: src/pages/Campaigns.tsx:245
-#: src/pages/home/components/TopCampaigns.tsx:61
+#: src/pages/home/components/TopCampaigns.tsx:66
 msgid "Ended"
 msgstr "Încheiat"
 
@@ -639,7 +651,7 @@ msgstr "Eroare la încărcarea profilului"
 
 #: src/pages/Profile.tsx:313
 #: src/pages/Campaigns.tsx:409
-#: src/pages/home/components/TopCampaigns.tsx:196
+#: src/pages/home/components/TopCampaigns.tsx:201
 #: src/pages/campaign/Edit.tsx:251
 msgid "ETH"
 msgstr "ETH"
@@ -655,7 +667,7 @@ msgstr "Intervalul de sumă ETH:"
 #: src/pages/Profile.tsx:259
 #: src/pages/MyCampaigns.tsx:454
 #: src/pages/Campaigns.tsx:360
-#: src/pages/home/components/TopCampaigns.tsx:153
+#: src/pages/home/components/TopCampaigns.tsx:158
 msgid "ETH raised"
 msgstr "ETH strâns"
 
@@ -673,10 +685,6 @@ msgstr "Ethereum Mainnet"
 #: src/pages/home/components/Features.tsx:36
 msgid "Every transaction is recorded on the blockchain, ensuring complete transparency and security for all participants."
 msgstr "Fiecare tranzacție este înregistrată pe blockchain, asigurând transparență și securitate completă pentru toți participanții."
-
-#: src/pages/About.tsx:65
-msgid "Excellence"
-msgstr "Excelență"
 
 #: src/pages/home/components/Features.tsx:78
 msgid "Experience the next generation of crowdfunding"
@@ -920,10 +928,6 @@ msgstr "Inactiv"
 msgid "INACTIVE"
 msgstr "INACTIV"
 
-#: src/pages/About.tsx:60
-msgid "Innovation"
-msgstr "Inovație"
-
 #: src/pages/home/components/Features.tsx:65
 msgid "Innovation First"
 msgstr "Inovație întâi"
@@ -973,11 +977,11 @@ msgstr "John Doe"
 msgid "john@example.com"
 msgstr "john@example.com"
 
-#: src/pages/home/components/Hero.tsx:24
+#: src/pages/home/components/Hero.tsx:25
 msgid "Join the future of fundraising with blockchain technology. Transparent, secure, and efficient crowdfunding for the digital age."
 msgstr "Alătura-te viitorului crowdfunding cu tehnologia blockchain. Transparent, sigur, și eficient pentru epoca digitală."
 
-#: src/pages/home/components/Hero.tsx:21
+#: src/pages/home/components/Hero.tsx:22
 msgid "Journey"
 msgstr " "
 
@@ -986,13 +990,17 @@ msgstr " "
 msgid "Launch Campaign"
 msgstr "Lansează campania"
 
-#: src/pages/home/components/Hero.tsx:31
+#: src/pages/home/components/Hero.tsx:32
 msgid "Launch Your Campaign"
 msgstr "Lansează campania ta"
 
-#: src/pages/home/components/Hero.tsx:37
+#: src/pages/home/components/Hero.tsx:38
 msgid "Learn More"
 msgstr "Află mai multe"
+
+#: src/pages/About.tsx:55
+msgid "Learning Experience"
+msgstr "Experiență de învățare"
 
 #: src/pages/CampaignDetails.tsx:627
 msgid "Loading blockchain data..."
@@ -1240,6 +1248,10 @@ msgstr "Notificări"
 msgid "of"
 msgstr "din"
 
+#: src/pages/About.tsx:65
+msgid "Open Source"
+msgstr "Sursă deschisă"
+
 #: src/pages/Login.tsx:49
 msgid "Or"
 msgstr "Sau"
@@ -1248,14 +1260,6 @@ msgstr "Sau"
 #: src/lib/utils.ts:32
 msgid "Other"
 msgstr "Altele"
-
-#: src/pages/About.tsx:56
-msgid "Our decisions are guided by what's best for our diverse and growing community."
-msgstr "Deciziile noastre sunt ghidate de ceea ce este mai bine pentru comunitatea noastră diversă și în creștere."
-
-#: src/pages/About.tsx:92
-msgid "Our Mission"
-msgstr "Misiunea noastră"
 
 #: src/pages/Contact.tsx:82
 msgid "Our support team is spread across the globe to give you the best possible experience."
@@ -1345,6 +1349,10 @@ msgstr "Setări profil"
 msgid "Profile updated successfully"
 msgstr "Profil actualizat cu succes"
 
+#: src/pages/About.tsx:92
+msgid "Project Purpose"
+msgstr "Scopul proiectului"
+
 #: src/pages/campaign/New.tsx:618
 #: src/pages/campaign/Edit.tsx:827
 msgid "Provide detailed information about your campaign"
@@ -1379,7 +1387,7 @@ msgstr "Răspuns"
 msgid "Resources"
 msgstr "Resurse"
 
-#: src/pages/home/components/Hero.tsx:17
+#: src/pages/home/components/Hero.tsx:18
 msgid "Revolutionize Your"
 msgstr "Revoluționează"
 
@@ -1567,6 +1575,10 @@ msgstr "Tehnologie"
 msgid "Technology background"
 msgstr "Experiență tehnologică"
 
+#: src/pages/About.tsx:60
+msgid "Technology Stack"
+msgstr "Stivă tehnologică"
+
 #: src/pages/Settings.tsx:370
 msgid "Tell us about yourself..."
 msgstr "Povestește-ne despre tine…"
@@ -1583,9 +1595,17 @@ msgstr "Adresa Ethereum a contractului dvs. local implementat."
 msgid "The funding goal cannot be modified after campaign creation"
 msgstr "Obiectivul de finanțare nu poate fi modificat după crearea campaniei"
 
+#: src/pages/About.tsx:95
+msgid "The goal of BlockFund is to deliver a full-stack dApp where anyone can launch or back a fundraising campaign using MetaMask-enabled wallets. It showcases:"
+msgstr "Scopul proiectului este de a livra o aplicație full-stack unde oricine poate lansa sau susține o campanie de strângere de fonduri folosind portofele MetaMask-enable."
+
 #: src/pages/NotFound.tsx:24
 msgid "The page you are looking for doesn't exist or has been moved."
 msgstr "Pagina pe care o cauți nu există sau a fost mutată."
+
+#: src/pages/About.tsx:66
+msgid "The project is open source, allowing others to learn from and contribute to the codebase."
+msgstr "Proiectul este open source, permițând altor oameni să învețe și să contribuie la codul sursă."
 
 #: src/components/modals/DeleteModal.tsx:60
 msgid "This action will close the campaign on the blockchain and cannot be undone."
@@ -1622,6 +1642,10 @@ msgstr "Această campanie va fi implementată pe {0}. Nu va fi vizibilă sau acc
 msgid "This project was built using React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts. It demonstrates the integration of blockchain technology with modern web development practices."
 msgstr "Acest proiect a fost construit folosind React, TypeScript, Tailwind CSS, Supabase și contracte inteligente Ethereum. Demonstrează integrarea tehnologiei blockchain cu practici moderne de dezvoltare web."
 
+#: src/pages/About.tsx:51
+msgid "This project was created as a learning exercise to demonstrate the integration of blockchain technology with modern web development."
+msgstr "Acest proiect a fost creat ca un exercițiu de învățare pentru a demonstra integrarea tehnologiei blockchain cu dezvoltarea web modernă."
+
 #: src/pages/FAQs.tsx:29
 msgid "This project was created as an educational exercise to demonstrate the potential of blockchain technology in crowdfunding. It showcases the integration of Web3 technologies, smart contracts, and modern web development practices."
 msgstr "Acest proiect a fost creat ca un exercițiu educațional pentru a demonstra potențialul tehnologiei blockchain în crowdfunding. Prezintă integrarea tehnologiilor Web3, a contractelor inteligente și a practicilor moderne de dezvoltare web."
@@ -1651,10 +1675,6 @@ msgstr "Titlul este limitat la"
 msgid "To create a campaign, you need to have MetaMask installed in your browser. MetaMask allows you to securely manage your cryptocurrency and interact with blockchain applications."
 msgstr "Pentru a crea o campanie, trebuie să aveți MetaMask instalat în browserul dvs. MetaMask vă permite să gestionați în siguranță criptomonedele și să interacționați cu aplicații blockchain."
 
-#: src/pages/About.tsx:95
-msgid "To democratize fundraising by leveraging blockchain technology, creating a transparent and efficient platform that connects innovators with supporters worldwide."
-msgstr "Să democratizăm strângerea de fonduri prin tehnologia blockchain, creând o platformă transparentă și eficientă care conectează inovatorii cu susținători din întreaga lume."
-
 #: src/pages/campaign/Edit.tsx:481
 msgid "To edit a campaign, you need to have MetaMask installed in your browser. MetaMask allows you to securely manage your cryptocurrency and interact with blockchain applications."
 msgstr "Pentru a edita o campanie, trebuie să aveți MetaMask instalat în browserul dvs. MetaMask vă permite să gestionați în siguranță criptomonedele și să interacționați cu aplicații blockchain."
@@ -1663,7 +1683,7 @@ msgstr "Pentru a edita o campanie, trebuie să aveți MetaMask instalat în brow
 msgid "Toggle theme"
 msgstr "Schimbă tema"
 
-#: src/pages/home/components/TopCampaigns.tsx:91
+#: src/pages/home/components/TopCampaigns.tsx:96
 msgid "Top Active Campaigns"
 msgstr "Top campanii active"
 
@@ -1683,10 +1703,6 @@ msgstr "Tranzacția se procesează..."
 #: src/pages/campaign/New.tsx:315
 msgid "Transaction rejected: You declined the MetaMask transaction"
 msgstr "Tranzacția a fost respinsă: Ați anulat tranzacția MetaMask"
-
-#: src/pages/About.tsx:50
-msgid "Trust & Security"
-msgstr "Încredere și securitate"
 
 #: src/components/modals/ContactModal.tsx:146
 msgid "Type your message here..."
@@ -1720,7 +1736,7 @@ msgstr "Se actualizează..."
 #: src/pages/Profile.tsx:279
 #: src/pages/MyCampaigns.tsx:472
 #: src/pages/Campaigns.tsx:379
-#: src/pages/home/components/TopCampaigns.tsx:171
+#: src/pages/home/components/TopCampaigns.tsx:176
 msgid "USD"
 msgstr "USD"
 
@@ -1771,18 +1787,6 @@ msgstr "Conectare portofel"
 msgid "Wallet disconnected successfully"
 msgstr "Portofel deconectat cu succes"
 
-#: src/pages/About.tsx:61
-msgid "We continuously push the boundaries of what's possible in crowdfunding."
-msgstr "Depășim constant limitele posibilului în crowdfunding."
-
-#: src/pages/About.tsx:51
-msgid "We prioritize the security of our platform and the trust of our community above all else."
-msgstr "Punem mai presus de toate securitatea platformei noastre și încrederea comunității."
-
-#: src/pages/About.tsx:66
-msgid "We strive for excellence in everything we do, from code to customer service."
-msgstr "Ne străduim să obținem excelență în tot ceea ce facem, de la cod până la serviciul pentru clienți."
-
 #: src/pages/Contact.tsx:137
 msgid "We typically respond within 2-3 business hours during our working hours."
 msgstr "De obicei, răspundem în decurs de 2-3 ore lucrătoare în timpul programului nostru."
@@ -1790,10 +1794,6 @@ msgstr "De obicei, răspundem în decurs de 2-3 ore lucrătoare în timpul progr
 #: src/components/NotificationsPanel.tsx:265
 msgid "We'll notify you when something happens"
 msgstr "Vom vă informa când se întâmplă ceva"
-
-#: src/pages/About.tsx:83
-msgid "We're revolutionizing crowdfunding through blockchain technology, making it more transparent, secure, and accessible for everyone."
-msgstr "Revoluționăm crowdfunding-ul prin tehnologia blockchain, făcându-l mai transparent, sigur și accesibil pentru toată lumea."
 
 #: src/pages/Login.tsx:46
 msgid "Welcome back"

@@ -1,7 +1,20 @@
-import { useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 import { supabase } from "../lib/supabase";
 
-export function ConfigInitializer() {
+interface ConfigContextType {
+    isInitialized: boolean;
+}
+
+const ConfigContext = createContext<ConfigContextType>({
+    isInitialized: false,
+});
+
+export const useConfig = () => useContext(ConfigContext);
+
+export function ConfigProvider({ children }: { children: React.ReactNode }) {
+    const [isInitialized, setIsInitialized] = useState(false);
+
     useEffect(() => {
         const fetchConfig = async () => {
             try {
@@ -46,6 +59,8 @@ export function ConfigInitializer() {
                     const withdrawalFeeValue = data.value;
                     localStorage.setItem("WITHDRAWAL_FEE", withdrawalFeeValue);
                 }
+
+                setIsInitialized(true);
             } catch (err) {
                 console.error("Failed to initialize network setting:", err);
             }
@@ -54,5 +69,13 @@ export function ConfigInitializer() {
         fetchConfig();
     }, []);
 
-    return null;
+    if (!isInitialized) {
+        return <LoadingSpinner />;
+    }
+
+    return (
+        <ConfigContext.Provider value={{ isInitialized }}>
+            {children}
+        </ConfigContext.Provider>
+    );
 }

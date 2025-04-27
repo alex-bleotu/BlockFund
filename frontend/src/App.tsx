@@ -2,10 +2,10 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AppContent } from "./components/AppContent";
 import { MetaMaskStatus } from "./components/MetaMaskStatus";
-import { ConfigInitializer } from "./components/NetworkInitializer";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { AuthProvider } from "./contexts/AuthContext";
 import LanguageProvider from "./contexts/LanguageContext";
+import { ConfigProvider } from "./contexts/NetworkContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
@@ -23,13 +23,14 @@ export default function App() {
                 <LanguageProvider>
                     <NotificationProvider>
                         <AuthProvider>
-                            <ConfigInitializer />
-                            <div className="flex flex-col min-h-screen">
-                                <AppContent />
-                                <ScrollToTop />
-                                <MetaMaskStatus />
-                                <Toaster />
-                            </div>
+                            <ConfigProvider>
+                                <div className="flex flex-col min-h-screen">
+                                    <AppContent />
+                                    <ScrollToTop />
+                                    <MetaMaskStatus />
+                                    <Toaster />
+                                </div>
+                            </ConfigProvider>
                         </AuthProvider>
                     </NotificationProvider>
                 </LanguageProvider>

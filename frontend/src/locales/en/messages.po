@@ -17,6 +17,10 @@ msgstr ""
 msgid "A platform fee of"
 msgstr "A platform fee of"
 
+#: src/pages/About.tsx:56
+msgid "A practical example of how blockchain can be used in crowdfunding, perfect for students and developers learning Web3 technologies."
+msgstr "A practical example of how blockchain can be used in crowdfunding, perfect for students and developers learning Web3 technologies."
+
 #: src/components/MobileDrawer.tsx:275
 #: src/components/MobileDrawer.tsx:326
 msgid "About"
@@ -177,9 +181,17 @@ msgstr "Blockchain visualization"
 msgid "BlockFund"
 msgstr "BlockFund"
 
+#: src/pages/About.tsx:83
+msgid "BlockFund is a learning-focused initiative designed to illustrate how blockchain can enhance traditional crowdfunding platforms. Rather than serving as a live funding service, it's a practical example of how blockchain can be used in crowdfunding."
+msgstr "BlockFund is a learning-focused initiative designed to illustrate how blockchain can enhance traditional crowdfunding platforms. Rather than serving as a live funding service, it's a practical example of how blockchain can be used in crowdfunding."
+
 #: src/components/Footer.tsx:90
 msgid "BlockFund. All rights reserved."
 msgstr "BlockFund. All rights reserved."
+
+#: src/pages/About.tsx:61
+msgid "Built with React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts to showcase modern development practices."
+msgstr "Built with React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts to showcase modern development practices."
 
 #: src/pages/Contact.tsx:109
 msgid "Call Us"
@@ -357,10 +369,6 @@ msgstr "CoinGecko returned {0}"
 msgid "Community"
 msgstr "Community"
 
-#: src/pages/About.tsx:55
-msgid "Community First"
-msgstr "Community First"
-
 #: src/pages/MyCampaigns.tsx:282
 #: src/pages/MyCampaigns.tsx:324
 #: src/pages/MyCampaigns.tsx:412
@@ -499,7 +507,7 @@ msgstr "Create Your Campaign"
 msgid "Creating account..."
 msgstr "Creating account..."
 
-#: src/pages/home/components/Hero.tsx:19
+#: src/pages/home/components/Hero.tsx:20
 msgid "Crowdfunding"
 msgstr "Crowdfunding"
 
@@ -519,7 +527,7 @@ msgstr "Current password is incorrect"
 #: src/pages/MyCampaigns.tsx:250
 #: src/pages/Campaigns.tsx:127
 #: src/pages/CampaignDetails.tsx:575
-#: src/pages/home/components/TopCampaigns.tsx:61
+#: src/pages/home/components/TopCampaigns.tsx:66
 msgid "days left"
 msgstr "days left"
 
@@ -564,6 +572,10 @@ msgstr "Edit Campaign"
 msgid "Education"
 msgstr "Education"
 
+#: src/pages/About.tsx:50
+msgid "Educational Focus"
+msgstr "Educational Focus"
+
 #: src/pages/FAQs.tsx:75
 msgid "Educational Project Disclaimer"
 msgstr "Educational Project Disclaimer"
@@ -596,7 +608,7 @@ msgstr "End Date"
 #: src/pages/MyCampaigns.tsx:417
 #: src/pages/Campaigns.tsx:127
 #: src/pages/Campaigns.tsx:245
-#: src/pages/home/components/TopCampaigns.tsx:61
+#: src/pages/home/components/TopCampaigns.tsx:66
 msgid "Ended"
 msgstr "Ended"
 
@@ -639,7 +651,7 @@ msgstr "Error Loading Profile"
 
 #: src/pages/Profile.tsx:313
 #: src/pages/Campaigns.tsx:409
-#: src/pages/home/components/TopCampaigns.tsx:196
+#: src/pages/home/components/TopCampaigns.tsx:201
 #: src/pages/campaign/Edit.tsx:251
 msgid "ETH"
 msgstr "ETH"
@@ -655,7 +667,7 @@ msgstr "ETH Amount Range:"
 #: src/pages/Profile.tsx:259
 #: src/pages/MyCampaigns.tsx:454
 #: src/pages/Campaigns.tsx:360
-#: src/pages/home/components/TopCampaigns.tsx:153
+#: src/pages/home/components/TopCampaigns.tsx:158
 msgid "ETH raised"
 msgstr "ETH raised"
 
@@ -673,10 +685,6 @@ msgstr "Ethereum Mainnet"
 #: src/pages/home/components/Features.tsx:36
 msgid "Every transaction is recorded on the blockchain, ensuring complete transparency and security for all participants."
 msgstr "Every transaction is recorded on the blockchain, ensuring complete transparency and security for all participants."
-
-#: src/pages/About.tsx:65
-msgid "Excellence"
-msgstr "Excellence"
 
 #: src/pages/home/components/Features.tsx:78
 msgid "Experience the next generation of crowdfunding"
@@ -920,10 +928,6 @@ msgstr "Inactive"
 msgid "INACTIVE"
 msgstr "INACTIVE"
 
-#: src/pages/About.tsx:60
-msgid "Innovation"
-msgstr "Innovation"
-
 #: src/pages/home/components/Features.tsx:65
 msgid "Innovation First"
 msgstr "Innovation First"
@@ -973,11 +977,11 @@ msgstr "John Doe"
 msgid "john@example.com"
 msgstr "john@example.com"
 
-#: src/pages/home/components/Hero.tsx:24
+#: src/pages/home/components/Hero.tsx:25
 msgid "Join the future of fundraising with blockchain technology. Transparent, secure, and efficient crowdfunding for the digital age."
 msgstr "Join the future of fundraising with blockchain technology. Transparent, secure, and efficient crowdfunding for the digital age."
 
-#: src/pages/home/components/Hero.tsx:21
+#: src/pages/home/components/Hero.tsx:22
 msgid "Journey"
 msgstr "Journey"
 
@@ -986,13 +990,17 @@ msgstr "Journey"
 msgid "Launch Campaign"
 msgstr "Launch Campaign"
 
-#: src/pages/home/components/Hero.tsx:31
+#: src/pages/home/components/Hero.tsx:32
 msgid "Launch Your Campaign"
 msgstr "Launch Your Campaign"
 
-#: src/pages/home/components/Hero.tsx:37
+#: src/pages/home/components/Hero.tsx:38
 msgid "Learn More"
 msgstr "Learn More"
+
+#: src/pages/About.tsx:55
+msgid "Learning Experience"
+msgstr "Learning Experience"
 
 #: src/pages/CampaignDetails.tsx:627
 msgid "Loading blockchain data..."
@@ -1240,6 +1248,10 @@ msgstr "Notifications"
 msgid "of"
 msgstr "of"
 
+#: src/pages/About.tsx:65
+msgid "Open Source"
+msgstr "Open Source"
+
 #: src/pages/Login.tsx:49
 msgid "Or"
 msgstr "Or"
@@ -1248,14 +1260,6 @@ msgstr "Or"
 #: src/lib/utils.ts:32
 msgid "Other"
 msgstr "Other"
-
-#: src/pages/About.tsx:56
-msgid "Our decisions are guided by what's best for our diverse and growing community."
-msgstr "Our decisions are guided by what's best for our diverse and growing community."
-
-#: src/pages/About.tsx:92
-msgid "Our Mission"
-msgstr "Our Mission"
 
 #: src/pages/Contact.tsx:82
 msgid "Our support team is spread across the globe to give you the best possible experience."
@@ -1345,6 +1349,10 @@ msgstr "Profile Settings"
 msgid "Profile updated successfully"
 msgstr "Profile updated successfully"
 
+#: src/pages/About.tsx:92
+msgid "Project Purpose"
+msgstr "Project Purpose"
+
 #: src/pages/campaign/New.tsx:618
 #: src/pages/campaign/Edit.tsx:827
 msgid "Provide detailed information about your campaign"
@@ -1379,7 +1387,7 @@ msgstr "Reply"
 msgid "Resources"
 msgstr "Resources"
 
-#: src/pages/home/components/Hero.tsx:17
+#: src/pages/home/components/Hero.tsx:18
 msgid "Revolutionize Your"
 msgstr "Revolutionize Your"
 
@@ -1567,6 +1575,10 @@ msgstr "Technology"
 msgid "Technology background"
 msgstr "Technology background"
 
+#: src/pages/About.tsx:60
+msgid "Technology Stack"
+msgstr "Technology Stack"
+
 #: src/pages/Settings.tsx:370
 msgid "Tell us about yourself..."
 msgstr "Tell us about yourself..."
@@ -1583,9 +1595,17 @@ msgstr "The Ethereum address of your locally deployed contract."
 msgid "The funding goal cannot be modified after campaign creation"
 msgstr "The funding goal cannot be modified after campaign creation"
 
+#: src/pages/About.tsx:95
+msgid "The goal of BlockFund is to deliver a full-stack dApp where anyone can launch or back a fundraising campaign using MetaMask-enabled wallets. It showcases:"
+msgstr "The goal of BlockFund is to deliver a full-stack dApp where anyone can launch or back a fundraising campaign using MetaMask-enabled wallets. It showcases:"
+
 #: src/pages/NotFound.tsx:24
 msgid "The page you are looking for doesn't exist or has been moved."
 msgstr "The page you are looking for doesn't exist or has been moved."
+
+#: src/pages/About.tsx:66
+msgid "The project is open source, allowing others to learn from and contribute to the codebase."
+msgstr "The project is open source, allowing others to learn from and contribute to the codebase."
 
 #: src/components/modals/DeleteModal.tsx:60
 msgid "This action will close the campaign on the blockchain and cannot be undone."
@@ -1622,6 +1642,10 @@ msgstr "This campaign will be deployed on the {0}. It will not be visible or acc
 msgid "This project was built using React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts. It demonstrates the integration of blockchain technology with modern web development practices."
 msgstr "This project was built using React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts. It demonstrates the integration of blockchain technology with modern web development practices."
 
+#: src/pages/About.tsx:51
+msgid "This project was created as a learning exercise to demonstrate the integration of blockchain technology with modern web development."
+msgstr "This project was created as a learning exercise to demonstrate the integration of blockchain technology with modern web development."
+
 #: src/pages/FAQs.tsx:29
 msgid "This project was created as an educational exercise to demonstrate the potential of blockchain technology in crowdfunding. It showcases the integration of Web3 technologies, smart contracts, and modern web development practices."
 msgstr "This project was created as an educational exercise to demonstrate the potential of blockchain technology in crowdfunding. It showcases the integration of Web3 technologies, smart contracts, and modern web development practices."
@@ -1651,10 +1675,6 @@ msgstr "Title is limited to"
 msgid "To create a campaign, you need to have MetaMask installed in your browser. MetaMask allows you to securely manage your cryptocurrency and interact with blockchain applications."
 msgstr "To create a campaign, you need to have MetaMask installed in your browser. MetaMask allows you to securely manage your cryptocurrency and interact with blockchain applications."
 
-#: src/pages/About.tsx:95
-msgid "To democratize fundraising by leveraging blockchain technology, creating a transparent and efficient platform that connects innovators with supporters worldwide."
-msgstr "To democratize fundraising by leveraging blockchain technology, creating a transparent and efficient platform that connects innovators with supporters worldwide."
-
 #: src/pages/campaign/Edit.tsx:481
 msgid "To edit a campaign, you need to have MetaMask installed in your browser. MetaMask allows you to securely manage your cryptocurrency and interact with blockchain applications."
 msgstr "To edit a campaign, you need to have MetaMask installed in your browser. MetaMask allows you to securely manage your cryptocurrency and interact with blockchain applications."
@@ -1663,7 +1683,7 @@ msgstr "To edit a campaign, you need to have MetaMask installed in your browser.
 msgid "Toggle theme"
 msgstr "Toggle theme"
 
-#: src/pages/home/components/TopCampaigns.tsx:91
+#: src/pages/home/components/TopCampaigns.tsx:96
 msgid "Top Active Campaigns"
 msgstr "Top Active Campaigns"
 
@@ -1683,10 +1703,6 @@ msgstr "Transaction in progress..."
 #: src/pages/campaign/New.tsx:315
 msgid "Transaction rejected: You declined the MetaMask transaction"
 msgstr "Transaction rejected: You declined the MetaMask transaction"
-
-#: src/pages/About.tsx:50
-msgid "Trust & Security"
-msgstr "Trust & Security"
 
 #: src/components/modals/ContactModal.tsx:146
 msgid "Type your message here..."
@@ -1720,7 +1736,7 @@ msgstr "Updating..."
 #: src/pages/Profile.tsx:279
 #: src/pages/MyCampaigns.tsx:472
 #: src/pages/Campaigns.tsx:379
-#: src/pages/home/components/TopCampaigns.tsx:171
+#: src/pages/home/components/TopCampaigns.tsx:176
 msgid "USD"
 msgstr "USD"
 
@@ -1771,18 +1787,6 @@ msgstr "Wallet Connection"
 msgid "Wallet disconnected successfully"
 msgstr "Wallet disconnected successfully"
 
-#: src/pages/About.tsx:61
-msgid "We continuously push the boundaries of what's possible in crowdfunding."
-msgstr "We continuously push the boundaries of what's possible in crowdfunding."
-
-#: src/pages/About.tsx:51
-msgid "We prioritize the security of our platform and the trust of our community above all else."
-msgstr "We prioritize the security of our platform and the trust of our community above all else."
-
-#: src/pages/About.tsx:66
-msgid "We strive for excellence in everything we do, from code to customer service."
-msgstr "We strive for excellence in everything we do, from code to customer service."
-
 #: src/pages/Contact.tsx:137
 msgid "We typically respond within 2-3 business hours during our working hours."
 msgstr "We typically respond within 2-3 business hours during our working hours."
@@ -1790,10 +1794,6 @@ msgstr "We typically respond within 2-3 business hours during our working hours.
 #: src/components/NotificationsPanel.tsx:265
 msgid "We'll notify you when something happens"
 msgstr "We'll notify you when something happens"
-
-#: src/pages/About.tsx:83
-msgid "We're revolutionizing crowdfunding through blockchain technology, making it more transparent, secure, and accessible for everyone."
-msgstr "We're revolutionizing crowdfunding through blockchain technology, making it more transparent, secure, and accessible for everyone."
 
 #: src/pages/Login.tsx:46
 msgid "Welcome back"

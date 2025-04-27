@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Calendar, MapPin, Tag, Target } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useConfig } from "../../../contexts/NetworkContext";
 import { useEthPrice } from "../../../hooks/useEthPrice";
 import { supabase } from "../../../lib/supabase";
 import { Campaign } from "../../../lib/types";
@@ -13,12 +14,15 @@ export function TopCampaigns() {
     const [loading, setLoading] = useState(true);
     const [currentNetwork, setCurrentNetwork] = useState<string | null>(null);
     const { ethPrice } = useEthPrice();
+    const { isInitialized } = useConfig();
     const navigate = useNavigate();
 
     useEffect(() => {
-        const savedNetwork = localStorage.getItem("NETWORK");
-        setCurrentNetwork(savedNetwork);
-    }, []);
+        if (isInitialized) {
+            const savedNetwork = localStorage.getItem("NETWORK");
+            setCurrentNetwork(savedNetwork);
+        }
+    }, [isInitialized]);
 
     useEffect(() => {
         if (currentNetwork) {
@@ -28,6 +32,7 @@ export function TopCampaigns() {
 
     const fetchTopCampaigns = async () => {
         try {
+            setLoading(true);
             const now = new Date().toISOString();
             const { data, error } = await supabase
                 .from("campaigns")

@@ -47,23 +47,23 @@ export function About() {
     const values = [
         {
             icon: Shield,
-            title: t`Trust & Security`,
-            description: t`We prioritize the security of our platform and the trust of our community above all else.`,
+            title: t`Educational Focus`,
+            description: t`This project was created as a learning exercise to demonstrate the integration of blockchain technology with modern web development.`,
         },
         {
             icon: Users,
-            title: t`Community First`,
-            description: t`Our decisions are guided by what's best for our diverse and growing community.`,
+            title: t`Learning Experience`,
+            description: t`A practical example of how blockchain can be used in crowdfunding, perfect for students and developers learning Web3 technologies.`,
         },
         {
             icon: Rocket,
-            title: t`Innovation`,
-            description: t`We continuously push the boundaries of what's possible in crowdfunding.`,
+            title: t`Technology Stack`,
+            description: t`Built with React, TypeScript, Tailwind CSS, Supabase, and Ethereum smart contracts to showcase modern development practices.`,
         },
         {
             icon: Award,
-            title: t`Excellence`,
-            description: t`We strive for excellence in everything we do, from code to customer service.`,
+            title: t`Open Source`,
+            description: t`The project is open source, allowing others to learn from and contribute to the codebase.`,
         },
     ];
 
@@ -80,7 +80,7 @@ export function About() {
                             {t`About BlockFund`}
                         </h1>
                         <p className="text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
-                            {t`We're revolutionizing crowdfunding through blockchain technology, making it more transparent, secure, and accessible for everyone.`}
+                            {t`BlockFund is a learning-focused initiative designed to illustrate how blockchain can enhance traditional crowdfunding platforms. Rather than serving as a live funding service, it's a practical example of how blockchain can be used in crowdfunding.`}
                         </p>
                     </div>
                 </div>
@@ -89,10 +89,10 @@ export function About() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl font-bold text-text mb-4">
-                        {t`Our Mission`}
+                        {t`Project Purpose`}
                     </h2>
                     <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-                        {t`To democratize fundraising by leveraging blockchain technology, creating a transparent and efficient platform that connects innovators with supporters worldwide.`}
+                        {t`The goal of BlockFund is to deliver a full-stack dApp where anyone can launch or back a fundraising campaign using MetaMask-enabled wallets. It showcases:`}
                     </p>
                 </div>
 
