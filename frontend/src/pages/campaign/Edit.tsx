@@ -747,7 +747,9 @@ export function EditFund() {
                                                                 formData.goal ||
                                                                     "0"
                                                             ) * ethPrice
-                                                        ).toLocaleString()}{" "}
+                                                        )
+                                                            .toFixed(0)
+                                                            .toLocaleString()}{" "}
                                                         USD
                                                     </div>
                                                 )}

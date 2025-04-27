@@ -22,26 +22,26 @@ export function FundingInput({
     const { ethPrice } = useEthPrice();
     const [usdAmount, setUsdAmount] = useState(initialUsdAmount || "");
     const [ethAmount, setEthAmount] = useState(value || "");
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<boolean>(false);
 
     const validateAmount = (amount: string) => {
         const numAmount = parseFloat(amount);
         if (isNaN(numAmount)) {
-            setError(t`Please enter a valid amount`);
+            setError(true);
             onValidationChange?.(false);
             return false;
         }
         if (numAmount < MIN_FUNDING_GOAL) {
-            setError(t`Minimum funding goal is ${MIN_FUNDING_GOAL} ETH`);
+            setError(true);
             onValidationChange?.(false);
             return false;
         }
         if (numAmount > MAX_FUNDING_GOAL) {
-            setError(t`Maximum funding goal is ${MAX_FUNDING_GOAL} ETH`);
+            setError(true);
             onValidationChange?.(false);
             return false;
         }
-        setError(null);
+        setError(false);
         onValidationChange?.(true);
         return true;
     };
