@@ -120,11 +120,11 @@ contract Campaign {
         require(campaignData.totalFunded > 0, "No funds available to withdraw");
 
         uint256 total = campaignData.totalFunded;
-        uint256 payout = (total * 80) / 100;
-        uint256 leftover = total - payout;
+        uint256 commission = (total * 25) / 1000;
+        uint256 payout = total - commission;
 
         campaignData.status = CampaignStatus.CLOSED;
-        campaignFees[_campaignId] = leftover;
+        campaignFees[_campaignId] = commission;
 
         (bool success, ) = campaignData.creator.call{value: payout}("");
         require(success, "Withdraw transfer failed");

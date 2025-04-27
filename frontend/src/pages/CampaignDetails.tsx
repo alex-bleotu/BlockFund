@@ -101,6 +101,7 @@ export function CampaignDetails() {
             const { data, error } = await supabase
                 .from("campaigns")
                 .select("*, profiles(id, username)")
+                .in("status", ["active", "completed"])
                 .eq("id", id)
                 .single();
 
@@ -357,6 +358,11 @@ export function CampaignDetails() {
                 <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
                     <div className="space-y-8">
                         <div className="relative rounded-xl overflow-hidden shadow-lg bg-surface">
+                            {campaign.status === "completed" && (
+                                <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-success text-light text-sm font-medium rounded-full">
+                                    {t`Completed`}
+                                </div>
+                            )}
                             <motion.img
                                 key={currentImageIndex}
                                 initial={{ opacity: 0 }}
@@ -424,7 +430,8 @@ export function CampaignDetails() {
                                     </button>
                                     {user?.id === campaign.creator_id &&
                                         new Date(campaign.deadline) >
-                                            new Date() && (
+                                            new Date() &&
+                                        campaign.status !== "completed" && (
                                             <button
                                                 onClick={() =>
                                                     navigate(
@@ -475,7 +482,11 @@ export function CampaignDetails() {
                                             )}%`,
                                         }}
                                         transition={{ duration: 1 }}
-                                        className="h-full bg-primary"
+                                        className={`h-full ${
+                                            campaign.status === "completed"
+                                                ? "bg-success"
+                                                : "bg-primary"
+                                        }`}
                                     />
                                 </div>
                                 <div className="flex justify-between items-center mt-2">
@@ -682,11 +693,11 @@ export function CampaignDetails() {
                                                     ? t`Transaction in progress...`
                                                     : contractLoading
                                                     ? t`Loading...`
-                                                    : campaignEndDate.hasEnded
-                                                    ? t`Campaign Ended`
                                                     : campaign.status ===
                                                       "completed"
                                                     ? t`Campaign Completed`
+                                                    : campaignEndDate.hasEnded
+                                                    ? t`Campaign Ended`
                                                     : t`Contribute to this Campaign`}
                                             </button>
                                         )}

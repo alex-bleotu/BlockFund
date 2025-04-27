@@ -159,7 +159,7 @@ describe("Campaign Contract", function () {
         const finalBalance = await ethers.provider.getBalance(owner.address);
 
         expect(finalBalance - initialBalance + gasUsed).to.equal(
-            ethers.parseEther("4")
+            ethers.parseEther("4.875")
         );
     });
 
@@ -201,7 +201,7 @@ describe("Campaign Contract", function () {
         const finalBalance = await ethers.provider.getBalance(owner.address);
 
         expect(finalBalance - initialBalance + gasUsed).to.equal(
-            ethers.parseEther("4")
+            ethers.parseEther("4.875")
         );
     });
 
@@ -337,7 +337,7 @@ describe("Campaign Contract", function () {
         expect(campaignData.status).to.equal(1);
     });
 
-    it("Should hold 20% fee on withdraw and allow feeReceiver to collect it", async function () {
+    it("Should hold 2.5% fee on withdraw and allow feeReceiver to collect it", async function () {
         const goal = ethers.parseEther("5");
         const deadline = Math.floor(Date.now() / 1000) + 3600;
         const metadataCID = "QmExampleCID";
@@ -351,7 +351,7 @@ describe("Campaign Contract", function () {
         await campaign.connect(owner).withdraw(1);
 
         const fee = await campaign.campaignFees(1);
-        expect(fee).to.equal(ethers.parseEther("1"));
+        expect(fee).to.equal(ethers.parseEther("0.125"));
 
         const initialBalance = await ethers.provider.getBalance(owner.address);
         const tx = await campaign.connect(owner).collectFees(1);

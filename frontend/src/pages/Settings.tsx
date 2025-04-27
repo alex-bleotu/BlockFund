@@ -9,7 +9,8 @@ import {
     Wallet,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 import { useAuth } from "../hooks/useAuth";
 import { useWallet } from "../hooks/useWallet";
 import { supabase } from "../lib/supabase";
@@ -30,8 +31,7 @@ export const profileEvents = {
 type SettingsTab = "profile" | "security" | "wallet";
 
 export function Settings() {
-    const { user, signOut } = useAuth();
-    const navigate = useNavigate();
+    const { user, loading: authLoading, signOut } = useAuth();
     const {
         address,
         loading: walletLoading,
@@ -69,15 +69,6 @@ export function Settings() {
     const isProfileFormChanged =
         profileForm.username !== initialProfileForm.username ||
         profileForm.bio !== initialProfileForm.bio;
-
-    useEffect(() => {
-        if (!user) {
-            navigate("/login", {
-                state: { from: "/settings", tab: activeTab },
-            });
-            return;
-        }
-    }, [user, navigate, activeTab]);
 
     useEffect(() => {
         setSearchParams({ tab: activeTab });
@@ -238,7 +229,6 @@ export function Settings() {
             setInitialProfileForm(profileForm);
             setUsernameError("");
 
-            // Notify all components that profile data has changed
             profileEvents.emit();
         } catch (err: any) {
             console.error("Error updating profile:", err);
@@ -285,6 +275,10 @@ export function Settings() {
         { id: "wallet", label: t`Wallet`, icon: Wallet },
         { id: "security", label: t`Security`, icon: Shield },
     ];
+
+    if (authLoading) return <LoadingSpinner />;
+
+    if (!user) return <Navigate to="/" replace />;
 
     return (
         <div className="min-h-screen pt-16 bg-background">

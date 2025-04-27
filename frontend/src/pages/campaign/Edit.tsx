@@ -123,6 +123,11 @@ export function EditFund() {
                 throw new Error("Campaign has ended and cannot be edited");
             }
 
+            if (data.status === "completed") {
+                navigate(`/campaign/${id}`);
+                throw new Error("Completed campaigns cannot be edited");
+            }
+
             setFormData({
                 ...data,
                 goal: data.goal.toString(),

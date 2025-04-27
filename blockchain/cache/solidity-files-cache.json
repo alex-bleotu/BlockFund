@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\Projects\\GitHub\\BlockFund\\blockchain\\contracts\\Campaign.sol": {
-      "lastModificationDate": 1745618400357,
-      "contentHash": "009364b3af5058582503fc046c8182f7",
+      "lastModificationDate": 1745747520181,
+      "contentHash": "06e8ae4fcdd412cfa4685e6c28641d60",
       "sourceName": "contracts/Campaign.sol",
       "solcConfig": {
         "version": "0.8.28",

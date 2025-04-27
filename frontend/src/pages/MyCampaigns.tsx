@@ -443,15 +443,20 @@ export function MyCampaigns() {
                                         </button>
                                         <div className="flex items-center space-x-2">
                                             {new Date(campaign.deadline) >
-                                                new Date() && (
-                                                <button
-                                                    onClick={(e) =>
-                                                        handleEdit(e, campaign)
-                                                    }
-                                                    className="p-2 text-text-secondary hover:text-primary transition-colors">
-                                                    <Edit className="w-4 h-4" />
-                                                </button>
-                                            )}
+                                                new Date() &&
+                                                campaign.status !==
+                                                    "completed" && (
+                                                    <button
+                                                        onClick={(e) =>
+                                                            handleEdit(
+                                                                e,
+                                                                campaign
+                                                            )
+                                                        }
+                                                        className="p-2 text-text-secondary hover:text-primary transition-colors">
+                                                        <Edit className="w-4 h-4" />
+                                                    </button>
+                                                )}
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();

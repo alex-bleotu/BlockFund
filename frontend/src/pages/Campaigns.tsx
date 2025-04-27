@@ -20,7 +20,7 @@ import { supabase } from "../lib/supabase";
 import { Campaign, CampaignCategories } from "../lib/types";
 import { getCampaignCategory } from "../lib/utils";
 
-type CampaignStatus = "active" | "ended";
+type CampaignStatus = "active" | "ended" | "completed";
 
 export function Campaigns() {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -56,7 +56,7 @@ export function Campaigns() {
             const { data, error } = await supabase
                 .from("campaigns")
                 .select("*")
-                .eq("status", "active")
+                .in("status", ["active", "completed"])
                 .eq("network", currentNetwork)
                 .order("created_at", { ascending: false });
 
@@ -72,19 +72,29 @@ export function Campaigns() {
     };
 
     const filterCampaigns = () => {
-        let filtered = [...campaigns].filter(
-            (campaign) => campaign.status === "active"
-        );
+        let filtered = [...campaigns];
 
-        filtered = filtered.filter(
-            (campaign) => campaign.status !== "completed"
-        );
-
-        const now = new Date();
-        filtered = filtered.filter((campaign) => {
-            const isEnded = new Date(campaign.deadline) < now;
-            return selectedStatus === "ended" ? isEnded : !isEnded;
-        });
+        if (selectedStatus === "active") {
+            filtered = filtered.filter(
+                (campaign) => campaign.status === "active"
+            );
+            const now = new Date();
+            filtered = filtered.filter(
+                (campaign) => new Date(campaign.deadline) >= now
+            );
+        } else if (selectedStatus === "ended") {
+            filtered = filtered.filter(
+                (campaign) => campaign.status === "active"
+            );
+            const now = new Date();
+            filtered = filtered.filter(
+                (campaign) => new Date(campaign.deadline) < now
+            );
+        } else if (selectedStatus === "completed") {
+            filtered = filtered.filter(
+                (campaign) => campaign.status === "completed"
+            );
+        }
 
         if (selectedCategory !== "all") {
             filtered = filtered.filter(
@@ -225,6 +235,15 @@ export function Campaigns() {
                                         : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
                                 }`}>
                                 {t`Ended`}
+                            </button>
+                            <button
+                                onClick={() => setSelectedStatus("completed")}
+                                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                                    selectedStatus === "completed"
+                                        ? "bg-primary text-light"
+                                        : "bg-background text-text-secondary hover:bg-primary-light hover:text-primary"
+                                }`}>
+                                {t`Completed`}
                             </button>
                         </div>
                     </div>
