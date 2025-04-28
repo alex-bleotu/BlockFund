@@ -370,7 +370,7 @@ export function CampaignDetails() {
         <div className="min-h-screen bg-background pt-24 pb-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <button
-                    onClick={() => navigate("/campaigns")}
+                    onClick={() => navigate("/explore")}
                     className="flex items-center text-text-secondary hover:text-text mb-8 transition-colors">
                     <ArrowLeft className="w-5 h-5 mr-2" />
                     {t`Back to Campaigns`}
